@@ -12,7 +12,21 @@ cc.Class({
             type: cc.Prefab
         },
 
-        handCardPlayers: {
+        handCardDistrict: {
+            default: [],
+            type: cc.Node,
+        },
+
+        /**
+         * 0: 玩家13
+         * 1: 玩家24
+         */
+        dirtyCardPrefabs: {
+            default: [],
+            type: cc.Prefab
+        },
+
+        dirtyCardDistrict: {
             default: [],
             type: cc.Node,
         },
@@ -208,31 +222,33 @@ cc.Class({
 
     _appendCardToHandCardDistrict: function(player, data) {
         for (var i = 0; i < data.length; i++) {
-            cc.log(i);
             var node = cc.instantiate(this.handCardPrefabs[player]);
             var backgroundNode = node.getChildByName("background");
             var clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
             backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
             // todo: 数据组装
             
-            this.handCardPlayers[player].addChild(node);
+            this.handCardDistrict[player].addChild(node);
 
-            if (player === 0 && i === 0) {
-                backgroundNode.setPositionX(24);
-            }
+            // if (player === 0 && i === 0) {
+            //     backgroundNode.setPositionX(24);
+            // }
         }
     },
 
     selectedHandCardOnClick: function(event, data) {
         if (this.handCardIsSelected === data) {
             event.target.parent.destroy();
+            var node = cc.instantiate(this.dirtyCardPrefabs[0]);
+            var backgroundNode = node.getChildByName("background");
+            this.dirtyCardDistrict[0].addChild(node);
             return;
         }
 
         this.handCardIsSelected = data;
 
-        for (let i = 0; i < this.handCardPlayers[0].childrenCount; ++i) {
-            this.handCardPlayers[0].children[i].getChildByName("background").setPositionY(0);
+        for (let i = 0; i < this.handCardDistrict[0].childrenCount; ++i) {
+            this.handCardDistrict[0].children[i].getChildByName("background").setPositionY(0);
         }
 
         event.target.setPositionY(24);
