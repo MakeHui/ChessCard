@@ -1,0 +1,45 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+ 
+# My
+.DS_Store
+build/
+creator.d.ts
+jsconfig.json
+library/
+local/
+packages/
+ProtobufJS
+settings/
+temp/
+template-banner.png
+template.json
+assets/Views/Scene/Prefab.fire
+assets/Views/Scene/Prefab.fire.meta
+.vscode

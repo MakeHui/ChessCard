@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "b52e3a3c-0a3a-4397-a5f4-d714b05a6010",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "touristLogin": {
+      "ver": "1.0.3",
+      "uuid": "5a3f0a02-c84b-4c89-bfcc-dde145ff1afe",
+      "rawTextureUuid": "b52e3a3c-0a3a-4397-a5f4-d714b05a6010",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 252,
+      "height": 108,
+      "rawWidth": 252,
+      "rawHeight": 108,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "emotion9",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.15,
+  "sample": 60,
+  "speed": 0.2,
+  "wrapMode": 1,
+  "curveData": {
+    "paths": {
+      "emotion9": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.15,
+              "value": 255
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "9cab2925-eb46-42b2-aa55-d0ce72d599f7"
+                }
+              },
+              {
+                "frame": 0.05,
+                "value": {
+                  "__uuid__": "90b73ca2-ba2d-4903-b42a-b2a43a0d01fb"
+                }
+              },
+              {
+                "frame": 0.1,
+                "value": {
+                  "__uuid__": "5e4e069a-f987-43d5-9aa0-5512ec2325cc"
+                }
+              },
+              {
+                "frame": 0.15,
+                "value": {
+                  "__uuid__": "9cab2925-eb46-42b2-aa55-d0ce72d599f7"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

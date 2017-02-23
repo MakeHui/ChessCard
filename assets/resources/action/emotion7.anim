@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "emotion7",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.15,
+  "sample": 60,
+  "speed": 0.2,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "emotion7": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.15,
+              "value": 255
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "8defee75-0a9e-4fdf-bf5b-d35544a66ab5"
+                }
+              },
+              {
+                "frame": 0.05,
+                "value": {
+                  "__uuid__": "23b235c4-07a3-4871-99f2-9f19644cb44f"
+                }
+              },
+              {
+                "frame": 0.1,
+                "value": {
+                  "__uuid__": "1826af75-c41f-449d-9257-f49d7c17343d"
+                }
+              },
+              {
+                "frame": 0.15,
+                "value": {
+                  "__uuid__": "edd84090-3b54-4f7a-9ac4-b2c4a36a3287"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}

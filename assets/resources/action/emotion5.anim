@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "emotion5",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.15,
+  "sample": 60,
+  "speed": 0.2,
+  "wrapMode": 2,
+  "curveData": {
+    "paths": {
+      "emotion5": {
+        "props": {
+          "opacity": [
+            {
+              "frame": 0.15,
+              "value": 255
+            }
+          ]
+        },
+        "comps": {
+          "cc.Sprite": {
+            "spriteFrame": [
+              {
+                "frame": 0,
+                "value": {
+                  "__uuid__": "d7364e9a-4fa7-4ca3-9e12-3606131c00c2"
+                }
+              },
+              {
+                "frame": 0.05,
+                "value": {
+                  "__uuid__": "7ed2608e-a0fc-4ff9-8d7f-a06581fc10b6"
+                }
+              },
+              {
+                "frame": 0.1,
+                "value": {
+                  "__uuid__": "a43c811c-db64-4c76-8344-686a55cc0136"
+                }
+              },
+              {
+                "frame": 0.15,
+                "value": {
+                  "__uuid__": "c48b5d66-8516-48d4-83e0-c89e43e897c8"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "events": []
+}
