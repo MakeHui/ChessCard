@@ -37,6 +37,11 @@ cc.Class({
             type: cc.Label   
         },
 
+        actionPanel: {
+            default: [],
+            type: cc.Node
+        },
+
         waitPanel: cc.Node,
 
         fastChatPanel: cc.Node,
@@ -53,10 +58,7 @@ cc.Class({
 
         wechatInviteButton: cc.Button,
 
-        actionPanel: {
-            default: [],
-            type: cc.Node
-        }
+        handCardIsSelected: 0,
     },
 
     onLoad: function () {
@@ -67,14 +69,8 @@ cc.Class({
         this.menuPanelPosition = this.menuPanel.position;
 
         this.fastChatAudio = window.Tools.audioEngine.init();
-        
-        for (let i = 0; i < 14; ++i) {
-            var node = cc.instantiate(this.handCardPrefabs[0]);
-            if (i === 0) {
-                node.getChildByName("background").setPositionX(24);
-            }
-            this.handCardPlayers[0].addChild(node);
-        }
+
+        this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
     },
 
     update: function(dt) {
@@ -208,6 +204,38 @@ cc.Class({
         for (let i = 0; i < indexs.length; ++i) {
             this.actionPanel[indexs[i]].active = true;
         }
+    },
+
+    _appendCardToHandCardDistrict: function(player, data) {
+        for (var i = 0; i < data.length; i++) {
+            cc.log(i);
+            var node = cc.instantiate(this.handCardPrefabs[player]);
+            var backgroundNode = node.getChildByName("background");
+            var clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
+            backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+            // todo: 数据组装
+            
+            this.handCardPlayers[player].addChild(node);
+
+            if (player === 0 && i === 0) {
+                backgroundNode.setPositionX(24);
+            }
+        }
+    },
+
+    selectedHandCardOnClick: function(event, data) {
+        if (this.handCardIsSelected === data) {
+            event.target.parent.destroy();
+            return;
+        }
+
+        this.handCardIsSelected = data;
+
+        for (let i = 0; i < this.handCardPlayers[0].childrenCount; ++i) {
+            this.handCardPlayers[0].children[i].getChildByName("background").setPositionY(0);
+        }
+
+        event.target.setPositionY(24);
     }
 
 });

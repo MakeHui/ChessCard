@@ -248,3 +248,24 @@ window.Tools.loadPrefab = function(name, callback) {
         callback(prefab);
     });
 };
+
+/**
+ * 创建一个绑定待绑定的handler
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-23 16:08:50
+ *
+ * @param    {node}                 node     这个 node 节点是你的事件处理代码组件所属的节点
+ * @param    {string}               component 这个是代码文件名
+ * @param    {string}               handler 响应事件函数名
+ * @param    {string}               customEventData 自定义事件数据
+ */
+window.Tools.createEventHandler = function (node, component, handler, customEventData) {
+    var eventHandler = new cc.Component.EventHandler();
+    eventHandler.target = node;
+    eventHandler.component = component;
+    eventHandler.handler = handler;
+    eventHandler.customEventData = customEventData;
+
+    return eventHandler;
+}
