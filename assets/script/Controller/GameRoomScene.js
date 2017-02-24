@@ -38,13 +38,13 @@ cc.Class({
         },
 
         // 明杠
-        ExposedPrefab: {
+        exposedPrefab: {
             default: [],
             type: cc.Prefab
         },
         
         // 暗杠
-        ConcealedKongPrefab: {
+        concealedKongPrefab: {
             default: [],
             type: cc.Prefab
         },
@@ -108,9 +108,14 @@ cc.Class({
         this.fastChatAudio = window.Tools.audioEngine.init();
 
         this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+
+        // this._appendCardToPongKongChowDistrict(0, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(1, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(2, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(3, {type:"gang"});
     },
 
     update: function(dt) {
@@ -260,14 +265,24 @@ cc.Class({
                 backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
                 // todo: 数据组装
             }
-            if (player === 2) {
-                cc.log(this.handCardDistrict[player].name);
-            }
+            node.getChildByName("UserData").string = "xxxxxx";
+            
             this.handCardDistrict[player].addChild(node);
 
             // if (player === 0 && i === 0) {
             //     backgroundNode.setPositionX(24);
             // }
+        }
+    },
+
+    _appendCardToPongKongChowDistrict: function(player, data) {
+        for (var i = 0; i < data.length; i++) {
+            let index = player % 2 === 0 ? 1 : 0;
+            if(data.type === "gang") {
+                var node = cc.instantiate(this.concealedKongPrefab[index]);
+                // todo: 数据组装
+            }
+            this.pongKongChowDistrict[player].addChild(node);
         }
     },
 
@@ -289,8 +304,9 @@ cc.Class({
         this.handCardIsSelected = data;
 
         this._resetHandCardPosition();
-
         event.target.setPositionY(24);
+
+        cc.log(event.target.parent.getChildByName("UserData").string);
     }
 
 });
