@@ -105,7 +105,7 @@ cc.Class({
         this.fastChatPanelPosition = this.fastChatPanel.position;
         this.menuPanelPosition = this.menuPanel.position;
 
-        this.fastChatAudio = window.Tools.audioEngine.init();
+        this.audio = window.Tools.audioEngine.init();
 
         this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
         this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
@@ -200,7 +200,7 @@ cc.Class({
 
     wordChatOnClick: function(evt, data) {
         this.fastChatProgressBar.progress = 1.0;
-        this.fastChatAudio.setAudioRaw(PX258.audioResourcesUrl.fastChat["fw_male_" + data]).play();
+        this.audio.setAudioRaw(PX258.audioResourcesUrl.fastChat["fw_male_" + data]).play();
 
         window.Animation.closePanel(this.fastChatPanel);
     },
