@@ -85,6 +85,9 @@ cc.Class({
         this.fastChatAudio = window.Tools.audioEngine.init();
 
         this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
     },
 
     update: function(dt) {
@@ -148,6 +151,11 @@ cc.Class({
         // 检查是否关闭菜单面板
         if (this.menuPanel.position.x !== this.menuPanelPosition.x) {
             window.Animation.closePanel(this.menuPanel);
+        }
+
+        // 手牌复位
+        if (this.handCardDistrict[0].childrenCount > 0) {
+            this._resetHandCardPosition();
         }
     },
 
@@ -223,16 +231,26 @@ cc.Class({
     _appendCardToHandCardDistrict: function(player, data) {
         for (var i = 0; i < data.length; i++) {
             var node = cc.instantiate(this.handCardPrefabs[player]);
-            var backgroundNode = node.getChildByName("background");
-            var clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
-            backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-            // todo: 数据组装
-            
+            if (player === 0) {
+                var backgroundNode = node.getChildByName("background");
+                var clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
+                backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
+                // todo: 数据组装
+            }
+            if (player === 2) {
+                cc.log(this.handCardDistrict[player].name);
+            }
             this.handCardDistrict[player].addChild(node);
 
             // if (player === 0 && i === 0) {
             //     backgroundNode.setPositionX(24);
             // }
+        }
+    },
+
+    _resetHandCardPosition: function() {
+        for (let i = 0; i < this.handCardDistrict[0].childrenCount; ++i) {
+            this.handCardDistrict[0].children[i].getChildByName("background").setPositionY(0);
         }
     },
 
@@ -247,9 +265,7 @@ cc.Class({
 
         this.handCardIsSelected = data;
 
-        for (let i = 0; i < this.handCardDistrict[0].childrenCount; ++i) {
-            this.handCardDistrict[0].children[i].getChildByName("background").setPositionY(0);
-        }
+        this._resetHandCardPosition();
 
         event.target.setPositionY(24);
     }
