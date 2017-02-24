@@ -63,9 +63,13 @@
     "_opacityModifyRGB": false,
     "_id": "",
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 26
+      }
+    ],
     "_prefab": {
-      "__id__": 26
+      "__id__": 27
     },
     "groupIndex": 0
   },
@@ -828,6 +832,26 @@
     },
     "fileId": "b7bbdBZj2xCl6FzGKgp2HZT",
     "sync": false
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 0,
+    "_fontSize": 0,
+    "_lineHeight": 0,
+    "_enableWrapText": false,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_N$string": "",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$overflow": 1
   },
   {
     "__type__": "cc.PrefabInfo",

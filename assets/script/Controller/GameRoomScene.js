@@ -31,6 +31,29 @@ cc.Class({
             type: cc.Node,
         },
 
+        // 碰和吃
+        pongAndChowPrefab: {
+            default: [],
+            type: cc.Prefab,
+        },
+
+        // 明杠
+        ExposedPrefab: {
+            default: [],
+            type: cc.Prefab
+        },
+        
+        // 暗杠
+        ConcealedKongPrefab: {
+            default: [],
+            type: cc.Prefab
+        },
+
+        pongKongChowDistrict: {
+            default: [],
+            type: cc.Node,
+        },
+
         playerInfoList: {
             default: [],
             type: cc.Node,
