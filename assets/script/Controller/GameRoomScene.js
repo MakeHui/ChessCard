@@ -108,14 +108,14 @@ cc.Class({
         this.fastChatAudio = window.Tools.audioEngine.init();
 
         this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        // this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        // this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        // this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
 
-        // this._appendCardToPongKongChowDistrict(0, {type:"gang"});
-        // this._appendCardToPongKongChowDistrict(1, {type:"gang"});
-        // this._appendCardToPongKongChowDistrict(2, {type:"gang"});
-        // this._appendCardToPongKongChowDistrict(3, {type:"gang"});
+        this._appendCardToPongKongChowDistrict(0, {type:"gang"});
+        this._appendCardToPongKongChowDistrict(1, {type:"gang"});
+        this._appendCardToPongKongChowDistrict(2, {type:"gang"});
+        this._appendCardToPongKongChowDistrict(3, {type:"gang"});
     },
 
     update: function(dt) {
@@ -276,14 +276,12 @@ cc.Class({
     },
 
     _appendCardToPongKongChowDistrict: function(player, data) {
-        for (var i = 0; i < data.length; i++) {
-            let index = player % 2 === 0 ? 1 : 0;
-            if(data.type === "gang") {
-                var node = cc.instantiate(this.concealedKongPrefab[index]);
-                // todo: 数据组装
-            }
-            this.pongKongChowDistrict[player].addChild(node);
+        var index = player % 2;
+        if(data.type === "gang") {
+            var node = cc.instantiate(this.concealedKongPrefab[index]);
+            // todo: 数据组装
         }
+        this.pongKongChowDistrict[player].addChild(node);
     },
 
     _resetHandCardPosition: function() {
