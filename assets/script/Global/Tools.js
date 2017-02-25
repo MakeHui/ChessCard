@@ -22,9 +22,9 @@ window.Tools = {};
 window.Tools.removeArrayInValue = function(array, value) {
     let index = ToolKit.indexOf(arrar, value);
     if (index > -1) {
-		arrar.splice(index, 1);
+        arrar.splice(index, 1);
         return true;
-	}
+    }
     
     return false;
 };
@@ -130,19 +130,6 @@ window.Tools.audioEngine = {
         this.audioRaw = cc.url.raw(audioUrl);
         return this;
     }
-};
-
-/**
- * 删除一个对象
- *
- * @author Make.<makehuir@gmail.com>
- * @datetime 2017-02-14T19:08:03+0800
- *
- * @param    {object}                 obj 
- */
-window.Tools.destroy = function(obj) {
-    obj = null;
-    delete obj;
 };
 
 /**
@@ -308,12 +295,12 @@ window.Tools.HotUpdate = {
             return;
         }
 
-        if (!manifest) {
+        if (!manifestUrl) {
             cc.log("初始化没有传递 manifest url");
             return;
         }
         
-        this.manifestUrl = cc.url.raw(manifestUrl);
+        this.manifestUrl = manifestUrl;
 
         var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset');
         cc.log('Storage path for remote asset : ' + storagePath);
@@ -389,7 +376,7 @@ window.Tools.HotUpdate = {
     checkUpdateCallback: function (callback) {
         var self = this;
 
-        this._checkCallback = function(event) {
+        this._checkCallback = this._checkCallback || function(event) {
             cc.log('Code: ' + event.getEventCode());
             var hasUpdate = false;
 
@@ -404,7 +391,7 @@ window.Tools.HotUpdate = {
                     cc.log("Fail to download manifest file, hot update skipped. 无法下载");
                     break;
                 case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无效更新");
+                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无需更新");
                     break;
                 case jsb.EventAssetsManager.NEW_VERSION_FOUND:
                     cc.log("New version found, please try to update. 找到新版本");
@@ -416,7 +403,6 @@ window.Tools.HotUpdate = {
 
             cc.eventManager.removeListener(self._checkUpdateListener);
             self._checkUpdateListener = null;
-            self._isUpdating = false;
 
             callback(hasUpdate);
         };
@@ -432,17 +418,11 @@ window.Tools.HotUpdate = {
      *
      */
     _checkUpdate: function() {
-        if (this._isUpdating) {
-            cc.log('Checking or updating ...');
-            return;
-        }
-
         if (!this._assetsManager.getLocalManifest().isLoaded()) {
             cc.log('Failed to load local manifest ...');
             return;
         }
 
-        this._isUpdating = true;
         this._checkUpdateListener = new jsb.EventListenerAssetsManager(this._assetsManager, this._checkCallback.bind(this));
         cc.eventManager.addListener(this._checkUpdateListener, 1);
         this._assetsManager.checkUpdate();
@@ -459,7 +439,7 @@ window.Tools.HotUpdate = {
     hotUpdateCallback: function (callback) {
         var self = this;
 
-        this._updateCallback = function(event) {
+        this._updateCallback = this._updateCallback || function(event) {
             var needRestart = false;
             var failed = false;
             var isSuccess = false;
@@ -489,7 +469,7 @@ window.Tools.HotUpdate = {
                     failed = true;
                     break;
                 case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无效更新");
+                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无需更新");
                     failed = true;
                     break;
                 case jsb.EventAssetsManager.UPDATE_FINISHED:
@@ -525,7 +505,7 @@ window.Tools.HotUpdate = {
 
                 // Prepend the manifest's search path
                 var searchPaths = jsb.fileUtils.getSearchPaths();
-                var newPaths = self.assetsManager.getLocalManifest().getSearchPaths();
+                var newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
                 console.log(JSON.stringify(newPaths));
                 Array.prototype.unshift(searchPaths, newPaths);
 
