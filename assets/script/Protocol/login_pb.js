@@ -8,12 +8,42 @@
 
 goog.provide('proto.login.CheckVersionRequest');
 goog.provide('proto.login.CheckVersionResponse');
+goog.provide('proto.login.CreateRoomRequest');
 goog.provide('proto.login.HeartbeatRequest');
 goog.provide('proto.login.HeartbeatResponse');
 goog.provide('proto.login.LoginRequest');
 goog.provide('proto.login.LoginResponse');
-goog.provide('proto.login.UserGoldRequest');
-goog.provide('proto.login.UserGolgResponse');
+goog.provide('proto.login.PlayerGoldRequest');
+goog.provide('proto.login.PlayerGolgResponse');
+goog.provide('proto.login.PlayerInGameW2WRequest');
+goog.provide('proto.login.PlayerInGameW2WResponse');
+goog.provide('proto.login.PlayerRecord');
+goog.provide('proto.login.RecordInfo');
+goog.provide('proto.login.RecordInfoRequest');
+goog.provide('proto.login.RecordInfoResponse');
+goog.provide('proto.login.RecordItemData');
+goog.provide('proto.login.RecordListRequest');
+goog.provide('proto.login.RecordListResponse');
+goog.provide('proto.login.RefundWebResponse');
+goog.provide('proto.login.ReplayRequest');
+goog.provide('proto.login.ReplayResponse');
+goog.provide('proto.login.RoomConfigRequest');
+goog.provide('proto.login.RoomConfigResponse');
+goog.provide('proto.login.RoomCreateRequest');
+goog.provide('proto.login.RoomCreateResponse');
+goog.provide('proto.login.RoomCreateW2WRequest');
+goog.provide('proto.login.RoomCreateW2WResponse');
+goog.provide('proto.login.RoomEnterRequest');
+goog.provide('proto.login.RoomEnterResponse');
+goog.provide('proto.login.RoomEnterW2WRequest');
+goog.provide('proto.login.RoomEnterW2WResponse');
+goog.provide('proto.login.RoomItemData');
+goog.provide('proto.login.RoomListPlayer');
+goog.provide('proto.login.RoomListRequest');
+goog.provide('proto.login.RoomListResponse');
+goog.provide('proto.login.RoomListW2WRequest');
+goog.provide('proto.login.RoomListW2WResponse');
+goog.provide('proto.login.RoomReplayRequest');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -65,7 +95,7 @@ proto.login.CheckVersionRequest.prototype.toObject = function(opt_includeInstanc
  */
 proto.login.CheckVersionRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
-    appUuid: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     verNo: jspb.Message.getFieldWithDefault(msg, 2, ""),
     androidOrIos: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
@@ -105,7 +135,7 @@ proto.login.CheckVersionRequest.deserializeBinaryFromReader = function(msg, read
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 2:
@@ -155,8 +185,8 @@ proto.login.CheckVersionRequest.prototype.serializeBinary = function() {
 proto.login.CheckVersionRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       1,
       f
     );
@@ -179,15 +209,15 @@ proto.login.CheckVersionRequest.prototype.serializeBinaryToWriter = function (wr
 
 
 /**
- * optional int32 app_uuid = 1;
- * @return {number}
+ * optional string app_uuid = 1;
+ * @return {string}
  */
 proto.login.CheckVersionRequest.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.login.CheckVersionRequest.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
@@ -476,8 +506,7 @@ proto.login.LoginRequest.prototype.toObject = function(opt_includeInstance) {
 proto.login.LoginRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     wxCode: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    channel: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     deviceId: jspb.Message.getFieldWithDefault(msg, 5, ""),
     verNo: jspb.Message.getFieldWithDefault(msg, 6, ""),
     location: jspb.Message.getFieldWithDefault(msg, 7, "")
@@ -521,12 +550,8 @@ proto.login.LoginRequest.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setWxCode(value);
       break;
-    case 2:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setChannel(value);
-      break;
     case 3:
-      var value = /** @type {number} */ (reader.readInt32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 5:
@@ -586,16 +611,9 @@ proto.login.LoginRequest.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
-  f = this.getChannel();
-  if (f !== 0) {
-    writer.writeInt32(
-      2,
-      f
-    );
-  }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeInt32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
@@ -640,30 +658,15 @@ proto.login.LoginRequest.prototype.setWxCode = function(value) {
 
 
 /**
- * optional int32 channel = 2;
- * @return {number}
- */
-proto.login.LoginRequest.prototype.getChannel = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.login.LoginRequest.prototype.setChannel = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional int32 app_uuid = 3;
- * @return {number}
+ * optional string app_uuid = 3;
+ * @return {string}
  */
 proto.login.LoginRequest.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.login.LoginRequest.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -765,10 +768,7 @@ proto.login.LoginResponse.toObject = function(includeInstance, msg) {
     olkey: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gold: jspb.Message.getFieldWithDefault(msg, 4, 0),
     sex: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    playerId: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    playerUuid: jspb.Message.getFieldWithDefault(msg, 7, ""),
     headimgurl: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    parentId: jspb.Message.getFieldWithDefault(msg, 11, 0),
     ip: jspb.Message.getFieldWithDefault(msg, 12, ""),
     location: jspb.Message.getFieldWithDefault(msg, 13, ""),
     isMaintain: jspb.Message.getFieldWithDefault(msg, 16, false),
@@ -836,21 +836,9 @@ proto.login.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {number} */ (reader.readInt32());
       msg.setSex(value);
       break;
-    case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setPlayerId(value);
-      break;
-    case 7:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setPlayerUuid(value);
-      break;
     case 8:
       var value = /** @type {string} */ (reader.readString());
       msg.setHeadimgurl(value);
-      break;
-    case 11:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setParentId(value);
       break;
     case 12:
       var value = /** @type {string} */ (reader.readString());
@@ -969,31 +957,10 @@ proto.login.LoginResponse.prototype.serializeBinaryToWriter = function (writer) 
       f
     );
   }
-  f = this.getPlayerId();
-  if (f !== 0) {
-    writer.writeInt32(
-      6,
-      f
-    );
-  }
-  f = this.getPlayerUuid();
-  if (f.length > 0) {
-    writer.writeString(
-      7,
-      f
-    );
-  }
   f = this.getHeadimgurl();
   if (f.length > 0) {
     writer.writeString(
       8,
-      f
-    );
-  }
-  f = this.getParentId();
-  if (f !== 0) {
-    writer.writeInt32(
-      11,
       f
     );
   }
@@ -1153,36 +1120,6 @@ proto.login.LoginResponse.prototype.setSex = function(value) {
 
 
 /**
- * optional int32 player_id = 6;
- * @return {number}
- */
-proto.login.LoginResponse.prototype.getPlayerId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/** @param {number} value */
-proto.login.LoginResponse.prototype.setPlayerId = function(value) {
-  jspb.Message.setField(this, 6, value);
-};
-
-
-/**
- * optional string player_uuid = 7;
- * @return {string}
- */
-proto.login.LoginResponse.prototype.getPlayerUuid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
-};
-
-
-/** @param {string} value */
-proto.login.LoginResponse.prototype.setPlayerUuid = function(value) {
-  jspb.Message.setField(this, 7, value);
-};
-
-
-/**
  * optional string headimgurl = 8;
  * @return {string}
  */
@@ -1194,21 +1131,6 @@ proto.login.LoginResponse.prototype.getHeadimgurl = function() {
 /** @param {string} value */
 proto.login.LoginResponse.prototype.setHeadimgurl = function(value) {
   jspb.Message.setField(this, 8, value);
-};
-
-
-/**
- * optional int32 parent_id = 11;
- * @return {number}
- */
-proto.login.LoginResponse.prototype.getParentId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 11, 0));
-};
-
-
-/** @param {number} value */
-proto.login.LoginResponse.prototype.setParentId = function(value) {
-  jspb.Message.setField(this, 11, value);
 };
 
 
@@ -1429,7 +1351,7 @@ proto.login.HeartbeatRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     playerUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     deviceId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    appUuid: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1475,7 +1397,7 @@ proto.login.HeartbeatRequest.deserializeBinaryFromReader = function(msg, reader)
       msg.setDeviceId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     default:
@@ -1531,8 +1453,8 @@ proto.login.HeartbeatRequest.prototype.serializeBinaryToWriter = function (write
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
@@ -1571,15 +1493,15 @@ proto.login.HeartbeatRequest.prototype.setDeviceId = function(value) {
 
 
 /**
- * optional uint32 app_uuid = 3;
- * @return {number}
+ * optional string app_uuid = 3;
+ * @return {string}
  */
 proto.login.HeartbeatRequest.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.login.HeartbeatRequest.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -1631,7 +1553,10 @@ proto.login.HeartbeatResponse.prototype.toObject = function(opt_includeInstance)
  */
 proto.login.HeartbeatResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    status: jspb.Message.getFieldWithDefault(msg, 1, "")
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    isLogin: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    isNews: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    isChangeGold: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -1669,8 +1594,20 @@ proto.login.HeartbeatResponse.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setStatus(value);
+      msg.setIsLogin(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setIsNews(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setIsChangeGold(value);
       break;
     default:
       reader.skipField();
@@ -1710,10 +1647,31 @@ proto.login.HeartbeatResponse.prototype.serializeBinary = function() {
  */
 proto.login.HeartbeatResponse.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getStatus();
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getIsLogin();
   if (f.length > 0) {
     writer.writeString(
-      1,
+      2,
+      f
+    );
+  }
+  f = this.getIsNews();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getIsChangeGold();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
       f
     );
   }
@@ -1721,17 +1679,62 @@ proto.login.HeartbeatResponse.prototype.serializeBinaryToWriter = function (writ
 
 
 /**
- * optional string status = 1;
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.HeartbeatResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.HeartbeatResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string is_login = 2;
  * @return {string}
  */
-proto.login.HeartbeatResponse.prototype.getStatus = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.login.HeartbeatResponse.prototype.getIsLogin = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.login.HeartbeatResponse.prototype.setStatus = function(value) {
-  jspb.Message.setField(this, 1, value);
+proto.login.HeartbeatResponse.prototype.setIsLogin = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string is_news = 3;
+ * @return {string}
+ */
+proto.login.HeartbeatResponse.prototype.getIsNews = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.HeartbeatResponse.prototype.setIsNews = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string is_change_gold = 4;
+ * @return {string}
+ */
+proto.login.HeartbeatResponse.prototype.getIsChangeGold = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.HeartbeatResponse.prototype.setIsChangeGold = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -1746,12 +1749,12 @@ proto.login.HeartbeatResponse.prototype.setStatus = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.login.UserGoldRequest = function(opt_data) {
+proto.login.PlayerGoldRequest = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.login.UserGoldRequest, jspb.Message);
+goog.inherits(proto.login.PlayerGoldRequest, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.login.UserGoldRequest.displayName = 'proto.login.UserGoldRequest';
+  proto.login.PlayerGoldRequest.displayName = 'proto.login.PlayerGoldRequest';
 }
 
 
@@ -1766,8 +1769,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.login.UserGoldRequest.prototype.toObject = function(opt_includeInstance) {
-  return proto.login.UserGoldRequest.toObject(opt_includeInstance, this);
+proto.login.PlayerGoldRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.PlayerGoldRequest.toObject(opt_includeInstance, this);
 };
 
 
@@ -1776,14 +1779,14 @@ proto.login.UserGoldRequest.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.login.UserGoldRequest} msg The msg instance to transform.
+ * @param {!proto.login.PlayerGoldRequest} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.login.UserGoldRequest.toObject = function(includeInstance, msg) {
+proto.login.PlayerGoldRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     playerUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     deviceId: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 3, 0)
+    appUuid: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -1797,23 +1800,23 @@ proto.login.UserGoldRequest.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.login.UserGoldRequest}
+ * @return {!proto.login.PlayerGoldRequest}
  */
-proto.login.UserGoldRequest.deserializeBinary = function(bytes) {
+proto.login.PlayerGoldRequest.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.login.UserGoldRequest;
-  return proto.login.UserGoldRequest.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.login.PlayerGoldRequest;
+  return proto.login.PlayerGoldRequest.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.login.UserGoldRequest} msg The message object to deserialize into.
+ * @param {!proto.login.PlayerGoldRequest} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.login.UserGoldRequest}
+ * @return {!proto.login.PlayerGoldRequest}
  */
-proto.login.UserGoldRequest.deserializeBinaryFromReader = function(msg, reader) {
+proto.login.PlayerGoldRequest.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1829,7 +1832,7 @@ proto.login.UserGoldRequest.deserializeBinaryFromReader = function(msg, reader) 
       msg.setDeviceId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     default:
@@ -1844,10 +1847,10 @@ proto.login.UserGoldRequest.deserializeBinaryFromReader = function(msg, reader) 
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.UserGoldRequest} message
+ * @param {!proto.login.PlayerGoldRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.UserGoldRequest.serializeBinaryToWriter = function(message, writer) {
+proto.login.PlayerGoldRequest.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -1856,7 +1859,7 @@ proto.login.UserGoldRequest.serializeBinaryToWriter = function(message, writer) 
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.login.UserGoldRequest.prototype.serializeBinary = function() {
+proto.login.PlayerGoldRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -1868,7 +1871,7 @@ proto.login.UserGoldRequest.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.UserGoldRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerGoldRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getPlayerUuid();
   if (f.length > 0) {
@@ -1885,8 +1888,8 @@ proto.login.UserGoldRequest.prototype.serializeBinaryToWriter = function (writer
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
@@ -1898,13 +1901,13 @@ proto.login.UserGoldRequest.prototype.serializeBinaryToWriter = function (writer
  * optional string player_uuid = 1;
  * @return {string}
  */
-proto.login.UserGoldRequest.prototype.getPlayerUuid = function() {
+proto.login.PlayerGoldRequest.prototype.getPlayerUuid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.login.UserGoldRequest.prototype.setPlayerUuid = function(value) {
+proto.login.PlayerGoldRequest.prototype.setPlayerUuid = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -1913,28 +1916,28 @@ proto.login.UserGoldRequest.prototype.setPlayerUuid = function(value) {
  * optional string device_id = 2;
  * @return {string}
  */
-proto.login.UserGoldRequest.prototype.getDeviceId = function() {
+proto.login.PlayerGoldRequest.prototype.getDeviceId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.login.UserGoldRequest.prototype.setDeviceId = function(value) {
+proto.login.PlayerGoldRequest.prototype.setDeviceId = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 3;
- * @return {number}
+ * optional string app_uuid = 3;
+ * @return {string}
  */
-proto.login.UserGoldRequest.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+proto.login.PlayerGoldRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
-proto.login.UserGoldRequest.prototype.setAppUuid = function(value) {
+/** @param {string} value */
+proto.login.PlayerGoldRequest.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -1950,12 +1953,12 @@ proto.login.UserGoldRequest.prototype.setAppUuid = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.login.UserGolgResponse = function(opt_data) {
+proto.login.PlayerGolgResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.login.UserGolgResponse, jspb.Message);
+goog.inherits(proto.login.PlayerGolgResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.login.UserGolgResponse.displayName = 'proto.login.UserGolgResponse';
+  proto.login.PlayerGolgResponse.displayName = 'proto.login.PlayerGolgResponse';
 }
 
 
@@ -1970,8 +1973,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.login.UserGolgResponse.prototype.toObject = function(opt_includeInstance) {
-  return proto.login.UserGolgResponse.toObject(opt_includeInstance, this);
+proto.login.PlayerGolgResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.PlayerGolgResponse.toObject(opt_includeInstance, this);
 };
 
 
@@ -1980,10 +1983,10 @@ proto.login.UserGolgResponse.prototype.toObject = function(opt_includeInstance) 
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.login.UserGolgResponse} msg The msg instance to transform.
+ * @param {!proto.login.PlayerGolgResponse} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.login.UserGolgResponse.toObject = function(includeInstance, msg) {
+proto.login.PlayerGolgResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     gold: jspb.Message.getFieldWithDefault(msg, 2, 0)
@@ -2000,23 +2003,23 @@ proto.login.UserGolgResponse.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.login.UserGolgResponse}
+ * @return {!proto.login.PlayerGolgResponse}
  */
-proto.login.UserGolgResponse.deserializeBinary = function(bytes) {
+proto.login.PlayerGolgResponse.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.login.UserGolgResponse;
-  return proto.login.UserGolgResponse.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.login.PlayerGolgResponse;
+  return proto.login.PlayerGolgResponse.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.login.UserGolgResponse} msg The message object to deserialize into.
+ * @param {!proto.login.PlayerGolgResponse} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.login.UserGolgResponse}
+ * @return {!proto.login.PlayerGolgResponse}
  */
-proto.login.UserGolgResponse.deserializeBinaryFromReader = function(msg, reader) {
+proto.login.PlayerGolgResponse.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -2043,10 +2046,10 @@ proto.login.UserGolgResponse.deserializeBinaryFromReader = function(msg, reader)
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.UserGolgResponse} message
+ * @param {!proto.login.PlayerGolgResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.UserGolgResponse.serializeBinaryToWriter = function(message, writer) {
+proto.login.PlayerGolgResponse.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -2055,7 +2058,7 @@ proto.login.UserGolgResponse.serializeBinaryToWriter = function(message, writer)
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.login.UserGolgResponse.prototype.serializeBinary = function() {
+proto.login.PlayerGolgResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -2067,7 +2070,7 @@ proto.login.UserGolgResponse.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.UserGolgResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerGolgResponse.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getCode();
   if (f !== 0) {
@@ -2090,13 +2093,13 @@ proto.login.UserGolgResponse.prototype.serializeBinaryToWriter = function (write
  * optional uint32 code = 1;
  * @return {number}
  */
-proto.login.UserGolgResponse.prototype.getCode = function() {
+proto.login.PlayerGolgResponse.prototype.getCode = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
 /** @param {number} value */
-proto.login.UserGolgResponse.prototype.setCode = function(value) {
+proto.login.PlayerGolgResponse.prototype.setCode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -2105,13 +2108,6681 @@ proto.login.UserGolgResponse.prototype.setCode = function(value) {
  * optional uint32 gold = 2;
  * @return {number}
  */
-proto.login.UserGolgResponse.prototype.getGold = function() {
+proto.login.PlayerGolgResponse.prototype.getGold = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.login.UserGolgResponse.prototype.setGold = function(value) {
+proto.login.PlayerGolgResponse.prototype.setGold = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomConfigRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomConfigRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomConfigRequest.displayName = 'proto.login.RoomConfigRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomConfigRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomConfigRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomConfigRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomConfigRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomConfigRequest}
+ */
+proto.login.RoomConfigRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomConfigRequest;
+  return proto.login.RoomConfigRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomConfigRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomConfigRequest}
+ */
+proto.login.RoomConfigRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomConfigRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomConfigRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomConfigRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomConfigRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomConfigRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomConfigRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomConfigResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomConfigResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomConfigResponse.displayName = 'proto.login.RoomConfigResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomConfigResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomConfigResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomConfigResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomConfigResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    config: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomConfigResponse}
+ */
+proto.login.RoomConfigResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomConfigResponse;
+  return proto.login.RoomConfigResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomConfigResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomConfigResponse}
+ */
+proto.login.RoomConfigResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setConfig(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomConfigResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomConfigResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomConfigResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomConfigResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getConfig();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomConfigResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomConfigResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string config = 2;
+ * @return {string}
+ */
+proto.login.RoomConfigResponse.prototype.getConfig = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomConfigResponse.prototype.setConfig = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomCreateRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomCreateRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomCreateRequest.displayName = 'proto.login.RoomCreateRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomCreateRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomCreateRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomCreateRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomCreateRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    deviceId: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    maxRounds: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    roomConfig: jspb.Message.getFieldWithDefault(msg, 6, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomCreateRequest}
+ */
+proto.login.RoomCreateRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomCreateRequest;
+  return proto.login.RoomCreateRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomCreateRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomCreateRequest}
+ */
+proto.login.RoomCreateRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceId(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setMaxRounds(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomConfig(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomCreateRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getDeviceId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = this.getMaxRounds();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
+      f
+    );
+  }
+  f = this.getRoomConfig();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomCreateRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string game_uuid = 2;
+ * @return {string}
+ */
+proto.login.RoomCreateRequest.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateRequest.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string player_uuid = 3;
+ * @return {string}
+ */
+proto.login.RoomCreateRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string device_id = 4;
+ * @return {string}
+ */
+proto.login.RoomCreateRequest.prototype.getDeviceId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateRequest.prototype.setDeviceId = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional int32 max_rounds = 5;
+ * @return {number}
+ */
+proto.login.RoomCreateRequest.prototype.getMaxRounds = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateRequest.prototype.setMaxRounds = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string room_config = 6;
+ * @return {string}
+ */
+proto.login.RoomCreateRequest.prototype.getRoomConfig = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateRequest.prototype.setRoomConfig = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomCreateResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomCreateResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomCreateResponse.displayName = 'proto.login.RoomCreateResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomCreateResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomCreateResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomCreateResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomCreateResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    payGold: jspb.Message.getFieldWithDefault(msg, 5, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomCreateResponse}
+ */
+proto.login.RoomCreateResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomCreateResponse;
+  return proto.login.RoomCreateResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomCreateResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomCreateResponse}
+ */
+proto.login.RoomCreateResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerIp(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setServerPort(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setPayGold(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomCreateResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
+  f = this.getServerIp();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getServerPort();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+  f = this.getPayGold();
+  if (f !== 0) {
+    writer.writeInt32(
+      5,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomCreateResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional int32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomCreateResponse.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string server_ip = 3;
+ * @return {string}
+ */
+proto.login.RoomCreateResponse.prototype.getServerIp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateResponse.prototype.setServerIp = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional int32 server_port = 4;
+ * @return {number}
+ */
+proto.login.RoomCreateResponse.prototype.getServerPort = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateResponse.prototype.setServerPort = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional int32 pay_gold = 5;
+ * @return {number}
+ */
+proto.login.RoomCreateResponse.prototype.getPayGold = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateResponse.prototype.setPayGold = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomCreateW2WRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomCreateW2WRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomCreateW2WRequest.displayName = 'proto.login.RoomCreateW2WRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomCreateW2WRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomCreateW2WRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomCreateW2WRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomCreateW2WRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    roomConfig: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomCreateW2WRequest}
+ */
+proto.login.RoomCreateW2WRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomCreateW2WRequest;
+  return proto.login.RoomCreateW2WRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomCreateW2WRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomCreateW2WRequest}
+ */
+proto.login.RoomCreateW2WRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomConfig(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateW2WRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateW2WRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomCreateW2WRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getRoomConfig();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string room_config = 3;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WRequest.prototype.getRoomConfig = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WRequest.prototype.setRoomConfig = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string game_uuid = 4;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WRequest.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WRequest.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomCreateW2WResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomCreateW2WResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomCreateW2WResponse.displayName = 'proto.login.RoomCreateW2WResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomCreateW2WResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomCreateW2WResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomCreateW2WResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomCreateW2WResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    serverId: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomCreateW2WResponse}
+ */
+proto.login.RoomCreateW2WResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomCreateW2WResponse;
+  return proto.login.RoomCreateW2WResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomCreateW2WResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomCreateW2WResponse}
+ */
+proto.login.RoomCreateW2WResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerIp(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerPort(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerId(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateW2WResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateW2WResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomCreateW2WResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomCreateW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getServerIp();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getServerPort();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+  f = this.getServerId();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateW2WResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateW2WResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string server_ip = 3;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getServerIp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WResponse.prototype.setServerIp = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 server_port = 4;
+ * @return {number}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getServerPort = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateW2WResponse.prototype.setServerPort = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 server_id = 5;
+ * @return {number}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getServerId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomCreateW2WResponse.prototype.setServerId = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string room_uuid = 6;
+ * @return {string}
+ */
+proto.login.RoomCreateW2WResponse.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomCreateW2WResponse.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.PlayerInGameW2WRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.PlayerInGameW2WRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.PlayerInGameW2WRequest.displayName = 'proto.login.PlayerInGameW2WRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.PlayerInGameW2WRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.PlayerInGameW2WRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.PlayerInGameW2WRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.PlayerInGameW2WRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.PlayerInGameW2WRequest}
+ */
+proto.login.PlayerInGameW2WRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.PlayerInGameW2WRequest;
+  return proto.login.PlayerInGameW2WRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.PlayerInGameW2WRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.PlayerInGameW2WRequest}
+ */
+proto.login.PlayerInGameW2WRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerInGameW2WRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerInGameW2WRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.PlayerInGameW2WRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerInGameW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.PlayerInGameW2WRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerInGameW2WRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.PlayerInGameW2WRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerInGameW2WRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.PlayerInGameW2WResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.PlayerInGameW2WResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.PlayerInGameW2WResponse.displayName = 'proto.login.PlayerInGameW2WResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.PlayerInGameW2WResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.PlayerInGameW2WResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.PlayerInGameW2WResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    serverId: jspb.Message.getFieldWithDefault(msg, 5, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.PlayerInGameW2WResponse}
+ */
+proto.login.PlayerInGameW2WResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.PlayerInGameW2WResponse;
+  return proto.login.PlayerInGameW2WResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.PlayerInGameW2WResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.PlayerInGameW2WResponse}
+ */
+proto.login.PlayerInGameW2WResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerIp(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerPort(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerInGameW2WResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerInGameW2WResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerInGameW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getServerIp();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getServerPort();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+  f = this.getServerId();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.PlayerInGameW2WResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string room_id = 2;
+ * @return {string}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getRoomId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerInGameW2WResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string server_ip = 3;
+ * @return {string}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getServerIp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerInGameW2WResponse.prototype.setServerIp = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 server_port = 4;
+ * @return {number}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getServerPort = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.login.PlayerInGameW2WResponse.prototype.setServerPort = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 server_id = 5;
+ * @return {number}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getServerId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.login.PlayerInGameW2WResponse.prototype.setServerId = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomEnterW2WRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomEnterW2WRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomEnterW2WRequest.displayName = 'proto.login.RoomEnterW2WRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomEnterW2WRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomEnterW2WRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomEnterW2WRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomEnterW2WRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 3, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomEnterW2WRequest}
+ */
+proto.login.RoomEnterW2WRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomEnterW2WRequest;
+  return proto.login.RoomEnterW2WRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomEnterW2WRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomEnterW2WRequest}
+ */
+proto.login.RoomEnterW2WRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterW2WRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterW2WRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomEnterW2WRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomEnterW2WRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterW2WRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomEnterW2WRequest.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterW2WRequest.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string player_uuid = 3;
+ * @return {string}
+ */
+proto.login.RoomEnterW2WRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterW2WRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomEnterW2WResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomEnterW2WResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomEnterW2WResponse.displayName = 'proto.login.RoomEnterW2WResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomEnterW2WResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomEnterW2WResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomEnterW2WResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomEnterW2WResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    serverId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomEnterW2WResponse}
+ */
+proto.login.RoomEnterW2WResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomEnterW2WResponse;
+  return proto.login.RoomEnterW2WResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomEnterW2WResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomEnterW2WResponse}
+ */
+proto.login.RoomEnterW2WResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerIp(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setServerPort(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterW2WResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterW2WResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomEnterW2WResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getServerId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getServerIp();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getServerPort();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomEnterW2WResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterW2WResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 server_id = 2;
+ * @return {number}
+ */
+proto.login.RoomEnterW2WResponse.prototype.getServerId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterW2WResponse.prototype.setServerId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string server_ip = 3;
+ * @return {string}
+ */
+proto.login.RoomEnterW2WResponse.prototype.getServerIp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterW2WResponse.prototype.setServerIp = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 server_port = 4;
+ * @return {number}
+ */
+proto.login.RoomEnterW2WResponse.prototype.getServerPort = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterW2WResponse.prototype.setServerPort = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomEnterRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomEnterRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomEnterRequest.displayName = 'proto.login.RoomEnterRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomEnterRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomEnterRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomEnterRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomEnterRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    deviceId: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomEnterRequest}
+ */
+proto.login.RoomEnterRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomEnterRequest;
+  return proto.login.RoomEnterRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomEnterRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomEnterRequest}
+ */
+proto.login.RoomEnterRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomEnterRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getDeviceId();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomEnterRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomEnterRequest.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterRequest.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string player_uuid = 3;
+ * @return {string}
+ */
+proto.login.RoomEnterRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string device_id = 4;
+ * @return {string}
+ */
+proto.login.RoomEnterRequest.prototype.getDeviceId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterRequest.prototype.setDeviceId = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomEnterResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomEnterResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomEnterResponse.displayName = 'proto.login.RoomEnterResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomEnterResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomEnterResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomEnterResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomEnterResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomEnterResponse}
+ */
+proto.login.RoomEnterResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomEnterResponse;
+  return proto.login.RoomEnterResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomEnterResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomEnterResponse}
+ */
+proto.login.RoomEnterResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setServerIp(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setServerPort(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomEnterResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomEnterResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getServerIp();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getServerPort();
+  if (f !== 0) {
+    writer.writeInt32(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomEnterResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomEnterResponse.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string server_ip = 3;
+ * @return {string}
+ */
+proto.login.RoomEnterResponse.prototype.getServerIp = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterResponse.prototype.setServerIp = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional int32 server_port = 4;
+ * @return {number}
+ */
+proto.login.RoomEnterResponse.prototype.getServerPort = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomEnterResponse.prototype.setServerPort = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomListPlayer = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomListPlayer, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomListPlayer.displayName = 'proto.login.RoomListPlayer';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomListPlayer.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomListPlayer.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomListPlayer} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomListPlayer.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    playerName: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    headimgurl: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    score: jspb.Message.getFieldWithDefault(msg, 3, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomListPlayer}
+ */
+proto.login.RoomListPlayer.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomListPlayer;
+  return proto.login.RoomListPlayer.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomListPlayer} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomListPlayer}
+ */
+proto.login.RoomListPlayer.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerName(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setHeadimgurl(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScore(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListPlayer} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListPlayer.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomListPlayer.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListPlayer.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getPlayerName();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getHeadimgurl();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getScore();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string player_name = 1;
+ * @return {string}
+ */
+proto.login.RoomListPlayer.prototype.getPlayerName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListPlayer.prototype.setPlayerName = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string headimgurl = 2;
+ * @return {string}
+ */
+proto.login.RoomListPlayer.prototype.getHeadimgurl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListPlayer.prototype.setHeadimgurl = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string score = 3;
+ * @return {string}
+ */
+proto.login.RoomListPlayer.prototype.getScore = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListPlayer.prototype.setScore = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomListW2WRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomListW2WRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomListW2WRequest.displayName = 'proto.login.RoomListW2WRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomListW2WRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomListW2WRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomListW2WRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomListW2WRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomListW2WRequest}
+ */
+proto.login.RoomListW2WRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomListW2WRequest;
+  return proto.login.RoomListW2WRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomListW2WRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomListW2WRequest}
+ */
+proto.login.RoomListW2WRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListW2WRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListW2WRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomListW2WRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomListW2WRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListW2WRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.RoomListW2WRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListW2WRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomListW2WResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomListW2WResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomListW2WResponse.displayName = 'proto.login.RoomListW2WResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomListW2WResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomListW2WResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomListW2WResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomListW2WResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomList: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomListW2WResponse}
+ */
+proto.login.RoomListW2WResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomListW2WResponse;
+  return proto.login.RoomListW2WResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomListW2WResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomListW2WResponse}
+ */
+proto.login.RoomListW2WResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomList(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListW2WResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListW2WResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomListW2WResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomList();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomListW2WResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomListW2WResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string room_list = 2;
+ * @return {string}
+ */
+proto.login.RoomListW2WResponse.prototype.getRoomList = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListW2WResponse.prototype.setRoomList = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomListRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomListRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomListRequest.displayName = 'proto.login.RoomListRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomListRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomListRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomListRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomListRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    deviceId: jspb.Message.getFieldWithDefault(msg, 3, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomListRequest}
+ */
+proto.login.RoomListRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomListRequest;
+  return proto.login.RoomListRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomListRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomListRequest}
+ */
+proto.login.RoomListRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomListRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getDeviceId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomListRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.RoomListRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string device_id = 3;
+ * @return {string}
+ */
+proto.login.RoomListRequest.prototype.getDeviceId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomListRequest.prototype.setDeviceId = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomItemData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RoomItemData.repeatedFields_, null);
+};
+goog.inherits(proto.login.RoomItemData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomItemData.displayName = 'proto.login.RoomItemData';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RoomItemData.repeatedFields_ = [4];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomItemData.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomItemData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomItemData} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomItemData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    config: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    playerList: jspb.Message.toObjectList(msg.getPlayerList(),
+    proto.login.RoomListPlayer.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomItemData}
+ */
+proto.login.RoomItemData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomItemData;
+  return proto.login.RoomItemData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomItemData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomItemData}
+ */
+proto.login.RoomItemData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setConfig(value);
+      break;
+    case 4:
+      var value = new proto.login.RoomListPlayer;
+      reader.readMessage(value,proto.login.RoomListPlayer.deserializeBinaryFromReader);
+      msg.addPlayer(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomItemData} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomItemData.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomItemData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomItemData.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getRoomId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getConfig();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getPlayerList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.login.RoomListPlayer.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional string room_id = 2;
+ * @return {string}
+ */
+proto.login.RoomItemData.prototype.getRoomId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomItemData.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string config = 3;
+ * @return {string}
+ */
+proto.login.RoomItemData.prototype.getConfig = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomItemData.prototype.setConfig = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * repeated RoomListPlayer player = 4;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.RoomListPlayer>}
+ */
+proto.login.RoomItemData.prototype.getPlayerList = function() {
+  return /** @type{!Array.<!proto.login.RoomListPlayer>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.RoomListPlayer, 4));
+};
+
+
+/** @param {!Array.<!proto.login.RoomListPlayer>} value */
+proto.login.RoomItemData.prototype.setPlayerList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.login.RoomListPlayer=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.RoomListPlayer}
+ */
+proto.login.RoomItemData.prototype.addPlayer = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.login.RoomListPlayer, opt_index);
+};
+
+
+proto.login.RoomItemData.prototype.clearPlayerList = function() {
+  this.setPlayerList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordItemData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RecordItemData.repeatedFields_, null);
+};
+goog.inherits(proto.login.RecordItemData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordItemData.displayName = 'proto.login.RecordItemData';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RecordItemData.repeatedFields_ = [5];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordItemData.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordItemData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordItemData} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordItemData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    roomId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    recordId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    dateTime: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    playerList: jspb.Message.toObjectList(msg.getPlayerList(),
+    proto.login.RoomListPlayer.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordItemData}
+ */
+proto.login.RecordItemData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordItemData;
+  return proto.login.RecordItemData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordItemData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordItemData}
+ */
+proto.login.RecordItemData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRoomId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRecordId(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDateTime(value);
+      break;
+    case 5:
+      var value = new proto.login.RoomListPlayer;
+      reader.readMessage(value,proto.login.RoomListPlayer.deserializeBinaryFromReader);
+      msg.addPlayer(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordItemData} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordItemData.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordItemData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordItemData.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = this.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getRecordId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getDateTime();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = this.getPlayerList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      5,
+      f,
+      proto.login.RoomListPlayer.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional int32 room_id = 1;
+ * @return {number}
+ */
+proto.login.RecordItemData.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RecordItemData.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string game_uuid = 2;
+ * @return {string}
+ */
+proto.login.RecordItemData.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordItemData.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string record_id = 3;
+ * @return {string}
+ */
+proto.login.RecordItemData.prototype.getRecordId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordItemData.prototype.setRecordId = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string date_time = 4;
+ * @return {string}
+ */
+proto.login.RecordItemData.prototype.getDateTime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordItemData.prototype.setDateTime = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * repeated RoomListPlayer player = 5;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.RoomListPlayer>}
+ */
+proto.login.RecordItemData.prototype.getPlayerList = function() {
+  return /** @type{!Array.<!proto.login.RoomListPlayer>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.RoomListPlayer, 5));
+};
+
+
+/** @param {!Array.<!proto.login.RoomListPlayer>} value */
+proto.login.RecordItemData.prototype.setPlayerList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 5, value);
+};
+
+
+/**
+ * @param {!proto.login.RoomListPlayer=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.RoomListPlayer}
+ */
+proto.login.RecordItemData.prototype.addPlayer = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 5, opt_value, proto.login.RoomListPlayer, opt_index);
+};
+
+
+proto.login.RecordItemData.prototype.clearPlayerList = function() {
+  this.setPlayerList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomListResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RoomListResponse.repeatedFields_, null);
+};
+goog.inherits(proto.login.RoomListResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomListResponse.displayName = 'proto.login.RoomListResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RoomListResponse.repeatedFields_ = [2];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomListResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomListResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomListResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomListResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomItemList: jspb.Message.toObjectList(msg.getRoomItemList(),
+    proto.login.RoomItemData.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomListResponse}
+ */
+proto.login.RoomListResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomListResponse;
+  return proto.login.RoomListResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomListResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomListResponse}
+ */
+proto.login.RoomListResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = new proto.login.RoomItemData;
+      reader.readMessage(value,proto.login.RoomItemData.deserializeBinaryFromReader);
+      msg.addRoomItem(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomListResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomListResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomItemList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      proto.login.RoomItemData.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RoomListResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomListResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated RoomItemData room_item = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.RoomItemData>}
+ */
+proto.login.RoomListResponse.prototype.getRoomItemList = function() {
+  return /** @type{!Array.<!proto.login.RoomItemData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.RoomItemData, 2));
+};
+
+
+/** @param {!Array.<!proto.login.RoomItemData>} value */
+proto.login.RoomListResponse.prototype.setRoomItemList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.login.RoomItemData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.RoomItemData}
+ */
+proto.login.RoomListResponse.prototype.addRoomItem = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.login.RoomItemData, opt_index);
+};
+
+
+proto.login.RoomListResponse.prototype.clearRoomItemList = function() {
+  this.setRoomItemList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordListRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RecordListRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordListRequest.displayName = 'proto.login.RecordListRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordListRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordListRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordListRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordListRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    deviceId: jspb.Message.getFieldWithDefault(msg, 3, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordListRequest}
+ */
+proto.login.RecordListRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordListRequest;
+  return proto.login.RecordListRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordListRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordListRequest}
+ */
+proto.login.RecordListRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordListRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordListRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordListRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordListRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getDeviceId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RecordListRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordListRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.RecordListRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordListRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string device_id = 3;
+ * @return {string}
+ */
+proto.login.RecordListRequest.prototype.getDeviceId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordListRequest.prototype.setDeviceId = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordListResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RecordListResponse.repeatedFields_, null);
+};
+goog.inherits(proto.login.RecordListResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordListResponse.displayName = 'proto.login.RecordListResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RecordListResponse.repeatedFields_ = [2];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordListResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordListResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordListResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordListResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    recordItemList: jspb.Message.toObjectList(msg.getRecordItemList(),
+    proto.login.RecordItemData.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordListResponse}
+ */
+proto.login.RecordListResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordListResponse;
+  return proto.login.RecordListResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordListResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordListResponse}
+ */
+proto.login.RecordListResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = new proto.login.RecordItemData;
+      reader.readMessage(value,proto.login.RecordItemData.deserializeBinaryFromReader);
+      msg.addRecordItem(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordListResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordListResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordListResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordListResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRecordItemList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      2,
+      f,
+      proto.login.RecordItemData.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RecordListResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RecordListResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated RecordItemData record_item = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.RecordItemData>}
+ */
+proto.login.RecordListResponse.prototype.getRecordItemList = function() {
+  return /** @type{!Array.<!proto.login.RecordItemData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.RecordItemData, 2));
+};
+
+
+/** @param {!Array.<!proto.login.RecordItemData>} value */
+proto.login.RecordListResponse.prototype.setRecordItemList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.login.RecordItemData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.RecordItemData}
+ */
+proto.login.RecordListResponse.prototype.addRecordItem = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.login.RecordItemData, opt_index);
+};
+
+
+proto.login.RecordListResponse.prototype.clearRecordItemList = function() {
+  this.setRecordItemList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.PlayerRecord = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.PlayerRecord, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.PlayerRecord.displayName = 'proto.login.PlayerRecord';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.PlayerRecord.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.PlayerRecord.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.PlayerRecord} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.PlayerRecord.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    nickname: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    headimgurl: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    score: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    flag: jspb.Message.getFieldWithDefault(msg, 5, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.PlayerRecord}
+ */
+proto.login.PlayerRecord.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.PlayerRecord;
+  return proto.login.PlayerRecord.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.PlayerRecord} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.PlayerRecord}
+ */
+proto.login.PlayerRecord.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setNickname(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setHeadimgurl(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setScore(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFlag(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerRecord} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerRecord.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.PlayerRecord.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.PlayerRecord.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getNickname();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getHeadimgurl();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getScore();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = this.getFlag();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string nickname = 1;
+ * @return {string}
+ */
+proto.login.PlayerRecord.prototype.getNickname = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerRecord.prototype.setNickname = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.PlayerRecord.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerRecord.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string headimgurl = 3;
+ * @return {string}
+ */
+proto.login.PlayerRecord.prototype.getHeadimgurl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerRecord.prototype.setHeadimgurl = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string score = 4;
+ * @return {string}
+ */
+proto.login.PlayerRecord.prototype.getScore = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerRecord.prototype.setScore = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional string flag = 5;
+ * @return {string}
+ */
+proto.login.PlayerRecord.prototype.getFlag = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerRecord.prototype.setFlag = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordInfo = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RecordInfo.repeatedFields_, null);
+};
+goog.inherits(proto.login.RecordInfo, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordInfo.displayName = 'proto.login.RecordInfo';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RecordInfo.repeatedFields_ = [3];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordInfo.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordInfo.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordInfo} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordInfo.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    win: jspb.Message.getFieldWithDefault(msg, 1, false),
+    theRound: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    playerInfoList: jspb.Message.toObjectList(msg.getPlayerInfoList(),
+    proto.login.PlayerRecord.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordInfo}
+ */
+proto.login.RecordInfo.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordInfo;
+  return proto.login.RecordInfo.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordInfo} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordInfo}
+ */
+proto.login.RecordInfo.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setWin(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTheRound(value);
+      break;
+    case 3:
+      var value = new proto.login.PlayerRecord;
+      reader.readMessage(value,proto.login.PlayerRecord.deserializeBinaryFromReader);
+      msg.addPlayerInfo(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfo} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfo.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordInfo.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfo.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getWin();
+  if (f) {
+    writer.writeBool(
+      1,
+      f
+    );
+  }
+  f = this.getTheRound();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getPlayerInfoList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.login.PlayerRecord.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional bool win = 1;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.login.RecordInfo.prototype.getWin = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
+};
+
+
+/** @param {boolean} value */
+proto.login.RecordInfo.prototype.setWin = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 the_round = 2;
+ * @return {number}
+ */
+proto.login.RecordInfo.prototype.getTheRound = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RecordInfo.prototype.setTheRound = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated PlayerRecord player_info = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.PlayerRecord>}
+ */
+proto.login.RecordInfo.prototype.getPlayerInfoList = function() {
+  return /** @type{!Array.<!proto.login.PlayerRecord>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.PlayerRecord, 3));
+};
+
+
+/** @param {!Array.<!proto.login.PlayerRecord>} value */
+proto.login.RecordInfo.prototype.setPlayerInfoList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.login.PlayerRecord=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.PlayerRecord}
+ */
+proto.login.RecordInfo.prototype.addPlayerInfo = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.login.PlayerRecord, opt_index);
+};
+
+
+proto.login.RecordInfo.prototype.clearPlayerInfoList = function() {
+  this.setPlayerInfoList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordInfoRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RecordInfoRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordInfoRequest.displayName = 'proto.login.RecordInfoRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordInfoRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordInfoRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordInfoRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordInfoRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    deviceId: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordInfoRequest}
+ */
+proto.login.RecordInfoRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordInfoRequest;
+  return proto.login.RecordInfoRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordInfoRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordInfoRequest}
+ */
+proto.login.RecordInfoRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceId(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfoRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfoRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordInfoRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfoRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getDeviceId();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RecordInfoRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.login.RecordInfoRequest.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoRequest.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string device_id = 3;
+ * @return {string}
+ */
+proto.login.RecordInfoRequest.prototype.getDeviceId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoRequest.prototype.setDeviceId = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string room_uuid = 4;
+ * @return {string}
+ */
+proto.login.RecordInfoRequest.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoRequest.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RecordInfoResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.login.RecordInfoResponse.repeatedFields_, null);
+};
+goog.inherits(proto.login.RecordInfoResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RecordInfoResponse.displayName = 'proto.login.RecordInfoResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.login.RecordInfoResponse.repeatedFields_ = [3];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RecordInfoResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RecordInfoResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RecordInfoResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RecordInfoResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    datetime: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    recordInfoDataList: jspb.Message.toObjectList(msg.getRecordInfoDataList(),
+    proto.login.RecordInfo.toObject, includeInstance),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RecordInfoResponse}
+ */
+proto.login.RecordInfoResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RecordInfoResponse;
+  return proto.login.RecordInfoResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RecordInfoResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RecordInfoResponse}
+ */
+proto.login.RecordInfoResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDatetime(value);
+      break;
+    case 3:
+      var value = new proto.login.RecordInfo;
+      reader.readMessage(value,proto.login.RecordInfo.deserializeBinaryFromReader);
+      msg.addRecordInfoData(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfoResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfoResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RecordInfoResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RecordInfoResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getDatetime();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getRecordInfoDataList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.login.RecordInfo.serializeBinaryToWriter
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RecordInfoResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RecordInfoResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string datetime = 2;
+ * @return {string}
+ */
+proto.login.RecordInfoResponse.prototype.getDatetime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoResponse.prototype.setDatetime = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated RecordInfo record_info_data = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.login.RecordInfo>}
+ */
+proto.login.RecordInfoResponse.prototype.getRecordInfoDataList = function() {
+  return /** @type{!Array.<!proto.login.RecordInfo>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.login.RecordInfo, 3));
+};
+
+
+/** @param {!Array.<!proto.login.RecordInfo>} value */
+proto.login.RecordInfoResponse.prototype.setRecordInfoDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.login.RecordInfo=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.login.RecordInfo}
+ */
+proto.login.RecordInfoResponse.prototype.addRecordInfoData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.login.RecordInfo, opt_index);
+};
+
+
+proto.login.RecordInfoResponse.prototype.clearRecordInfoDataList = function() {
+  this.setRecordInfoDataList([]);
+};
+
+
+/**
+ * optional string room_uuid = 4;
+ * @return {string}
+ */
+proto.login.RecordInfoResponse.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RecordInfoResponse.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.CreateRoomRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.CreateRoomRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.CreateRoomRequest.displayName = 'proto.login.CreateRoomRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.CreateRoomRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.CreateRoomRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.CreateRoomRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.CreateRoomRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    roomId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    ownerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    kwargs: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 4, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.CreateRoomRequest}
+ */
+proto.login.CreateRoomRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.CreateRoomRequest;
+  return proto.login.CreateRoomRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.CreateRoomRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.CreateRoomRequest}
+ */
+proto.login.CreateRoomRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOwnerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setKwargs(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.CreateRoomRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.CreateRoomRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.CreateRoomRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.CreateRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getOwnerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getKwargs();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 room_id = 1;
+ * @return {number}
+ */
+proto.login.CreateRoomRequest.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.CreateRoomRequest.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string owner_uuid = 2;
+ * @return {string}
+ */
+proto.login.CreateRoomRequest.prototype.getOwnerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.CreateRoomRequest.prototype.setOwnerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string kwargs = 3;
+ * @return {string}
+ */
+proto.login.CreateRoomRequest.prototype.getKwargs = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.CreateRoomRequest.prototype.setKwargs = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string room_uuid = 4;
+ * @return {string}
+ */
+proto.login.CreateRoomRequest.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.CreateRoomRequest.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RefundWebResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RefundWebResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RefundWebResponse.displayName = 'proto.login.RefundWebResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RefundWebResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RefundWebResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RefundWebResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RefundWebResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    gameType: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    owner: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RefundWebResponse}
+ */
+proto.login.RefundWebResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RefundWebResponse;
+  return proto.login.RefundWebResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RefundWebResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RefundWebResponse}
+ */
+proto.login.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setGameType(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setOwner(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RefundWebResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RefundWebResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RefundWebResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RefundWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = this.getGameType();
+  if (f !== 0) {
+    writer.writeUint32(
+      3,
+      f
+    );
+  }
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
+  f = this.getOwner();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
+      f
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.RefundWebResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RefundWebResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RefundWebResponse.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RefundWebResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 game_type = 3;
+ * @return {number}
+ */
+proto.login.RefundWebResponse.prototype.getGameType = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RefundWebResponse.prototype.setGameType = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional string app_uuid = 4;
+ * @return {string}
+ */
+proto.login.RefundWebResponse.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RefundWebResponse.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional string owner = 5;
+ * @return {string}
+ */
+proto.login.RefundWebResponse.prototype.getOwner = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RefundWebResponse.prototype.setOwner = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string room_uuid = 6;
+ * @return {string}
+ */
+proto.login.RefundWebResponse.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RefundWebResponse.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.ReplayRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.ReplayRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.ReplayRequest.displayName = 'proto.login.ReplayRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.ReplayRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.ReplayRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.ReplayRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.ReplayRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    roomUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    theRound: jspb.Message.getFieldWithDefault(msg, 3, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.ReplayRequest}
+ */
+proto.login.ReplayRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.ReplayRequest;
+  return proto.login.ReplayRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.ReplayRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.ReplayRequest}
+ */
+proto.login.ReplayRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRoomUuid(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTheRound(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.ReplayRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.ReplayRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.ReplayRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.ReplayRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getRoomUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = this.getTheRound();
+  if (f !== 0) {
+    writer.writeUint32(
+      3,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.ReplayRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.ReplayRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string room_uuid = 2;
+ * @return {string}
+ */
+proto.login.ReplayRequest.prototype.getRoomUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.ReplayRequest.prototype.setRoomUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 the_round = 3;
+ * @return {number}
+ */
+proto.login.ReplayRequest.prototype.getTheRound = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.login.ReplayRequest.prototype.setTheRound = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.ReplayResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.ReplayResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.ReplayResponse.displayName = 'proto.login.ReplayResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.ReplayResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.ReplayResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.ReplayResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.ReplayResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    code: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    replay: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.ReplayResponse}
+ */
+proto.login.ReplayResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.ReplayResponse;
+  return proto.login.ReplayResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.ReplayResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.ReplayResponse}
+ */
+proto.login.ReplayResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setCode(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setReplay(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.ReplayResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.ReplayResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.ReplayResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.ReplayResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getCode();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = this.getReplay();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 code = 1;
+ * @return {number}
+ */
+proto.login.ReplayResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.login.ReplayResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string replay = 2;
+ * @return {string}
+ */
+proto.login.ReplayResponse.prototype.getReplay = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.login.ReplayResponse.prototype.setReplay = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.login.RoomReplayRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.login.RoomReplayRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.login.RoomReplayRequest.displayName = 'proto.login.RoomReplayRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.login.RoomReplayRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.login.RoomReplayRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.login.RoomReplayRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.login.RoomReplayRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    appUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    roomId: jspb.Message.getFieldWithDefault(msg, 2, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.login.RoomReplayRequest}
+ */
+proto.login.RoomReplayRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.login.RoomReplayRequest;
+  return proto.login.RoomReplayRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.login.RoomReplayRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.login.RoomReplayRequest}
+ */
+proto.login.RoomReplayRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAppUuid(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomReplayRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomReplayRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.login.RoomReplayRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.login.RoomReplayRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getAppUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string app_uuid = 1;
+ * @return {string}
+ */
+proto.login.RoomReplayRequest.prototype.getAppUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomReplayRequest.prototype.setAppUuid = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 room_id = 2;
+ * @return {number}
+ */
+proto.login.RoomReplayRequest.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.login.RoomReplayRequest.prototype.setRoomId = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 

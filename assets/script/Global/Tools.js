@@ -570,3 +570,46 @@ window.Tools.HotUpdate = {
     }
 
 };
+
+/**
+ * 字符串首字母大写
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-27 17:19:37
+ * 
+ * @param    {string}                 str
+ */
+window.Tools.firstUpperCase = function (str) {
+  return str.replace(/\b[a-z]/g,function(s){return s.toUpperCase();});
+}
+
+/**
+ * 字符串首字母小写
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-27 17:19:37
+ * 
+ * @param    {string}                 str
+ */
+window.Tools.firstLowerCase = function (str) {
+  return str.replace(/^\S/g, function(s){return s.toLowerCase();});
+}
+
+/**
+ * protobuf 转 json
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-27 17:19:37
+ * 
+ * @param    {protobuf} protobuf 
+ */
+window.Tools.protobufToJson = function (protobuf) {
+    var data = {};
+    for (var name in protobuf) {
+        if (name.substring(0, 3) == "get") {
+            data[Tools.firstLowerCase(name.substring(3))] = protobuf[name]();
+        }
+    }
+
+    return data;
+}

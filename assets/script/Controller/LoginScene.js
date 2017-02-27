@@ -10,13 +10,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.loader.loadRes('prefab/Loging', cc.Node, function (error, spriteFrame) {
-            if (error) {
-                cc.error(error);
-                return;
-            }
-            
-        });
         // PX258.backgroundMusic = Tools.audioEngine.init(PX258.audioResourcesUrl.background.game, true);
         // PX258.backgroundMusic.play();
         // PX258.backgroundMusic.stop();
@@ -40,6 +33,27 @@ cc.Class({
     },
 
     /**
+     * 登录接口
+     */
+    loginOnCLick: function(event, data) {
+        PX258.loading.open(this.node);
+
+        var message = httpRequestManager.getLoginRequestMessage("fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", "江西 南昌");
+        httpRequestManager.httpRequest(PX258.httpRequestName.login, message, function(event, data) {
+            var data = proto.login.LoginResponse.deserializeBinary(data);
+            cc.log("PX258.httpRequestName.login code: " + data.getCode());
+            
+            if (data.getCode() == 1) {
+                data = Tools.protobufToJson(data);
+                Tools.setLocalData(PX258.localStorageKey.userInfo, data);
+                
+                // PX258.loading.close();
+                cc.director.loadScene(PX258.scene.lobby);
+            }
+        });
+    },
+
+    /**
      * 微信登录
      */
     wechatLoginOnClick: function(event, data) {
@@ -53,38 +67,6 @@ cc.Class({
         //     cc.log("close");
         // });
         // webSocketManager.closeSocket();
-
-        // var message = httpRequestManager.getLoginRequestMessage("", data, "江西 南昌");
-        // httpRequestManager.httpRequest(PX258.httpRequestName.login, message, function(event, data) {
-        //     data = proto.login.LoginResponse.deserializeBinary(data);
-        //     if (data.getCode() == 1) {
-        //         cc.sys.localStorage.setItem(PX258.localStorageKey.userInfo, JSON.stringify({
-        //             nickname: data.getNickname(),   // 用户昵称
-        //             olkey: data.getOlkey(),         // 登录 token
-        //             gold: data.getGold(),           // 用户金币
-        //             sex: data.getSex(),             // 用户性别，0：未知；1：男；2：女
-        //             playeId: data.getPlayerId(),  // 用户数字 ID，显示的5位用户id
-        //             playerUuid: data.getPlayerUuid(),   // 用户系统唯一 32 位 ID
-        //             headimgurl: data.getHeadimgurl(),   // 用户头像
-        //             parentId: data.getParentId(),      // 用户上级代理32 位 ID
-        //             ip: data.getIp(),                   // 用户 IP
-        //             location: data.getLocation(),       // 用户地理位置信息
-        //             isMaintain: data.getIsMaintain(),  // 服务器维护状态
-        //             maintainInfo: data.getMaintainInfo(),  // 维护信息
-        //             notice: data.getNotice(),               // 显示的公告
-        //             shareIco: data.getShareIco(),          // 分享小图标
-        //             shareUrl: data.getShareUrl(),          // 分享下载地址用户当前所在服务器信息，可以为空
-        //             playerReconnection: data.getPlayerReconnection(),  // 是否重连
-        //             playerRoomId: data.getPlayerRoomId(),             // 返回房间 ID
-        //             playerServerIp: data.getPlayerServerIp(),         // ip
-        //             playerServerPort: data.getPlayerServerPort(),     // 端口
-        //         }));
-        //         cc.log(data.getNickname());
-        //     }
-        //     else {
-                
-        //     }
-        // });
     },
 
     /**

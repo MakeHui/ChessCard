@@ -269,6 +269,7 @@
     return rawHMACMD5(key, string)
   }
 
+  window.md5 = md5
   // if (typeof define === 'function' && define.amd) {
   //   define(function () {
   //     return md5

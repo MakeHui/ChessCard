@@ -2,6 +2,9 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        avatar: cc.Sprite,
+        nickname: cc.Label,
+        money: cc.Label,
         userInfoPrefab: cc.Prefab,
         payOptionsPrefab: cc.Prefab,
         gameRecordPrefab: cc.Prefab,
@@ -14,17 +17,13 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.loader.load("http://ww3.sinaimg.cn/mw690/ab41dfeegw1emxsjnhwcnj205k05kt8w.jpg", {isCrossOrigin: true}, function (err, data) {
-            if(err){
-                cc.log(err);
-            }
-        })
+        var userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        cc.log(userInfo);
+        
+        Tools.setWebImage(this.avatar, userInfo.headimgurl);
+        this.nickname.string = userInfo.nickname;
+        this.money.string = userInfo.gold;
     },
-
-    // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-
-    // },
 
     /**
      * 查看用户信息

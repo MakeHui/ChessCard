@@ -14,7 +14,7 @@ window.PX258 = {
      * app标识
      * @type {Number}
      */
-    appUuid: 100000,
+    appUuid: "100000",
 
     /**
      * app名称
@@ -56,8 +56,6 @@ window.PX258 = {
 
     fastChatShowTime: 1.5 * 1000,
 
-    loadingNode: null,
-
     /**
      * 本地存储对应key名
      * @type {Object}
@@ -82,7 +80,7 @@ window.PX258 = {
      */
     scene: {
         login: "Login",
-        userAgreement: "UserAgreement",
+        lobby: "Lobby",
     },
 
     /**
@@ -90,8 +88,8 @@ window.PX258 = {
      * @type {Object}
      */
     apiAddress: {
-        development: "http://login.qingwuguo.com/client/",
-        production: "http://login.qingwuguo.com/client/"
+        development: "http://login.px258.qingwuguo.com/client/",
+        production: "http://login.px258.qingwuguo.com/client/"
     },
 
     /**
@@ -292,4 +290,49 @@ window.PX258.cardsSort = function(listView) {
         listView[i].setLocalZOrder(i);
     }
     lastNode.setLocalZOrder(-1);
+};
+
+/**
+ * loading控制器
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-27 15:04:48
+ */
+window.PX258.loading = {
+    loadingNode: null,
+
+    open: function(node) {
+        var self = this;
+        window.Tools.loadPrefab("Loading", function(prefab) {
+            self.loadingNode = cc.instantiate(prefab);
+            self._open(node);
+        });
+
+        cc.director.getScheduler().schedule(function() {
+            self.close();
+        }, this, 30, 0);
+    },
+
+    _open: function(node) {
+        node.addChild(this.loadingNode);
+    },
+
+    close: function() {
+        this.loadingNode.destroy();
+    }
+}
+
+/**
+ * 检查应用更新
+ */
+window.PX258.checkUpdate = function () {
+    
+}
+
+/**
+ * 应用初始化需要自行的操作
+ */
+window.PX258.appInit = function (args) {
+    args.checkUpdate ? window.PX258.checkUpdate.apply(this, args.checkUpdate) : cc.log("window.PX258.appInit: checkUpdate 参数不存在");
+    
 };
