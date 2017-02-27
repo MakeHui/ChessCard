@@ -216,7 +216,8 @@ window.PX258 = {
 window.PX258.openDialog = function(dialog, parentNode, callback) {
     var node = cc.instantiate(dialog);
     parentNode.addChild(node);
-    Animation.openSeneTransitionAction(node, callback);
+
+    Animation.openSeneTransitionAction(node.getChildByName("Dialog"), callback);
 };
 
 /**
@@ -229,11 +230,12 @@ window.PX258.openDialog = function(dialog, parentNode, callback) {
  * @param    {Function}               callback 自行完毕后的回调方法
  */
 window.PX258.closeDialog = function(node, callback) {
-    callback = callback || function() {
-        node.destroy();
-    };
+    callback = callback || function() {};
 
-    Animation.closeSeneTransitionAction(node, callback);
+    Animation.closeSeneTransitionAction(node.getChildByName("Dialog"), function() {
+        node.destroy();
+        callback();
+    });
 };
 
 /**

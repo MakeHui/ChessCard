@@ -18,7 +18,6 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         var userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
-        cc.log(userInfo);
         
         Tools.setWebImage(this.avatar, userInfo.headimgurl);
         this.nickname.string = userInfo.nickname;
