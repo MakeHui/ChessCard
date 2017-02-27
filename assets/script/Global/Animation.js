@@ -73,6 +73,25 @@ window.Animation.closeSeneTransitionAction = function(node, callback) {
 };
 
 /**
+ * 打开场景执行的动画
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-14T15:13:50+0800
+ *
+ * @param    {node}                 node     [动画节点]
+ * @param    {int}                 duration 执行时长
+ */
+window.Animation.openScrollWordAction = function(node, duration) {
+    var nodeX = node.x;
+    node.runAction(cc.repeat(cc.sequence(
+        cc.moveBy(duration, cc.p(-node.width - 800, 0)),
+        cc.callFunc(function () {
+            node.x = nodeX;
+        }, this)
+    ), 999999999));
+};
+
+/**
  * 打开面板
  * 主要是把面板从viewport外移动到viewpore中
  *

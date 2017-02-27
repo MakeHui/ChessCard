@@ -5,6 +5,7 @@ cc.Class({
         avatar: cc.Sprite,
         nickname: cc.Label,
         money: cc.Label,
+        notice: cc.Node,
         userInfoPrefab: cc.Prefab,
         payOptionsPrefab: cc.Prefab,
         gameRecordPrefab: cc.Prefab,
@@ -22,6 +23,9 @@ cc.Class({
         Tools.setWebImage(this.avatar, userInfo.headimgurl);
         this.nickname.string = userInfo.nickname;
         this.money.string = userInfo.gold;
+        this.notice.getComponent(cc.Label).string = userInfo.notice;
+
+        Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
     },
 
     /**
