@@ -38,16 +38,14 @@ cc.Class({
     loginOnCLick: function(event, data) {
         PX258.loading.open(this.node);
 
-        var message = httpRequestManager.getLoginRequestMessage("fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", "江西 南昌");
-        httpRequestManager.httpRequest(PX258.httpRequestName.login, message, function(event, data) {
-            var data = proto.login.LoginResponse.deserializeBinary(data);
-            cc.log("PX258.httpRequestName.login code: " + data.getCode());
-            
-            if (data.getCode() == 1) {
-                data = Tools.protobufToJson(data);
-                Tools.setLocalData(PX258.localStorageKey.userInfo, data);
+        var parameters = {wxCode: "fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", location: "江西 南昌"};
+        var message = httpRequestManager.getLoginRequestMessage(parameters);
+        httpRequestManager.httpRequest("login", message, function(event, result) {
+            if (result.getCode() == 1) {
+                result = Tools.protobufToJson(result);
+                Tools.setLocalData(PX258.localStorageKey.userInfo, result);
                 
-                // PX258.loading.close();
+                PX258.loading.close();
                 cc.director.loadScene(PX258.scene.lobby);
             }
         });

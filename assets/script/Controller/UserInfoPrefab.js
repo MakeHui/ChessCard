@@ -3,20 +3,19 @@ cc.Class({
 
     properties: {
         avatar: cc.Sprite,
-        id: cc.Label,
         ip: cc.Label,
+        nickname: cc.Label,
         location: cc.Label,
     },
 
     // use this for initialization
     onLoad: function () {
         var userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
-        cc.log(userInfo);
 
         Tools.setWebImage(this.avatar, userInfo.headimgurl);
-        this.id.string = "ID: " + userInfo.nickname;
-        this.ip.string = "IP: " + userInfo.ip;
-        this.location.string = userInfo.location;
+        this.ip.string = "IP地址: " + userInfo.ip;
+        this.nickname.string = "昵称: " + userInfo.nickname;
+        this.location.string = "所在地: " + userInfo.location;
     },
 
     /**

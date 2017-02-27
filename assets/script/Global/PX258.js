@@ -66,15 +66,6 @@ window.PX258 = {
     },
 
     /**
-     * http 接口名
-     * @type {Object}
-     */
-    httpRequestName: {
-        check: "check",
-        login: "login",
-    },
-
-    /**
      * 场景对应名称
      * @type {Object}
      */
@@ -88,8 +79,8 @@ window.PX258 = {
      * @type {Object}
      */
     apiAddress: {
-        development: "http://login.px258.qingwuguo.com/client/",
-        production: "http://login.px258.qingwuguo.com/client/"
+        development: "http://login.px258.qingwuguo.com/",
+        production: "http://login.px258.qingwuguo.com/"
     },
 
     /**

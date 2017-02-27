@@ -768,6 +768,7 @@ proto.login.LoginResponse.toObject = function(includeInstance, msg) {
     olkey: jspb.Message.getFieldWithDefault(msg, 3, ""),
     gold: jspb.Message.getFieldWithDefault(msg, 4, 0),
     sex: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 7, ""),
     headimgurl: jspb.Message.getFieldWithDefault(msg, 8, ""),
     ip: jspb.Message.getFieldWithDefault(msg, 12, ""),
     location: jspb.Message.getFieldWithDefault(msg, 13, ""),
@@ -835,6 +836,10 @@ proto.login.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
     case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setSex(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
       break;
     case 8:
       var value = /** @type {string} */ (reader.readString());
@@ -954,6 +959,13 @@ proto.login.LoginResponse.prototype.serializeBinaryToWriter = function (writer) 
   if (f !== 0) {
     writer.writeInt32(
       5,
+      f
+    );
+  }
+  f = this.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
       f
     );
   }
@@ -1116,6 +1128,21 @@ proto.login.LoginResponse.prototype.getSex = function() {
 /** @param {number} value */
 proto.login.LoginResponse.prototype.setSex = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string player_uuid = 7;
+ * @return {string}
+ */
+proto.login.LoginResponse.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/** @param {string} value */
+proto.login.LoginResponse.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 7, value);
 };
 
 
