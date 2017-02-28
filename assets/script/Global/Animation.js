@@ -56,9 +56,13 @@ window.Animation.closeSceneTransitionAction = function(node, callback) {
  * @datetime 2017-02-14T15:13:50+0800
  *
  * @param    {cc.Node}                 node     [动画节点]
- * @param    {int}                 duration 执行时长
+ * @param    {number}                 duration 执行时长
  */
 window.Animation.openScrollWordAction = function(node, duration) {
+    if (duration == 0) {
+        return;
+    }
+
     let nodeX = node.x;
     node.runAction(cc.repeat(cc.sequence(
         cc.moveBy(duration, cc.p(-node.width - 800, 0)),

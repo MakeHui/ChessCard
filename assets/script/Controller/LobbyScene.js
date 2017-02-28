@@ -24,8 +24,8 @@ cc.Class({
             this.nickname.string = userInfo.nickname;
             this.money.string = userInfo.gold;
             this.notice.getComponent(cc.Label).string = userInfo.notice;
-
-            Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
+            // Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
+            Animation.openScrollWordAction(this.notice, 50);
         }
     },
 

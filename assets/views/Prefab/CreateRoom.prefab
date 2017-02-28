@@ -24,8 +24,8 @@
     "_parent": null,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 0.5,
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -46,8 +46,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 568,
+      "y": 320
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -103,8 +103,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 568,
-      "y": 320
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -163,7 +163,7 @@
     "_enabled": true,
     "isAlignOnce": true,
     "_target": null,
-    "_alignFlags": 18,
+    "_alignFlags": 45,
     "_left": 0,
     "_right": 0,
     "_top": 0,
@@ -176,8 +176,8 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0
+    "_originalWidth": 1136,
+    "_originalHeight": 640
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -230,8 +230,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 568,
-      "y": 320
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2659,7 +2659,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "3-1"
+    "customEventData": "3-small_win"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3073,7 +3073,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "3-2"
+    "customEventData": "3-big_win"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3487,7 +3487,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "3-3"
+    "customEventData": "3-two_win"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3901,7 +3901,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "3-4"
+    "customEventData": "3-three_win"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -4315,7 +4315,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "3-5"
+    "customEventData": "3-four_win"
   },
   {
     "__type__": "cc.PrefabInfo",

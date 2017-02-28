@@ -7,22 +7,28 @@ module.exports = {
         check: {
             api: "client/check",
             description: "login", 
-            protocol: "CheckVersion",
+            protocol: "CheckVersion"
         },
         login: {
             api: "client/login",
             description: "login", 
-            protocol: "Login",
+            protocol: "Login"
         },
         playerGold: {
             api: "login/balance",
             description: "login", 
-            protocol: "PlayerGold",
+            protocol: "PlayerGold"
         },
+
+        roomCreate: {
+            api: "room/create",
+            description: "login",
+            protocol: "RoomCreate"
+        }
     },
 
     getCheckVersionRequestMessage: function(parameters) {
-        var message = new proto.login.CheckVersionRequest();
+        let message = new proto.login.CheckVersionRequest();
         message.setAppUuid(PX258.appUuid);
         message.setVerNo(PX258.version);
         message.setAndroidOrIos(PX258.os);
@@ -31,7 +37,7 @@ module.exports = {
     },
 
     getLoginRequestMessage: function(parameters) {
-        var message = new proto.login.LoginRequest();
+        let message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
         message.setAppUuid(PX258.appUuid);
         message.setDeviceId(PX258.getDeviceId());
@@ -43,7 +49,7 @@ module.exports = {
     },
 
     getPlayerGoldRequestMessage: function(parameters) {
-        var message = new proto.login.PlayerGoldRequest();
+        let message = new proto.login.PlayerGoldRequest();
         
         message.setPlayerUuid(parameters.playerUuid);
         message.setAppUuid(PX258.appUuid);
@@ -53,18 +59,32 @@ module.exports = {
         return message;
     },
 
+    getRoomCreateRequestMessage: function(parameters) {
+        let message = new proto.login.RoomCreateRequest();
+
+        message.setAppUuid(PX258.appUuid);
+        message.setGameUuid(parameters.gameUuid);
+        message.setPlayerUuid(parameters.playerUuid);
+        message.setDeviceId(PX258.getDeviceId());
+        message.setMaxRounds(parameters.maxRounds);
+        message.setRoomConfig(parameters.roomConfig);
+
+        cc.log([parameters.playerUuid, PX258.appUuid, PX258.getDeviceId()]);
+        return message;
+    },
+
     httpRequest: function(protocolName, message, callback) {
-        var protocol = this.requestProtocol[protocolName];
-        var request = cc.loader.getXMLHttpRequest();
+        let protocol = this.requestProtocol[protocolName];
+        let request = cc.loader.getXMLHttpRequest();
         request.open("POST", (PX258.debug ? PX258.apiAddress.development : PX258.production) + protocol.api);
         request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         request.send(message.serializeBinary());
         request.onload = function(event) {
-            var result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
-            var result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
+            let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
+            result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
             
             callback(event, result);
             cc.log("HttpRequestManager.httpRequest " + protocolName + " , code: "  + result.getCode());
         };
     }
-}
+};
