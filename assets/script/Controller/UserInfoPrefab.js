@@ -5,7 +5,7 @@ cc.Class({
         avatar: cc.Sprite,
         ip: cc.Label,
         nickname: cc.Label,
-        location: cc.Label,
+        location: cc.Label
     },
 
     // use this for initialization

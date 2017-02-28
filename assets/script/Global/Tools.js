@@ -15,17 +15,17 @@ window.Tools = {};
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:36:18+0800
  *
- * @param    {array}                 array 待删除的数组
- * @param    {value}                 value 
- * @return   {bool}
+ * @param    {Array}                 array 待删除的数组
+ * @param    {value}                 value
+ * @return   {Boolean}
  */
 window.Tools.removeArrayInValue = function(array, value) {
-    let index = ToolKit.indexOf(arrar, value);
+    let index = array.indexOf(value);
     if (index > -1) {
-        arrar.splice(index, 1);
+        array.splice(index, 1);
         return true;
     }
-    
+
     return false;
 };
 
@@ -35,16 +35,15 @@ window.Tools.removeArrayInValue = function(array, value) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:37:45+0800
  *
- * @param    {node}                 node 父节点
+ * @param    {cc.Node}                 node 父节点
  * @param    {string}                 name 子节点名称
- * @return   {node}
+ * @return   {cc.Node}
  */
 window.Tools.seekNodeByName = function(node, name) {
     let children = node.children;
     for (let i = 0; i < children.length; ++i) {
-        cc.log(children[i].name);
         if (children[i].name !== name) {
-            var childrenNode = window.Tools.seekNodeByName(children[i], name);
+            let childrenNode = window.Tools.seekNodeByName(children[i], name);
             if (childrenNode) {
                 return node;
             }
@@ -62,10 +61,10 @@ window.Tools.seekNodeByName = function(node, name) {
  * @datetime 2017-02-14T18:39:14+0800
  *
  * @param    {string}                 key 存储本地数据的key
- * @return   {any}
+ * @return   {Object}
  */
 window.Tools.getLocalData = function(key) {
-    var data = cc.sys.localStorage.getItem(key); //从本地读取数据
+    let data = cc.sys.localStorage.getItem(key); //从本地读取数据
 
     return data ? JSON.parse(data) : null;
 };
@@ -76,13 +75,19 @@ window.Tools.getLocalData = function(key) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:40:22+0800
  *
- * @param    {string}                 key  
- * @param    {any}                 data 
+ * @param    {string}                 key
+ * @param    {Object}                 data
  */
 window.Tools.setLocalData = function(key, data) {
     cc.sys.localStorage.setItem(key, JSON.stringify(data));
 };
 
+/**
+ * 获取并设置网络图片
+ *
+ * @param sprite
+ * @param url
+ */
 window.Tools.setWebImage = function(sprite, url) {
     cc.loader.load(url, function(err, texture) {
         if(err){
@@ -135,45 +140,45 @@ window.Tools.audioEngine = {
 /**
  * 日期格式化
  * url: http://blog.csdn.net/vbangle/article/details/5643091/
- * author: meizz   
+ * author: meizz
  *
- * 对Date的扩展，将 Date 转化为指定格式的String   
- * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，   
- * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   
- * 例子：   
- * (new Date()).Format("yyyy-MM-dd hh:ii:ss.S") ==> 2006-07-02 08:09:04.423   
- * (new Date()).Format("yyyy-M-d h:i:s.S")      ==> 2006-7-2 8:9:4.18   
+ * 对Date的扩展，将 Date 转化为指定格式的String
+ * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
+ * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
+ * 例子：
+ * (new Date()).Format("yyyy-MM-dd hh:ii:ss.S") ==> 2006-07-02 08:09:04.423
+ * (new Date()).Format("yyyy-M-d h:i:s.S")      ==> 2006-7-2 8:9:4.18
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-15T22:22:55+0800
  *
- * @param    {int|string|object}    datetime
+ * @param    {int|string|Date}    datetime
  * @param    {string}               formatString
- * 
+ *
  * @return   {string}
  */
 window.Tools.formatDatetime = function(formatString, datetime) {
     datetime = datetime || new Date();
     datetime = typeof datetime === 'object' ? datetime : new Date(datetime);
 
-    var o = {   
-        "M+" : datetime.getMonth()+1,                 //月份   
-        "d+" : datetime.getDate(),                    //日   
-        "h+" : datetime.getHours(),                   //小时   
-        "i+" : datetime.getMinutes(),                 //分   
-        "s+" : datetime.getSeconds(),                 //秒   
-        "q+" : Math.floor((datetime.getMonth()+3)/3), //季度   
-        "S"  : datetime.getMilliseconds()             //毫秒   
-    };   
+    let o = {
+        "M+" : datetime.getMonth()+1,                 //月份
+        "d+" : datetime.getDate(),                    //日
+        "h+" : datetime.getHours(),                   //小时
+        "i+" : datetime.getMinutes(),                 //分
+        "s+" : datetime.getSeconds(),                 //秒
+        "q+" : Math.floor((datetime.getMonth()+3)/3), //季度
+        "S"  : datetime.getMilliseconds()             //毫秒
+    };
     if(/(y+)/.test(formatString)) {
         formatString = formatString.replace(RegExp.$1, (datetime.getFullYear()+"").substr(4 - RegExp.$1.length));
     }
-    for(var k in o) {
+    for(let k in o) {
         if(new RegExp("("+ k +")").test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
         }
     }
-    return formatString;   
+    return formatString;
 };
 
 /**
@@ -182,7 +187,7 @@ window.Tools.formatDatetime = function(formatString, datetime) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-16T18:44:00+0800
  *
- * @param    {node}                 node     需要截取的节点
+ * @param    {cc.Node}                 node     需要截取的节点
  * @param    {Function}               callback
  * @param    {string}                 fileName 保存的名称
  */
@@ -193,7 +198,7 @@ window.Tools.captureScreen = function(node, callback, fileName) {
 
     if(CC_JSB) {
         //如果待截图的场景中含有 mask，请开启下面注释的语句
-        var renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
+        let renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
         // var renderTexture = cc.RenderTexture.create(node.width, node.height);
 
         //把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
@@ -224,7 +229,6 @@ window.Tools.captureScreen = function(node, callback, fileName) {
  *
  * @param    {string}                 name     需要获取的名称
  * @param    {Function}               callback
- * @param    {string}                 fileName 保存的名称
  */
 window.Tools.loadPrefab = function(name, callback) {
     cc.loader.loadRes("prefab/" + name, cc.Prefab, function (error, prefab) {
@@ -242,13 +246,13 @@ window.Tools.loadPrefab = function(name, callback) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-23 16:08:50
  *
- * @param    {node}                 node     这个 node 节点是你的事件处理代码组件所属的节点
+ * @param    {cc.Node}                 node     这个 node 节点是你的事件处理代码组件所属的节点
  * @param    {string}               component 这个是代码文件名
  * @param    {string}               handler 响应事件函数名
  * @param    {string}               customEventData 自定义事件数据
  */
 window.Tools.createEventHandler = function (node, component, handler, customEventData) {
-    var eventHandler = new cc.Component.EventHandler();
+    let eventHandler = new cc.Component.EventHandler();
     eventHandler.target = node;
     eventHandler.component = component;
     eventHandler.handler = handler;
@@ -262,7 +266,7 @@ window.Tools.createEventHandler = function (node, component, handler, customEven
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-24 18:47:49
- * 
+ *
  * @type {Object}
  */
 window.Tools.HotUpdate = {
@@ -272,7 +276,7 @@ window.Tools.HotUpdate = {
     _isUpdating: false,
 
     _hasUpdate: false,
-    
+
     _canRetry: false,
 
     assetsManager: Object,
@@ -287,7 +291,7 @@ window.Tools.HotUpdate = {
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-02-24T18:49:03+0800
      *
-     * @param    {string}                 manifestUrl [description]
+     * @param    {cc.RawAsset}                 manifestUrl [description]
      */
     init: function(manifestUrl) {
         // Hot update is only available in Native build
@@ -299,13 +303,13 @@ window.Tools.HotUpdate = {
             cc.log("初始化没有传递 manifest url");
             return;
         }
-        
+
         this.manifestUrl = manifestUrl;
 
-        var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset');
+        let storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset');
         cc.log('Storage path for remote asset : ' + storagePath);
         // cc.log('Local manifest URL : ' + this.manifestUrl);
-        
+
         // 获取 manifest 地址
         this._assetsManager = new jsb.AssetsManager(this.manifestUrl, storagePath);
         if (!cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
@@ -318,14 +322,12 @@ window.Tools.HotUpdate = {
         // if the return value smaller than 0, versionA is smaller than B.
         this._assetsManager.setVersionCompareHandle(function(versionA, versionB) {
             cc.log("JS Custom Version Compare: version A is " + versionA + ', version B is ' + versionB);
-            var vA = versionA.split('.');
-            var vB = versionB.split('.');
-            for (var i = 0; i < vA.length; ++i) {
-                var a = parseInt(vA[i]);
-                var b = parseInt(vB[i] || 0);
-                if (a === b) {
-                    continue;
-                } else {
+            let vA = versionA.split('.');
+            let vB = versionB.split('.');
+            for (let i = 0; i < vA.length; ++i) {
+                let a = parseInt(vA[i]);
+                let b = parseInt(vB[i] || 0);
+                if (a !== b) {
                     return a - b;
                 }
             }
@@ -335,16 +337,16 @@ window.Tools.HotUpdate = {
                 return 0;
             }
         });
-        
+
         // Setup the verification callback, but we don't have md5 check function yet, so only print some message
         // Return true if the verification passed, otherwise return false
         this._assetsManager.setVerifyCallback(function(path, asset) {
             // When asset is compressed, we don't need to check its md5, because zip file have been deleted.
-            var compressed = asset.compressed;
+            let compressed = asset.compressed;
             // Retrieve the correct md5 value.
-            var expectedMD5 = asset.md5;
+            let expectedMD5 = asset.md5;
             // asset.path is relative path and path is absolute.
-            var relativePath = asset.path;
+            let relativePath = asset.path;
             // The size of asset file, but this value could be absent.
             // var size = asset.size;
             if (compressed) {
@@ -374,11 +376,11 @@ window.Tools.HotUpdate = {
      * @param    {Function}               callback
      */
     checkUpdateCallback: function (callback) {
-        var self = this;
+        let self = this;
 
         this._checkCallback = this._checkCallback || function(event) {
             cc.log('Code: ' + event.getEventCode());
-            var hasUpdate = false;
+            let hasUpdate = false;
 
             switch (event.getEventCode()) {
                 case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
@@ -437,14 +439,14 @@ window.Tools.HotUpdate = {
      * @param    {Function}               callback [description]
      */
     hotUpdateCallback: function (callback) {
-        var self = this;
+        let self = this;
 
         this._updateCallback = this._updateCallback || function(event) {
-            var needRestart = false;
-            var failed = false;
-            var isSuccess = false;
-            var byteProgress = 0.0;
-            var fileProgress = 0.0;
+            let needRestart = false;
+            let failed = false;
+            let isSuccess = false;
+            let byteProgress = 0.0;
+            let fileProgress = 0.0;
 
             switch (event.getEventCode()) {
                 case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
@@ -455,7 +457,7 @@ window.Tools.HotUpdate = {
                     byteProgress = event.getPercent() / 100;
                     fileProgress = event.getPercentByFile() / 100;
 
-                    var msg = event.getMessage();
+                    let msg = event.getMessage();
                     if (msg) {
                         cc.log("Updated file: " + msg);
                         cc.log(event.getPercent().toFixed(2) + "% : " + msg);
@@ -504,8 +506,8 @@ window.Tools.HotUpdate = {
                 self._hotUpdateListener = null;
 
                 // Prepend the manifest's search path
-                var searchPaths = jsb.fileUtils.getSearchPaths();
-                var newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
+                let searchPaths = jsb.fileUtils.getSearchPaths();
+                let newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
                 console.log(JSON.stringify(newPaths));
                 Array.prototype.unshift(searchPaths, newPaths);
 
@@ -520,7 +522,7 @@ window.Tools.HotUpdate = {
 
         this._hotUpdate();
     },
-    
+
     /**
      * 立即更新
      *
@@ -576,40 +578,40 @@ window.Tools.HotUpdate = {
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-27 17:19:37
- * 
+ *
  * @param    {string}                 str
  */
 window.Tools.firstUpperCase = function (str) {
   return str.replace(/\b[a-z]/g,function(s){return s.toUpperCase();});
-}
+};
 
 /**
  * 字符串首字母小写
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-27 17:19:37
- * 
+ *
  * @param    {string}                 str
  */
 window.Tools.firstLowerCase = function (str) {
   return str.replace(/^\S/g, function(s){return s.toLowerCase();});
-}
+};
 
 /**
  * protobuf 转 json
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-27 17:19:37
- * 
- * @param    {protobuf} protobuf 
+ *
+ * @param    {Object} protobuf
  */
 window.Tools.protobufToJson = function (protobuf) {
-    var data = {};
-    for (var name in protobuf) {
+    let data = {};
+    for (let name in protobuf) {
         if (name.substring(0, 3) == "get") {
             data[Tools.firstLowerCase(name.substring(3))] = protobuf[name]();
         }
     }
 
     return data;
-}
+};

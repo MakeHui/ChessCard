@@ -1,3 +1,4 @@
+//noinspection JSValidateTypes
 /**
  * 全局应用相关配置类
  *
@@ -42,7 +43,7 @@ window.PX258 = {
 
     /**
      * 临时数据传递对象
-     * @type {any}
+     * @type {object}
      */
     tempCache: null,
 
@@ -62,7 +63,7 @@ window.PX258 = {
      */
     localStorageKey: {
         deviceId: "DeviceId",
-        userInfo: "UserInfo",
+        userInfo: "UserInfo"
     },
 
     /**
@@ -71,7 +72,7 @@ window.PX258 = {
      */
     scene: {
         login: "Login",
-        lobby: "Lobby",
+        lobby: "Lobby"
     },
 
     /**
@@ -99,7 +100,7 @@ window.PX258 = {
             sound_ready: "resources/audio/effect/sound_ready.mp3",
             sound_shaizi: "resources/audio/effect/sound_shaizi.mp3",
             sound_start: "resources/audio/effect/sound_start.mp3",
-            sound_timeup_alarm: "resources/audio/effect/sound_timeup_alarm.mp3",
+            sound_timeup_alarm: "resources/audio/effect/sound_timeup_alarm.mp3"
         },
         fastChat: {
             fw_female_0: "resources/audio/fast_chat/fw_female_0.mp3",
@@ -117,7 +118,7 @@ window.PX258 = {
             fw_male_4: "resources/audio/fast_chat/fw_male_4.mp3",
             fw_male_5: "resources/audio/fast_chat/fw_male_5.mp3",
             fw_male_6: "resources/audio/fast_chat/fw_male_6.mp3",
-            fw_male_7: "resources/audio/fast_chat/fw_male_7.mp3",
+            fw_male_7: "resources/audio/fast_chat/fw_male_7.mp3"
         },
         game: {
             common: {
@@ -188,10 +189,10 @@ window.PX258 = {
                 card_woman_hu: "resources/audio/game/common/card_woman_hu.mp3",
                 card_woman_peng: "resources/audio/game/common/card_woman_peng.mp3",
                 card_woman_peng1: "resources/audio/game/common/card_woman_peng1.mp3",
-                card_woman_zimo: "resources/audio/game/common/card_woman_zimo.mp3",
+                card_woman_zimo: "resources/audio/game/common/card_woman_zimo.mp3"
             }
-        },
-    },
+        }
+    }
 };
 
 /**
@@ -200,12 +201,12 @@ window.PX258 = {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:46:33+0800
  *
- * @param    {node}                 dialog     需要弹出的节点对象
- * @param    {node}                 parentNode 父节点对象
+ * @param    {cc.Node}                 dialog     需要弹出的节点对象
+ * @param    {cc.Node}                 parentNode 父节点对象
  * @param    {function}               callback   执行完毕后的回调方法
  */
 window.PX258.openDialog = function(dialog, parentNode, callback) {
-    var node = cc.instantiate(dialog);
+    let node = cc.instantiate(dialog);
     parentNode.addChild(node);
 
     Animation.openSeneTransitionAction(node.getChildByName("Dialog"), callback);
@@ -217,7 +218,7 @@ window.PX258.openDialog = function(dialog, parentNode, callback) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:47:30+0800
  *
- * @param    {node}                 node     需要关闭的节点对象
+ * @param    {cc.Node}                 node     需要关闭的节点对象
  * @param    {Function}               callback 自行完毕后的回调方法
  */
 window.PX258.closeDialog = function(node, callback) {
@@ -238,7 +239,7 @@ window.PX258.closeDialog = function(node, callback) {
  *
  */
 window.PX258.getTempCache = function() {
-    var cache = window.PX258.tempCache;
+    let cache = window.PX258.tempCache;
     window.PX258.tempCache = null;
 
     return cache;
@@ -255,7 +256,7 @@ window.PX258.getTempCache = function() {
  * @return   {string}
  */
 window.PX258.getDeviceId = function() {
-    var deviceId = cc.sys.localStorage.getItem(window.PX258.localStorageKey.deviceId);
+    let deviceId = cc.sys.localStorage.getItem(window.PX258.localStorageKey.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
         cc.sys.localStorage.setItem(window.PX258.localStorageKey.deviceId, deviceId);
@@ -269,7 +270,7 @@ window.PX258.getDeviceId = function() {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-21 18:49:45
  *
- * @param {array} listView
+ * @param {Array} listView
  */
 window.PX258.cardsSort = function(listView) {
     if (listView.length === 0) {
@@ -277,7 +278,7 @@ window.PX258.cardsSort = function(listView) {
         return;
     }
 
-    var lastNode = listView[0];
+    let lastNode = listView[0];
     listView.sort();
     for (let i = 0; i < listView.length; ++i) {
         listView[i].setLocalZOrder(i);
@@ -295,7 +296,7 @@ window.PX258.loading = {
     loadingNode: null,
 
     open: function(node) {
-        var self = this;
+        let self = this;
         window.Tools.loadPrefab("Loading", function(prefab) {
             self.loadingNode = cc.instantiate(prefab);
             self._open(node);
@@ -313,14 +314,14 @@ window.PX258.loading = {
     close: function() {
         this.loadingNode.destroy();
     }
-}
+};
 
 /**
  * 检查应用更新
  */
 window.PX258.checkUpdate = function () {
     
-}
+};
 
 /**
  * 应用初始化需要自行的操作
