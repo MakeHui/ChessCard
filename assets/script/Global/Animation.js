@@ -19,7 +19,7 @@ window.Animation = {};
  * @param    {cc.Node}                 node     [动画节点]
  * @param    {Function}                callback [执行成功后的回调]
  */
-window.Animation.openSeneTransitionAction = function(node, callback) {
+window.Animation.openSceneTransitionAction = function(node, callback) {
     callback = callback || function() {};
 
     node.scale = 0;
@@ -39,7 +39,7 @@ window.Animation.openSeneTransitionAction = function(node, callback) {
  * @param    {cc.Node}                 node     [动画节点]
  * @param    {function}                 callback [执行成功后的回调]
  */
-window.Animation.closeSeneTransitionAction = function(node, callback) {
+window.Animation.closeSceneTransitionAction = function(node, callback) {
     callback = callback || function() {};
 
     node.runAction(cc.sequence(

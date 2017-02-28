@@ -3267,7 +3267,9 @@
     "gameRulesPrefab": {
       "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
     },
-    "createRoomPrefab": null,
+    "createRoomPrefab": {
+      "__uuid__": "8c7fa47c-3b31-4d27-8902-c15fa7f6a7af"
+    },
     "addGamePrefab": null,
     "myRoomPrefab": null
   }

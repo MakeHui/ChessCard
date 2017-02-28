@@ -10,12 +10,14 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
 
-        Tools.setWebImage(this.avatar, userInfo.headimgurl);
-        this.ip.string = "IP地址: " + userInfo.ip;
-        this.nickname.string = "昵称: " + userInfo.nickname;
-        this.location.string = "所在地: " + userInfo.location;
+        if (userInfo) {
+            Tools.setWebImage(this.avatar, userInfo.headimgurl);
+            this.ip.string = "IP地址: " + userInfo.ip;
+            this.nickname.string = "昵称: " + userInfo.nickname;
+            this.location.string = "所在地: " + userInfo.location;
+        }
     },
 
     /**

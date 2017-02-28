@@ -209,7 +209,7 @@ window.PX258.openDialog = function(dialog, parentNode, callback) {
     let node = cc.instantiate(dialog);
     parentNode.addChild(node);
 
-    Animation.openSeneTransitionAction(node.getChildByName("Dialog"), callback);
+    Animation.openSceneTransitionAction(node.getChildByName("Dialog"), callback);
 };
 
 /**
@@ -224,7 +224,7 @@ window.PX258.openDialog = function(dialog, parentNode, callback) {
 window.PX258.closeDialog = function(node, callback) {
     callback = callback || function() {};
 
-    Animation.closeSeneTransitionAction(node.getChildByName("Dialog"), function() {
+    Animation.closeSceneTransitionAction(node.getChildByName("Dialog"), function() {
         node.destroy();
         callback();
     });

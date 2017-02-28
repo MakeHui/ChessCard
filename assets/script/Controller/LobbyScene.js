@@ -18,20 +18,21 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
-        
-        Tools.setWebImage(this.avatar, userInfo.headimgurl);
-        this.nickname.string = userInfo.nickname;
-        this.money.string = userInfo.gold;
-        this.notice.getComponent(cc.Label).string = userInfo.notice;
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        if (userInfo) {
+            Tools.setWebImage(this.avatar, userInfo.headimgurl);
+            this.nickname.string = userInfo.nickname;
+            this.money.string = userInfo.gold;
+            this.notice.getComponent(cc.Label).string = userInfo.notice;
 
-        Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
+            Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
+        }
     },
 
     /**
      * 查看用户信息
      */
-    openUserInfoPanelOnClick: function(evt, data) {
+    openUserInfoPanelOnClick: function() {
         PX258.openDialog(this.userInfoPrefab, this.node, function () {
             cc.log("load success");
         });
@@ -87,7 +88,9 @@ cc.Class({
      * 创建游戏房间
      */
     openCreateRoomPanelOnClick: function(evt, data) {
-
+        PX258.openDialog(this.createRoomPrefab, this.node, function () {
+            cc.log("load success");
+        });
     },
 
     /**
@@ -102,6 +105,6 @@ cc.Class({
      */
     openMyRoomPanelOnClick: function(evt, data) {
 
-    },
+    }
 
 });
