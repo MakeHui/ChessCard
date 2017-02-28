@@ -12,7 +12,7 @@ cc.Class({
         soundPrefab: cc.Prefab,
         gameRulesPrefab: cc.Prefab,
         createRoomPrefab: cc.Prefab,
-        addGamePrefab: cc.Prefab,
+        inputRoomNumberPrefab: cc.Prefab,
         myRoomPrefab: cc.Prefab
     },
 
@@ -97,7 +97,9 @@ cc.Class({
      * 加入游戏房间
      */
     openAddGamePanelOnClick: function(evt, data) {
-
+        PX258.openDialog(this.inputRoomNumberPrefab, this.node, function () {
+            cc.log("load success");
+        });
     },
 
     /**

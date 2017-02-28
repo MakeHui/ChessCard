@@ -22,6 +22,10 @@ cc.Class({
             this.roomNumber += data;
             this["number" + this.roomNumber.length].spriteFrame = evt.target.children[0].getComponent(cc.Sprite).spriteFrame;
         }
+
+        if (this.roomNumber.length === 6) {
+
+        }
     },
 
     clearNumberOnClick: function(evt, data) {

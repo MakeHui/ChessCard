@@ -2654,8 +2654,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openAddGamePanelOnClick",
     "customEventData": ""
   },
@@ -3270,7 +3272,9 @@
     "createRoomPrefab": {
       "__uuid__": "8c7fa47c-3b31-4d27-8902-c15fa7f6a7af"
     },
-    "addGamePrefab": null,
+    "inputRoomNumberPrefab": {
+      "__uuid__": "6a8fce3a-61d9-4378-be9b-0731759cc8ca"
+    },
     "myRoomPrefab": null
   }
 ]
