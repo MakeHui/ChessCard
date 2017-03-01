@@ -1,3 +1,5 @@
+const httpRequestManager = require("HttpRequestManager");
+
 cc.Class({
     extends: cc.Component,
 
@@ -24,7 +26,22 @@ cc.Class({
         }
 
         if (this.roomNumber.length === 6) {
+            PX258.loading.open(this.node);
 
+            let parameters = {roomId: this.roomNumber};
+            let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
+            let self = this;
+            httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
+                if (result.getCode() == 1) {
+                    PX258.roomInfo = Tools.protobufToJson(result);
+                    PX258.loading.close();
+                    self.node.destroy();
+                    cc.director.loadScene('GameRoom');
+                }
+                else {
+                    PX258.loading.close();
+                }
+            });
         }
     },
 

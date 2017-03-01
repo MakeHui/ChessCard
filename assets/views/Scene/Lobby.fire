@@ -2804,8 +2804,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openMyRoomPanelOnClick",
     "customEventData": ""
   },
@@ -3275,6 +3277,8 @@
     "inputRoomNumberPrefab": {
       "__uuid__": "6a8fce3a-61d9-4378-be9b-0731759cc8ca"
     },
-    "myRoomPrefab": null
+    "myRoomPrefab": {
+      "__uuid__": "11b9a909-9404-4cb2-bb99-19eecf3a73ae"
+    }
   }
 ]

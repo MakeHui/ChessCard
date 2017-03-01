@@ -1,3 +1,5 @@
+const httpRequestManager = require("HttpRequestManager");
+
 cc.Class({
     extends: cc.Component,
 
@@ -5,12 +7,12 @@ cc.Class({
         gameIngCell: cc.Prefab,
         gameIngPanel: cc.Node,
         gameIngList: cc.Node,
-        gameIngData: [],
 
         gameEndCell: cc.Prefab,
         gameEndPanel: cc.Node,
         gameEndList: cc.Node,
-        gameEndData: [],
+
+        noDataCell: cc.Prefab,
 
         radioButton: {
             default: [],
@@ -20,8 +22,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.gameIngData = [1,2,3,4];
-        this.gameEndData = [1,2,3,4];
+        this._getHttpIngListForSelfData();
     },
 
     shareOnClick: function() {
@@ -37,24 +38,76 @@ cc.Class({
 
     radioButtonClicked: function(toggle) {
         let index = this.radioButton.indexOf(toggle);
-        if (index === 0 && this.gameIngData.length !== 0) {
+        if (index === 0) {
             this.gameEndPanel.active = false;
             this.gameIngPanel.active = true;
-            this.gameIngList.removeAllChildren();
-            for (let i = 0; i < this.gameIngData.length; ++i) {
-                PX258.tempCache = this.gameIngData[i];
-                cc.instantiate(this.gameIngCell).parent = this.gameIngList;
+            if (this.gameIngList.getChildByName('sa_item_noData') === null) {
+                this._getHttpIngListForSelfData();
             }
         }
-        else if (index === 1 && this.gameEndData.length !== 0) {
-            cc.log("xxx");
+        else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            this.gameEndList.removeAllChildren();
-            for (let i = 0; i < this.gameEndData.length; ++i) {
-                PX258.tempCache = this.gameEndData[i];
-                cc.instantiate(this.gameEndCell).parent = this.gameEndList;
+            cc.log(this.gameEndList.getChildByName('sa_item_noData'));
+            if (this.gameEndList.getChildByName('sa_item_noData') === null) {
+                this._getHttpEndListForSelfData();
             }
         }
-    }
+    },
+
+    _getHttpIngListForSelfData: function() {
+        PX258.loading.open(this.node);
+
+        let message = httpRequestManager.getRoomListRequestMessage();
+        let self = this;
+        httpRequestManager.httpRequest("roomList", message, function(event, result) {
+            if (result.getCode() == 1) {
+                if (roomItem.length > 0) {
+                    self.gameIngList.removeAllChildren();
+                    self.gameIngList.addChild(cc.instantiate(this.noDataCell));
+                }
+
+                let roomItem = result.getRoomItem();
+                for (let i = 0; i < roomItem.length; ++i) {
+                    let cell = cc.instantiate(this.gameIngCell);
+                    cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                    self.gameIngList.addChild(cell);
+                }
+            }
+            else {
+                cc.log(self.gameIngList.childrenCount);
+                if (self.gameIngList.childrenCount === 0) {
+                    self.gameIngList.addChild(cc.instantiate(self.noDataCell));
+                }
+            }
+            PX258.loading.close();
+        });
+    },
+
+    _getHttpEndListForSelfData: function() {
+        PX258.loading.open(this.node);
+
+        let message = httpRequestManager.getRecordListRequestMessage();
+        let self = this;
+        httpRequestManager.httpRequest("recordList", message, function(event, result) {
+            if (result.getCode() == 1) {
+                if (roomItem.length > 0) {
+                    this.gameEndList.removeAllChildren();
+                    this.gameEndList.addChild(cc.instantiate(this.noDataCell));
+                }
+                let roomItem = result.getRoomItem();
+                for (let i = 0; i < roomItem.length; ++i) {
+                    let cell = cc.instantiate(this.gameIngCell);
+                    cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                    self.gameIngList.addChild(cell);
+                }
+            }
+            else {
+                if (self.gameEndList.childrenCount === 0) {
+                    self.gameEndList.addChild(cc.instantiate(self.noDataCell));
+                }
+            }
+            PX258.loading.close();
+        });
+    },
 });

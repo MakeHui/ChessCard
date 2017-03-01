@@ -49,7 +49,7 @@ module.exports = {
             description: "login",
             protocol: "RecordInfo"
         },
-        recordList2: {
+        recordListSelf: {
             api: "room/record_self",
             description: "login",
             protocol: "RecordList"
@@ -169,12 +169,14 @@ module.exports = {
      */
     getRoomEnterRequestMessage: function(parameters) {
         let message = new proto.login.RoomEnterRequest();
-        message.setAppUuid(parameters.appUuid);
-        message.setGameUuid(parameters.gameUuid);
-        message.setPlayerUuid(parameters.playerUuid);
-        message.setDeviceId(parameters.deviceId);
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+
+        message.setAppUuid(PX258.appUuid);
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setDeviceId(PX258.getDeviceId());
         message.setRoomId(parameters.roomId);
 
+        cc.log([PX258.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
         return message;
     },
 
@@ -188,9 +190,11 @@ module.exports = {
      */
     getRoomListRequestMessage: function(parameters) {
         let message = new proto.login.RoomListRequest();
-        message.setAppUuid(parameters.appUuid);
-        message.setPlayerUuid(parameters.playerUuid);
-        message.setDeviceId(parameters.deviceId);
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+
+        message.setAppUuid(PX258.appUuid);
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setDeviceId(PX258.getDeviceId());
 
         return message;
     },
@@ -206,9 +210,11 @@ module.exports = {
      */
     getRecordListRequestMessage: function(parameters) {
         let message = new proto.login.RecordListRequest();
-        message.setAppUuid(parameters.appUuid);
-        message.setPlayerUuid(parameters.playerUuid);
-        message.setDeviceId(parameters.deviceId);
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+
+        message.setAppUuid(PX258.appUuid);
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setDeviceId(PX258.getDeviceId());
 
         return message;
     },

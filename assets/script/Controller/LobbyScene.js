@@ -106,7 +106,9 @@ cc.Class({
      * 我的游戏房间
      */
     openMyRoomPanelOnClick: function(evt, data) {
-
+        PX258.openDialog(this.myRoomPrefab, this.node, function () {
+            cc.log("load success");
+        });
     }
 
 });
