@@ -46,8 +46,7 @@ cc.Class({
     createRoomOnClick: function() {
         PX258.loading.open(this.node);
 
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
-        let parameters = {gameUuid: this.gameUuid, playerUuid: userInfo.playerUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
+        let parameters = {gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
         let message = httpRequestManager.getRoomCreateRequestMessage(parameters);
         let self = this;
         httpRequestManager.httpRequest("roomCreate", message, function(event, result) {

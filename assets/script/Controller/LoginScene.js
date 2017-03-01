@@ -72,7 +72,7 @@ cc.Class({
      */
     userAgreementOnClick: function(event, data) {
         cc.log("xxxxxxx");
-        PX258.openDialog(this.userAgreement, this.node, function () {
+        PX258.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
             cc.log("load success");
         });
     }

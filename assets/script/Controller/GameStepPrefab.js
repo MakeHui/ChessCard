@@ -14,18 +14,10 @@ cc.Class({
         username3: cc.Label,
         username4: cc.Label,
     },
-    
 
     // use this for initialization
     onLoad: function () {
-        this.gameStepData = [1,2,3,4,5];
-        if (this.gameStepData.length !== 0) {
-            this.gameStepList.removeAllChildren();
-            for (let i = 0; i < this.gameStepData.length; ++i) {
-                // PX258.tempCache = this.gameStepData[i];
-                cc.instantiate(this.gameStepCell).parent = this.gameStepList;
-            }
-        }
+
     },
 
     seeOtherRoomOnClick: function() {
@@ -41,5 +33,36 @@ cc.Class({
 
     shareOnClick: function(evt, data) {
 
+    },
+
+    setData: function(data) {
+        this.roomId = data;
+        this._getHttpRecordInfoData();
+    },
+
+    _getHttpRecordInfoData: function() {
+        PX258.loading.open(this.node);
+
+        let message = httpRequestManager.getRecordInfoRequestMessage();
+        let self = this;
+        httpRequestManager.httpRequest("recordInfo", message, function(event, result) {
+            if (result.getCode() == 1) {
+                self.datetime.string = result.getDatetime();
+                let recordInfoDataList = result.getRecordInfoDataList();
+                if (recordInfoDataList.length !== 0) {
+                    self.gameRecordList.removeAllChildren();
+                    for (let i = 0; i < recordInfoDataList.length; ++i) {
+                        let cell = cc.instantiate(this.gameStepCell);
+                        cell.getComponent('GameStepCellPrefab').setData(recordInfoDataList[i], this.roomId);
+                        self.gameStepList.addChild(cell);
+                    }
+
+                }
+            }
+            else {
+
+            }
+            PX258.loading.close();
+        });
     }
 });

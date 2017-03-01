@@ -62,14 +62,14 @@ cc.Class({
         let self = this;
         httpRequestManager.httpRequest("roomList", message, function(event, result) {
             if (result.getCode() == 1) {
-                if (roomItem.length > 0) {
+                let roomItem = result.getRoomItemList();
+                cc.log(roomItem.length);
+                if (roomItem.length === 0) {
                     self.gameIngList.removeAllChildren();
-                    self.gameIngList.addChild(cc.instantiate(this.noDataCell));
+                    self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }
-
-                let roomItem = result.getRoomItem();
                 for (let i = 0; i < roomItem.length; ++i) {
-                    let cell = cc.instantiate(this.gameIngCell);
+                    let cell = cc.instantiate(self.gameIngCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
                     self.gameIngList.addChild(cell);
                 }
@@ -91,13 +91,13 @@ cc.Class({
         let self = this;
         httpRequestManager.httpRequest("recordList", message, function(event, result) {
             if (result.getCode() == 1) {
+                let roomItem = result.getRoomItem();
                 if (roomItem.length > 0) {
                     this.gameEndList.removeAllChildren();
                     this.gameEndList.addChild(cc.instantiate(this.noDataCell));
                 }
-                let roomItem = result.getRoomItem();
                 for (let i = 0; i < roomItem.length; ++i) {
-                    let cell = cc.instantiate(this.gameIngCell);
+                    let cell = cc.instantiate(this.gameEndCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
                     self.gameIngList.addChild(cell);
                 }

@@ -148,14 +148,16 @@ module.exports = {
      */
     getRoomCreateRequestMessage: function(parameters) {
         let message = new proto.login.RoomCreateRequest();
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+
         message.setAppUuid(PX258.appUuid);
         message.setGameUuid(parameters.gameUuid);
-        message.setPlayerUuid(parameters.playerUuid);
+        message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(PX258.getDeviceId());
         message.setMaxRounds(parameters.maxRounds);
         message.setRoomConfig(parameters.roomConfig);
 
-        cc.log([parameters.playerUuid, PX258.appUuid, PX258.getDeviceId()]);
+        cc.log(parameters);
         return message;
     },
 
@@ -215,6 +217,7 @@ module.exports = {
         message.setAppUuid(PX258.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(PX258.getDeviceId());
+        message.setRoomId(parameters.roomId);
 
         return message;
     },
@@ -279,7 +282,7 @@ module.exports = {
         request.onload = function(event) {
             let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
             result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
-            
+
             callback(event, result);
             cc.log("HttpRequestManager.httpRequest " + protocolName + " , code: "  + result.getCode());
         };

@@ -10,6 +10,10 @@ cc.Class({
         nickname: {
             default: [],
             type: cc.Label
+        },
+        playerPanel: {
+            default: [],
+            type: cc.Node,
         }
     },
 
@@ -19,10 +23,11 @@ cc.Class({
     },
 
     setData: function(data) {
-        let player = data.getPlayer();
+        let player = data.getPlayerList();
         for (let i = 0; i < player.length; ++i) {
             Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
             this.nickname[i].string = player[i].getPlayerName();
+            this.playerPanel[i].active = true;
         }
         this.roomNumber.string = '房间号: ' + data.getRoomId();
     }

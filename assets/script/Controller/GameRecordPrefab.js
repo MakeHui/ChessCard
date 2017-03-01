@@ -6,72 +6,16 @@ cc.Class({
         gameRecordCell: cc.Prefab,
         gameRecordList: cc.Node,
         gameRecordData: [],
+
     },
 
     // use this for initialization
     onLoad: function () {
-        this.gameRecordData = [
-            {
-                roomNumber: 123123123,
-                datetime: "2017-02-12",
-                userList: [
-                    {
-                        avatar: "http://ww3.sinaimg.cn/mw690/ab41dfeegw1emxsjnhwcnj205k05kt8w.jpg",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "http://image.famishare.cn/default/dajinkuai.png",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "http://ww3.sinaimg.cn/mw690/ab41dfeegw1emxsjnhwcnj205k05kt8w.jpg",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "http://collegevscollege.oss-cn-hangzhou.aliyuncs.com/px258/test/guest_headimg.png",
-                        username: "xxxx",
-                        point: 123,
-                    }
-                ],
-            },
-            {
-                roomNumber: 123123123,
-                datetime: "2017-02-13",
-                userList: [
-                    {
-                        avatar: "https://www.google.com.hk/logos/doodles/2017/lantern-festival-2017-china-hong-kong-5653647470886912.2-scta.png",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "https://www.google.com.hk/logos/doodles/2017/lantern-festival-2017-china-hong-kong-5653647470886912.2-scta.png",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "https://www.google.com.hk/logos/doodles/2017/lantern-festival-2017-china-hong-kong-5653647470886912.2-scta.png",
-                        username: "xxxx",
-                        point: 123,
-                    },
-                    {
-                        avatar: "https://www.google.com.hk/logos/doodles/2017/lantern-festival-2017-china-hong-kong-5653647470886912.2-scta.png",
-                        username: "xxxx",
-                        point: 123,
-                    }
-                ],
-            }
-        ];
+        cc.log("onLoad");
+    },
 
-        if (this.gameRecordData.length !== 0) {
-            this.gameRecordList.removeAllChildren();
-            for (let i = 0; i < this.gameRecordData.length; ++i) {
-                PX258.tempCache = this.gameRecordData[i];
-                cc.instantiate(this.gameRecordCell).parent = this.gameRecordList;
-            }
-        }
+    start: function() {
+        cc.log("start");
     },
 
     seeOtherRoomOnClick: function() {
@@ -83,5 +27,33 @@ cc.Class({
      */
     closeOnClick: function(event, data) {
         PX258.closeDialog(this.node);
+    },
+
+    setData: function(data) {
+        this.roomId = data;
+    },
+
+    _getHttpGameRecordData: function () {
+        PX258.loading.open(this.node);
+
+        let message = httpRequestManager.getRecordListRequestMessage();
+        let self = this;
+        httpRequestManager.httpRequest("recordListSelf", message, function(event, result) {
+            if (result.getCode() == 1) {
+                let roomItemList = result.getRoomItemList();
+                if (roomItemList.length !== 0) {
+                    self.gameRecordList.removeAllChildren();
+                    for (let i = 0; i < roomItemList.length; ++i) {
+                        let cell = cc.instantiate(this.gameIngCell);
+                        cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                        self.gameRecordList.addChild(cell);
+                    }
+                }
+            }
+            else {
+
+            }
+            PX258.loading.close();
+        });
     }
 });

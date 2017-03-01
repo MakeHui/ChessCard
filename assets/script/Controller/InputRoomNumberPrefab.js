@@ -26,22 +26,12 @@ cc.Class({
         }
 
         if (this.roomNumber.length === 6) {
-            PX258.loading.open(this.node);
+            if (this.gotoScene == 'GameRoom') {
+                this._getHttpRoomEnterData();
+            }
+            else if (this.gotoScene == 'ReviewRoom') {
 
-            let parameters = {roomId: this.roomNumber};
-            let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
-            let self = this;
-            httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
-                if (result.getCode() == 1) {
-                    PX258.roomInfo = Tools.protobufToJson(result);
-                    PX258.loading.close();
-                    self.node.destroy();
-                    cc.director.loadScene('GameRoom');
-                }
-                else {
-                    PX258.loading.close();
-                }
-            });
+            }
         }
     },
 
@@ -67,5 +57,28 @@ cc.Class({
      */
     closeOnClick: function(event, data) {
         PX258.closeDialog(this.node);
+    },
+
+    _getHttpRoomEnterData: function() {
+        PX258.loading.open(this.node);
+
+        let parameters = {roomId: this.roomNumber};
+        let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
+        let self = this;
+        httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
+            if (result.getCode() == 1) {
+                PX258.roomInfo = Tools.protobufToJson(result);
+                PX258.loading.close();
+                self.node.destroy();
+                cc.director.loadScene('GameRoom');
+            }
+            else {
+                PX258.loading.close();
+            }
+        });
+    },
+
+    setData: function(data) {
+        this.gotoScene = data;
     }
 });

@@ -15,12 +15,22 @@ cc.Class({
         point: {
             default: [],
             type: cc.Label,
-        }
+        },
+
+        gameRecord: cc.Prefab,
     },
 
     // use this for initialization
     onLoad: function () {
 
+    },
+
+    openGameRecordOnClick: function() {
+        PX258.loading.open(this.node);
+
+        let node = cc.instantiate(self.gameRecord);
+        node.getComponent("GameStep").setData(this.roomId);
+        PX258.openDialog(node, self.node);
     },
 
     setData: function(data) {
@@ -32,5 +42,7 @@ cc.Class({
         }
         this.roomNumber.string = '房间号: ' + data.getRoomId();
         this.datetime.string = data.getDateTime();
+
+        this.roomId = data.getRoomId();
     }
 });

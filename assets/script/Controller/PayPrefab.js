@@ -18,7 +18,7 @@ cc.Class({
     },
 
     payOnClick: function(evt, data) {
-        PX258.openDialog(this.shopStore, this.node, function () {
+        PX258.openDialog(cc.instantiate(this.shopStore), this.node, function () {
             cc.log("load success");
         });
     }

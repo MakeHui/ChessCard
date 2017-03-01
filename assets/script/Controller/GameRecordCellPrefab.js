@@ -51,7 +51,7 @@ cc.Class({
     },
 
     openDetailsOnClick: function() {
-        PX258.openDialog(this.gameStep, this.node, function () {
+        PX258.openDialog(cc.instantiate(this.gameStep), this.node, function () {
             cc.log("downloader success");
         });
     }

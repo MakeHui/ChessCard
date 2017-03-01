@@ -201,12 +201,11 @@ window.PX258 = {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:46:33+0800
  *
- * @param    {cc.Node}                 dialog     需要弹出的节点对象
+ * @param    {cc.Node}                 node     需要弹出的节点对象
  * @param    {cc.Node}                 parentNode 父节点对象
  * @param    {function}               callback   执行完毕后的回调方法
  */
-window.PX258.openDialog = function(dialog, parentNode, callback) {
-    let node = cc.instantiate(dialog);
+window.PX258.openDialog = function(node, parentNode, callback) {
     parentNode.addChild(node);
 
     // Animation.openSceneTransitionAction(node.getChildByName("Dialog"), callback);

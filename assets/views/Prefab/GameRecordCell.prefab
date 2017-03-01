@@ -328,6 +328,7 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": null,
     "_alignFlags": 18,
     "_left": 0,
     "_right": 0,
@@ -2437,57 +2438,63 @@
     "sync": false
   },
   {
-    "__type__": "42e29gwi5dJ0YTQneWs5TQ1",
+    "__type__": "efac47DEMNE5ptxv3At5+iT",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "gameStep": {
-      "__uuid__": "a81cf799-5055-428b-9797-5f7490c93796"
+    "datetime": {
+      "__id__": 21
     },
     "roomNumber": {
       "__id__": 18
     },
-    "datetime": {
-      "__id__": 21
-    },
-    "avatar1": {
-      "__id__": 25
-    },
-    "username1": {
-      "__id__": 31
-    },
-    "point1": {
-      "__id__": 34
-    },
-    "avatar2": {
-      "__id__": 39
-    },
-    "username2": {
-      "__id__": 45
-    },
-    "point2": {
-      "__id__": 48
-    },
-    "avatar3": {
-      "__id__": 53
-    },
-    "username3": {
-      "__id__": 59
-    },
-    "point3": {
-      "__id__": 62
-    },
-    "avatar4": {
-      "__id__": 67
-    },
-    "username4": {
-      "__id__": 73
-    },
-    "point4": {
-      "__id__": 76
+    "avatar": [
+      {
+        "__id__": 25
+      },
+      {
+        "__id__": 39
+      },
+      {
+        "__id__": 53
+      },
+      {
+        "__id__": 67
+      }
+    ],
+    "nickname": [
+      {
+        "__id__": 31
+      },
+      {
+        "__id__": 45
+      },
+      {
+        "__id__": 59
+      },
+      {
+        "__id__": 73
+      }
+    ],
+    "point": [
+      {
+        "__id__": 34
+      },
+      {
+        "__id__": 48
+      },
+      {
+        "__id__": 62
+      },
+      {
+        "__id__": 76
+      }
+    ],
+    "gameRecord": {
+      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
     }
   },
   {
