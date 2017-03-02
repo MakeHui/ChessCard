@@ -208,10 +208,10 @@ cc.Class({
     emojiChatOnClick: function(evt, data) {
         this.fastChatProgressBar.progress = 1.0;
         this.fastChatShowTime = +new Date();
-        var self = this;
+        let self = this;
 
         window.Tools.loadPrefab("emoji/emotion" + data, function(prefab) {
-            var node = cc.instantiate(prefab);
+            let node = cc.instantiate(prefab);
             self.emojiNode = node;
             self.node.addChild(node);
             node.getComponent(cc.Animation).play("emotion" + data);
@@ -244,7 +244,7 @@ cc.Class({
 
     _showActionPanel: function(indexs) {
         if (indexs.length === 1) {
-            var self = this;
+            let self = this;
             self._hideActionPanel();
             this.scheduleOnce(function() {
                 self._hideActionPanel();
@@ -257,16 +257,16 @@ cc.Class({
     },
 
     _appendCardToHandCardDistrict: function(player, data) {
-        for (var i = 0; i < data.length; i++) {
-            var node = cc.instantiate(this.handCardPrefabs[player]);
+        for (let i = 0; i < data.length; i++) {
+            let node = cc.instantiate(this.handCardPrefabs[player]);
             if (player === 0) {
-                var backgroundNode = node.getChildByName("background");
-                var clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
+                let backgroundNode = node.getChildByName("background");
+                let clickEventHandler = window.Tools.createEventHandler(this.node, "GameRoomScene", "selectedHandCardOnClick", i);
                 backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
                 // todo: 数据组装
             }
             node.getChildByName("UserData").string = "xxxxxx";
-            
+
             this.handCardDistrict[player].addChild(node);
 
             // if (player === 0 && i === 0) {
@@ -276,9 +276,10 @@ cc.Class({
     },
 
     _appendCardToPongKongChowDistrict: function(player, data) {
-        var index = player % 2;
+        let index = player % 2;
+        let node = cc.Node;
         if(data.type === "gang") {
-            var node = cc.instantiate(this.concealedKongPrefab[index]);
+            node = cc.instantiate(this.concealedKongPrefab[index]);
             // todo: 数据组装
         }
         this.pongKongChowDistrict[player].addChild(node);
@@ -293,8 +294,8 @@ cc.Class({
     selectedHandCardOnClick: function(event, data) {
         if (this.handCardIsSelected === data) {
             event.target.parent.destroy();
-            var node = cc.instantiate(this.dirtyCardPrefabs[0]);
-            var backgroundNode = node.getChildByName("background");
+            let node = cc.instantiate(this.dirtyCardPrefabs[0]);
+            let backgroundNode = node.getChildByName("background");
             this.dirtyCardDistrict[0].addChild(node);
             return;
         }
@@ -305,6 +306,12 @@ cc.Class({
         event.target.setPositionY(24);
 
         cc.log(event.target.parent.getChildByName("UserData").string);
+    },
+
+    closeOnClick: function() {
+        // cc.log(window.lastScene);
+        // cc.director.runScene(window.lastScene);
+        cc.director.loadScene('LobbyScene');
     }
 
 });
