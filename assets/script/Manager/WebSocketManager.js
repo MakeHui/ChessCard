@@ -1,4 +1,4 @@
-module.exports = {
+window.webSocketManager = {
     _socket: null,
     
     _onopenListener: [],
@@ -11,31 +11,31 @@ module.exports = {
 
     _openSocket: function(url) {
         this._socket = new WebSocket(url);
-        var self = this;
+        let self = this;
 
         this._socket.onopen = function(evt) {
-            for (var i = 0; i < self._onopenListener.length; i++) {
+            for (let i = 0; i < self._onopenListener.length; i++) {
                 self._onopenListener[i](evt)
             }
             cc.log("onopen: " + evt);
-        }
+        };
 
         this._socket.onmessage = function(evt) {
-            for (var i = 0; i < self._onmessageListener.length; i++) {
+            for (let i = 0; i < self._onmessageListener.length; i++) {
                 self._onmessageListener[i](evt)
             }
             cc.log("onmessage: " + evt.data);
-        }
+        };
 
         this._socket.onerror = function(evt) {
-            for (var i = 0; i < self._onerrorListener.length; i++) {
+            for (let i = 0; i < self._onerrorListener.length; i++) {
                 self._onerrorListener[i](evt)
             }
             cc.log("onerror: " + evt);
-        }
+        };
 
         this._socket.onclose = function(evt) {
-            for (var i = 0; i < self._oncloseListener.length; i++) {
+            for (let i = 0; i < self._oncloseListener.length; i++) {
                 self._oncloseListener[i](evt)
             }
             cc.log("onclose: " + evt);
@@ -92,4 +92,4 @@ module.exports = {
         Global.removeArrayInValue(this._oncloseListener, listner);
     },
 
-}
+};

@@ -1,4 +1,4 @@
-module.exports = {
+window.httpRequestManager = {
     /**
      * 接口名协议
      * @type {Object}
@@ -217,7 +217,6 @@ module.exports = {
         message.setAppUuid(PX258.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(PX258.getDeviceId());
-        message.setRoomId(parameters.roomId);
 
         return message;
     },

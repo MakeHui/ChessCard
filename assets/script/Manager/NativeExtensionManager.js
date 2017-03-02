@@ -13,7 +13,7 @@ window.NativeExtensionManager = {
             return;
         }
 
-        var args = Array.prototype.slice.call(arguments);
+        let args = Array.prototype.slice.call(arguments);
         args.splice(0, 1);
         nativeExtension[methodName].apply(this, args);
     }

@@ -17,8 +17,26 @@ cc.Class({
         }
     },
 
-    // use this for initialization
-    onLoad: function () {
+    enterGameRoomOnClick: function() {
+        PX258.loading.open(this.node);
+
+        let parameters = {roomId: this.roomId};
+        let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
+        let self = this;
+        httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
+            if (result.getCode() == 1) {
+                PX258.roomInfo = Tools.protobufToJson(result);
+                PX258.loading.close();
+                self.node.destroy();
+                cc.director.loadScene('GameRoom');
+            }
+            else {
+                PX258.loading.close();
+            }
+        });
+    },
+
+    wechatShareOnClick: function() {
 
     },
 
@@ -30,5 +48,6 @@ cc.Class({
             this.playerPanel[i].active = true;
         }
         this.roomNumber.string = '房间号: ' + data.getRoomId();
+        this.roomId = data.getRoomId();
     }
 });

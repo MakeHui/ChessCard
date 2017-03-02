@@ -24,7 +24,7 @@
     "_parent": null,
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 0.5,
       "y": 1
     },
     "_contentSize": {
@@ -55,7 +55,7 @@
         "__id__": 40
       },
       {
-        "__id__": 47
+        "__id__": 48
       }
     ],
     "_rotationX": 0,
@@ -77,11 +77,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 54
+        "__id__": 56
       }
     ],
     "_prefab": {
-      "__id__": 55
+      "__id__": 57
     },
     "groupIndex": 0
   },
@@ -103,7 +103,7 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 0.5,
       "y": 1
     },
     "_contentSize": {
@@ -196,7 +196,7 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 0.5,
       "y": 0.5
     },
     "_contentSize": {
@@ -211,7 +211,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 5,
+      "x": -395,
       "y": -66
     },
     "_skewX": 0,
@@ -303,7 +303,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -520,
       "y": 0
     },
     "_skewX": 0,
@@ -549,7 +549,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -520,
       "y": 0
     },
     "_skewX": 0,
@@ -795,7 +795,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -520,
       "y": 0
     },
     "_skewX": 0,
@@ -1041,7 +1041,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": -520,
       "y": 0
     },
     "_skewX": 0,
@@ -1284,7 +1284,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 727,
+      "x": 204,
       "y": -66
     },
     "_skewX": 0,
@@ -1300,11 +1300,11 @@
         "__id__": 44
       },
       {
-        "__id__": 45
+        "__id__": 46
       }
     ],
     "_prefab": {
-      "__id__": 46
+      "__id__": 47
     },
     "groupIndex": 0
   },
@@ -1401,7 +1401,7 @@
       "__id__": 40
     },
     "_enabled": true,
-    "transition": 2,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -1417,12 +1417,16 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1,
     "pressedSprite": null,
     "hoverSprite": {
       "__uuid__": "8506f5e4-3277-4228-a0e3-89610722339a"
     },
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 45
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
@@ -1446,6 +1450,15 @@
     "_N$target": {
       "__id__": 40
     }
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "GameIngCellPrefab",
+    "handler": "enterGameRoomOnClick",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Sprite",
@@ -1514,7 +1527,7 @@
     },
     "_children": [
       {
-        "__id__": 48
+        "__id__": 49
       }
     ],
     "_rotationX": 0,
@@ -1523,7 +1536,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 916,
+      "x": 393,
       "y": -66
     },
     "_skewX": 0,
@@ -1536,14 +1549,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 51
+        "__id__": 52
       },
       {
-        "__id__": 52
+        "__id__": 54
       }
     ],
     "_prefab": {
-      "__id__": 53
+      "__id__": 55
     },
     "groupIndex": 0
   },
@@ -1561,7 +1574,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 47
+      "__id__": 48
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1593,11 +1606,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 49
+        "__id__": 50
       }
     ],
     "_prefab": {
-      "__id__": 50
+      "__id__": 51
     },
     "groupIndex": 0
   },
@@ -1606,7 +1619,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 48
+      "__id__": 49
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -1637,10 +1650,10 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 47
+      "__id__": 48
     },
     "_enabled": true,
-    "transition": 2,
+    "transition": 3,
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -1656,12 +1669,16 @@
       "a": 255
     },
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 1.05,
     "pressedSprite": null,
     "hoverSprite": {
       "__uuid__": "c372348b-b946-4d20-af29-938fd3f37388"
     },
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 53
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
@@ -1683,15 +1700,24 @@
     },
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 47
+      "__id__": 48
     }
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "GameIngCellPrefab",
+    "handler": "wechatShareOnClick",
+    "customEventData": ""
   },
   {
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 47
+      "__id__": 48
     },
     "_enabled": true,
     "_spriteFrame": {

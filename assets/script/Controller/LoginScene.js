@@ -1,6 +1,3 @@
-const httpRequestManager = require("HttpRequestManager");
-const webSocketManager = require("WebSocketManager");
-
 cc.Class({
     extends: cc.Component,
 

@@ -97,7 +97,9 @@ cc.Class({
      * 加入游戏房间
      */
     openAddGamePanelOnClick: function(evt, data) {
-        PX258.openDialog(cc.instantiate(this.inputRoomNumberPrefab), this.node, function () {
+        let node = cc.instantiate(this.inputRoomNumberPrefab);
+        node.getComponent('InputRoomNumberPrefab').setData('GameRoom');
+        PX258.openDialog(node, this.node, function () {
             cc.log("load success");
         });
     },

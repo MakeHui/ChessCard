@@ -1,5 +1,3 @@
-const httpRequestManager = require("HttpRequestManager");
-
 cc.Class({
     extends: cc.Component,
 
