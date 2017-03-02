@@ -21,6 +21,10 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this._getHttpIngListForSelfData();
+        // let self = this;
+        // this.node.getChildByName('Dialog').getComponent(cc.Animation).on('stop', function() {
+        //     self.node.destroy();
+        // }, this);
     },
 
     shareOnClick: function() {
@@ -31,7 +35,9 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
+
+        // PX258.closeDialog(this.node);
     },
 
     radioButtonClicked: function(toggle) {

@@ -1,9 +1,57 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "",
+  "_name": "CloseDialog",
   "_objFlags": 0,
-  "_duration": 0,
+  "_rawFiles": null,
+  "_duration": 0.21666666666666667,
   "sample": 60,
-  "curveData": {},
-  "events": []
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "scaleX": [
+        {
+          "frame": 0,
+          "value": 1
+        },
+        {
+          "frame": 0.05,
+          "value": 1.2
+        },
+        {
+          "frame": 0.21666666666666667,
+          "value": 0
+        },
+        {
+          "frame": 0.21666666666666667,
+          "value": 1
+        }
+      ],
+      "scaleY": [
+        {
+          "frame": 0,
+          "value": 1
+        },
+        {
+          "frame": 0.05,
+          "value": 1.2
+        },
+        {
+          "frame": 0.21666666666666667,
+          "value": 0
+        },
+        {
+          "frame": 0.21666666666666667,
+          "value": 1
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "frame": 0.21666666666666667,
+      "func": "closeSceneOnClick",
+      "params": []
+    }
+  ]
 }
