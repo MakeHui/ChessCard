@@ -68,7 +68,6 @@ window.HttpRequestManager.requestProtocol = {
     }
 };
 
-
 /**********************************************************************************************************************
  *                                      RequestMessage 构造方法
  **********************************************************************************************************************/
@@ -284,12 +283,12 @@ window.HttpRequestManager.requestMessage = {
 /**
  * http请求方法
  *
- * @param protocolName
+ * @param name
  * @param parameters
  * @param callback
  */
-window.HttpRequestManager.httpRequest = function(protocolName, parameters, callback) {
-    let protocol = HttpRequestManager.requestProtocol[protocolName];
+window.HttpRequestManager.httpRequest = function(name, parameters, callback) {
+    let protocol = HttpRequestManager.requestProtocol[name];
     let message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
     let request = cc.loader.getXMLHttpRequest();
 
@@ -301,6 +300,6 @@ window.HttpRequestManager.httpRequest = function(protocolName, parameters, callb
         result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
 
         callback(event, result);
-        cc.log("HttpRequestManager.httpRequest " + protocolName + " , code: "  + result.getCode());
+        cc.log("HttpRequestManager.httpRequest " + name + " , code: "  + result.getCode());
     };
 };
