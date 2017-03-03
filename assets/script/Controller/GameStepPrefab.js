@@ -43,9 +43,8 @@ cc.Class({
     _getHttpRecordInfoData: function() {
         PX258.loading.open(this.node);
 
-        let message = httpRequestManager.getRecordInfoRequestMessage();
         let self = this;
-        httpRequestManager.httpRequest("recordInfo", message, function(event, result) {
+        HttpRequestManager.httpRequest("recordInfo", {}, function(event, result) {
             if (result.getCode() == 1) {
                 self.datetime.string = result.getDatetime();
                 let recordInfoDataList = result.getRecordInfoDataList();

@@ -18,8 +18,8 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        this.node.setLocalZOrder(-1);
-        cc.game.addPersistRootNode(this.node);
+        // this.node.setLocalZOrder(-1);
+        // cc.game.addPersistRootNode(this.node);
 
         let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
         if (userInfo) {
@@ -111,10 +111,10 @@ cc.Class({
      * 我的游戏房间
      */
     openMyRoomPanelOnClick: function(evt, data) {
-        cc.director.loadScene('MyRoom');
-        // PX258.openDialog(cc.instantiate(this.myRoomPrefab), this.node, function () {
-        //     cc.log("load success");
-        // });
+        // cc.director.loadScene('MyRoom');
+        PX258.openDialog(cc.instantiate(this.myRoomPrefab), this.node, function () {
+            cc.log("load success");
+        });
     }
 
 });

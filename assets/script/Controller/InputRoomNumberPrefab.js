@@ -60,14 +60,13 @@ cc.Class({
     _getHttpRoomEnterData: function() {
         PX258.loading.open(this.node);
 
-        let parameters = {roomId: this.roomNumber};
-        let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
         let self = this;
-        httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
+        let parameters = {roomId: this.roomNumber};
+        httpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
             if (result.getCode() == 1) {
-                PX258.roomInfo = Tools.protobufToJson(result);
                 PX258.loading.close();
                 self.node.destroy();
+                PX258.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {

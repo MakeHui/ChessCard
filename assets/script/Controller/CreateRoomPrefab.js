@@ -44,10 +44,9 @@ cc.Class({
     createRoomOnClick: function() {
         PX258.loading.open(this.node);
 
-        let parameters = {gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
-        let message = httpRequestManager.getRoomCreateRequestMessage(parameters);
         let self = this;
-        httpRequestManager.httpRequest("roomCreate", message, function(event, result) {
+        let parameters = {gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
+        HttpRequestManager.httpRequest("roomCreate", parameters, function(event, result) {
             if (result.getCode() == 1) {
                 PX258.roomInfo = Tools.protobufToJson(result);
                 PX258.loading.close();

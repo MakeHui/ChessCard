@@ -230,21 +230,6 @@ window.PX258.closeDialog = function(node, callback) {
 };
 
 /**
- * 获取 tempCache 的值
- * 获取完后销毁该值
- *
- * @author Make.<makehuir@gmail.com>
- * @datetime 2017-02-14T18:48:21+0800
- *
- */
-window.PX258.getTempCache = function() {
-    let cache = window.PX258.tempCache;
-    window.PX258.tempCache = null;
-
-    return cache;
-};
-
-/**
  * 获取设备id
  * 这里只是简单的生成了一个随机的id, 并保存在了本地
  * 当重新登录后会重新生成

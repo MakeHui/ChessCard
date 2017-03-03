@@ -36,9 +36,8 @@ cc.Class({
     _getHttpGameRecordData: function () {
         PX258.loading.open(this.node);
 
-        let message = httpRequestManager.getRecordListRequestMessage();
         let self = this;
-        httpRequestManager.httpRequest("recordListSelf", message, function(event, result) {
+        HttpRequestManager.httpRequest("recordListSelf", {}, function(event, result) {
             if (result.getCode() == 1) {
                 let roomItemList = result.getRoomItemList();
                 if (roomItemList.length !== 0) {

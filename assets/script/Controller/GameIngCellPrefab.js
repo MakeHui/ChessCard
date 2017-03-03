@@ -20,10 +20,9 @@ cc.Class({
     enterGameRoomOnClick: function() {
         PX258.loading.open(this.node);
 
-        let parameters = {roomId: this.roomId};
-        let message = httpRequestManager.getRoomEnterRequestMessage(parameters);
         let self = this;
-        httpRequestManager.httpRequest("roomEnter", message, function(event, result) {
+        let parameters = {roomId: this.roomId};
+        httpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
             if (result.getCode() == 1) {
                 PX258.roomInfo = Tools.protobufToJson(result);
                 PX258.loading.close();

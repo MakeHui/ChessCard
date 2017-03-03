@@ -19,8 +19,8 @@ cc.Class({
      * 检查客户端更新
      */
     checkVersion: function() {
-        let message = httpRequestManager.getCheckVersionRequestMessage(123, "123", 1);
-        httpRequestManager.httpRequest(PX258.httpRequestName.check, message, function(event, data) {
+        let message = HttpRequestManager.getCheckVersionRequestMessage(123, "123", 1);
+        HttpRequestManager.httpRequest(PX258.httpRequestName.check, message, function(event, data) {
             data = proto.login.CheckVersionResponse.deserializeBinary(data);
             cc.log(event);
             cc.log(data.getCode());
@@ -36,8 +36,7 @@ cc.Class({
         PX258.loading.open(this.node);
 
         let parameters = {wxCode: "fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", location: "江西 南昌"};
-        let message = httpRequestManager.getLoginRequestMessage(parameters);
-        httpRequestManager.httpRequest("login", message, function(event, result) {
+        HttpRequestManager.httpRequest("login", parameters, function(event, result) {
             if (result.getCode() == 1) {
                 result = Tools.protobufToJson(result);
                 Tools.setLocalData(PX258.localStorageKey.userInfo, result);

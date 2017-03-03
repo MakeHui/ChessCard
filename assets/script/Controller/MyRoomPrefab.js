@@ -35,9 +35,9 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
+        // this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
 
-        // PX258.closeDialog(this.node);
+        PX258.closeDialog(this.node);
     },
 
     radioButtonClicked: function(toggle) {
@@ -62,9 +62,8 @@ cc.Class({
     _getHttpIngListForSelfData: function() {
         PX258.loading.open(this.node);
 
-        let message = httpRequestManager.getRoomListRequestMessage();
         let self = this;
-        httpRequestManager.httpRequest("roomList", message, function(event, result) {
+        HttpRequestManager.httpRequest("roomList", {}, function(event, result) {
             if (result.getCode() == 1) {
                 let roomItem = result.getRoomItemList();
                 cc.log(roomItem.length);
@@ -91,9 +90,8 @@ cc.Class({
     _getHttpEndListForSelfData: function() {
         PX258.loading.open(this.node);
 
-        let message = httpRequestManager.getRecordListRequestMessage();
         let self = this;
-        httpRequestManager.httpRequest("recordList", message, function(event, result) {
+        HttpRequestManager.httpRequest("recordList", {}, function(event, result) {
             if (result.getCode() == 1) {
                 let roomItem = result.getRoomItem();
                 if (roomItem.length > 0) {

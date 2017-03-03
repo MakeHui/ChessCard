@@ -1,71 +1,79 @@
-window.httpRequestManager = {
-    /**
-     * 接口名协议
-     * @type {Object}
-     */
-    requestProtocol: {
-        check: {
-            api: "client/check",
-            description: "login", 
-            protocol: "CheckVersion"
-        },
-        login: {
-            api: "client/login",
-            description: "login", 
-            protocol: "Login"
-        },
-        heartbeat: {
-            api: "client/heartbeat",
-            description: "login", 
-            protocol: " Heartbeat"
-        },
-        playerGold: {
-            api: "login/balance",
-            description: "login", 
-            protocol: "PlayerGold"
-        },
-        roomCreate: {
-            api: "room/create",
-            description: "login",
-            protocol: "RoomCreate"
-        },
-        roomEnter: {
-            api: "room/enter",
-            description: "login",
-            protocol: "RoomEnter"
-        },
-        roomList: {
-            api: "room/ing_list_for_self",
-            description: "login",
-            protocol: "RoomList"
-        },
-        recordList: {
-            api: "room/end_list_for_self",
-            description: "login",
-            protocol: "RecordList"
-        },
-        recordInfo: {
-            api: "room/record",
-            description: "login",
-            protocol: "RecordInfo"
-        },
-        recordListSelf: {
-            api: "room/record_self",
-            description: "login",
-            protocol: "RecordList"
-        },
-        replay: {
-            api: "room/replay",
-            description: "login",
-            protocol: "Replay"
-        },
-        roomReplay: {
-            api: "room/record_by_room_id",
-            description: "login",
-            protocol: "RoomReplay"
-        }
-    },
 
+window.HttpRequestManager = {};
+
+/**********************************************************************************************************************
+ *                                      接口名协议, 配置项
+ **********************************************************************************************************************/
+
+window.HttpRequestManager.requestProtocol = {
+    check: {
+        api: "client/check",
+        description: "login",
+        protocol: "CheckVersion"
+    },
+    login: {
+        api: "client/login",
+        description: "login",
+        protocol: "Login"
+    },
+    heartbeat: {
+        api: "client/heartbeat",
+        description: "login",
+        protocol: " Heartbeat"
+    },
+    playerGold: {
+        api: "login/balance",
+        description: "login",
+        protocol: "PlayerGold"
+    },
+    roomCreate: {
+        api: "room/create",
+        description: "login",
+        protocol: "RoomCreate"
+    },
+    roomEnter: {
+        api: "room/enter",
+        description: "login",
+        protocol: "RoomEnter"
+    },
+    roomList: {
+        api: "room/ing_list_for_self",
+        description: "login",
+        protocol: "RoomList"
+    },
+    recordList: {
+        api: "room/end_list_for_self",
+        description: "login",
+        protocol: "RecordList"
+    },
+    recordInfo: {
+        api: "room/record",
+        description: "login",
+        protocol: "RecordInfo"
+    },
+    recordListSelf: {
+        api: "room/record_self",
+        description: "login",
+        protocol: "RecordList"
+    },
+    replay: {
+        api: "room/replay",
+        description: "login",
+        protocol: "Replay"
+    },
+    roomReplay: {
+        api: "room/record_by_room_id",
+        description: "login",
+        protocol: "RoomReplay"
+    }
+};
+
+
+/**********************************************************************************************************************
+ *                                      RequestMessage 构造方法
+ **********************************************************************************************************************/
+
+window.HttpRequestManager.requestMessage = {
     /**
      * 1、客户端检测
      *
@@ -271,19 +279,28 @@ window.httpRequestManager = {
 
         return message;
     },
+};
 
-    httpRequest: function(protocolName, message, callback) {
-        let protocol = this.requestProtocol[protocolName];
-        let request = cc.loader.getXMLHttpRequest();
-        request.open("POST", (PX258.debug ? PX258.apiAddress.development : PX258.production) + protocol.api);
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        request.send(message.serializeBinary());
-        request.onload = function(event) {
-            let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
-            result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
+/**
+ * http请求方法
+ *
+ * @param protocolName
+ * @param parameters
+ * @param callback
+ */
+window.HttpRequestManager.httpRequest = function(protocolName, parameters, callback) {
+    let protocol = HttpRequestManager.requestProtocol[protocolName];
+    let message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
+    let request = cc.loader.getXMLHttpRequest();
 
-            callback(event, result);
-            cc.log("HttpRequestManager.httpRequest " + protocolName + " , code: "  + result.getCode());
-        };
-    }
+    request.open("POST", (PX258.debug ? PX258.apiAddress.development : PX258.production) + protocol.api);
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(message.serializeBinary());
+    request.onload = function(event) {
+        let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
+        result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
+
+        callback(event, result);
+        cc.log("HttpRequestManager.httpRequest " + protocolName + " , code: "  + result.getCode());
+    };
 };

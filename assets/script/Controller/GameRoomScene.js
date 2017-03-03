@@ -99,6 +99,13 @@ cc.Class({
     },
 
     onLoad: function () {
+        cc.log(PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort());
+        WebSocketManager.ws.openSocket('ws://' + PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort() + '/ws');
+        WebSocketManager.ws.addOnopenListener(this.onOpenWebSocket);
+        WebSocketManager.ws.addOnmessageListener(this.onMessageWebSocket);
+        WebSocketManager.ws.addOnerrorListener(this.onErrorWebSocket);
+        WebSocketManager.ws.addOncloseListener(this.onCloseWebSocket);
+        
         this.emojiNode = cc.Node;
         this.fastChatShowTime = +new Date();
 
@@ -107,15 +114,15 @@ cc.Class({
 
         this.audio = window.Tools.audioEngine.init();
 
-        this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-        this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
-
-        this._appendCardToPongKongChowDistrict(0, {type:"gang"});
-        this._appendCardToPongKongChowDistrict(1, {type:"gang"});
-        this._appendCardToPongKongChowDistrict(2, {type:"gang"});
-        this._appendCardToPongKongChowDistrict(3, {type:"gang"});
+        // this._appendCardToHandCardDistrict(0, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(1, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(2, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        // this._appendCardToHandCardDistrict(3, [0,1,2,3,4,5,6,7,8,9,10,11,12,13]);
+        //
+        // this._appendCardToPongKongChowDistrict(0, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(1, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(2, {type:"gang"});
+        // this._appendCardToPongKongChowDistrict(3, {type:"gang"});
     },
 
     update: function(dt) {
@@ -135,6 +142,22 @@ cc.Class({
         if (this.voiceProgressBar.progress <= 1.0 && this.voiceProgressBar.progress >= 0) {
             this.voiceProgressBar.progress -= dt * window.PX258.fastChatWaitTime;
         }
+    },
+
+    onOpenWebSocket: function(evt) {
+        cc.log(evt.data);
+    },
+
+    onMessageWebSocket: function(evt) {
+
+    },
+
+    onErrorWebSocket: function(evt) {
+
+    },
+
+    onCloseWebSocket: function(evt) {
+
     },
 
     wechatInviteOnClick: function() {
@@ -309,9 +332,7 @@ cc.Class({
     },
 
     closeOnClick: function() {
-        // cc.log(window.lastScene);
-        // cc.director.runScene(window.lastScene);
-        cc.director.loadScene('LobbyScene');
+        cc.director.loadScene('Lobby');
     }
 
 });
