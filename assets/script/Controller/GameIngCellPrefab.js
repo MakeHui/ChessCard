@@ -22,7 +22,7 @@ cc.Class({
 
         let self = this;
         let parameters = {roomId: this.roomId};
-        httpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
+        HttpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
             if (result.getCode() == 1) {
                 PX258.roomInfo = Tools.protobufToJson(result);
                 PX258.loading.close();

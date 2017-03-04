@@ -57,7 +57,17 @@ window.WebSocketManager.Command = {
 
 window.WebSocketManager.requestMessage = {
     getEnterRoomRequestMessage: function(parameters) {
+        let message = new proto.game.EnterRoomRequest();
+        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
 
+        message.setRoomId(parameters.roomId);
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setInfo({
+            Gender: userInfo.gender, Gold: userInfo.gold, Score: 0, Nick: userInfo.nickname,
+            HandUrl: userInfo.headimgurl, IP: '0.0.0.0', Location: '该用户不想透露位置'
+        });
+
+        return message;
     },
 };
 
@@ -66,45 +76,78 @@ window.WebSocketManager.requestMessage = {
  **********************************************************************************************************************/
 
 /**
- * 合并两个
- *
- * @param buff1
- * @param buff2
- * @returns {ArrayBuffer}
+ * socket 数据封包解包
  */
-window.WebSocketManager.mergeArrayBuffer = function(buff1, buff2){
-    let ret = new ArrayBuffer(buff1.byteLength + buff2.byteLength);
-    let retI8a = new Int8Array(ret);
-    let i8a = new Int8Array(buff1);
-    let i = 0;
+window.WebSocketManager.ArrayBuffer = {
+    _packageStack: null,
 
-    for(i = 0; i < buff1.byteLength; i++) {
-        retI8a[i] = i8a[i];
+    reader: function(buffer) {
+        if (this._packageStack) {
+            buffer = this.mergeArrayBuffer([_packageStack, buffer]);
+            this._packageStack = null;
+        }
+
+        let size = new Int32Array(buffer.slice(0, 4))[0];
+        cc.log(size);
+        if (buffer.byteLength >= size) {
+            let cmd = new Int32Array(buffer.slice(4, 8))[0];
+            cc.log(cmd);
+            let data = buffer.slice(8, size);
+            cc.log(data);
+
+            let other = buffer.slice(size);
+            if (other.byteLength !== 0) {
+                this.reader(buffer);
+            }
+
+            return {cmd: cmd, data: data};
+        }
+        else if (buffer.byteLength < size){
+            this._packageStack = buffer;
+        }
+        else {
+
+            return false;
+        }
+    },
+
+    writer: function(cmd, message) {
+        //         size + cmd + message
+        let size = 4 + 4 + message.byteLength;
+        let arrayBuffer = new ArrayBuffer(8);
+        let dataView = new DataView(arrayBuffer);
+        dataView.setUint32(0, size, true);
+        dataView.setUint32(4, cmd, true);
+
+        return this.mergeArrayBuffer([arrayBuffer, message]);
+    },
+
+    /**
+     * 合并buffer
+     *
+     * @param bufferList
+     * @returns {ArrayBuffer}
+     */
+    mergeArrayBuffer: function(bufferList) {
+        let size = 0;
+        for (let i = 0; i < bufferList.length; i++) {
+            size += bufferList[i].byteLength;
+        }
+
+        if (size === 0) {
+
+            return;
+        }
+
+        let index = 0;
+        let uint8Array = new Uint8Array(size);
+        for (let i = 0; i < bufferList.length; i++) {
+            uint8Array.set(new Uint8Array(bufferList[i]), index);
+            index = bufferList[i].byteLength;
+        }
+
+        return uint8Array.buffer;
     }
-
-    i8a = new Int8Array(buff2);
-
-    for(i = 0; i < buff2.byteLength; i++) {
-        retI8a[buff1.byteLength + i] = i8a[i];
-    }
-
-    return ret;
-};
-
-/**
- * 创建待发送的数据
- *
- * @param cmd
- * @param message
- * @returns {ArrayBuffer}
- */
-window.WebSocketManager.createByte = function(cmd, message) {
-    let binary = message.serializeBinary();
-    let byte = new ByteArray();
-    byte.writeInt(binary.length + 8);
-    byte.writeInt(cmd);
-
-    return WebSocketManager.mergeArrayBuffer(byte.getbytes(), binary.buffer);
 };
 
 /**
@@ -114,10 +157,11 @@ window.WebSocketManager.createByte = function(cmd, message) {
  * @param parameters
  */
 window.WebSocketManager.sendMessage = function(name, parameters) {
-    let protocol = HttpRequestManager.requestProtocol[name];
     let message = WebSocketManager.requestMessage['get' + name + 'RequestMessage'](parameters);
+    let data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
 
-    WebSocketManager.ws.sendMessage(WebSocketManager.createByte(WebSocketManager.Command[name], message));
+    WebSocketManager.ws.sendMessage(data);
+    cc.log(['window.WebSocketManager.sendMessage'], new Int32Array(data.slice(0, 8)));
 };
 
 /**********************************************************************************************************************
@@ -143,28 +187,28 @@ window.WebSocketManager.ws = {
             for (let i = 0; i < self._onopenListener.length; i++) {
                 self._onopenListener[i](evt);
             }
-            cc.log("onopen: " + evt);
+            cc.log(["onopen: ", evt]);
         };
 
         this._socket.onmessage = function(evt) {
             for (let i = 0; i < self._onmessageListener.length; i++) {
                 self._onmessageListener[i](evt);
             }
-            cc.log("onmessage: " + evt.data);
+            cc.log(["onmessage: ", evt]);
         };
 
         this._socket.onerror = function(evt) {
             for (let i = 0; i < self._onerrorListener.length; i++) {
                 self._onerrorListener[i](evt);
             }
-            cc.log("onerror: " + evt);
+            cc.log(["onerror: ", evt]);
         };
 
         this._socket.onclose = function(evt) {
             for (let i = 0; i < self._oncloseListener.length; i++) {
                 self._oncloseListener[i](evt);
             }
-            cc.log("onclose: " + evt);
+            cc.log(["onclose: ", evt]);
         };
     },
 

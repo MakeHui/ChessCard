@@ -98,14 +98,25 @@ cc.Class({
         handCardIsSelected: 0,
     },
 
+    test: function(aaa) {
+        cc.log(aaa);
+    },
+
     onLoad: function () {
-        cc.log(PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort());
-        WebSocketManager.ws.openSocket('ws://' + PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort() + '/ws');
-        WebSocketManager.ws.addOnopenListener(this.onOpenWebSocket);
-        WebSocketManager.ws.addOnmessageListener(this.onMessageWebSocket);
+        this.wsUrl = 'ws://' + PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort() + '/ws';
+        this.roomId = PX258.tempCache.getRoomId();
+        let self = this;
+
+        WebSocketManager.ws.openSocket(this.wsUrl);
+        WebSocketManager.ws.addOnmessageListener(function(evt) {
+            cc.log(WebSocketManager.ArrayBuffer.reader(evt.data));
+        });
         WebSocketManager.ws.addOnerrorListener(this.onErrorWebSocket);
         WebSocketManager.ws.addOncloseListener(this.onCloseWebSocket);
-        
+        WebSocketManager.ws.addOnopenListener(function(evt) {
+            WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+        });
+
         this.emojiNode = cc.Node;
         this.fastChatShowTime = +new Date();
 
@@ -142,14 +153,6 @@ cc.Class({
         if (this.voiceProgressBar.progress <= 1.0 && this.voiceProgressBar.progress >= 0) {
             this.voiceProgressBar.progress -= dt * window.PX258.fastChatWaitTime;
         }
-    },
-
-    onOpenWebSocket: function(evt) {
-        cc.log(evt.data);
-    },
-
-    onMessageWebSocket: function(evt) {
-
     },
 
     onErrorWebSocket: function(evt) {

@@ -67,9 +67,17 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick: function(event, data) {
-        cc.log("xxxxxxx");
-        PX258.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
-            cc.log("load success");
+        this.url = 'ws://game.7005.px258.qingwuguo.com:80/ws';
+        WebSocketManager.ws.openSocket(this.wsUrl);
+        WebSocketManager.ws.addOnmessageListener(function(evt) {
+            cc.log(WebSocketManager.ArrayBuffer.reader(evt.data));
         });
+        WebSocketManager.ws.addOnopenListener(function(evt) {
+            WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+        });
+
+        // PX258.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
+        //     cc.log("load success");
+        // });
     }
 });
