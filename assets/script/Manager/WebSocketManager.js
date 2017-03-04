@@ -87,11 +87,10 @@ window.WebSocketManager.ArrayBuffer = {
             this._packageStack = null;
         }
 
-        let size = new Int32Array(buffer.slice(0, 4))[0];
-        cc.log(size);
+        let dataView = new DataView(buffer);
+        let size = dataView.getInt32(0);
         if (buffer.byteLength >= size) {
-            let cmd = new Int32Array(buffer.slice(4, 8))[0];
-            cc.log(cmd);
+            let cmd = dataView.getInt32(4);
             let data = buffer.slice(8, size);
             cc.log(data);
 
@@ -116,8 +115,8 @@ window.WebSocketManager.ArrayBuffer = {
         let size = 4 + 4 + message.byteLength;
         let arrayBuffer = new ArrayBuffer(8);
         let dataView = new DataView(arrayBuffer);
-        dataView.setUint32(0, size, true);
-        dataView.setUint32(4, cmd, true);
+        dataView.setUint32(0, size);
+        dataView.setUint32(4, cmd);
 
         return this.mergeArrayBuffer([arrayBuffer, message]);
     },
@@ -161,7 +160,6 @@ window.WebSocketManager.sendMessage = function(name, parameters) {
     let data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
 
     WebSocketManager.ws.sendMessage(data);
-    cc.log(['window.WebSocketManager.sendMessage'], new Int32Array(data.slice(0, 8)));
 };
 
 /**********************************************************************************************************************
@@ -214,12 +212,13 @@ window.WebSocketManager.ws = {
 
     openSocket: function(url) {
         if (this._socket) {
-            if (this._socket.readyState == WebSocket.CONNECTING 
+            if (this._socket.readyState == WebSocket.CONNECTING
                 || this._socket.readyState == WebSocket.OPEN) {
                 this.closeSocket();
             }
         }
         this._openSocket(url);
+        this._socket.binaryType = "arraybuffer";
     },
 
     sendMessage: function(data) {

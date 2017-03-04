@@ -110,6 +110,7 @@ cc.Class({
         WebSocketManager.ws.openSocket(this.wsUrl);
         WebSocketManager.ws.addOnmessageListener(function(evt) {
             cc.log(WebSocketManager.ArrayBuffer.reader(evt.data));
+            cc.log(proto.game.EnterRoomResponse.deserializeBinary(evt.data));
         });
         WebSocketManager.ws.addOnerrorListener(this.onErrorWebSocket);
         WebSocketManager.ws.addOncloseListener(this.onCloseWebSocket);

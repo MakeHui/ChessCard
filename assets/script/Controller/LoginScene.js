@@ -67,13 +67,15 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick: function(event, data) {
-        this.url = 'ws://game.7005.px258.qingwuguo.com:80/ws';
+        this.wsUrl = 'ws://game.7005.px258.qingwuguo.com/ws';
         WebSocketManager.ws.openSocket(this.wsUrl);
         WebSocketManager.ws.addOnmessageListener(function(evt) {
-            cc.log(WebSocketManager.ArrayBuffer.reader(evt.data));
+            window.xxxx = evt;
+            let data = WebSocketManager.ArrayBuffer.reader(evt.data);
+            window.xx2 = proto.game.EnterRoomResponse.deserializeBinary(data.data);
         });
         WebSocketManager.ws.addOnopenListener(function(evt) {
-            WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+            WebSocketManager.sendMessage('EnterRoom', {roomId: 10000});
         });
 
         // PX258.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
