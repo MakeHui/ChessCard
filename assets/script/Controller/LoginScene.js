@@ -68,29 +68,24 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick: function(event, data) {
-        cc.log(this.name);
-        cc.log(this);
-        // this.wsUrl = 'ws://game.7005.Global.qingwuguo.com/ws';
-        // WebSocketManager.ws.openSocket(this.wsUrl);
-        // let self = this;
-        // WebSocketManager.ws.addOnmessageListener(function(evt) {
-        //
-        // });
-        // WebSocketManager.ws.addOnopenListener(function(evt) {
-        //     WebSocketManager.sendMessage('EnterRoom', {roomId: 10000});
-        // });
 
-        // Global.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
-        //     cc.log("load success");
-        // });
-    },
+        this.wsUrl = 'ws://game.7005.Global.qingwuguo.com/ws';
+        this.roomId = 100000;
+        let self = this;
+        let scriptName = 'GameRoomScene';
 
-    test: function () {
-        this.test2();
+        WebSocketManager.ws.openSocket(this.wsUrl);
+        WebSocketManager.ws.addOnopenListener(scriptName, function (evt) {
+            WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+        });
+        WebSocketManager.ws.addOnmessageListener(scriptName, function (evt, commandName, result) {
+            self['on' + commandName + 'Callback'](result);
+        });
+        WebSocketManager.ws.addOnerrorListener(scriptName, function (evt) {
 
-    },
+        });
+        WebSocketManager.ws.addOncloseListener(scriptName, function (evt) {
 
-    test2: function() {
-        cc.log("test");
+        });
     }
 });

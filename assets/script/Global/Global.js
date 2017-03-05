@@ -80,8 +80,8 @@ window.Global = {
      * @type {Object}
      */
     apiAddress: {
-        development: "http://login.Global.qingwuguo.com/",
-        production: "http://login.Global.qingwuguo.com/"
+        development: "http://login.px258.qingwuguo.com/",
+        production: "http://login.px258.qingwuguo.com/"
     },
 
     /**

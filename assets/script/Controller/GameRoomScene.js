@@ -158,7 +158,12 @@ cc.Class({
 
     onEnterRoomCallback: function (data) {
         if (data.getCode() == 1) {
-
+            let kwargs = JSON.parse(data.getKwargs());
+            let restCards = data.getRestCards();
+            let playerList = data.getPlayerList();
+            for (let i = 0; i < playerList.length; ++i) {
+                cc.log(playerList[i].getPlayerUuid());
+            }
         }
     },
 

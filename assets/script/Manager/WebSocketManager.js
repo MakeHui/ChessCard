@@ -7,48 +7,29 @@ window.WebSocketManager = {};
 
 window.WebSocketManager.Command = {
     // 公共命令
-    EnterRoom		: 0x0001,		// 进入房间 0x1005
-    EntryRoom    	: 0x0002,		// 玩家进入退出广播 0x1015
-    ExitRoom		: 0x0003,		// 玩家退出房间 0x1007
-    CloseRoom		: 0x0004,		// 房主解散房间 0x1006
-    REQCLOSE_ROOM	: 0x0005,		// 请求解散房间 0x1009
-    RETCLOSE_ROOM	: 0x0007,		// 回应请求解散房间 0x1037
-    ONLINE_STATE_DB	: 0x0008,		// 玩家上线状态 0x1016
-    CHAT_BROADCAST	: 0x0009,		// 聊天广播 0x1002
-    USER_READY 		: 0x000A,		// 请求准备 0x1012
-    DEALCARD_DB		: 0x000B,		// 广播发牌 0x2005
-    GrabCard_DB		: 0x000C,		// 广播玩家摸牌 0x1024
-    OutCard_DB		: 0x000D,		// 广播玩家出牌 0x1021
-    UPDATE_HANDCARD	: 0x000E,  		// 服务端主动同步手牌 0x2009
+    EnterRoom		: 0x0001,		// 1、进入房间
+    EnterRoomOther  : 0x0002,		// 2、其他玩家进入房间
+    ExitRoom		: 0x0003,		// 3、离开房间
+    DismissRoom		: 0x0004,		// 4、解散房间
+    SponsorVote	    : 0x0005,		// 5、发起投票解散
+    PlayerVot	    : 0x0007,		// 6、玩家投票
+    OnlineStatus	: 0x0008,		// 7、玩家上线离线广播
+    Speaker     	: 0x0009,		// 8、超级广播命令
+    Ready       	: 0x000A,		// 9、准备
+    Deal     		: 0x000B,		// 10、起手发牌
+    Draw    		: 0x000C,		// 11、抓牌
+    Discard 		: 0x000D,		// 12、出牌
+    SynchroniseCards: 0x000E,  		// 13、服务端主动同步手牌
 
-    // 转转红中（包括三人转转麻将）麻将 0x1000 ~ 0x101F
-    GAME_RECONNECT	: 0x1000,		// 玩家重连 0x1014
-    OPERATE_PROMP	: 0x1001,		// 提示玩家操作 0x2007
-    ACTION_REQ		: 0x1002, 		// 动作请求 0x1022
-    UserTing		: 0x1003,		// 玩家听牌 0x1033
-    BIRD_CATCH_DB	: 0x1004,		// 广播抓鸟 0x1026
-    LITTLE_ACCOUNT	: 0x1005,		// 单局结算 0x2004
-    BIG_ACCOUNT		: 0x1006,		// 总局结算 0x2006
-
-    // will remove
-    // XHu_DB			: 0x1031,		// 玩家起手胡牌
-    // CancelLiang_DB	: 0x1032,		// 取消玩家亮牌
-    // KGangOpt			: 0x1034,		// 开杠或补张
-
-    // 海底牌相关
-    // HDiCard_STATE_DB	: 0x1035,		// 玩家回复是否要海底/广播玩家是否要海底
-    // HDiCard_Opt		: 0x2012,		// 海底提示
-    // HDiCard_DB		: 0x2013,		// 广播海底牌
-    // KGangOper		: 0x2011,		// 长沙麻将杠提示
-    // HandCardEnable	: 0x1036,		// 禁用手牌
-
-    // 长沙麻将结算
-    // CSLITTLEACOUNT	: 0x2014,		// 长沙麻将小结算
-    // CSBIGACOUNT		: 0x2015,		// 长沙麻将大结算
-    // BROADCAST_RSP	: 0x2002,		// 超级广播返回
-    // PLAYOPERATE_REP	: 0x4001,		// 玩家出牌
-    // REQUEST_CHIP 	: 0x1004,  		// 客户端请求同步金币
-    // RECHARGE 		: 0x0001  		//充值成功
+    // PX258 麻将
+    PX258: {
+        Reconnect	    : 0x1000,		// 1、玩家断线重连
+        Prompt	        : 0x1001,		// 2、操作提示
+        Action		    : 0x1002, 		// 3、玩家根据提示列表选择动作
+        ReadyHand		: 0x1003,		// 4、听牌提示
+        SettleForRound	: 0x1004,		// 5、小结算
+        SettleForRoom	: 0x1005,		// 6、大结算
+    }
 };
 
 /**********************************************************************************************************************
@@ -56,6 +37,15 @@ window.WebSocketManager.Command = {
  **********************************************************************************************************************/
 
 window.WebSocketManager.requestMessage = {
+    /******************************************************************************************************************
+     *                                      公共请求 message
+     ******************************************************************************************************************/
+
+    /**
+     * 1. 自己主动进入房间
+     * @param parameters
+     * @returns {proto.game.EnterRoomRequest}
+     */
     getEnterRoomRequestMessage: function(parameters) {
         let message = new proto.game.EnterRoomRequest();
         let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
@@ -66,6 +56,87 @@ window.WebSocketManager.requestMessage = {
             Gender: userInfo.gender, Gold: userInfo.gold, Score: 0, Nick: userInfo.nickname,
             HandUrl: userInfo.headimgurl, IP: '0.0.0.0', Location: '该用户不想透露位置'
         });
+
+        return message;
+    },
+
+    /**
+     * 3. 自己主动退出房间
+     * @param parameters
+     * @returns {proto.game.ExitRoomRequest}
+     */
+    getExitRoomRequestMessage: function(parameters) {
+        return new proto.game.ExitRoomRequest();
+    },
+
+    /**
+     * 4、解散房间
+     * @param parameters
+     * @returns {proto.game.DismissRoomRequest}
+     */
+    getDismissRoomRequestMessage: function(parameters) {
+        return new proto.game.DismissRoomRequest();
+    },
+
+    /**
+     * 6、玩家投票
+     * @param parameters
+     * @returns {proto.game.PlayerVoteRequest}
+     */
+    getPlayerVoteRequestMessage: function(parameters) {
+        let message = new proto.game.PlayerVoteRequest();
+        message.setFlag(parameters.flag);
+
+        return message;
+    },
+
+    /**
+     * 8、超级广播命令
+     * @param parameters
+     * @returns {proto.game.SpeakerRequest}
+     */
+    getSpeakerRequestMessage: function(parameters) {
+        let message = new proto.game.SpeakerRequest();
+        message.setContent(parameters.content);
+
+        return message;
+    },
+
+    /**
+     * 9、准备
+     * @param parameters
+     * @returns {proto.game.ReadyRequest}
+     */
+    getReadyRequestMessage: function(parameters) {
+        return new proto.game.ReadyRequest();
+    },
+
+    /**
+     * 12、出牌
+     * @param parameters
+     * @returns {proto.game.DiscardRequest}
+     */
+    getDiscardRequestMessage: function(parameters) {
+        let message = new proto.game.DiscardRequest();
+        let cardMsg = new proto.game.Card();
+        cardMsg.setCard(parameters.card);
+        message.setCard(cardMsg);
+
+        return message;
+    },
+
+    /******************************************************************************************************************
+     *                                      px258 message
+     ******************************************************************************************************************/
+
+    /**
+     * 3、玩家根据提示列表选择动作
+     * @param parameters
+     * @returns {proto.game.ActionRequest}
+     */
+    getActionRequestMessage: function(parameters) {
+        let message = new proto.game.ActionRequest();
+        message.setActionId(parameters.actionId);
 
         return message;
     },
@@ -106,7 +177,7 @@ window.WebSocketManager.ArrayBuffer = {
             return false;
         }
         else {
-            cc.log(['没有数据包: '])
+            cc.log(['没有数据包: ']);
             return false;
         }
     },
@@ -159,7 +230,7 @@ window.WebSocketManager.ArrayBuffer = {
 window.WebSocketManager.sendMessage = function(name, parameters) {
     let message = WebSocketManager.requestMessage['get' + name + 'RequestMessage'](parameters);
     let data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
-
+    cc.log(data);
     WebSocketManager.ws.sendMessage(data);
 };
 
@@ -183,8 +254,8 @@ window.WebSocketManager.ws = {
         let self = this;
 
         this._socket.onopen = function(evt) {
-            for (let i = 0; i < self._onopenListener.length; i++) {
-                self._onopenListener[i](evt);
+            for (let listener in self._onopenListener) {
+                self._onopenListener[listener](evt);
             }
             cc.log(["onopen: ", evt]);
         };
@@ -195,8 +266,8 @@ window.WebSocketManager.ws = {
                 let commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
                 let result = proto.game[commandName + 'Response'].deserializeBinary(data.data);
 
-                for (let i = 0; i < self._onmessageListener.length; i++) {
-                    self._onmessageListener[i](evt, commandName, result);
+                for (let linstener in self._onmessageListener) {
+                    self._onmessageListener[linstener](evt, commandName, result);
                 }
                 cc.log(['socket onmessage ' + commandName + ' code: ', result.getCode()]);
             }
@@ -204,15 +275,15 @@ window.WebSocketManager.ws = {
         };
 
         this._socket.onerror = function(evt) {
-            for (let i = 0; i < self._onerrorListener.length; i++) {
-                self._onerrorListener[i](evt);
+            for (let linstener in self._onerrorListener) {
+                self._onerrorListener[linstener](evt);
             }
             cc.log(["onerror: ", evt]);
         };
 
         this._socket.onclose = function(evt) {
-            for (let i = 0; i < self._oncloseListener.length; i++) {
-                self._oncloseListener[i](evt);
+            for (let linstener in self._oncloseListener) {
+                self._oncloseListener[linstener](evt);
             }
             cc.log(["onclose: ", evt]);
         };
