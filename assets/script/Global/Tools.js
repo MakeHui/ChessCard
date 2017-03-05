@@ -615,3 +615,22 @@ window.Tools.protobufToJson = function (protobuf) {
 
     return data;
 };
+
+/**
+ * 通过值查找key
+ * @param obj
+ * @param value
+ * @returns {string}
+ */
+window.Tools.findKeyForValue = function (obj, value) {
+    for (let o in obj) {
+        if (value === obj[o]) {
+            return o;
+        }
+    }
+    return false;
+};
+
+window.Tools.unique = function (array) {
+    return Array.from(new Set(array));
+};

@@ -98,23 +98,24 @@ cc.Class({
         handCardIsSelected: 0,
     },
 
-    test: function(aaa) {
-        cc.log(aaa);
-    },
-
     onLoad: function () {
         this.wsUrl = 'ws://' + Global.tempCache.getServerIp() + ':' + Global.tempCache.getServerPort() + '/ws';
         this.roomId = Global.tempCache.getRoomId();
         let self = this;
+        let scriptName = 'GameRoomScene';
 
         WebSocketManager.ws.openSocket(this.wsUrl);
-        WebSocketManager.ws.addOnmessageListener(function(evt) {
-
-        });
-        WebSocketManager.ws.addOnerrorListener(this.onErrorWebSocket);
-        WebSocketManager.ws.addOncloseListener(this.onCloseWebSocket);
-        WebSocketManager.ws.addOnopenListener(function(evt) {
+        WebSocketManager.ws.addOnopenListener(scriptName, function(evt) {
             WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+        });
+        WebSocketManager.ws.addOnmessageListener(scriptName, function(evt, commandName, result) {
+            self['on' + commandName + 'Callback'](result);
+        });
+        WebSocketManager.ws.addOnerrorListener(scriptName, function (evt) {
+            
+        });
+        WebSocketManager.ws.addOncloseListener(scriptName, function (evt) {
+            
         });
 
         this.emojiNode = cc.Node;
@@ -155,12 +156,10 @@ cc.Class({
         }
     },
 
-    onErrorWebSocket: function(evt) {
+    onEnterRoomCallback: function (data) {
+        if (data.getCode() == 1) {
 
-    },
-
-    onCloseWebSocket: function(evt) {
-
+        }
     },
 
     wechatInviteOnClick: function() {

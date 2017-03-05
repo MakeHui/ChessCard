@@ -63,22 +63,22 @@ cc.Class({
         // webSocketManager.closeSocket();
     },
 
+
     /**
      * 用户协议
      */
     userAgreementOnClick: function(event, data) {
-        this.wsUrl = 'ws://game.7005.Global.qingwuguo.com/ws';
-        WebSocketManager.ws.openSocket(this.wsUrl);
-        let self = this;
-        WebSocketManager.ws.addOnmessageListener(function(evt) {
-            window.xxxx = evt;
-            self.test();
-            let data = WebSocketManager.ArrayBuffer.reader(evt.data);
-            window.xx2 = proto.game.EnterRoomResponse.deserializeBinary(data.data);
-        });
-        WebSocketManager.ws.addOnopenListener(function(evt) {
-            WebSocketManager.sendMessage('EnterRoom', {roomId: 10000});
-        });
+        cc.log(this.name);
+        cc.log(this);
+        // this.wsUrl = 'ws://game.7005.Global.qingwuguo.com/ws';
+        // WebSocketManager.ws.openSocket(this.wsUrl);
+        // let self = this;
+        // WebSocketManager.ws.addOnmessageListener(function(evt) {
+        //
+        // });
+        // WebSocketManager.ws.addOnopenListener(function(evt) {
+        //     WebSocketManager.sendMessage('EnterRoom', {roomId: 10000});
+        // });
 
         // Global.openDialog(cc.instantiate(this.userAgreement), this.node, function () {
         //     cc.log("load success");
@@ -86,6 +86,11 @@ cc.Class({
     },
 
     test: function () {
+        this.test2();
+
+    },
+
+    test2: function() {
         cc.log("test");
     }
 });

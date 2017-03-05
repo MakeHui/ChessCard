@@ -103,9 +103,10 @@ window.WebSocketManager.ArrayBuffer = {
         }
         else if (buffer.byteLength < size){
             this._packageStack = buffer;
+            return false;
         }
         else {
-
+            cc.log(['没有数据包: '])
             return false;
         }
     },
@@ -171,7 +172,7 @@ window.WebSocketManager.ws = {
     
     _onopenListener: [],
 
-    _onmessageListener: [],
+    _onmessageListener: {},
 
     _onerrorListener: [],
 
@@ -190,10 +191,14 @@ window.WebSocketManager.ws = {
 
         this._socket.onmessage = function(evt) {
             let data = WebSocketManager.ArrayBuffer.reader(evt.data);
-            let result = proto.game.EnterRoomResponse.deserializeBinary(data.data);
+            if (data !== false) {
+                let commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
+                let result = proto.game[commandName + 'Response'].deserializeBinary(data.data);
 
-            for (let i = 0; i < self._onmessageListener.length; i++) {
-                self._onmessageListener[i](evt, data);
+                for (let i = 0; i < self._onmessageListener.length; i++) {
+                    self._onmessageListener[i](evt, commandName, result);
+                }
+                cc.log(['socket onmessage ' + commandName + ' code: ', result.getCode()]);
             }
             cc.log(["onmessage: ", evt]);
         };
@@ -232,36 +237,36 @@ window.WebSocketManager.ws = {
         this._socket.close();
     },
 
-    addOnopenListener: function(listner) {
-        this._onopenListener.push(listner);
+    addOnopenListener: function(name, listner) {
+        this._onopenListener[name] = listner;
     },
 
-    addOnmessageListener: function(listner) {
-        this._onmessageListener.push(listner);
+    addOnmessageListener: function(name, listner) {
+        this._onmessageListener[name] = listner;
     },
 
-    addOnerrorListener: function(listner) {
-        this._onerrorListener.push(listner);
+    addOnerrorListener: function(name, listner) {
+        this._onerrorListener[name] = listner;
     },
 
-    addOncloseListener: function(listner) {
-        this._oncloseListener.push(listner);
+    addOncloseListener: function(name, listner) {
+        this._oncloseListener[name] = listner;
     },
 
-    removeOnopenListener: function(listner) {
-        Tools.removeArrayInValue(this._onopenListener, listner);
+    removeOnopenListener: function(name) {
+        delete this._onopenListener[name];
     },
 
-    removeOnmessageListener: function(listner) {
-        Tools.removeArrayInValue(this._onmessageListener, listner);
+    removeOnmessageListener: function(name) {
+        delete this._onmessageListener[name];
     },
 
-    removeOnerrorListener: function(listner) {
-        Tools.removeArrayInValue(this._onerrorListener, listner);
+    removeOnerrorListener: function(name) {
+        delete this._onerrorListener[name];
     },
 
-    removeOncloseListener: function(listner) {
-        Tools.removeArrayInValue(this._oncloseListener, listner);
+    removeOncloseListener: function(name) {
+        delete this._oncloseListener[name];
     }
 };
 
