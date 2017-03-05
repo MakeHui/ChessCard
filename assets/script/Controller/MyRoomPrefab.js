@@ -37,7 +37,7 @@ cc.Class({
     closeOnClick: function(event, data) {
         // this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
 
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     },
 
     radioButtonClicked: function(toggle) {
@@ -60,7 +60,7 @@ cc.Class({
     },
 
     _getHttpIngListForSelfData: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         HttpRequestManager.httpRequest("roomList", {}, function(event, result) {
@@ -83,12 +83,12 @@ cc.Class({
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }
             }
-            PX258.loading.close();
+            Global.loading.close();
         });
     },
 
     _getHttpEndListForSelfData: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         HttpRequestManager.httpRequest("recordList", {}, function(event, result) {
@@ -109,7 +109,7 @@ cc.Class({
                     self.gameEndList.addChild(cc.instantiate(self.noDataCell));
                 }
             }
-            PX258.loading.close();
+            Global.loading.close();
         });
     },
 });

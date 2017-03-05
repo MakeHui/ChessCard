@@ -15,6 +15,6 @@ cc.Class({
      * 关闭用户协议
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     }
 });

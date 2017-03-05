@@ -10,7 +10,7 @@
  */
 
 
-window.PX258 = {
+window.Global = {
     /**
      * app标识
      * @type {Number}
@@ -80,8 +80,8 @@ window.PX258 = {
      * @type {Object}
      */
     apiAddress: {
-        development: "http://login.px258.qingwuguo.com/",
-        production: "http://login.px258.qingwuguo.com/"
+        development: "http://login.Global.qingwuguo.com/",
+        production: "http://login.Global.qingwuguo.com/"
     },
 
     /**
@@ -205,7 +205,7 @@ window.PX258 = {
  * @param    {cc.Node}                 parentNode 父节点对象
  * @param    {function}               callback   执行完毕后的回调方法
  */
-window.PX258.openDialog = function(node, parentNode, callback) {
+window.Global.openDialog = function(node, parentNode, callback) {
     parentNode.addChild(node);
 
     // Animation.openSceneTransitionAction(node.getChildByName("Dialog"), callback);
@@ -220,7 +220,7 @@ window.PX258.openDialog = function(node, parentNode, callback) {
  * @param    {cc.Node}                 node     需要关闭的节点对象
  * @param    {Function}               callback 自行完毕后的回调方法
  */
-window.PX258.closeDialog = function(node, callback) {
+window.Global.closeDialog = function(node, callback) {
     callback = callback || function() {};
 
     Animation.closeSceneTransitionAction(node.getChildByName("Dialog"), function() {
@@ -239,11 +239,11 @@ window.PX258.closeDialog = function(node, callback) {
  *
  * @return   {string}
  */
-window.PX258.getDeviceId = function() {
-    let deviceId = cc.sys.localStorage.getItem(window.PX258.localStorageKey.deviceId);
+window.Global.getDeviceId = function() {
+    let deviceId = cc.sys.localStorage.getItem(window.Global.localStorageKey.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
-        cc.sys.localStorage.setItem(window.PX258.localStorageKey.deviceId, deviceId);
+        cc.sys.localStorage.setItem(window.Global.localStorageKey.deviceId, deviceId);
     }
     return deviceId;
 };
@@ -256,9 +256,9 @@ window.PX258.getDeviceId = function() {
  *
  * @param {Array} listView
  */
-window.PX258.cardsSort = function(listView) {
+window.Global.cardsSort = function(listView) {
     if (listView.length === 0) {
-        cc.error("window.PX258.cardsSort: listView 不能为空~");
+        cc.error("window.Global.cardsSort: listView 不能为空~");
         return;
     }
 
@@ -276,7 +276,7 @@ window.PX258.cardsSort = function(listView) {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-27 15:04:48
  */
-window.PX258.loading = {
+window.Global.loading = {
     loadingNode: null,
 
     open: function(node) {
@@ -303,14 +303,14 @@ window.PX258.loading = {
 /**
  * 检查应用更新
  */
-window.PX258.checkUpdate = function () {
+window.Global.checkUpdate = function () {
     
 };
 
 /**
  * 应用初始化需要自行的操作
  */
-window.PX258.appInit = function (args) {
-    args.checkUpdate ? window.PX258.checkUpdate.apply(this, args.checkUpdate) : cc.log("window.PX258.appInit: checkUpdate 参数不存在");
+window.Global.appInit = function (args) {
+    args.checkUpdate ? window.Global.checkUpdate.apply(this, args.checkUpdate) : cc.log("window.Global.appInit: checkUpdate 参数不存在");
     
 };

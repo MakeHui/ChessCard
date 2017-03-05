@@ -54,23 +54,23 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     },
 
     _getHttpRoomEnterData: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         let parameters = {roomId: this.roomNumber};
         HttpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
             if (result.getCode() == 1) {
-                PX258.loading.close();
+                Global.loading.close();
                 self.node.destroy();
-                PX258.tempCache = result;
+                Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
-                PX258.loading.close();
+                Global.loading.close();
             }
         });
     },

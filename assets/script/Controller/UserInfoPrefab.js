@@ -10,7 +10,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
@@ -24,6 +24,6 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     }
 });

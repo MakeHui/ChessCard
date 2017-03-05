@@ -26,7 +26,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var cellData = PX258.getTempCache();
+        var cellData = Global.getTempCache();
 
         cc.log(this,cellData);
 
@@ -51,7 +51,7 @@ cc.Class({
     },
 
     openDetailsOnClick: function() {
-        PX258.openDialog(cc.instantiate(this.gameStep), this.node, function () {
+        Global.openDialog(cc.instantiate(this.gameStep), this.node, function () {
             cc.log("downloader success");
         });
     }

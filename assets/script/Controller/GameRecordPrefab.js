@@ -26,7 +26,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     },
 
     setData: function(data) {
@@ -34,7 +34,7 @@ cc.Class({
     },
 
     _getHttpGameRecordData: function () {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         HttpRequestManager.httpRequest("recordListSelf", {}, function(event, result) {
@@ -52,7 +52,7 @@ cc.Class({
             else {
 
             }
-            PX258.loading.close();
+            Global.loading.close();
         });
     }
 });

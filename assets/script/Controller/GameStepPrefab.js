@@ -28,7 +28,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     },
 
     shareOnClick: function(evt, data) {
@@ -41,7 +41,7 @@ cc.Class({
     },
 
     _getHttpRecordInfoData: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         HttpRequestManager.httpRequest("recordInfo", {}, function(event, result) {
@@ -61,7 +61,7 @@ cc.Class({
             else {
 
             }
-            PX258.loading.close();
+            Global.loading.close();
         });
     }
 });

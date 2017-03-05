@@ -103,14 +103,13 @@ cc.Class({
     },
 
     onLoad: function () {
-        this.wsUrl = 'ws://' + PX258.tempCache.getServerIp() + ':' + PX258.tempCache.getServerPort() + '/ws';
-        this.roomId = PX258.tempCache.getRoomId();
+        this.wsUrl = 'ws://' + Global.tempCache.getServerIp() + ':' + Global.tempCache.getServerPort() + '/ws';
+        this.roomId = Global.tempCache.getRoomId();
         let self = this;
 
         WebSocketManager.ws.openSocket(this.wsUrl);
         WebSocketManager.ws.addOnmessageListener(function(evt) {
-            cc.log(WebSocketManager.ArrayBuffer.reader(evt.data));
-            cc.log(proto.game.EnterRoomResponse.deserializeBinary(evt.data));
+
         });
         WebSocketManager.ws.addOnerrorListener(this.onErrorWebSocket);
         WebSocketManager.ws.addOncloseListener(this.onCloseWebSocket);
@@ -141,18 +140,18 @@ cc.Class({
         this.roomInfo[0].string = Tools.formatDatetime("hh:ii:ss");
 
         // 每次聊天的冷却时间
-        if (+new Date() > PX258.fastChatShowTime + this.fastChatShowTime) {
+        if (+new Date() > Global.fastChatShowTime + this.fastChatShowTime) {
             if (this.emojiNode.isValid) {
                 this.emojiNode.destroy();
             }
         }
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
-            this.fastChatProgressBar.progress -= dt * window.PX258.fastChatWaitTime;
+            this.fastChatProgressBar.progress -= dt * window.Global.fastChatWaitTime;
         }
 
         if (this.voiceProgressBar.progress <= 1.0 && this.voiceProgressBar.progress >= 0) {
-            this.voiceProgressBar.progress -= dt * window.PX258.fastChatWaitTime;
+            this.voiceProgressBar.progress -= dt * window.Global.fastChatWaitTime;
         }
     },
 
@@ -227,7 +226,7 @@ cc.Class({
 
     wordChatOnClick: function(evt, data) {
         this.fastChatProgressBar.progress = 1.0;
-        this.audio.setAudioRaw(PX258.audioResourcesUrl.fastChat["fw_male_" + data]).play();
+        this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat["fw_male_" + data]).play();
 
         window.Animation.closePanel(this.fastChatPanel);
     },

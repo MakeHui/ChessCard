@@ -14,11 +14,11 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     },
 
     payOnClick: function(evt, data) {
-        PX258.openDialog(cc.instantiate(this.shopStore), this.node, function () {
+        Global.openDialog(cc.instantiate(this.shopStore), this.node, function () {
             cc.log("load success");
         });
     }

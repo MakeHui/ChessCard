@@ -83,9 +83,9 @@ window.HttpRequestManager.requestMessage = {
      */
     getCheckVersionRequestMessage: function(parameters) {
         let message = new proto.login.CheckVersionRequest();
-        message.setAppUuid(PX258.appUuid);
-        message.setVerNo(PX258.version);
-        message.setAndroidOrIos(PX258.os);
+        message.setAppUuid(Global.appUuid);
+        message.setVerNo(Global.version);
+        message.setAndroidOrIos(Global.os);
 
         return message;
     },
@@ -101,12 +101,12 @@ window.HttpRequestManager.requestMessage = {
     getLoginRequestMessage: function(parameters) {
         let message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
-        message.setAppUuid(PX258.appUuid);
-        message.setDeviceId(PX258.getDeviceId());
-        message.setVerNo(PX258.version);
+        message.setAppUuid(Global.appUuid);
+        message.setDeviceId(Global.getDeviceId());
+        message.setVerNo(Global.version);
         message.setLocation(parameters.location);
         
-        cc.log([parameters.wxCode, PX258.appUuid, PX258.getDeviceId(), PX258.version, parameters.location]);
+        cc.log([parameters.wxCode, Global.appUuid, Global.getDeviceId(), Global.version, parameters.location]);
         return message;
     },
 
@@ -138,10 +138,10 @@ window.HttpRequestManager.requestMessage = {
     getPlayerGoldRequestMessage: function(parameters) {
         let message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
-        message.setAppUuid(PX258.appUuid);
-        message.setDeviceId(PX258.getDeviceId());
+        message.setAppUuid(Global.appUuid);
+        message.setDeviceId(Global.getDeviceId());
         
-        cc.log([parameters.playerUuid, PX258.appUuid, PX258.getDeviceId()]);
+        cc.log([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
         return message;
     },
 
@@ -155,12 +155,12 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomCreateRequestMessage: function(parameters) {
         let message = new proto.login.RoomCreateRequest();
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
-        message.setAppUuid(PX258.appUuid);
+        message.setAppUuid(Global.appUuid);
         message.setGameUuid(parameters.gameUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(PX258.getDeviceId());
+        message.setDeviceId(Global.getDeviceId());
         message.setMaxRounds(parameters.maxRounds);
         message.setRoomConfig(parameters.roomConfig);
 
@@ -178,14 +178,14 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomEnterRequestMessage: function(parameters) {
         let message = new proto.login.RoomEnterRequest();
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
-        message.setAppUuid(PX258.appUuid);
+        message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(PX258.getDeviceId());
+        message.setDeviceId(Global.getDeviceId());
         message.setRoomId(parameters.roomId);
 
-        cc.log([PX258.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
+        cc.log([Global.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
         return message;
     },
 
@@ -199,11 +199,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomListRequestMessage: function(parameters) {
         let message = new proto.login.RoomListRequest();
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
-        message.setAppUuid(PX258.appUuid);
+        message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(PX258.getDeviceId());
+        message.setDeviceId(Global.getDeviceId());
 
         return message;
     },
@@ -219,11 +219,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordListRequestMessage: function(parameters) {
         let message = new proto.login.RecordListRequest();
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
-        message.setAppUuid(PX258.appUuid);
+        message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(PX258.getDeviceId());
+        message.setDeviceId(Global.getDeviceId());
 
         return message;
     },
@@ -292,7 +292,7 @@ window.HttpRequestManager.httpRequest = function(name, parameters, callback) {
     let message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
     let request = cc.loader.getXMLHttpRequest();
 
-    request.open("POST", (PX258.debug ? PX258.apiAddress.development : PX258.production) + protocol.api);
+    request.open("POST", (Global.debug ? Global.apiAddress.development : Global.production) + protocol.api);
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(message.serializeBinary());
     request.onload = function(event) {

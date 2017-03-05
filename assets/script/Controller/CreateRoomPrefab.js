@@ -42,25 +42,25 @@ cc.Class({
     },
 
     createRoomOnClick: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let self = this;
         let parameters = {gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
         HttpRequestManager.httpRequest("roomCreate", parameters, function(event, result) {
             if (result.getCode() == 1) {
-                PX258.roomInfo = Tools.protobufToJson(result);
-                PX258.loading.close();
+                Global.roomInfo = Tools.protobufToJson(result);
+                Global.loading.close();
                 self.node.destroy();
                 cc.director.loadScene('GameRoom');
             }
             else {
-                PX258.loading.close();
+                Global.loading.close();
             }
         });
     },
 
     closeOnClick: function() {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     }
     
 });

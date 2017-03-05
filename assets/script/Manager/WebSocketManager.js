@@ -58,7 +58,7 @@ window.WebSocketManager.Command = {
 window.WebSocketManager.requestMessage = {
     getEnterRoomRequestMessage: function(parameters) {
         let message = new proto.game.EnterRoomRequest();
-        let userInfo = Tools.getLocalData(PX258.localStorageKey.userInfo);
+        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         message.setRoomId(parameters.roomId);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -189,8 +189,11 @@ window.WebSocketManager.ws = {
         };
 
         this._socket.onmessage = function(evt) {
+            let data = WebSocketManager.ArrayBuffer.reader(evt.data);
+            let result = proto.game.EnterRoomResponse.deserializeBinary(data.data);
+
             for (let i = 0; i < self._onmessageListener.length; i++) {
-                self._onmessageListener[i](evt);
+                self._onmessageListener[i](evt, data);
             }
             cc.log(["onmessage: ", evt]);
         };

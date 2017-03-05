@@ -22,7 +22,7 @@ cc.Class({
     },
 
     playbackOnClick: function() {
-        PX258.openDialog(cc.instantiate(this.inputRoomNumber), this.node);
+        Global.openDialog(cc.instantiate(this.inputRoomNumber), this.node);
     },
 
     setData: function(data, roomId) {

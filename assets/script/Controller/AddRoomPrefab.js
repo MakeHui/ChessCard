@@ -15,7 +15,7 @@ cc.Class({
     },
 
     closeOnClick: function() {
-        PX258.closeDialog(this.node);
+        Global.closeDialog(this.node);
     }
     
 });

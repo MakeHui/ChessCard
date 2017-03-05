@@ -26,11 +26,11 @@ cc.Class({
     },
 
     openGameRecordOnClick: function() {
-        PX258.loading.open(this.node);
+        Global.loading.open(this.node);
 
         let node = cc.instantiate(self.gameRecord);
         node.getComponent("GameStep").setData(this.roomId);
-        PX258.openDialog(node, self.node);
+        Global.openDialog(node, self.node);
     },
 
     setData: function(data) {
