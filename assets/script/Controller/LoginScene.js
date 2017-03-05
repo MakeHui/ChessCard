@@ -68,8 +68,7 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick: function(event, data) {
-
-        this.wsUrl = 'ws://game.7005.Global.qingwuguo.com/ws';
+        this.wsUrl = 'ws://game.7005.px258.qingwuguo.com/ws';
         this.roomId = 100000;
         let self = this;
         let scriptName = 'GameRoomScene';

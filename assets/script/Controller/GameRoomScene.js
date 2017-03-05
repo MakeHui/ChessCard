@@ -109,7 +109,7 @@ cc.Class({
             WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
         });
         WebSocketManager.ws.addOnmessageListener(scriptName, function(evt, commandName, result) {
-            self['on' + commandName + 'Callback'](result);
+            self['on' + commandName + 'Message'](result);
         });
         WebSocketManager.ws.addOnerrorListener(scriptName, function (evt) {
             
@@ -156,7 +156,11 @@ cc.Class({
         }
     },
 
-    onEnterRoomCallback: function (data) {
+    /******************************************************************************************************************
+     *                                       socket on message
+     ******************************************************************************************************************/
+
+    onEnterRoomMessage: function (data) {
         if (data.getCode() == 1) {
             let kwargs = JSON.parse(data.getKwargs());
             let restCards = data.getRestCards();
@@ -166,6 +170,10 @@ cc.Class({
             }
         }
     },
+
+    /******************************************************************************************************************
+     *                                       button on click
+     ******************************************************************************************************************/
 
     wechatInviteOnClick: function() {
         window.Tools.captureScreen(this.node, function(filePath) {
@@ -258,6 +266,31 @@ cc.Class({
         }
     },
 
+    selectedHandCardOnClick: function(event, data) {
+        if (this.handCardIsSelected === data) {
+            event.target.parent.destroy();
+            let node = cc.instantiate(this.dirtyCardPrefabs[0]);
+            let backgroundNode = node.getChildByName("background");
+            this.dirtyCardDistrict[0].addChild(node);
+            return;
+        }
+
+        this.handCardIsSelected = data;
+
+        this._resetHandCardPosition();
+        event.target.setPositionY(24);
+
+        cc.log(event.target.parent.getChildByName("UserData").string);
+    },
+
+    closeOnClick: function() {
+        cc.director.loadScene('Lobby');
+    },
+
+    /******************************************************************************************************************
+     *                                       function
+     ******************************************************************************************************************/
+
     /**
      * 0: 过
      * 1: 吃
@@ -320,26 +353,5 @@ cc.Class({
             this.handCardDistrict[0].children[i].getChildByName("background").setPositionY(0);
         }
     },
-
-    selectedHandCardOnClick: function(event, data) {
-        if (this.handCardIsSelected === data) {
-            event.target.parent.destroy();
-            let node = cc.instantiate(this.dirtyCardPrefabs[0]);
-            let backgroundNode = node.getChildByName("background");
-            this.dirtyCardDistrict[0].addChild(node);
-            return;
-        }
-
-        this.handCardIsSelected = data;
-
-        this._resetHandCardPosition();
-        event.target.setPositionY(24);
-
-        cc.log(event.target.parent.getChildByName("UserData").string);
-    },
-
-    closeOnClick: function() {
-        cc.director.loadScene('Lobby');
-    }
 
 });
