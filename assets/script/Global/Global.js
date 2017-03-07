@@ -278,7 +278,7 @@ window.Global.cardsSort = (listView) => {
 window.Global.loading = {
     loadingNode: null,
 
-    open: (node) => {
+    open(node) {
         const self = this;
         window.Tools.loadPrefab('Loading', (prefab) => {
             self.loadingNode = cc.instantiate(prefab);
@@ -290,11 +290,11 @@ window.Global.loading = {
         }, this, 30, 0);
     },
 
-    _open: (node) => {
+    _open(node) {
         node.addChild(this.loadingNode);
     },
 
-    close: () => {
+    close() {
         this.loadingNode.destroy();
     },
 };

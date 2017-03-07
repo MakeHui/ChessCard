@@ -52,7 +52,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.EnterRoomRequest}
      */
-    getEnterRoomRequestMessage: (parameters) => {
+    getEnterRoomRequestMessage(parameters) {
         const message = new proto.game.EnterRoomRequest();
         const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
@@ -76,7 +76,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ExitRoomRequest}
      */
-    getExitRoomRequestMessage: (parameters) => {
+    getExitRoomRequestMessage(parameters) {
         return new proto.game.ExitRoomRequest();
     },
 
@@ -85,7 +85,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.DismissRoomRequest}
      */
-    getDismissRoomRequestMessage: (parameters) => {
+    getDismissRoomRequestMessage(parameters) {
         return new proto.game.DismissRoomRequest();
     },
 
@@ -94,7 +94,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.PlayerVoteRequest}
      */
-    getPlayerVoteRequestMessage: (parameters) => {
+    getPlayerVoteRequestMessage(parameters) {
         const message = new proto.game.PlayerVoteRequest();
         message.setFlag(parameters.flag);
 
@@ -106,7 +106,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.SpeakerRequest}
      */
-    getSpeakerRequestMessage: (parameters) => {
+    getSpeakerRequestMessage(parameters) {
         const message = new proto.game.SpeakerRequest();
         message.setContent(parameters.content);
 
@@ -118,7 +118,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ReadyRequest}
      */
-    getReadyRequestMessage: (parameters) => {
+    getReadyRequestMessage(parameters) {
         return new proto.game.ReadyRequest();
     },
 
@@ -127,7 +127,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.DiscardRequest}
      */
-    getDiscardRequestMessage: (parameters) => {
+    getDiscardRequestMessage(parameters) {
         const message = new proto.game.DiscardRequest();
         const cardMsg = new proto.game.Card();
         cardMsg.setCard(parameters.card);
@@ -147,7 +147,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ActionRequest}
      */
-    getActionRequestMessage: (parameters) => {
+    getActionRequestMessage(parameters) {
         const message = new proto.game.ActionRequest();
         message.setActionId(parameters.actionId);
 
@@ -167,7 +167,7 @@ window.WebSocketManager.requestMessage = {
 window.WebSocketManager.ArrayBuffer = {
     _packageStack: null,
 
-    reader: (buffer) => {
+    reader(buffer) {
         if (this._packageStack) {
             buffer = this.mergeArrayBuffer([this._packageStack, buffer]);
             this._packageStack = null;
@@ -196,7 +196,7 @@ window.WebSocketManager.ArrayBuffer = {
         return false;
     },
 
-    writer: (cmd, message) => {
+    writer(cmd, message) {
         //         size + cmd + message
         const size = 4 + 4 + message.byteLength;
         const arrayBuffer = new ArrayBuffer(8);
@@ -213,7 +213,7 @@ window.WebSocketManager.ArrayBuffer = {
      * @param bufferList
      * @returns {ArrayBuffer}
      */
-    mergeArrayBuffer: (bufferList) => {
+    mergeArrayBuffer(bufferList) {
         let size = 0;
         for (let i = 0; i < bufferList.length; i += 1) {
             size += bufferList[i].byteLength;
@@ -261,7 +261,7 @@ window.WebSocketManager.ws = {
     _onerrorListener: {},
     _oncloseListener: {},
 
-    _openSocket: (url) => {
+    _openSocket(url) {
         this._socket = new WebSocket(url);
         const self = this;
 
@@ -301,7 +301,7 @@ window.WebSocketManager.ws = {
         };
     },
 
-    openSocket: (url) => {
+    openSocket(url) {
         if (this._socket) {
             if (this._socket.readyState === WebSocket.CONNECTING
                 || this._socket.readyState === WebSocket.OPEN) {
@@ -312,43 +312,43 @@ window.WebSocketManager.ws = {
         this._socket.binaryType = 'arraybuffer';
     },
 
-    sendMessage: (data) => {
+    sendMessage(data) {
         this._socket.send(data);
     },
 
-    closeSocket: () => {
+    closeSocket() {
         this._socket.close();
     },
 
-    addOnopenListener: (name, listner) => {
+    addOnopenListener(name, listner) {
         this._onopenListener[name] = listner;
     },
 
-    addOnmessageListener: (name, listner) => {
+    addOnmessageListener(name, listner) {
         this._onmessageListener[name] = listner;
     },
 
-    addOnerrorListener: (name, listner) => {
+    addOnerrorListener(name, listner) {
         this._onerrorListener[name] = listner;
     },
 
-    addOncloseListener: (name, listner) => {
+    addOncloseListener(name, listner) {
         this._oncloseListener[name] = listner;
     },
 
-    removeOnopenListener: (name) => {
+    removeOnopenListener(name) {
         delete this._onopenListener[name];
     },
 
-    removeOnmessageListener: (name) => {
+    removeOnmessageListener(name) {
         delete this._onmessageListener[name];
     },
 
-    removeOnerrorListener: (name) => {
+    removeOnerrorListener(name) {
         delete this._onerrorListener[name];
     },
 
-    removeOncloseListener: (name) => {
+    removeOncloseListener(name) {
         delete this._oncloseListener[name];
     },
 };

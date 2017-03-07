@@ -26,7 +26,7 @@ window.Animation.openSceneTransitionAction = (node, callback) => {
     node.runAction(cc.sequence(
         cc.scaleTo(0.2, 1.2, 1.2),
         cc.scaleTo(0.1, 1, 1),
-        cc.callFunc(callback, this),
+        cc.callFunc(callback, this)
     ));
 };
 
@@ -45,7 +45,7 @@ window.Animation.closeSceneTransitionAction = (node, callback) => {
     node.runAction(cc.sequence(
         cc.scaleTo(0.1, 1.2, 1.2),
         cc.scaleTo(0.2, 0, 0),
-        cc.callFunc(callback, this),
+        cc.callFunc(callback, this)
     ));
 };
 
@@ -68,7 +68,7 @@ window.Animation.openScrollWordAction = (node, duration) => {
         cc.moveBy(duration, cc.p(-node.width - 800, 0)),
         cc.callFunc(() => {
             node.x = nodeX;
-        }, this),
+        }, this)
     ), 999999999));
 };
 
@@ -87,7 +87,7 @@ window.Animation.openPanel = (node, callback) => {
 
     node.runAction(cc.sequence(
         cc.moveBy(0.15, cc.p(-node.width, 0)),
-        cc.callFunc(callback, this),
+        cc.callFunc(callback, this)
     ));
 };
 
@@ -106,6 +106,6 @@ window.Animation.closePanel = (node, callback) => {
 
     node.runAction(cc.sequence(
         cc.moveBy(0.15, cc.p(node.width, 0)),
-        cc.callFunc(callback, this),
+        cc.callFunc(callback, this)
     ));
 };
