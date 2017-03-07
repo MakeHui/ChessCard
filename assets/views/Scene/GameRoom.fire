@@ -7995,7 +7995,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "b7f122NzI5Jl7zIERxtuD5R",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 212
@@ -8298,7 +8298,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "fbd94zSUARN7q3QqCHLZZSQ",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 219
@@ -8418,7 +8418,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -21,
+      "x": -26,
       "y": 20
     },
     "_skewX": 0,
@@ -8476,7 +8476,7 @@
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
-    "_horizontalCenter": 0,
+    "_horizontalCenter": -5,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -8567,7 +8567,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "5c4e2VVCCNEDJKtAZJk9ktj",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 226
@@ -8687,7 +8687,7 @@
     "_scaleY": 1.0113269,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -229,
+      "x": -234,
       "y": 20
     },
     "_skewX": 0,
@@ -8745,7 +8745,7 @@
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
-    "_horizontalCenter": 0,
+    "_horizontalCenter": -5,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -8836,7 +8836,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "eb3b4kE6nNCS4c55dD1Mgug",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 233
@@ -8956,7 +8956,7 @@
     "_scaleY": 1.0113269,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 21,
+      "x": 25,
       "y": 20
     },
     "_skewX": 0,
@@ -9014,7 +9014,7 @@
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
-    "_horizontalCenter": 0,
+    "_horizontalCenter": 4,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -18754,7 +18754,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 85,
+      "x": 87,
       "y": 85
     },
     "_skewX": 0,
@@ -18818,7 +18818,7 @@
     "_top": 0,
     "_bottom": 0,
     "_verticalCenter": 0,
-    "_horizontalCenter": 0,
+    "_horizontalCenter": 2,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,

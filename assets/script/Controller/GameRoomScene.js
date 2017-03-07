@@ -99,24 +99,26 @@ cc.Class({
     },
 
     onLoad() {
-        this.wsUrl = `ws://${Global.tempCache.getServerIp()}:${Global.tempCache.getServerPort()}/ws`;
-        this.roomId = Global.tempCache.getRoomId();
-        const self = this;
-        const scriptName = 'GameRoomScene';
+        if (Global.tempCache) {
+            this.wsUrl = `ws://${Global.tempCache.getServerIp()}:${Global.tempCache.getServerPort()}/ws`;
+            this.roomId = Global.tempCache.getRoomId();
+            const self = this;
+            const scriptName = 'GameRoomScene';
 
-        WebSocketManager.ws.openSocket(this.wsUrl);
-        WebSocketManager.ws.addOnopenListener(scriptName, (evt) => {
-            WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
-        });
-        WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
-            self[`on${commandName}Message`](result);
-        });
-        WebSocketManager.ws.addOnerrorListener(scriptName, (evt) => {
+            WebSocketManager.ws.openSocket(this.wsUrl);
+            WebSocketManager.ws.addOnopenListener(scriptName, (evt) => {
+                WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
+            });
+            WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
+                self[`on${commandName}Message`](result);
+            });
+            WebSocketManager.ws.addOnerrorListener(scriptName, (evt) => {
 
-        });
-        WebSocketManager.ws.addOncloseListener(scriptName, (evt) => {
+            });
+            WebSocketManager.ws.addOncloseListener(scriptName, (evt) => {
 
-        });
+            });
+        }
 
         this.emojiNode = cc.Node;
         this.fastChatShowTime = +new Date();
@@ -284,12 +286,16 @@ cc.Class({
     },
 
     openFastChatPanelOnClick() {
+        cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
                 Animation.openPanel(this.fastChatPanel);
             }
             else {
-                Animation.closePanel(this.fastChatPanel);
+                const self = this;
+                Animation.closePanel(this.fastChatPanel, () => {
+                    self.fastChatPanel.setPositionX(self.fastChatPanelPosition.x);
+                });
             }
         }
     },
@@ -302,11 +308,15 @@ cc.Class({
     },
 
     openMenuOnClick() {
+        cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
         }
         else {
-            Animation.closePanel(this.menuPanel);
+            const self = this;
+            Animation.closePanel(this.menuPanel, () => {
+                self.menuPanel.setPositionX(self.menuPanelPosition.x);
+            });
         }
     },
 
