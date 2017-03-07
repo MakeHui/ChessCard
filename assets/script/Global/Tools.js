@@ -19,8 +19,8 @@ window.Tools = {};
  * @param    {value}                 value
  * @return   {Boolean}
  */
-window.Tools.removeArrayInValue = function(array, value) {
-    let index = array.indexOf(value);
+window.Tools.removeArrayInValue = (array, value) => {
+    const index = array.indexOf(value);
     if (index > -1) {
         array.splice(index, 1);
         return true;
@@ -39,19 +39,20 @@ window.Tools.removeArrayInValue = function(array, value) {
  * @param    {string}                 name 子节点名称
  * @return   {cc.Node}
  */
-window.Tools.seekNodeByName = function(node, name) {
-    let children = node.children;
-    for (let i = 0; i < children.length; ++i) {
+window.Tools.seekNodeByName = (node, name) => {
+    const children = node.children;
+    for (let i = 0; i < children.length; i += 1) {
         if (children[i].name !== name) {
-            let childrenNode = window.Tools.seekNodeByName(children[i], name);
+            const childrenNode = window.Tools.seekNodeByName(children[i], name);
             if (childrenNode) {
-                return node;
+                return childrenNode;
             }
         }
         else {
             return children[i];
         }
     }
+    return undefined;
 };
 
 /**
@@ -63,8 +64,8 @@ window.Tools.seekNodeByName = function(node, name) {
  * @param    {string}                 key 存储本地数据的key
  * @return   {Object}
  */
-window.Tools.getLocalData = function(key) {
-    let data = cc.sys.localStorage.getItem(key); //从本地读取数据
+window.Tools.getLocalData = (key) => {
+    const data = cc.sys.localStorage.getItem(key); // 从本地读取数据
 
     return data ? JSON.parse(data) : null;
 };
@@ -78,19 +79,19 @@ window.Tools.getLocalData = function(key) {
  * @param    {string}                 key
  * @param    {Object}                 data
  */
-window.Tools.setLocalData = function(key, data) {
+window.Tools.setLocalData = (key, data) => {
     cc.sys.localStorage.setItem(key, JSON.stringify(data));
 };
 
 /**
  * 获取并设置网络图片
  *
- * @param sprite
+ * @param {cc.Sprite} sprite
  * @param url
  */
-window.Tools.setWebImage = function(sprite, url) {
-    cc.loader.load(url, function(err, texture) {
-        if(err){
+window.Tools.setWebImage = (sprite, url) => {
+    cc.loader.load(url, (err, texture) => {
+        if (err) {
             cc.log(err);
         }
         else {
@@ -106,7 +107,7 @@ window.Tools.setWebImage = function(sprite, url) {
 window.Tools.audioEngine = {
     audioId: null,
 
-    init: function(audioUrl, isLoop, volume) {
+    init: (audioUrl, isLoop, volume) => {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
@@ -114,27 +115,27 @@ window.Tools.audioEngine = {
         return clone(this);
     },
 
-    play: function() {
+    play: () => {
         // if (this.audioId === null) {
-            this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
+        this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
         // }
         // else if (this.state() !== 1) {
         //     cc.audioEngine.resume(this.audioId);
         // }
     },
 
-    stop: function() {
+    stop: () => {
         cc.audioEngine.pause(this.audioId);
     },
 
-    state: function() {
+    state: () => {
         return cc.audioEngine.getState(this.audioId);
     },
 
-    setAudioRaw: function(audioUrl) {
+    setAudioRaw: (audioUrl) => {
         this.audioRaw = cc.url.raw(audioUrl);
         return this;
-    }
+    },
 };
 
 /**
@@ -146,8 +147,8 @@ window.Tools.audioEngine = {
  * 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
  * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
  * 例子：
- * (new Date()).Format("yyyy-MM-dd hh:ii:ss.S") ==> 2006-07-02 08:09:04.423
- * (new Date()).Format("yyyy-M-d h:i:s.S")      ==> 2006-7-2 8:9:4.18
+ * (new Date()).Format('yyyy-MM-dd hh:ii:ss.S') ==> 2006-07-02 08:09:04.423
+ * (new Date()).Format('yyyy-M-d h:i:s.S')      ==> 2006-7-2 8:9:4.18
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-15T22:22:55+0800
@@ -157,25 +158,26 @@ window.Tools.audioEngine = {
  *
  * @return   {string}
  */
-window.Tools.formatDatetime = function(formatString, datetime) {
+window.Tools.formatDatetime = (formatString, datetime) => {
     datetime = datetime || new Date();
     datetime = typeof datetime === 'object' ? datetime : new Date(datetime);
 
-    let o = {
-        "M+" : datetime.getMonth()+1,                 //月份
-        "d+" : datetime.getDate(),                    //日
-        "h+" : datetime.getHours(),                   //小时
-        "i+" : datetime.getMinutes(),                 //分
-        "s+" : datetime.getSeconds(),                 //秒
-        "q+" : Math.floor((datetime.getMonth()+3)/3), //季度
-        "S"  : datetime.getMilliseconds()             //毫秒
+    const o = {
+        'M+': datetime.getMonth() + 1,                      // 月份
+        'd+': datetime.getDate(),                           // 日
+        'h+': datetime.getHours(),                          // 小时
+        'i+': datetime.getMinutes(),                        // 分
+        's+': datetime.getSeconds(),                        // 秒
+        'q+': Math.floor((datetime.getMonth() + 3) / 3),    // 季度
+        S: datetime.getMilliseconds(),                    // 毫秒
     };
-    if(/(y+)/.test(formatString)) {
-        formatString = formatString.replace(RegExp.$1, (datetime.getFullYear()+"").substr(4 - RegExp.$1.length));
+    if (/(y+)/.test(formatString)) {
+        formatString = formatString.replace(RegExp.$1, (datetime.getFullYear().toString()).substr(4 - RegExp.$1.length));
     }
-    for(let k in o) {
-        if(new RegExp("("+ k +")").test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+
+    for (const k in o) {
+        if (new RegExp(`(${k})`).test(formatString)) {
+            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
         }
     }
     return formatString;
@@ -191,30 +193,30 @@ window.Tools.formatDatetime = function(formatString, datetime) {
  * @param    {Function}               callback
  * @param    {string}                 fileName 保存的名称
  */
-window.Tools.captureScreen = function(node, callback, fileName) {
-    fileName = fileName || "temp.jpg";
+window.Tools.captureScreen = (node, callback, fileName) => {
+    fileName = fileName || 'temp.jpg';
 
-    //注意，EditBox，VideoPlayer，Webview 等控件无法截图
+    // 注意，EditBox，VideoPlayer，Webview 等控件无法截图
 
-    if(CC_JSB) {
-        //如果待截图的场景中含有 mask，请开启下面注释的语句
-        let renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
+    if (CC_JSB) {
+        // 如果待截图的场景中含有 mask，请开启下面注释的语句
+        const renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
         // var renderTexture = cc.RenderTexture.create(node.width, node.height);
 
-        //把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
+        // 把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
         node.parent._sgNode.addChild(renderTexture);
-        //把 renderTexture 设置为不可见，可以避免截图成功后，移除 renderTexture 造成的闪烁
+        // 把 renderTexture 设置为不可见，可以避免截图成功后，移除 renderTexture 造成的闪烁
         renderTexture.setVisible(false);
 
-        //实际截屏的代码
+        // 实际截屏的代码
         renderTexture.begin();
-        //this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
+        // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
         node._sgNode.visit();
         renderTexture.end();
-        renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, function () {
-            //把 renderTexture 从场景中移除
+        renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, () => {
+            // 把 renderTexture 从场景中移除
             renderTexture.removeFromParent();
-            cc.log("capture screen successfully!");
+            cc.log('capture screen successfully!');
 
             callback(jsb.fileUtils.getWritablePath() + fileName);
         });
@@ -230,10 +232,10 @@ window.Tools.captureScreen = function(node, callback, fileName) {
  * @param    {string}                 name     需要获取的名称
  * @param    {Function}               callback
  */
-window.Tools.loadPrefab = function(name, callback) {
-    cc.loader.loadRes("prefab/" + name, cc.Prefab, function (error, prefab) {
+window.Tools.loadPrefab = (name, callback) => {
+    cc.loader.loadRes(`prefab/${name}`, cc.Prefab, (error, prefab) => {
         if (error) {
-            cc.error("window.Tools.loadPrefab: 获取失败~, error: " + error);
+            cc.error(`window.Tools.loadPrefab: 获取失败~, error: ${error}`);
             return;
         }
         callback(prefab);
@@ -251,8 +253,8 @@ window.Tools.loadPrefab = function(name, callback) {
  * @param    {string}               handler 响应事件函数名
  * @param    {string}               customEventData 自定义事件数据
  */
-window.Tools.createEventHandler = function (node, component, handler, customEventData) {
-    let eventHandler = new cc.Component.EventHandler();
+window.Tools.createEventHandler = (node, component, handler, customEventData) => {
+    const eventHandler = new cc.Component.EventHandler();
     eventHandler.target = node;
     eventHandler.component = component;
     eventHandler.handler = handler;
@@ -293,21 +295,21 @@ window.Tools.HotUpdate = {
      *
      * @param    {cc.RawAsset}                 manifestUrl [description]
      */
-    init: function(manifestUrl) {
+    init(manifestUrl) {
         // Hot update is only available in Native build
         if (!cc.sys.isNative) {
             return;
         }
 
         if (!manifestUrl) {
-            cc.log("初始化没有传递 manifest url");
+            cc.log('初始化没有传递 manifest url');
             return;
         }
 
         this.manifestUrl = manifestUrl;
 
-        let storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset');
-        cc.log('Storage path for remote asset : ' + storagePath);
+        const storagePath = (`${jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/'}remote-asset`);
+        cc.log(`Storage path for remote asset : ${storagePath}`);
         // cc.log('Local manifest URL : ' + this.manifestUrl);
 
         // 获取 manifest 地址
@@ -320,49 +322,49 @@ window.Tools.HotUpdate = {
         // if the return value greater than 0, versionA is greater than B,
         // if the return value equals 0, versionA equals to B,
         // if the return value smaller than 0, versionA is smaller than B.
-        this._assetsManager.setVersionCompareHandle(function(versionA, versionB) {
-            cc.log("JS Custom Version Compare: version A is " + versionA + ', version B is ' + versionB);
-            let vA = versionA.split('.');
-            let vB = versionB.split('.');
-            for (let i = 0; i < vA.length; ++i) {
-                let a = parseInt(vA[i]);
-                let b = parseInt(vB[i] || 0);
+        this._assetsManager.setVersionCompareHandle((versionA, versionB) => {
+            cc.log(`JS Custom Version Compare: version A is ${versionA}, version B is ${versionB}`);
+            const vA = versionA.split('.');
+            const vB = versionB.split('.');
+            for (let i = 0; i < vA.length; i += 1) {
+                const a = parseInt(vA[i], 10);
+                const b = parseInt(vB[i] || 0, 10);
                 if (a !== b) {
                     return a - b;
                 }
             }
             if (vB.length > vA.length) {
                 return -1;
-            } else {
-                return 0;
             }
+
+            return 0;
         });
 
         // Setup the verification callback, but we don't have md5 check function yet, so only print some message
         // Return true if the verification passed, otherwise return false
-        this._assetsManager.setVerifyCallback(function(path, asset) {
+        this._assetsManager.setVerifyCallback((path, asset) => {
             // When asset is compressed, we don't need to check its md5, because zip file have been deleted.
-            let compressed = asset.compressed;
+            const compressed = asset.compressed;
             // Retrieve the correct md5 value.
-            let expectedMD5 = asset.md5;
+            const expectedMD5 = asset.md5;
             // asset.path is relative path and path is absolute.
-            let relativePath = asset.path;
+            const relativePath = asset.path;
             // The size of asset file, but this value could be absent.
             // var size = asset.size;
             if (compressed) {
-                cc.log("Verification passed : " + relativePath);
-                return true;
-            } else {
-                cc.log("Verification passed : " + relativePath + " (" + expectedMD5 + ")");
+                cc.log(`Verification passed : ${relativePath}`);
                 return true;
             }
+
+            cc.log(`Verification passed : ${relativePath} (${expectedMD5})`);
+            return true;
         });
-        cc.log("Hot update is ready, please check or directly update.");
+        cc.log('Hot update is ready, please check or directly update.');
         if (cc.sys.os === cc.sys.OS_ANDROID) {
             // Some Android device may slow down the download process when concurrent tasks is too much.
             // The value may not be accurate, please do more test and find what's most suitable for your game.
             this._assetsManager.setMaxConcurrentTask(2);
-            cc.log("Max concurrent tasks count have been limited to 2");
+            cc.log('Max concurrent tasks count have been limited to 2');
         }
     },
 
@@ -375,32 +377,33 @@ window.Tools.HotUpdate = {
      *
      * @param    {Function}               callback
      */
-    checkUpdateCallback: function (callback) {
-        let self = this;
+    checkUpdateCallback(callback) {
+        const self = this;
 
-        this._checkCallback = this._checkCallback || function(event) {
-            cc.log('Code: ' + event.getEventCode());
+        this._checkCallback = (event) => {
+            cc.log(`Code: ${event.getEventCode()}`);
             let hasUpdate = false;
 
             switch (event.getEventCode()) {
-                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                    cc.log("No local manifest file found, hot update skipped. 没有本地 manifest 文件");
-                    break;
-                case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                    cc.log("Fail to download manifest file, hot update skipped. 没有远程 manifest 文件");
-                    break;
-                case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                    cc.log("Fail to download manifest file, hot update skipped. 无法下载");
-                    break;
-                case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无需更新");
-                    break;
-                case jsb.EventAssetsManager.NEW_VERSION_FOUND:
-                    cc.log("New version found, please try to update. 找到新版本");
-                    hasUpdate = true;
-                    break;
-                default:
-                    return;
+            case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                cc.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                break;
+            case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                cc.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                break;
+            case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+                cc.log('Fail to download manifest file, hot update skipped. 无法下载');
+                break;
+            case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                cc.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                break;
+            case jsb.EventAssetsManager.NEW_VERSION_FOUND:
+                cc.log('New version found, please try to update. 找到新版本');
+                hasUpdate = true;
+                break;
+            default:
+                cc.log('error');
+                break;
             }
 
             cc.eventManager.removeListener(self._checkUpdateListener);
@@ -419,7 +422,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:50:20+0800
      *
      */
-    _checkUpdate: function() {
+    _checkUpdate() {
         if (!this._assetsManager.getLocalManifest().isLoaded()) {
             cc.log('Failed to load local manifest ...');
             return;
@@ -438,59 +441,58 @@ window.Tools.HotUpdate = {
      *
      * @param    {Function}               callback [description]
      */
-    hotUpdateCallback: function (callback) {
-        let self = this;
+    hotUpdateCallback(callback) {
+        const self = this;
 
-        this._updateCallback = this._updateCallback || function(event) {
+        this._updateCallback = (event) => {
             let needRestart = false;
             let failed = false;
-            let isSuccess = false;
+            const isSuccess = false;
             let byteProgress = 0.0;
             let fileProgress = 0.0;
 
             switch (event.getEventCode()) {
-                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                    cc.log("No local manifest file found, hot update skipped. 没有本地 manifest 文件");
-                    failed = true;
-                    break;
-                case jsb.EventAssetsManager.UPDATE_PROGRESSION:
-                    byteProgress = event.getPercent() / 100;
-                    fileProgress = event.getPercentByFile() / 100;
+            case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                cc.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                failed = true;
+                break;
+            case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+                byteProgress = event.getPercent() / 100;
+                fileProgress = event.getPercentByFile() / 100;
 
-                    let msg = event.getMessage();
-                    if (msg) {
-                        cc.log("Updated file: " + msg);
-                        cc.log(event.getPercent().toFixed(2) + "% : " + msg);
-                    }
-                    break;
-                case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                    cc.log("Fail to download manifest file, hot update skipped. 没有远程 manifest 文件");
-                    break;
-                case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                    cc.log("Fail to download manifest file, hot update skipped. 无法下载");
-                    failed = true;
-                    break;
-                case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                    cc.log("Already up to date with the latest remote version. 已经是最新版本, 无需更新");
-                    failed = true;
-                    break;
-                case jsb.EventAssetsManager.UPDATE_FINISHED:
-                    cc.log('Update finished. ' + event.getMessage());
-                    needRestart = true;
-                    break;
-                case jsb.EventAssetsManager.UPDATE_FAILED:
-                    cc.log("Update failed. " + event.getMessage());
-                    self._isUpdating = false;
-                    self._canRetry = true;
-                    break;
-                case jsb.EventAssetsManager.ERROR_isUpdating:
-                    cc.log('Asset update error: ' + event.getAssetId() + ', ' + event.getMessage());
-                    break;
-                case jsb.EventAssetsManager.ERROR_DECOMPRESS:
-                    cc.log(event.getMessage());
-                    break;
-                default:
-                    break;
+                if (event.getMessage()) {
+                    cc.log(`Updated file: ${event.getMessage()}`);
+                    cc.log(`${event.getPercent().toFixed(2)}% : ${event.getMessage()}`);
+                }
+                break;
+            case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                cc.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                break;
+            case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+                cc.log('Fail to download manifest file, hot update skipped. 无法下载');
+                failed = true;
+                break;
+            case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                cc.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                failed = true;
+                break;
+            case jsb.EventAssetsManager.UPDATE_FINISHED:
+                cc.log(`Update finished. ${event.getMessage()}`);
+                needRestart = true;
+                break;
+            case jsb.EventAssetsManager.UPDATE_FAILED:
+                cc.log(`Update failed. ${event.getMessage()}`);
+                self._isUpdating = false;
+                self._canRetry = true;
+                break;
+            case jsb.EventAssetsManager.ERROR_isUpdating:
+                cc.log(`Asset update error: ${event.getAssetId()}, ${event.getMessage()}`);
+                break;
+            case jsb.EventAssetsManager.ERROR_DECOMPRESS:
+                cc.log(event.getMessage());
+                break;
+            default:
+                break;
             }
 
             callback(isSuccess, byteProgress, fileProgress);
@@ -506,9 +508,9 @@ window.Tools.HotUpdate = {
                 self._hotUpdateListener = null;
 
                 // Prepend the manifest's search path
-                let searchPaths = jsb.fileUtils.getSearchPaths();
-                let newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
-                console.log(JSON.stringify(newPaths));
+                const searchPaths = jsb.fileUtils.getSearchPaths();
+                const newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
+                cc.log(JSON.stringify(newPaths));
                 Array.prototype.unshift(searchPaths, newPaths);
 
                 // This value will be retrieved and appended to the default search path during game startup,
@@ -530,7 +532,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:50:53+0800
      *
      */
-    _hotUpdate: function() {
+    _hotUpdate() {
         if (this._assetsManager && !this._isUpdating) {
             this._isUpdating = true;
             this._hotUpdateListener = new jsb.EventListenerAssetsManager(this._assetsManager, this._updateCallback.bind(this));
@@ -546,10 +548,10 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:51:03+0800
      *
      */
-    retry: function() {
+    retry() {
         if (!this._isUpdating && this._canRetry) {
             this._canRetry = false;
-            cc.log("Retry failed Assets...");
+            cc.log('Retry failed Assets...');
             this._assetsManager.downloadFailedAssets();
         }
     },
@@ -561,7 +563,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:51:16+0800
      *
      */
-    destroy: function() {
+    destroy() {
         if (this._hotUpdateListener) {
             cc.eventManager.removeListener(this._hotUpdateListener);
             this._hotUpdateListener = null;
@@ -569,8 +571,7 @@ window.Tools.HotUpdate = {
         if (this._assetsManager && !cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
             this._assetsManager.release();
         }
-    }
-
+    },
 };
 
 /**
@@ -581,9 +582,7 @@ window.Tools.HotUpdate = {
  *
  * @param    {string}                 str
  */
-window.Tools.firstUpperCase = function (str) {
-  return str.replace(/\b[a-z]/g,function(s){return s.toUpperCase();});
-};
+window.Tools.firstUpperCase = (str) => { return str.replace(/\b[a-z]/g, (s) => { return s.toUpperCase(); }); };
 
 /**
  * 字符串首字母小写
@@ -593,9 +592,7 @@ window.Tools.firstUpperCase = function (str) {
  *
  * @param    {string}                 str
  */
-window.Tools.firstLowerCase = function (str) {
-  return str.replace(/^\S/g, function(s){return s.toLowerCase();});
-};
+window.Tools.firstLowerCase = (str) => { return str.replace(/^\S/g, (s) => { return s.toLowerCase(); }); };
 
 /**
  * protobuf 转 json
@@ -605,10 +602,10 @@ window.Tools.firstLowerCase = function (str) {
  *
  * @param    {Object} protobuf
  */
-window.Tools.protobufToJson = function (protobuf) {
-    let data = {};
-    for (let name in protobuf) {
-        if (name.substring(0, 3) == "get") {
+window.Tools.protobufToJson = (protobuf) => {
+    const data = {};
+    for (const name in protobuf) {
+        if (name.substring(0, 3) === 'get') {
             data[Tools.firstLowerCase(name.substring(3))] = protobuf[name]();
         }
     }
@@ -618,19 +615,17 @@ window.Tools.protobufToJson = function (protobuf) {
 
 /**
  * 通过值查找key
- * @param obj
+ * @param {Object} obj
  * @param value
  * @returns {string}
  */
-window.Tools.findKeyForValue = function (obj, value) {
-    for (let o in obj) {
-        if (value === obj[o]) {
-            return o;
+window.Tools.findKeyForValue = (obj, value) => {
+    for (const key in obj) {
+        if (value === obj[key]) {
+            return key;
         }
     }
     return false;
 };
 
-window.Tools.unique = function (array) {
-    return Array.from(new Set(array));
-};
+window.Tools.unique = (array) => { return Array.from(new Set(array)); };

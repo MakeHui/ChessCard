@@ -5,16 +5,28 @@
     "es6":true
   },
   "rules": {
+    "no-param-reassign": 0,
     "no-underscore-dangle": 0,
     "brace-style": 0,
     "max-len": 0,
-    "indent": ["error", 4]
+    "indent": ["error", 4],
+    "arrow-body-style": ["error", "always"],
+    "no-restricted-syntax": 0,
+    "guard-for-in": 0,
+    "key-spacing": 0
   },
   "globals": {
-    "cc": true,
+    "window": true,
     "Global": true,
     "WebSocketManager": true,
     "Tools": true,
-    "Animation": true
+    "Animation": true,
+    "proto": true,
+    "WebSocket": true,
+    "clone": true,
+    "cc": true,
+    "gl": true,
+    "CC_JSB": true,
+    "jsb": true
   }
 }
