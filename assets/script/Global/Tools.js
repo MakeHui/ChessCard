@@ -107,7 +107,7 @@ window.Tools.setWebImage = (sprite, url) => {
 window.Tools.audioEngine = {
     audioId: null,
 
-    init: (audioUrl, isLoop, volume) => {
+    init(audioUrl, isLoop, volume) {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
@@ -115,7 +115,7 @@ window.Tools.audioEngine = {
         return clone(this);
     },
 
-    play: () => {
+    play() {
         // if (this.audioId === null) {
         this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
         // }
@@ -124,15 +124,15 @@ window.Tools.audioEngine = {
         // }
     },
 
-    stop: () => {
+    stop() {
         cc.audioEngine.pause(this.audioId);
     },
 
-    state: () => {
+    state() {
         return cc.audioEngine.getState(this.audioId);
     },
 
-    setAudioRaw: (audioUrl) => {
+    setAudioRaw(audioUrl) {
         this.audioRaw = cc.url.raw(audioUrl);
         return this;
     },

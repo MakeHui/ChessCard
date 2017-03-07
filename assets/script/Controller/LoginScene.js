@@ -6,7 +6,7 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
+    onLoad () {
         // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
         // Global.backgroundMusic.play();
         // Global.backgroundMusic.stop();
@@ -18,7 +18,7 @@ cc.Class({
     /**
      * 检查客户端更新
      */
-    checkVersion: function() {
+    checkVersion() {
         let message = HttpRequestManager.getCheckVersionRequestMessage(123, "123", 1);
         HttpRequestManager.httpRequest(Global.httpRequestName.check, message, function(event, data) {
             data = proto.login.CheckVersionResponse.deserializeBinary(data);
@@ -32,7 +32,7 @@ cc.Class({
     /**
      * 登录接口
      */
-    loginOnCLick: function(event, data) {
+    loginOnCLick(event, data) {
         Global.loading.open(this.node);
 
         let parameters = {wxCode: "fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", location: "江西 南昌"};
@@ -50,7 +50,7 @@ cc.Class({
     /**
      * 微信登录
      */
-    wechatLoginOnClick: function(event, data) {
+    wechatLoginOnClick(event, data) {
         
 
         // webSocketManager.addOnopenListener(function(evt) {
@@ -67,23 +67,23 @@ cc.Class({
     /**
      * 用户协议
      */
-    userAgreementOnClick: function(event, data) {
+    userAgreementOnClick(event, data) {
         this.wsUrl = 'ws://game.7005.px258.qingwuguo.com/ws';
         this.roomId = 100000;
         let self = this;
         let scriptName = 'GameRoomScene';
 
         WebSocketManager.ws.openSocket(this.wsUrl);
-        WebSocketManager.ws.addOnopenListener(scriptName, function (evt) {
-            WebSocketManager.sendMessage('EnterRoom', {roomId: self.roomId});
+        WebSocketManager.ws.addOnopenListener(scriptName, (evt) => {
+            WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
         });
-        WebSocketManager.ws.addOnmessageListener(scriptName, function (evt, commandName, result) {
-            self['on' + commandName + 'Callback'](result);
+        WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
+            cc.log([commandName, result]);
         });
-        WebSocketManager.ws.addOnerrorListener(scriptName, function (evt) {
+        WebSocketManager.ws.addOnerrorListener(scriptName, (evt) => {
 
         });
-        WebSocketManager.ws.addOncloseListener(scriptName, function (evt) {
+        WebSocketManager.ws.addOncloseListener(scriptName, (evt) => {
 
         });
     }
