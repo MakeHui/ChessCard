@@ -24,6 +24,7 @@
     "proto": true,
     "WebSocket": true,
     "clone": true,
+    "md5": true,
     "cc": true,
     "gl": true,
     "CC_JSB": true,

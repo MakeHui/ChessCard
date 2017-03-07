@@ -19,14 +19,14 @@ window.Animation = {};
  * @param    {cc.Node}                 node     [动画节点]
  * @param    {Function}                callback [执行成功后的回调]
  */
-window.Animation.openSceneTransitionAction = function(node, callback) {
-    callback = callback || function() {};
+window.Animation.openSceneTransitionAction = (node, callback) => {
+    callback = callback || (() => {});
 
     node.scale = 0;
     node.runAction(cc.sequence(
         cc.scaleTo(0.2, 1.2, 1.2),
         cc.scaleTo(0.1, 1, 1),
-        cc.callFunc(callback, this)
+        cc.callFunc(callback, this),
     ));
 };
 
@@ -39,13 +39,13 @@ window.Animation.openSceneTransitionAction = function(node, callback) {
  * @param    {cc.Node}                 node     [动画节点]
  * @param    {function}                 callback [执行成功后的回调]
  */
-window.Animation.closeSceneTransitionAction = function(node, callback) {
-    callback = callback || function() {};
+window.Animation.closeSceneTransitionAction = (node, callback) => {
+    callback = callback || (() => {});
 
     node.runAction(cc.sequence(
         cc.scaleTo(0.1, 1.2, 1.2),
         cc.scaleTo(0.2, 0, 0),
-        cc.callFunc(callback, this)
+        cc.callFunc(callback, this),
     ));
 };
 
@@ -58,17 +58,17 @@ window.Animation.closeSceneTransitionAction = function(node, callback) {
  * @param    {cc.Node}                 node     [动画节点]
  * @param    {number}                 duration 执行时长
  */
-window.Animation.openScrollWordAction = function(node, duration) {
-    if (duration == 0) {
+window.Animation.openScrollWordAction = (node, duration) => {
+    if (duration === 0) {
         return;
     }
 
-    let nodeX = node.x;
+    const nodeX = node.x;
     node.runAction(cc.repeat(cc.sequence(
         cc.moveBy(duration, cc.p(-node.width - 800, 0)),
-        cc.callFunc(function () {
+        cc.callFunc(() => {
             node.x = nodeX;
-        }, this)
+        }, this),
     ), 999999999));
 };
 
@@ -82,12 +82,12 @@ window.Animation.openScrollWordAction = function(node, duration) {
  * @param    {cc.Node}                 node     需要移动的节点
  * @param    {Function}               callback 移动完成后的回调
  */
-window.Animation.openPanel = function(node, callback) {
-    callback = callback || function() {};
+window.Animation.openPanel = (node, callback) => {
+    callback = callback || (() => {});
 
     node.runAction(cc.sequence(
         cc.moveBy(0.15, cc.p(-node.width, 0)),
-        cc.callFunc(callback, this)
+        cc.callFunc(callback, this),
     ));
 };
 
@@ -101,11 +101,11 @@ window.Animation.openPanel = function(node, callback) {
  * @param    {cc.Node}                 node     需要移动的节点
  * @param    {Function}               callback 移动完成后的回调
  */
-window.Animation.closePanel = function(node, callback) {
-    callback = callback || function() {};
+window.Animation.closePanel = (node, callback) => {
+    callback = callback || (() => {});
 
     node.runAction(cc.sequence(
         cc.moveBy(0.15, cc.p(node.width, 0)),
-        cc.callFunc(callback, this)
+        cc.callFunc(callback, this),
     ));
 };
