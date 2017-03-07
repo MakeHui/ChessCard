@@ -99,23 +99,24 @@ cc.Class({
     },
 
     onLoad() {
+        const scriptName = 'GameRoomScene';
         if (Global.tempCache) {
+            const self = this;
+
             this.wsUrl = `ws://${Global.tempCache.getServerIp()}:${Global.tempCache.getServerPort()}/ws`;
             this.roomId = Global.tempCache.getRoomId();
-            const self = this;
-            const scriptName = 'GameRoomScene';
 
             WebSocketManager.ws.openSocket(this.wsUrl);
-            WebSocketManager.ws.addOnopenListener(scriptName, (evt) => {
+            WebSocketManager.ws.addOnopenListener(scriptName, () => {
                 WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 self[`on${commandName}Message`](result);
             });
-            WebSocketManager.ws.addOnerrorListener(scriptName, (evt) => {
+            WebSocketManager.ws.addOnerrorListener(scriptName, () => {
 
             });
-            WebSocketManager.ws.addOncloseListener(scriptName, (evt) => {
+            WebSocketManager.ws.addOncloseListener(scriptName, () => {
 
             });
         }
@@ -127,6 +128,10 @@ cc.Class({
         this.menuPanelPosition = this.menuPanel.position;
 
         this.audio = Tools.audioEngine.init();
+
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
+        Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), userInfo.headimgurl);
     },
 
     update(dt) {
