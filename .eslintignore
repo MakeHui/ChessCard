@@ -1,0 +1,17 @@
+node_modules
+node_modules/**
+build/
+creator.d.ts
+jsconfig.json
+library/
+local/
+packages/
+ProtobufJS
+settings/
+temp/
+template-banner.png
+template.json
+assets/Views/Scene/Prefab.fire
+assets/Views/Scene/Prefab.fire.meta
+.vscode
+.idea

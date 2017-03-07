@@ -44,3 +44,5 @@ assets/Views/Scene/Prefab.fire
 assets/Views/Scene/Prefab.fire.meta
 .vscode
 .idea
+node_modules
+node_modules/**

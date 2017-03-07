@@ -1,0 +1,20 @@
+{
+  "extends": "airbnb",
+  "env":{
+    "node":true,
+    "es6":true
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "brace-style": 0,
+    "max-len": 0,
+    "indent": ["error", 4]
+  },
+  "globals": {
+    "cc": true,
+    "Global": true,
+    "WebSocketManager": true,
+    "Tools": true,
+    "Animation": true
+  }
+}
