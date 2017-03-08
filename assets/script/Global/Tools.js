@@ -603,14 +603,25 @@ window.Tools.firstLowerCase = (str) => { return str.replace(/^\S/g, (s) => { ret
  * @param    {Object} protobuf
  */
 window.Tools.protobufToJson = (protobuf) => {
-    const data = {};
+    const result = {};
     for (const name in protobuf) {
         if (name.substring(0, 3) === 'get') {
-            data[Tools.firstLowerCase(name.substring(3))] = protobuf[name]();
+            const data = protobuf[name]();
+            if (Tools.isArray(data)) {
+                const array = [];
+                for (let i = 0; i < data.length; i += 1) {
+                    array.push(Tools.protobufToJson(data[i]));
+                }
+                result[Tools.firstLowerCase(name.substring(3))] = array;
+            }
+            else {
+                result[Tools.firstLowerCase(name.substring(3))] = data;
+            }
         }
     }
 
-    return data;
+    cc.log(['window.Tools.protobufToJson: ', result]);
+    return result;
 };
 
 /**
@@ -628,4 +639,10 @@ window.Tools.findKeyForValue = (obj, value) => {
     return false;
 };
 
-window.Tools.unique = (array) => { return Array.from(new Set(array)); };
+window.Tools.unique = (array) => {
+    return Array.from(new Set(array));
+};
+
+window.Tools.isArray = (object) => {
+    return Object.prototype.toString.call(object) === '[object Array]';
+};
