@@ -6,14 +6,14 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
-        this.gameUuid = "100100";
+    onLoad() {
+        this.gameUuid = '100100';
         this.maxRounds = 8;
         this.roomConfig = {
-            play_type:{
+            play_type: {
                 is_small_win: 1,
             },
-            options:{
+            options: {
                 small_win: 1,
                 big_win: 0,
                 two_win: 0,
@@ -23,32 +23,36 @@ cc.Class({
         };
     },
 
-    selectedOnClick: function(toggle, data) {
+    selectedOnClick(toggle, data) {
         data = data.split('-');
-        if (data[0] == 1) {
-            if (data[1] == 1) {
+        if (parseInt(data[0], 10) === 1) {
+            if (parseInt(data[1], 10) === 1) {
                 this.maxRounds = 8;
             }
             else {
                 this.maxRounds = 16;
             }
         }
-        else if (data[0] == 3) {
-            for (let i in this.roomConfig.options) {
-                this.roomConfig.options[i] = 0;
+        else if (parseInt(data[0], 10) === 3) {
+            for (const k in this.roomConfig.options) {
+                this.roomConfig.options[k] = 0;
             }
             this.roomConfig.options[data[1]] = 1;
         }
     },
 
-    createRoomOnClick: function() {
+    createRoomOnClick() {
         Global.loading.open(this.node);
 
-        let self = this;
-        let parameters = {gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: JSON.stringify(this.roomConfig)};
-        HttpRequestManager.httpRequest("roomCreate", parameters, function(event, result) {
-            if (result.getCode() == 1) {
-                Global.roomInfo = Tools.protobufToJson(result);
+        const self = this;
+        const parameters = {
+            gameUuid: this.gameUuid,
+            maxRounds: this.maxRounds,
+            roomConfig: JSON.stringify(this.roomConfig),
+        };
+        HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
+            if (result.getCode() === 1) {
+                Global.tempCache = Tools.protobufToJson(result);
                 Global.loading.close();
                 self.node.destroy();
                 cc.director.loadScene('GameRoom');
@@ -59,8 +63,7 @@ cc.Class({
         });
     },
 
-    closeOnClick: function() {
+    closeOnClick() {
         Global.closeDialog(this.node);
-    }
-    
+    },
 });

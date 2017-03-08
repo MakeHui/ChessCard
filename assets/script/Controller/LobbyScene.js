@@ -17,11 +17,11 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
+    onLoad() {
         // this.node.setLocalZOrder(-1);
         // cc.game.addPersistRootNode(this.node);
 
-        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.nickname.string = userInfo.nickname;
@@ -35,9 +35,9 @@ cc.Class({
     /**
      * 查看用户信息
      */
-    openUserInfoPanelOnClick: function() {
-        Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, function () {
-            cc.log("load success");
+    openUserInfoPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
@@ -45,75 +45,75 @@ cc.Class({
      * 绑定上级代理
      * 如果绑定上级代理, 则为充值
      */
-    openPayPanelOnClick: function(evt, data) {
-        Global.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, function () {
-            cc.log("load success");
+    openPayPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 游戏记录
      */
-    openGameRecordPanelOnClick: function(evt, data) {
-        // var gameRecordPrefab = this.gameRecordPrefab.getComponent("GameRecordPrefab");
+    openGameRecordPanelOnClick() {
+        // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
-        Global.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, function () {
-            cc.log("load success");
+        Global.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 声音选项
      */
-    openSoundPanelOnClick: function(evt, data) {
-        Global.openDialog(cc.instantiate(this.soundPrefab), this.node, function () {
-            cc.log("load success");
+    openSoundPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 登出
      */
-    logoutOnClick: function(evt, data) {
+    logoutOnClick() {
 
     },
 
     /**
      * 游戏规则
      */
-    openGameRulesPanelOnClick: function(evt, data) {
-        Global.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, function () {
-            cc.log("load success");
+    openGameRulesPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 创建游戏房间
      */
-    openCreateRoomPanelOnClick: function(evt, data) {
-        Global.openDialog(cc.instantiate(this.createRoomPrefab), this.node, function () {
-            cc.log("load success");
+    openCreateRoomPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 加入游戏房间
      */
-    openAddGamePanelOnClick: function(evt, data) {
-        let node = cc.instantiate(this.inputRoomNumberPrefab);
+    openAddGamePanelOnClick() {
+        const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('InputRoomNumberPrefab').setData('GameRoom');
-        Global.openDialog(node, this.node, function () {
-            cc.log("load success");
+        Global.openDialog(node, this.node, () => {
+            cc.log('load success');
         });
     },
 
     /**
      * 我的游戏房间
      */
-    openMyRoomPanelOnClick: function(evt, data) {
+    openMyRoomPanelOnClick() {
         // cc.director.loadScene('MyRoom');
-        Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, function () {
-            cc.log("load success");
+        Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
+            cc.log('load success');
         });
     }
 

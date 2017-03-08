@@ -90,6 +90,10 @@ window.Tools.setLocalData = (key, data) => {
  * @param url
  */
 window.Tools.setWebImage = (sprite, url) => {
+    if (!url) {
+        cc.log(['window.Tools.setWebImage', 'url 不存在'])
+        return;
+    }
     cc.loader.load(url, (err, texture) => {
         if (err) {
             cc.log(err);

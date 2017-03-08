@@ -102,9 +102,8 @@ cc.Class({
         const scriptName = 'GameRoomScene';
         if (Global.tempCache) {
             const self = this;
-
-            this.wsUrl = `ws://${Global.tempCache.getServerIp()}:${Global.tempCache.getServerPort()}/ws`;
-            this.roomId = Global.tempCache.getRoomId();
+            this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
+            this.roomId = Global.tempCache.roomId;
 
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
@@ -119,6 +118,8 @@ cc.Class({
             WebSocketManager.ws.addOncloseListener(scriptName, () => {
 
             });
+
+            this.roomInfo[1].string = `房间号: ${this.roomId}`;
         }
 
         this.emojiNode = cc.Node;
@@ -129,9 +130,9 @@ cc.Class({
 
         this.audio = Tools.audioEngine.init();
 
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
-        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
-        Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), userInfo.headimgurl);
+        this.userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this.userInfo.nickname;
+        Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this.userInfo.headimgurl);
     },
 
     update(dt) {
@@ -160,12 +161,76 @@ cc.Class({
      **/
 
     onEnterRoomMessage(data) {
-        if (data.getCode() === 1) {
-            let kwargs = JSON.parse(data.getKwargs());
-            let restCards = data.getRestCards();
-            let playerList = data.getPlayerList();
-            for (let i = 0; i < playerList.length; i += 1) {
-                cc.log(playerList[i].getPlayerUuid());
+        if (data.getCode() !== 1) {
+            return;
+        }
+
+        /*
+         uint32 code = 1;  // 返回进入房间结果
+         uint32 room_id = 2;  // 6位房间号
+         string owner_uuid = 3;  // 房主UUID
+         string kwargs = 4;  // json 创建房间参数，由具体游戏各自解析字段
+         uint32 rest_cards = 5; // 剩余牌数
+         message Player {  // 同房其他玩家信息
+             uint32 seat = 1;  // 座位号
+             string player_uuid = 2;  // 玩家UUID
+             string info = 3;  // 玩家详细信息
+             uint32 status = 4;  // 玩家状态
+             uint32 is_online = 5;  // 是否在线
+             uint32 total_score = 6;  // 玩家累计总分
+         }
+         */
+        this.roomInfoData = Tools.protobufToJson(data);
+        this.roomInfoData.kwargs = JSON.parse(this.roomInfoData.kwargs);
+
+        // 游戏玩法
+        const _gameInfo = Global.playerTypes[this.roomInfoData.kwargs.game_uuid];
+        let gameInfo = '玩法: ';
+        for (const k in this.roomInfoData.kwargs.play_type) {
+            if (this.roomInfoData.kwargs.play_type[k] === 1) {
+                gameInfo += `${_gameInfo.play_type[k]},`;
+            }
+        }
+        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n可选: `;
+
+        for (const k in this.roomInfoData.kwargs.options) {
+            if (this.roomInfoData.kwargs.options[k] === 1) {
+                gameInfo += `${_gameInfo.options[k]},`;
+            }
+        }
+        gameInfo = gameInfo.substr(0, gameInfo.length - 1);
+
+        this.roomInfo[1].string = `房间号: ${this.roomInfoData.roomId}`;
+        this.roomInfo[2].string = `局数: ${this.roomInfoData.restCards}`;
+        this.roomInfo[3].string = `剩余牌数: ${this.roomInfoData.restCards}`;
+        this.roomInfo[4].string = gameInfo;
+
+        this.thisPlayerSeat = '';
+
+        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
+            if (this.roomInfoData.playerList[i].playerUuid === this.userInfo.playerUuid) {
+                this.thisPlayerSeat = this.roomInfoData.playerList[i].seat;
+            }
+        }
+
+        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
+            const seat = this._computeSeat(this.roomInfoData.playerList[i].seat);
+
+            this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = this.roomInfoData.playerList[i].nickname;
+            this.playerInfoList[seat].getChildByName('text_result').getComponent(cc.Label).string = this.roomInfoData.playerList[i].totalScore;
+            Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), this.roomInfoData.playerList[i].headimgurl);
+
+            // 设置房主
+            if (this.roomInfoData.playerList[i].playerUuid === this.userInfo.playerUuid) {
+                this.playerInfoList[seat].getChildByName('img_hostmark').active = true;
+            }
+
+            // 是否在线
+            this.playerInfoList[seat].getChildByName('img_offline').active = this.roomInfoData.playerList[i].isOnline === 0;
+
+            if (seat !== 0) {
+                this.inviteButtonList[seat].active = false;
+                this.playerInfoList[seat].active = true;
             }
         }
     },
@@ -472,5 +537,10 @@ cc.Class({
             this.handCardDistrict[0].children[i].getChildByName('background').setPositionY(0);
         }
     },
+
+    _computeSeat(playerSeat) {
+        const desplaySeat = playerSeat - this.thisPlayerSeat;
+        return (desplaySeat < 0 ? desplaySeat + 4 : desplaySeat);
+    }
 
 });

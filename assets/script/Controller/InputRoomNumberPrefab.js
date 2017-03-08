@@ -13,39 +13,39 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
-        this.roomNumber = "";
+    onLoad() {
+        this.roomNumber = '';
     },
 
-    numberButtonOnClick: function(evt, data) {
+    numberButtonOnClick(evt, data) {
         if (this.roomNumber.length !== 6) {
             this.roomNumber += data;
-            this["number" + this.roomNumber.length].spriteFrame = evt.target.children[0].getComponent(cc.Sprite).spriteFrame;
+            this[`number${this.roomNumber.length}`].spriteFrame = evt.target.children[0].getComponent(cc.Sprite).spriteFrame;
         }
 
         if (this.roomNumber.length === 6) {
-            if (this.gotoScene == 'GameRoom') {
+            if (this.gotoScene === 'GameRoom') {
                 this._getHttpRoomEnterData();
             }
-            else if (this.gotoScene == 'ReviewRoom') {
+            else if (this.gotoScene === 'ReviewRoom') {
 
             }
         }
     },
 
-    clearNumberOnClick: function(evt, data) {
+    clearNumberOnClick() {
         if (this.roomNumber.length !== 0) {
-            for (let i = 1; i <= 6; ++i) {
-                this["number" + i].spriteFrame = null;
+            for (let i = 1; i <= 6; i += 1) {
+                this[`number${i}`].spriteFrame = null;
             }
-            this.roomNumber = "";
+            this.roomNumber = '';
         }
     },
 
-    deleteNumberOnClick: function(evt, data) {
+    deleteNumberOnClick() {
         cc.log(this.roomNumber);
         if (this.roomNumber.length !== 0) {
-            this["number" + this.roomNumber.length].spriteFrame = null;
+            this[`number${this.roomNumber.length}`].spriteFrame = null;
             this.roomNumber = this.roomNumber.substr(0, this.roomNumber.length - 1);
         }
     },
@@ -53,17 +53,17 @@ cc.Class({
     /**
      * 关闭本窗口
      */
-    closeOnClick: function(event, data) {
+    closeOnClick() {
         Global.closeDialog(this.node);
     },
 
-    _getHttpRoomEnterData: function() {
+    _getHttpRoomEnterData() {
         Global.loading.open(this.node);
 
-        let self = this;
-        let parameters = {roomId: this.roomNumber};
-        HttpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
-            if (result.getCode() == 1) {
+        const self = this;
+        const parameters = { roomId: this.roomNumber };
+        HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
+            if (result.getCode() === 1) {
                 Global.loading.close();
                 self.node.destroy();
                 Global.tempCache = result;
@@ -75,7 +75,7 @@ cc.Class({
         });
     },
 
-    setData: function(data) {
+    setData(data) {
         this.gotoScene = data;
     }
 });

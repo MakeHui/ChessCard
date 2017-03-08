@@ -22,6 +22,7 @@
     "WebSocketManager": true,
     "Tools": true,
     "Animation": true,
+    "HttpRequestManager": true,
     "proto": true,
     "WebSocket": true,
     "clone": true,

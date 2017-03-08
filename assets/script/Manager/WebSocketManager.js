@@ -76,7 +76,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ExitRoomRequest}
      */
-    getExitRoomRequestMessage(parameters) {
+    getExitRoomRequestMessage() {
         return new proto.game.ExitRoomRequest();
     },
 
@@ -85,7 +85,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.DismissRoomRequest}
      */
-    getDismissRoomRequestMessage(parameters) {
+    getDismissRoomRequestMessage() {
         return new proto.game.DismissRoomRequest();
     },
 
@@ -118,7 +118,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ReadyRequest}
      */
-    getReadyRequestMessage(parameters) {
+    getReadyRequestMessage() {
         return new proto.game.ReadyRequest();
     },
 
@@ -303,12 +303,15 @@ window.WebSocketManager.ws = {
 
     openSocket(url) {
         if (this._socket) {
-            if (this._socket.readyState === WebSocket.CONNECTING
-                || this._socket.readyState === WebSocket.OPEN) {
+            if (this._socket.readyState !== WebSocket.CONNECTING
+                || this._socket.readyState !== WebSocket.OPEN) {
                 this.closeSocket();
+                this._openSocket(url);
             }
         }
-        this._openSocket(url);
+        else {
+            this._openSocket(url);
+        }
         this._socket.binaryType = 'arraybuffer';
     },
 

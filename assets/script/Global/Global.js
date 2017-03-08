@@ -318,3 +318,18 @@ window.Global.appInit = (args) => {
         cc.log('window.Global.appInit: checkUpdate 参数不存在');
     }
 };
+
+window.Global.playerTypes = {
+    100100: {
+        play_type: {
+            is_small_win: '小胡子可不可以胡',
+        },
+        options: {
+            small_win: '平胡(1番)',
+            big_win: '普通大胡(4番)',
+            two_win: '双和子(8番)',
+            three_win: '三和子(16番)',
+            four_win: '四和子(32番)',
+        }
+    }
+};
