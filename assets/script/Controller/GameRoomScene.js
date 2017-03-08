@@ -215,10 +215,11 @@ cc.Class({
 
         for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
             const seat = this._computeSeat(this.roomInfoData.playerList[i].seat);
+            this.roomInfoData.playerList[i].info = JSON.parse(this.roomInfoData.playerList[i].info);
 
-            this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = this.roomInfoData.playerList[i].nickname;
+            this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = this.roomInfoData.playerList[i].info.nickname;
             this.playerInfoList[seat].getChildByName('text_result').getComponent(cc.Label).string = this.roomInfoData.playerList[i].totalScore;
-            Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), this.roomInfoData.playerList[i].headimgurl);
+            Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), this.roomInfoData.playerList[i].info.headimgurl);
 
             // 设置房主
             if (this.roomInfoData.playerList[i].playerUuid === this.userInfo.playerUuid) {

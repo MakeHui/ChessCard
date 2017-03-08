@@ -58,15 +58,15 @@ window.WebSocketManager.requestMessage = {
 
         message.setRoomId(parameters.roomId);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setInfo({
-            Gender: userInfo.gender,
-            Gold: userInfo.gold,
-            Score: 0,
-            Nick: userInfo.nickname,
-            HandUrl: userInfo.headimgurl,
-            IP: '0.0.0.0',
-            Location: '该用户不想透露位置',
-        });
+        message.setInfo(JSON.stringify({
+            gender: userInfo.gender,
+            gold: userInfo.gold,
+            score: 0,
+            nickname: userInfo.nickname,
+            headimgurl: userInfo.headimgurl,
+            ip: '0.0.0.0',
+            location: '该用户不想透露位置',
+        }));
 
         return message;
     },
