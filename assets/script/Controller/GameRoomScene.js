@@ -3,6 +3,21 @@ cc.Class({
 
     properties: {
         /**
+         * 解散房间
+         */
+        voteDismiss: cc.Node,
+        voteSponsor: cc.Label,
+        voteExpireSeconds: cc.Label,
+        votePlayers: {
+            default: [],
+            type: cc.Node,
+        },
+        voteDismissButton: {
+            default: [],
+            type: cc.Node,
+        },
+
+        /**
          * 0: 玩家1
          * 1: 玩家24
          * 3: 玩家3
@@ -110,6 +125,10 @@ cc.Class({
                 WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
+                if (commandName === false) {
+                    cc.log(['WebSocketManager.ws.addOnmessageListener', '数据解析失败']);
+                    return;
+                }
                 self[`on${commandName}Message`](result);
             });
             WebSocketManager.ws.addOnerrorListener(scriptName, () => {
@@ -161,26 +180,11 @@ cc.Class({
      **/
 
     onEnterRoomMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
 
-        /*
-         uint32 code = 1;  // 返回进入房间结果
-         uint32 room_id = 2;  // 6位房间号
-         string owner_uuid = 3;  // 房主UUID
-         string kwargs = 4;  // json 创建房间参数，由具体游戏各自解析字段
-         uint32 rest_cards = 5; // 剩余牌数
-         message Player {  // 同房其他玩家信息
-             uint32 seat = 1;  // 座位号
-             string player_uuid = 2;  // 玩家UUID
-             string info = 3;  // 玩家详细信息
-             uint32 status = 4;  // 玩家状态
-             uint32 is_online = 5;  // 是否在线
-             uint32 total_score = 6;  // 玩家累计总分
-         }
-         */
-        this.roomInfoData = Tools.protobufToJson(data);
+        this.roomInfoData = data;
         this.roomInfoData.kwargs = JSON.parse(this.roomInfoData.kwargs);
 
         // 游戏玩法
@@ -236,68 +240,182 @@ cc.Class({
         }
     },
 
-    onExitRoomMessage(data) {
-        if (data.getCode() !== 1) {
+    onEnterRoomOtherMessage(data) {
+        if (data.code !== 1) {
             return;
+        }
+
+        data.info = JSON.parse(data.info);
+        this.roomInfoData.playerInfoList.push(data);
+
+        const seat = this._computeSeat(data.seat);
+        this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
+        this.playerInfoList[seat].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore;
+        Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
+
+        // 设置房主
+        if (data.playerUuid === this.userInfo.playerUuid) {
+            this.playerInfoList[seat].getChildByName('img_hostmark').active = true;
+        }
+
+        this.inviteButtonList[seat].active = false;
+        this.playerInfoList[seat].active = true;
+    },
+
+    onExitRoomMessage(data) {
+        if (data.code !== 1) {
+            return;
+        }
+
+        for (let i; i < this.roomInfoData.playerInfoList.length; i += 1) {
+            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
+                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+
+                this.inviteButtonList[seat].active = true;
+                this.playerInfoList[seat].active = false;
+
+                cc.js.array.removeAt(this.roomInfoData.playerInfoList, i);
+                break;
+            }
         }
     },
 
     onDismissRoomMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
+
+        cc.director.loadScene('GameRoom');
     },
 
     onSponsorVoteMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
+
+        this._votePlayers = {};
+        for (let i; i < this.roomInfoData.playerInfoList.length; i += 1) {
+            if (this.roomInfoData.playerInfoList[i].playerUuid === data.sponsor) {
+                this.voteSponsor.string = this.roomInfoData.playerInfoList[i].nickname;
+            }
+
+            this._votePlayers.push(this.roomInfoData.playerInfoList[i]);
+        }
+
+        for (let i; i < this._votePlayers.length; i += 1) {
+            this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = this._votePlayers[i].nickname;
+        }
+
+        this.voteDismiss.active = true;
     },
 
     onPlayerVoteMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
+        }
+
+        for (let i; i < this._votePlayers.length; i += 1) {
+            if (this._votePlayers[i] === data.playerUuid) {
+                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = data.flag ? '同意' : '拒绝';
+            }
         }
     },
 
     onOnlineStatusMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
+        }
+
+        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
+            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
+                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+                this.playerInfoList[seat].getChildByName('img_offline').active = false;
+
+                break;
+            }
         }
     },
 
     onSpeakerMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
+        }
+
+        data.content = JSON.parse(data.content);
+
+        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
+            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
+                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+                const self = this;
+
+                // 评论
+                if (data.content.type === 1) {
+                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_male_${data.data}`]).play();
+
+                    const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.data}>Label`).getComponent(cc.Label).string;
+                    this.chatList[seat].getChildByName('txtMsg').getComponent(cc.Label).string = text;
+
+                    self.chatList[seat].active = true;
+                    this.scheduleOnce(() => {
+                        self.chatList[seat].active = false;
+                    }, 3);
+                }
+                // 表情
+                else if (data.content.type === 2) {
+                    Tools.loadPrefab(`emoji/emotion${data.data}`, (prefab) => {
+                        const node = cc.instantiate(prefab);
+                        self.emojiNode = node;
+                        self.node.addChild(node);
+                        node.getComponent(cc.Animation).play(`emotion${data}`);
+                    });
+                }
+                // 语音
+                else if (data.content.type === 3) {
+                    Tools.setWebAudio(data.data, (audioRaw) => {
+                        self.audio.setAudioRaw(audioRaw).play();
+                    });
+                }
+
+                break;
+            }
         }
     },
 
     onReadyMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
+        }
+
+        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
+            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
+                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+                this.playerInfoList[seat].getChildByName('img_offline').active = false;
+
+                break;
+            }
         }
     },
 
     onDealMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onDrawMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onDiscardMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onSynchroniseCardsMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
@@ -309,37 +427,37 @@ cc.Class({
      **/
 
     onReconnectMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onPromptMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onActionMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onReadyHandMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onSettleForRoundMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
 
     onSettleForRoomMessage(data) {
-        if (data.getCode() !== 1) {
+        if (data.code !== 1) {
             return;
         }
     },
@@ -464,6 +582,18 @@ cc.Class({
         event.target.setPositionY(24);
 
         cc.log(event.target.parent.getChildByName('UserData').string);
+    },
+
+    voteConfirmOnClick() {
+
+        this.dismissButton[0].active = false;
+        this.dismissButton[1].active = false;
+    },
+
+    voteDisagreeOnClick() {
+
+        this.dismissButton[0].active = false;
+        this.dismissButton[1].active = false;
     },
 
     closeOnClick() {

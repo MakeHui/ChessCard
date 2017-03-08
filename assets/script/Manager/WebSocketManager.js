@@ -276,7 +276,7 @@ window.WebSocketManager.ws = {
             const data = WebSocketManager.ArrayBuffer.reader(evt.data);
             if (data !== false) {
                 const commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
-                const result = proto.game[`${commandName}Response`].deserializeBinary(data.data);
+                const result = Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
 
                 for (const linstener in self._onmessageListener) {
                     self._onmessageListener[linstener](evt, commandName, result);

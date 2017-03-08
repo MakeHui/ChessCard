@@ -36,23 +36,25 @@ window.Tools.removeArrayInValue = (array, value) => {
  * @datetime 2017-02-14T18:37:45+0800
  *
  * @param    {cc.Node}                 node 父节点
- * @param    {string}                 name 子节点名称
+ * @param    {string}                  path 子节点名称
  * @return   {cc.Node}
  */
-window.Tools.seekNodeByName = (node, name) => {
-    const children = node.children;
-    for (let i = 0; i < children.length; i += 1) {
-        if (children[i].name !== name) {
-            const childrenNode = window.Tools.seekNodeByName(children[i], name);
-            if (childrenNode) {
-                return childrenNode;
-            }
-        }
-        else {
-            return children[i];
+window.Tools.findNode = (node, path) => {
+    function _findNode(name) {
+        return node.getChildByName(name) || false;
+    }
+
+    path = path.split('>');
+
+    for (let i = 0; i < path.length; i += 1) {
+        node = _findNode(path[i]);
+        if (node === false) {
+            return false;
         }
     }
-    return undefined;
+
+    return node;
+
 };
 
 /**
@@ -105,6 +107,28 @@ window.Tools.setWebImage = (sprite, url) => {
 };
 
 /**
+ * 获取网络音频
+ * @param url
+ * @param callback
+ */
+window.Tools.getWebAudio = (url, callback) => {
+    callback = callback || (() => {});
+
+    if (!url) {
+        cc.log(['window.Tools.setWebAudio', 'url 不存在'])
+        return;
+    }
+    cc.loader.load(url, (err, audioRaw) => {
+        if (err) {
+            cc.log(err);
+        }
+        else {
+            callback(audioRaw);
+        }
+    });
+};
+
+/**
  * 音频管理
  * @type {Object}
  */
@@ -136,8 +160,14 @@ window.Tools.audioEngine = {
         return cc.audioEngine.getState(this.audioId);
     },
 
-    setAudioRaw(audioUrl) {
-        this.audioRaw = cc.url.raw(audioUrl);
+    setAudioRaw(audio) {
+        if (typeof audio === 'string') {
+            this.audioRaw = cc.url.raw(audio);
+        }
+        else {
+            this.audioRaw = audio;
+        }
+
         return this;
     },
 };
