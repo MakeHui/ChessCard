@@ -54,7 +54,6 @@ window.Tools.findNode = (node, path) => {
     }
 
     return node;
-
 };
 
 /**
@@ -93,7 +92,7 @@ window.Tools.setLocalData = (key, data) => {
  */
 window.Tools.setWebImage = (sprite, url) => {
     if (!url) {
-        cc.log(['window.Tools.setWebImage', 'url 不存在'])
+        cc.log(['window.Tools.setWebImage', 'url 不存在']);
         return;
     }
     cc.loader.load(url, (err, texture) => {
@@ -115,7 +114,7 @@ window.Tools.getWebAudio = (url, callback) => {
     callback = callback || (() => {});
 
     if (!url) {
-        cc.log(['window.Tools.setWebAudio', 'url 不存在'])
+        cc.log(['window.Tools.setWebAudio', 'url 不存在']);
         return;
     }
     cc.loader.load(url, (err, audioRaw) => {
@@ -264,15 +263,24 @@ window.Tools.captureScreen = (node, callback, fileName) => {
  * @datetime 2017-02-22 15:25:58
  *
  * @param    {string}                 name     需要获取的名称
+ * @param    {Object}                 type
  * @param    {Function}               callback
  */
-window.Tools.loadPrefab = (name, callback) => {
-    cc.loader.loadRes(`prefab/${name}`, cc.Prefab, (error, prefab) => {
+window.Tools.loadRes = (name, type, callback) => {
+    let folder = '';
+    if (type === cc.Prefab) {
+        folder = 'prefab';
+    }
+    else if (type === cc.SpriteFrame) {
+        folder = 'Texture';
+    }
+
+    cc.loader.loadRes(`${folder}/${name}`, type, (error, resource) => {
         if (error) {
-            cc.error(`window.Tools.loadPrefab: 获取失败~, error: ${error}`);
+            cc.error(`window.Tools.loadRes: 获取失败~, error: ${error}`);
             return;
         }
-        callback(prefab);
+        callback(resource);
     });
 };
 
@@ -648,6 +656,9 @@ window.Tools.protobufToJson = (protobuf) => {
                 }
                 result[Tools.firstLowerCase(name.substring(3))] = array;
             }
+            else if (Tools.isObject(data)) {
+                result[Tools.firstLowerCase(name.substring(3))] = Tools.protobufToJson(data);
+            }
             else {
                 result[Tools.firstLowerCase(name.substring(3))] = data;
             }
@@ -679,4 +690,8 @@ window.Tools.unique = (array) => {
 
 window.Tools.isArray = (object) => {
     return Object.prototype.toString.call(object) === '[object Array]';
+};
+
+window.Tools.isObject = (object) => {
+    return Object.prototype.toString.call(object) === '[object Object]';
 };

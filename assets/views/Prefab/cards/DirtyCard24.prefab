@@ -65,7 +65,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DirtyCardHorizontal",
+    "_name": "Background",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {

@@ -400,11 +400,43 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        let i = -1;
+        this.schedule(() => {
+            const obj = data.cardsInHandList[i += 1];
+
+            const node0 = cc.instantiate(this.handCardPrefabs[0]);
+            const node1 = cc.instantiate(this.handCardPrefabs[1]);
+            const node2 = cc.instantiate(this.handCardPrefabs[2]);
+            const node3 = cc.instantiate(this.handCardPrefabs[3]);
+
+            const nodeSprite = Tools.findNode(node0, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+
+            this.handCardDistrict[0].addChild(node0);
+            this.handCardDistrict[1].addChild(node1);
+            this.handCardDistrict[2].addChild(node2);
+            this.handCardDistrict[3].addChild(node3);
+        }, 500, data.cardsInHandList.length);
     },
 
     onDrawMessage(data) {
         if (data.code !== 1) {
             return;
+        }
+
+        if (data.playerUuid === this.userInfo.playerUuid) {
+            const node = cc.instantiate(this.handCardPrefabs[0]);
+            node.setPositionX(24);
+
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+
+            this.handCardDistrict[0].addChild(node);
         }
     },
 
@@ -412,11 +444,39 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
+            if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
+                const seat = this._computeSeat(this.roomInfoData.playerList[i].seat);
+                const node = cc.instantiate(this.dirtyCardPrefabs[seat]);
+
+                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                Tools.loadRes(`card_pin.plist/value_${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
+                    nodeSprite.spriteFrame = spriteFrame;
+                });
+
+                this.dirtyCardDistrict[seat].addChild(node);
+                break;
+            }
+        }
     },
 
     onSynchroniseCardsMessage(data) {
         if (data.code !== 1) {
             return;
+        }
+
+        this.handCardDistrict[0].removeAll();
+
+        for (let i = 0; i < data.card.length; i += 1) {
+            const obj = data.card[i];
+            const node = cc.instantiate(this.handCardPrefabs[0]);
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+
+            this.handCardDistrict[0].addChild(node);
         }
     },
 

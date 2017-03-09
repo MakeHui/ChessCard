@@ -280,7 +280,7 @@ window.Global.loading = {
 
     open(node) {
         const self = this;
-        window.Tools.loadPrefab('Loading', (prefab) => {
+        window.Tools.loadRes('Loading', cc.Prefab, (prefab) => {
             self.loadingNode = cc.instantiate(prefab);
             self._open(node);
         });
