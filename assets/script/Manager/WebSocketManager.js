@@ -59,13 +59,12 @@ window.WebSocketManager.requestMessage = {
         message.setRoomId(parameters.roomId);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setInfo(JSON.stringify({
-            gender: userInfo.gender,
             gold: userInfo.gold,
-            score: 0,
             nickname: userInfo.nickname,
             headimgurl: userInfo.headimgurl,
-            ip: '0.0.0.0',
-            location: '该用户不想透露位置',
+            sex: userInfo.sex,
+            ip: userInfo.ip,
+            location: userInfo.location,
         }));
 
         return message;
@@ -73,7 +72,6 @@ window.WebSocketManager.requestMessage = {
 
     /**
      * 3. 自己主动退出房间
-     * @param parameters
      * @returns {proto.game.ExitRoomRequest}
      */
     getExitRoomRequestMessage() {
@@ -82,7 +80,6 @@ window.WebSocketManager.requestMessage = {
 
     /**
      * 4、解散房间
-     * @param parameters
      * @returns {proto.game.DismissRoomRequest}
      */
     getDismissRoomRequestMessage() {
@@ -115,7 +112,6 @@ window.WebSocketManager.requestMessage = {
 
     /**
      * 9、准备
-     * @param parameters
      * @returns {proto.game.ReadyRequest}
      */
     getReadyRequestMessage() {

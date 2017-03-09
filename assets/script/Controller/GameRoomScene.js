@@ -350,9 +350,9 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_male_${data.data}`]).play();
+                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_${this.roomInfoData.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
-                    const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.data}>Label`).getComponent(cc.Label).string;
+                    const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[seat].getChildByName('txtMsg').getComponent(cc.Label).string = text;
 
                     self.chatList[seat].active = true;
@@ -362,16 +362,16 @@ cc.Class({
                 }
                 // 表情
                 else if (data.content.type === 2) {
-                    Tools.loadPrefab(`emoji/emotion${data.data}`, (prefab) => {
+                    Tools.loadPrefab(`emoji/emotion${data.content.data}`, (prefab) => {
                         const node = cc.instantiate(prefab);
                         self.emojiNode = node;
                         self.node.addChild(node);
-                        node.getComponent(cc.Animation).play(`emotion${data}`);
+                        node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
                     });
                 }
                 // 语音
                 else if (data.content.type === 3) {
-                    Tools.setWebAudio(data.data, (audioRaw) => {
+                    Tools.setWebAudio(data.content.data, (audioRaw) => {
                         self.audio.setAudioRaw(audioRaw).play();
                     });
                 }
@@ -401,24 +401,14 @@ cc.Class({
             return;
         }
 
+        const self = this;
         let i = -1;
         this.schedule(() => {
             const obj = data.cardsInHandList[i += 1];
-
-            const node0 = cc.instantiate(this.handCardPrefabs[0]);
-            const node1 = cc.instantiate(this.handCardPrefabs[1]);
-            const node2 = cc.instantiate(this.handCardPrefabs[2]);
-            const node3 = cc.instantiate(this.handCardPrefabs[3]);
-
-            const nodeSprite = Tools.findNode(node0, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
-
-            this.handCardDistrict[0].addChild(node0);
-            this.handCardDistrict[1].addChild(node1);
-            this.handCardDistrict[2].addChild(node2);
-            this.handCardDistrict[3].addChild(node3);
+            self._appendCardToHandCardDistrict(0, obj.card);
+            self._appendCardToHandCardDistrict(1);
+            self._appendCardToHandCardDistrict(2);
+            self._appendCardToHandCardDistrict(3);
         }, 500, data.cardsInHandList.length);
     },
 
@@ -528,6 +518,9 @@ cc.Class({
      *******************************************************************************************************************
      **/
 
+    /**
+     * 微信邀请
+     */
     wechatInviteOnClick() {
         Tools.captureScreen(this.node, (filePath) => {
             cc.log(filePath);
@@ -549,6 +542,9 @@ cc.Class({
         }
     },
 
+    /**
+     * 发送语音
+     */
     voiceOnClick() {
         if (this.voiceProgressBar.progress <= 0) {
             this.voiceProgressBar.progress = 1.0;
@@ -598,6 +594,9 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
+        const content = JSON.stringify({ type: 1, data });
+        WebSocketManager.sendMessage('Speaker', { content });
+
         this.fastChatProgressBar.progress = 1.0;
         this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_male_${data}`]).play();
 
@@ -605,6 +604,9 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
+        const content = JSON.stringify({ type: 2, data });
+        WebSocketManager.sendMessage('Speaker', { content });
+
         this.fastChatProgressBar.progress = 1.0;
         this.fastChatShowTime = +new Date();
         const self = this;
@@ -627,12 +629,25 @@ cc.Class({
         }
     },
 
+    /**
+     * 出牌
+     *
+     * @param event
+     * @param data
+     */
     selectedHandCardOnClick(event, data) {
         if (this.handCardIsSelected === data) {
             event.target.parent.destroy();
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
             // const backgroundNode = node.getChildByName('background');
             this.dirtyCardDistrict[0].addChild(node);
+
+            WebSocketManager.sendMessage('Discard', { card: data });
+
             return;
         }
 
@@ -642,6 +657,19 @@ cc.Class({
         event.target.setPositionY(24);
 
         cc.log(event.target.parent.getChildByName('UserData').string);
+    },
+
+    /**
+     * 声音选项
+     */
+    openSoundPanelOnClick() {
+        Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+            cc.log('load success');
+        });
+    },
+
+    dismissOnClick() {
+        WebSocketManager.sendMessage('DismissRoom', {});
     },
 
     voteConfirmOnClick() {
@@ -657,6 +685,7 @@ cc.Class({
     },
 
     closeOnClick() {
+        WebSocketManager.sendMessage('ExitRoom', { roomId: this.roomId });
         cc.director.loadScene('Lobby');
     },
 
@@ -694,25 +723,35 @@ cc.Class({
         }
     },
 
+    /**
+     * 添加牌到手牌区
+     *
+     * @param player
+     * @param data
+     * @private
+     */
     _appendCardToHandCardDistrict(player, data) {
-        for (let i = 0; i < data.length; i += 1) {
-            const node = cc.instantiate(this.handCardPrefabs[player]);
-            if (player === 0) {
-                const backgroundNode = node.getChildByName('background');
-                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', i);
-                backgroundNode.getComponent(cc.Button).clickEvents.push(clickEventHandler);
-                // todo: 数据组装
-            }
-            node.getChildByName('UserData').string = 'xxxxxx';
-
-            this.handCardDistrict[player].addChild(node);
-
-            // if (player === 0 && i === 0) {
-            //     backgroundNode.setPositionX(24);
-            // }
+        const node = cc.instantiate(this.handCardPrefabs[player]);
+        if (player === 0) {
+            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', data);
+            node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+            // node.getChildByName('UserData').string = 'xxxxxx';
         }
+
+        this.handCardDistrict[player].addChild(node);
     },
 
+    /**
+     * 碰, 吃, 杠, 区域
+     *
+     * @param player
+     * @param data
+     * @private
+     */
     _appendCardToPongKongChowDistrict(player, data) {
         const index = player % 2;
         let node = cc.Node;
