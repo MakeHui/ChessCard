@@ -1,7 +1,9 @@
 cc.Class({
     extends: cc.Component,
-
+    // 708034
     properties: {
+        soundPrefab: cc.Prefab,
+
         /**
          * 解散房间
          */
