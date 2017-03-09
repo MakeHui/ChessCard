@@ -1,5 +1,5 @@
 {
-  "extends": "airbnb",
+  "extends": "airbnb/base",
   "env":{
     "node":true,
     "es6":true
@@ -14,7 +14,9 @@
     "no-restricted-syntax": 0,
     "guard-for-in": 0,
     "key-spacing": 0,
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "global-require": 0,
+    "import/no-unresolved": 0
   },
   "globals": {
     "window": true,
