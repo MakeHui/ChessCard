@@ -4,6 +4,9 @@ cc.Class({
     properties: {
         soundPrefab: cc.Prefab,
 
+        // 听牌提示
+        tingCardDistrict: cc.Node,
+
         /**
          * 解散房间
          */
@@ -523,13 +526,34 @@ cc.Class({
             this._appendPongToDistrict(playerIndex, obj.cardsPong);
             this._appendChowToDistrict(playerIndex, obj.cardsChow);
         }
-
-
     },
 
     onPromptMessage(data) {
         if (data.code !== 1) {
             return;
+        }
+
+        this._GameRoomCache.promptList = data;
+
+        if (data.length > 0) {
+            this.actionPanel[0].active = true;
+        }
+
+        for (let i = 0; i < data.length; i += 1) {
+            const obj = data[i];
+
+            if (obj.prompt === Global.promptType.Chow) {
+                this.actionPanel[1].active = true;
+            }
+            else if (obj.prompt === Global.promptType.Pong) {
+                this.actionPanel[2].active = true;
+            }
+            else if (obj.prompt === Global.promptType.KongConcealed || obj.prompt === Global.promptType.kongExposed) {
+                this.actionPanel[3].active = true;
+            }
+            else if (obj.prompt === Global.promptType.WinDiscard || obj.prompt === Global.promptType.WinDraw) {
+                this.actionPanel[4].active = true;
+            }
         }
     },
 
@@ -537,11 +561,52 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        if (data.activeCard) {
+            this._GameRoomCache.activeCard.destroy();
+        }
+
+        const playerIndex = this._computeSeat(data.triggerSeat);
+
+        // todo: 音频, 根据不同的用户的位置动画提示
+        if (data.activeType === Global.promptType.Chow) {
+            this._appendChowToDistrict(playerIndex, data.refCard);
+        }
+        else if (data.activeType === Global.promptType.Pong) {
+            this._appendPongToDistrict(playerIndex, data.refCard);
+        }
+        else if (data.activeType === Global.promptType.KongConcealed) {
+            this._appendConcealedKongToDistrict(playerIndex, data.refCard);
+        }
+        else if (data.activeType === Global.promptType.kongExposed) {
+            this._appendExposedToDistrict(playerIndex, data.refCard);
+        }
+        else if (data.activeType === Global.promptType.WinDiscard || data.activeType === Global.promptType.WinDraw) {
+            // todo: 胡牌
+        }
     },
 
     onReadyHandMessage(data) {
         if (data.code !== 1) {
             return;
+        }
+
+        for (let j = 0; j < this.tingCardDistrict.children.length; j += 1) {
+            if (j !== 0) {
+                this.tingCardDistrict.children[j].destroy();
+            }
+        }
+
+        this.tingCardDistrict.active = true;
+
+        for (let i = 0; i < data.length; i += 1) {
+            const node = cc.instantiate(this.dirtyCardPrefabs[0]);
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+
+            this.tingCardDistrict.addChild(node);
         }
     },
 
@@ -624,6 +689,11 @@ cc.Class({
         // 手牌复位
         if (this.handCardDistrict[0].childrenCount > 0) {
             this._resetHandCardPosition();
+        }
+
+        // 关闭听提示
+        if (this.tingCardDistrict.active) {
+            this.tingCardDistrict.active = false;
         }
     },
 

@@ -32,4 +32,5 @@ window.NativeExtensionManager.callback = {
     record(data) {
 
     }
-}
+};
+
