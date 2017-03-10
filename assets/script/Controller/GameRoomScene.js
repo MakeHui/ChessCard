@@ -116,11 +116,12 @@ cc.Class({
     },
 
     onLoad() {
+        this._GameRoomCache = {};
         const scriptName = 'GameRoomScene';
         if (Global.tempCache) {
             const self = this;
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
-            this.roomId = Global.tempCache.roomId;
+            this._GameRoomCache.roomId = Global.tempCache.roomId;
 
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
@@ -140,7 +141,7 @@ cc.Class({
 
             });
 
-            this.roomInfo[1].string = `房间号: ${this.roomId}`;
+            this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         }
 
         this.emojiNode = cc.Node;
@@ -151,9 +152,9 @@ cc.Class({
 
         this.audio = Tools.audioEngine.init();
 
-        this.userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
-        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this.userInfo.nickname;
-        Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this.userInfo.headimgurl);
+        this._userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
+        Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
     },
 
     update(dt) {
@@ -186,58 +187,37 @@ cc.Class({
             return;
         }
 
-        this.roomInfoData = data;
-        this.roomInfoData.kwargs = JSON.parse(this.roomInfoData.kwargs);
+        data.kwargs = JSON.parse(data.kwargs);
+        this._roomInfo(data.kwargs, 0, data.restCards);
+        this._GameRoomCache = data;
 
-        // 游戏玩法
-        const _gameInfo = Global.playerTypes[this.roomInfoData.kwargs.game_uuid];
-        let gameInfo = '玩法: ';
-        for (const k in this.roomInfoData.kwargs.play_type) {
-            if (this.roomInfoData.kwargs.play_type[k] === 1) {
-                gameInfo += `${_gameInfo.play_type[k]},`;
-            }
-        }
-        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n可选: `;
-
-        for (const k in this.roomInfoData.kwargs.options) {
-            if (this.roomInfoData.kwargs.options[k] === 1) {
-                gameInfo += `${_gameInfo.options[k]},`;
-            }
-        }
-        gameInfo = gameInfo.substr(0, gameInfo.length - 1);
-
-        this.roomInfo[1].string = `房间号: ${this.roomInfoData.roomId}`;
-        this.roomInfo[2].string = `局数: ${this.roomInfoData.restCards}`;
-        this.roomInfo[3].string = `剩余牌数: ${this.roomInfoData.restCards}`;
-        this.roomInfo[4].string = gameInfo;
-
-        this.thisPlayerSeat = '';
-
-        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
-            if (this.roomInfoData.playerList[i].playerUuid === this.userInfo.playerUuid) {
-                this.thisPlayerSeat = this.roomInfoData.playerList[i].seat;
+        for (let i = 0; i < data.playerInfoList.length; i += 1) {
+            const obj = data.playerInfoList[i];
+            if (obj.playerUuid === this._userInfo.playerUuid) {
+                this._GameRoomCache.thisPlayerSeat = obj.seat;
             }
         }
 
-        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
-            const seat = this._computeSeat(this.roomInfoData.playerList[i].seat);
-            this.roomInfoData.playerList[i].info = JSON.parse(this.roomInfoData.playerList[i].info);
+        for (let i = 0; i < data.playerInfoList.length; i += 1) {
+            const obj = data.playerInfoList[i];
+            const playerIndex = this._computeSeat(obj.seat);
+            obj.info = JSON.parse(obj.info);
 
-            this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = this.roomInfoData.playerList[i].info.nickname;
-            this.playerInfoList[seat].getChildByName('text_result').getComponent(cc.Label).string = this.roomInfoData.playerList[i].totalScore;
-            Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), this.roomInfoData.playerList[i].info.headimgurl);
+            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
+            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore;
+            Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
-            if (this.roomInfoData.playerList[i].playerUuid === this.userInfo.playerUuid) {
-                this.playerInfoList[seat].getChildByName('img_hostmark').active = true;
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.ownerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
             }
 
             // 是否在线
-            this.playerInfoList[seat].getChildByName('img_offline').active = this.roomInfoData.playerList[i].isOnline === 0;
+            this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
 
-            if (seat !== 0) {
-                this.inviteButtonList[seat].active = false;
-                this.playerInfoList[seat].active = true;
+            if (playerIndex !== 0) {
+                this.inviteButtonList[playerIndex].active = false;
+                this.playerInfoList[playerIndex].active = true;
             }
         }
     },
@@ -248,20 +228,20 @@ cc.Class({
         }
 
         data.info = JSON.parse(data.info);
-        this.roomInfoData.playerInfoList.push(data);
+        this._GameRoomCache.playerInfoList.push(data);
 
-        const seat = this._computeSeat(data.seat);
-        this.playerInfoList[seat].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
-        this.playerInfoList[seat].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore;
-        Tools.setWebImage(this.playerInfoList[seat].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
+        const playerIndex = this._computeSeat(data.seat);
+        this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
+        this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore;
+        Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
-        if (data.playerUuid === this.userInfo.playerUuid) {
-            this.playerInfoList[seat].getChildByName('img_hostmark').active = true;
+        if (data.playerUuid === this._userInfo.playerUuid) {
+            this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
         }
 
-        this.inviteButtonList[seat].active = false;
-        this.playerInfoList[seat].active = true;
+        this.inviteButtonList[playerIndex].active = false;
+        this.playerInfoList[playerIndex].active = true;
     },
 
     onExitRoomMessage(data) {
@@ -269,14 +249,14 @@ cc.Class({
             return;
         }
 
-        for (let i; i < this.roomInfoData.playerInfoList.length; i += 1) {
-            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
-                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+        for (let i; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
 
-                this.inviteButtonList[seat].active = true;
-                this.playerInfoList[seat].active = false;
+                this.inviteButtonList[playerIndex].active = true;
+                this.playerInfoList[playerIndex].active = false;
 
-                cc.js.array.removeAt(this.roomInfoData.playerInfoList, i);
+                cc.js.array.removeAt(this._GameRoomCache.playerInfoList, i);
                 break;
             }
         }
@@ -296,12 +276,12 @@ cc.Class({
         }
 
         this._votePlayers = {};
-        for (let i; i < this.roomInfoData.playerInfoList.length; i += 1) {
-            if (this.roomInfoData.playerInfoList[i].playerUuid === data.sponsor) {
-                this.voteSponsor.string = this.roomInfoData.playerInfoList[i].nickname;
+        for (let i; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.sponsor) {
+                this.voteSponsor.string = this._GameRoomCache.playerInfoList[i].nickname;
             }
 
-            this._votePlayers.push(this.roomInfoData.playerInfoList[i]);
+            this._votePlayers.push(this._GameRoomCache.playerInfoList[i]);
         }
 
         for (let i; i < this._votePlayers.length; i += 1) {
@@ -328,10 +308,10 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
-            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
-                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
-                this.playerInfoList[seat].getChildByName('img_offline').active = false;
+        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
 
                 break;
             }
@@ -345,21 +325,21 @@ cc.Class({
 
         data.content = JSON.parse(data.content);
 
-        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
-            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
-                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
+        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
                 const self = this;
 
                 // 评论
                 if (data.content.type === 1) {
-                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_${this.roomInfoData.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
+                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_${this._GameRoomCache.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
-                    this.chatList[seat].getChildByName('txtMsg').getComponent(cc.Label).string = text;
+                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
 
-                    self.chatList[seat].active = true;
+                    self.chatList[playerIndex].active = true;
                     this.scheduleOnce(() => {
-                        self.chatList[seat].active = false;
+                        self.chatList[playerIndex].active = false;
                     }, 3);
                 }
                 // 表情
@@ -388,10 +368,10 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this.roomInfoData.playerInfoList.length; i += 1) {
-            if (this.roomInfoData.playerInfoList[i].playerUuid === data.playerUuid) {
-                const seat = this._computeSeat(this.roomInfoData.playerInfoList[i].seat);
-                this.playerInfoList[seat].getChildByName('img_offline').active = false;
+        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
 
                 break;
             }
@@ -403,6 +383,16 @@ cc.Class({
             return;
         }
 
+        // 庄家
+        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.dealerUuid) {
+                this.dealeSeat = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+                this.playerInfoList[this.dealeSeat].getChildByName('img_zhuang').active = false;
+
+                break;
+            }
+        }
+
         const self = this;
         let i = -1;
         this.schedule(() => {
@@ -411,7 +401,7 @@ cc.Class({
             self._appendCardToHandCardDistrict(1);
             self._appendCardToHandCardDistrict(2);
             self._appendCardToHandCardDistrict(3);
-        }, 500, data.cardsInHandList.length);
+        }, 100, data.cardsInHandList.length);
     },
 
     onDrawMessage(data) {
@@ -419,7 +409,7 @@ cc.Class({
             return;
         }
 
-        if (data.playerUuid === this.userInfo.playerUuid) {
+        if (data.playerUuid === this._userInfo.playerUuid) {
             const node = cc.instantiate(this.handCardPrefabs[0]);
             node.setPositionX(24);
 
@@ -437,17 +427,17 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this.roomInfoData.playerList.length; i += 1) {
+        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
             if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
-                const seat = this._computeSeat(this.roomInfoData.playerList[i].seat);
-                const node = cc.instantiate(this.dirtyCardPrefabs[seat]);
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+                const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 Tools.loadRes(`card_pin.plist/value_${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
                     nodeSprite.spriteFrame = spriteFrame;
                 });
 
-                this.dirtyCardDistrict[seat].addChild(node);
+                this.dirtyCardDistrict[playerIndex].addChild(node);
                 break;
             }
         }
@@ -482,6 +472,59 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        data.kwargs = JSON.parse(data.kwargs);
+        this._GameRoomCache.roomId = data;
+
+        // 初始化房间信息
+        this._roomInfo(data.kwargs, data.currentRound, data.restCards);
+
+        // 情况当前所有玩家信息等待重新初始化
+        for (let i = 0; i < 4; i += 1) {
+            this.handCardDistrict[i].removeAllChildren();
+            this.dirtyCardDistrict[i].removeAllChildren();
+            this.pongKongChowDistrict[i].removeAllChildren();
+
+            this.inviteButtonList[i].active = false;
+            this.playerInfoList[i].active = true;
+        }
+
+        // 查找当前玩家的座位号
+        for (let i = 0; i < data.playerInfoList.length; i += 1) {
+            const obj = data.playerInfoList[i];
+            if (obj.playerUuid === this._userInfo.playerUuid) {
+                this._GameRoomCache.thisPlayerSeat = obj.seat;
+            }
+        }
+
+        // 初始化玩家手牌
+        for (let i = 0; i < data.playerList.length; i += 1) {
+            const obj = data.playerList[i];
+            const playerIndex = this._computeSeat(obj.seat);
+            obj[i].info = JSON.parse(obj[i].info);
+
+            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj[i].info.nickname;
+            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj[i].totalScore;
+            Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj[i].info.headimgurl);
+
+            // 设置房主
+            if (obj[i].playerUuid === data.ownerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
+            }
+
+            // 是否在线
+            this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj[i].isOnline === 0;
+
+            // 初始化手牌
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHand);
+            this._appendCardToDiscardDistrict(playerIndex, obj.cardsDiscard);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealed);
+            this._appendExposedToDistrict(playerIndex, obj.cardsKongExposed);
+            this._appendPongToDistrict(playerIndex, obj.cardsPong);
+            this._appendChowToDistrict(playerIndex, obj.cardsChow);
+        }
+
+
     },
 
     onPromptMessage(data) {
@@ -687,7 +730,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        WebSocketManager.sendMessage('ExitRoom', { roomId: this.roomId });
+        WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
         cc.director.loadScene('Lobby');
     },
 
@@ -751,17 +794,124 @@ cc.Class({
      * 碰, 吃, 杠, 区域
      *
      * @param player
+     * @param type
      * @param data
      * @private
      */
-    _appendCardToPongKongChowDistrict(player, data) {
+
+    /**
+     * 暗杠
+     *
+     * @param player
+     * @param data
+     * @private
+     */
+    _appendConcealedKongToDistrict(player, data) {
         const index = player % 2;
-        let node = cc.Node;
-        if (data.type === 'gang') {
-            node = cc.instantiate(this.concealedKongPrefab[index]);
-            // todo: 数据组装
+        let node = {};
+
+        for (let i = 0; i < data.length; i += 1) {
+            if (i % 4 === 0) {
+                node = cc.instantiate(this.concealedKongPrefab[index]);
+                this.pongKongChowDistrict[player].addChild(node);
+
+                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
+                    nodeSprite.spriteFrame = spriteFrame;
+                });
+            }
         }
-        this.pongKongChowDistrict[player].addChild(node);
+    },
+
+    /**
+     * 明杠
+     *
+     * @param player
+     * @param data
+     * @private
+     */
+    _appendExposedToDistrict(player, data) {
+        const index = player % 2;
+        let node = {};
+
+        for (let j = 0; j < data.length; j += 1) {
+            if (j % 4 === 0) {
+                node = cc.instantiate(this.exposedPrefab[index]);
+                this.pongKongChowDistrict[player].addChild(node);
+            }
+
+            const nodeSprite = node.children[j % 4].getChildByName('value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+        }
+    },
+
+    /**
+     * 碰
+     *
+     * @param player
+     * @param data
+     * @private
+     */
+    _appendPongToDistrict(player, data) {
+        const index = player % 2;
+        let node = {};
+
+        for (let j = 0; j < data.length; j += 1) {
+            if (j % 3 === 0) {
+                node = cc.instantiate(this.pongAndChowPrefab[index]);
+                this.pongKongChowDistrict[player].addChild(node);
+            }
+
+            const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+        }
+    },
+
+    /**
+     * 吃
+     *
+     * @param player
+     * @param data
+     * @private
+     */
+    _appendChowToDistrict(player, data) {
+        const index = player % 2;
+        let node = {};
+
+        for (let j = 0; j < data.length; j += 1) {
+            if (j % 3 === 0) {
+                node = cc.instantiate(this.pongAndChowPrefab[index]);
+                this.pongKongChowDistrict[player].addChild(node);
+            }
+
+            const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
+            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+        }
+    },
+
+    /**
+     * 添加拍到打出去的区域
+     *
+     * @param player
+     * @param data
+     * @private
+     */
+    _appendCardToDiscardDistrict(player, data) {
+        for (let i = 0; i < data.length; i += 1) {
+            const index = player % 2;
+            const node = cc.instantiate(this.dirtyCardPrefabs[index]);
+            const nodeSprite = Tools.findNode(node, 'Background>value');
+            Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
+                nodeSprite.spriteFrame = spriteFrame;
+            });
+            this.dirtyCardDistrict[player].addChild(node);
+        }
     },
 
     _resetHandCardPosition() {
@@ -771,8 +921,40 @@ cc.Class({
     },
 
     _computeSeat(playerSeat) {
-        const desplaySeat = playerSeat - this.thisPlayerSeat;
+        const desplaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
         return (desplaySeat < 0 ? desplaySeat + 4 : desplaySeat);
+    },
+
+    /**
+     * 设置房间信息
+     *
+     * @param {Object} info
+     * @param currentRound
+     * @param restCards
+     * @private
+     */
+    _roomInfo(info, currentRound, restCards) {
+        // 游戏玩法
+        const _gameInfo = Global.playerTypes[info.game_uuid];
+        let gameInfo = '玩法: ';
+        for (const k in info.play_type) {
+            if (info.play_type[k] === 1) {
+                gameInfo += `${_gameInfo.play_type[k]},`;
+            }
+        }
+        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n可选: `;
+
+        for (const k in info.options) {
+            if (info.options[k] === 1) {
+                gameInfo += `${_gameInfo.options[k]},`;
+            }
+        }
+        gameInfo = gameInfo.substr(0, gameInfo.length - 1);
+
+        this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
+        this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
+        this.roomInfo[3].string = `剩余牌数: ${restCards}`;
+        this.roomInfo[4].string = gameInfo;
     }
 
 });
