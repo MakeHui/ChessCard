@@ -623,6 +623,9 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerInfoList };
+        cc.director.loadScene('SmallAccount');
     },
 
     /**
