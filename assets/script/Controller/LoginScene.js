@@ -8,15 +8,9 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        const self = this;
         NativeExtensionManager.execute(['startLocation']);
         NativeExtensionManager.callback.addListener('startLocation', (data) => {
-            if (data.request === 0) {
-                self.location = data.data;
-            }
-            else {
-                self.location = '该用户未公开地理位置';
-            }
+            window.userLocation = (data.request === 0) ? data.data : '该用户未公开地理位置';
         });
         // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
         // Global.backgroundMusic.play();
@@ -43,6 +37,7 @@ cc.Class({
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
+                result.location = window.userLocation;
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
                 Global.loading.close();
                 cc.director.loadScene(Global.scene.lobby);

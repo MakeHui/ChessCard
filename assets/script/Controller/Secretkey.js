@@ -24,11 +24,12 @@ cc.Class({
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
+                result.location = window.userLocation;
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
                 cc.director.loadScene(Global.scene.lobby);
             }
             else {
-                self.info.string = '* 登录失败';
+                self.info.string = '* 登录失败, 秘钥错误';
             }
             Global.loading.close();
         });
