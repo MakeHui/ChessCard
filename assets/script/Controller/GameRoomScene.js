@@ -132,7 +132,7 @@ cc.Class({
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 if (commandName === false) {
-                    cc.log(['WebSocketManager.ws.addOnmessageListener', '数据解析失败']);
+                    cc.warn(['WebSocketManager.ws.addOnmessageListener', '数据解析失败']);
                     return;
                 }
                 self[`on${commandName}Message`](result);
@@ -639,12 +639,12 @@ cc.Class({
      */
     wechatInviteOnClick() {
         Tools.captureScreen(this.node, (filePath) => {
-            cc.log(filePath);
+            cc.warn(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
-        cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
+        cc.warn([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
                 Animation.openPanel(this.fastChatPanel);
@@ -664,12 +664,12 @@ cc.Class({
     voiceOnClick() {
         if (this.voiceProgressBar.progress <= 0) {
             this.voiceProgressBar.progress = 1.0;
-            cc.log('voiceOnClick');
+            cc.warn('voiceOnClick');
         }
     },
 
     openMenuOnClick() {
-        cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
+        cc.warn([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
         }
@@ -777,7 +777,7 @@ cc.Class({
         this._resetHandCardPosition();
         event.target.setPositionY(24);
 
-        cc.log(event.target.parent.getChildByName('UserData').string);
+        cc.warn(event.target.parent.getChildByName('UserData').string);
     },
 
     /**
@@ -785,7 +785,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 

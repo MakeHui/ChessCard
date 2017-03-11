@@ -28,7 +28,7 @@ cc.Class({
     },
 
     shareOnClick: function() {
-        cc.log("shareOnClick");
+        cc.warn("shareOnClick");
     },
 
     /**
@@ -52,7 +52,7 @@ cc.Class({
         else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            cc.log(this.gameEndList.getChildByName('sa_item_noData'));
+            cc.warn(this.gameEndList.getChildByName('sa_item_noData'));
             if (this.gameEndList.getChildByName('sa_item_noData') === null) {
                 this._getHttpEndListForSelfData();
             }
@@ -66,7 +66,7 @@ cc.Class({
         HttpRequestManager.httpRequest("roomList", {}, function(event, result) {
             if (result.getCode() == 1) {
                 let roomItem = result.getRoomItemList();
-                cc.log(roomItem.length);
+                cc.warn(roomItem.length);
                 if (roomItem.length === 0) {
                     self.gameIngList.removeAllChildren();
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
@@ -78,7 +78,7 @@ cc.Class({
                 }
             }
             else {
-                cc.log(self.gameIngList.childrenCount);
+                cc.warn(self.gameIngList.childrenCount);
                 if (self.gameIngList.childrenCount === 0) {
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }

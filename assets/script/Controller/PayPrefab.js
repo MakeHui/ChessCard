@@ -19,7 +19,7 @@ cc.Class({
 
     payOnClick: function(evt, data) {
         Global.openDialog(cc.instantiate(this.shopStore), this.node, function () {
-            cc.log("load success");
+            cc.warn("load success");
         });
     }
 });

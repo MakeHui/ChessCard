@@ -17,8 +17,6 @@ cc.Class({
             return;
         }
 
-        Global.loading.open(this.node);
-
         const self = this;
         const parameters = { wxCode: this.input.string, location: this.location };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {

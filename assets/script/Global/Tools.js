@@ -67,7 +67,7 @@ window.Tools._findNode = (node, name) => {
  * @return   {Object}
  */
 window.Tools.getLocalData = (key) => {
-    const data = cc.sys.localStorage.getItem(key); // 从本地读取数据
+    const data = cc.sys.localStorage.getItem(`${key}-${window.UUID}`); // 从本地读取数据
 
     return data ? JSON.parse(data) : null;
 };
@@ -93,12 +93,12 @@ window.Tools.setLocalData = (key, data) => {
  */
 window.Tools.setWebImage = (sprite, url) => {
     if (!url) {
-        cc.log(['window.Tools.setWebImage', 'url 不存在']);
+        cc.warn(['window.Tools.setWebImage', 'url 不存在']);
         return;
     }
     cc.loader.load(url, (err, texture) => {
         if (err) {
-            cc.log(err);
+            cc.warn(err);
         }
         else {
             sprite.spriteFrame = new cc.SpriteFrame(texture);
@@ -115,12 +115,12 @@ window.Tools.getWebAudio = (url, callback) => {
     callback = callback || (() => {});
 
     if (!url) {
-        cc.log(['window.Tools.setWebAudio', 'url 不存在']);
+        cc.warn(['window.Tools.setWebAudio', 'url 不存在']);
         return;
     }
     cc.loader.load(url, (err, audioRaw) => {
         if (err) {
-            cc.log(err);
+            cc.warn(err);
         }
         else {
             callback(audioRaw);
@@ -250,7 +250,7 @@ window.Tools.captureScreen = (node, callback, fileName) => {
         renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, () => {
             // 把 renderTexture 从场景中移除
             renderTexture.removeFromParent();
-            cc.log('capture screen successfully!');
+            cc.warn('capture screen successfully!');
 
             callback(jsb.fileUtils.getWritablePath() + fileName);
         });
@@ -278,7 +278,7 @@ window.Tools.loadRes = (name, type, callback) => {
 
     cc.loader.loadRes(`${folder}/${name}`, type, (error, resource) => {
         if (error) {
-            cc.error(`window.Tools.loadRes: 获取失败~, error: ${error}`);
+            cc.warn(`window.Tools.loadRes: 获取失败~, error: ${error}`);
             return;
         }
         callback(resource);
@@ -345,15 +345,15 @@ window.Tools.HotUpdate = {
         }
 
         if (!manifestUrl) {
-            cc.log('初始化没有传递 manifest url');
+            cc.warn('初始化没有传递 manifest url');
             return;
         }
 
         this.manifestUrl = manifestUrl;
 
         const storagePath = (`${jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/'}remote-asset`);
-        cc.log(`Storage path for remote asset : ${storagePath}`);
-        // cc.log('Local manifest URL : ' + this.manifestUrl);
+        cc.warn(`Storage path for remote asset : ${storagePath}`);
+        // cc.warn('Local manifest URL : ' + this.manifestUrl);
 
         // 获取 manifest 地址
         this._assetsManager = new jsb.AssetsManager(this.manifestUrl, storagePath);
@@ -366,7 +366,7 @@ window.Tools.HotUpdate = {
         // if the return value equals 0, versionA equals to B,
         // if the return value smaller than 0, versionA is smaller than B.
         this._assetsManager.setVersionCompareHandle((versionA, versionB) => {
-            cc.log(`JS Custom Version Compare: version A is ${versionA}, version B is ${versionB}`);
+            cc.warn(`JS Custom Version Compare: version A is ${versionA}, version B is ${versionB}`);
             const vA = versionA.split('.');
             const vB = versionB.split('.');
             for (let i = 0; i < vA.length; i += 1) {
@@ -395,19 +395,19 @@ window.Tools.HotUpdate = {
             // The size of asset file, but this value could be absent.
             // var size = asset.size;
             if (compressed) {
-                cc.log(`Verification passed : ${relativePath}`);
+                cc.warn(`Verification passed : ${relativePath}`);
                 return true;
             }
 
-            cc.log(`Verification passed : ${relativePath} (${expectedMD5})`);
+            cc.warn(`Verification passed : ${relativePath} (${expectedMD5})`);
             return true;
         });
-        cc.log('Hot update is ready, please check or directly update.');
+        cc.warn('Hot update is ready, please check or directly update.');
         if (cc.sys.os === cc.sys.OS_ANDROID) {
             // Some Android device may slow down the download process when concurrent tasks is too much.
             // The value may not be accurate, please do more test and find what's most suitable for your game.
             this._assetsManager.setMaxConcurrentTask(2);
-            cc.log('Max concurrent tasks count have been limited to 2');
+            cc.warn('Max concurrent tasks count have been limited to 2');
         }
     },
 
@@ -424,28 +424,28 @@ window.Tools.HotUpdate = {
         const self = this;
 
         this._checkCallback = (event) => {
-            cc.log(`Code: ${event.getEventCode()}`);
+            cc.warn(`Code: ${event.getEventCode()}`);
             let hasUpdate = false;
 
             switch (event.getEventCode()) {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                cc.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                cc.warn('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
                 break;
             case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                cc.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                cc.warn('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
                 break;
             case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                cc.log('Fail to download manifest file, hot update skipped. 无法下载');
+                cc.warn('Fail to download manifest file, hot update skipped. 无法下载');
                 break;
             case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                cc.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                cc.warn('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
                 break;
             case jsb.EventAssetsManager.NEW_VERSION_FOUND:
-                cc.log('New version found, please try to update. 找到新版本');
+                cc.warn('New version found, please try to update. 找到新版本');
                 hasUpdate = true;
                 break;
             default:
-                cc.log('error');
+                cc.warn('error');
                 break;
             }
 
@@ -467,7 +467,7 @@ window.Tools.HotUpdate = {
      */
     _checkUpdate() {
         if (!this._assetsManager.getLocalManifest().isLoaded()) {
-            cc.log('Failed to load local manifest ...');
+            cc.warn('Failed to load local manifest ...');
             return;
         }
 
@@ -496,7 +496,7 @@ window.Tools.HotUpdate = {
 
             switch (event.getEventCode()) {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                cc.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                cc.warn('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
                 failed = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_PROGRESSION:
@@ -504,35 +504,35 @@ window.Tools.HotUpdate = {
                 fileProgress = event.getPercentByFile() / 100;
 
                 if (event.getMessage()) {
-                    cc.log(`Updated file: ${event.getMessage()}`);
-                    cc.log(`${event.getPercent().toFixed(2)}% : ${event.getMessage()}`);
+                    cc.warn(`Updated file: ${event.getMessage()}`);
+                    cc.warn(`${event.getPercent().toFixed(2)}% : ${event.getMessage()}`);
                 }
                 break;
             case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                cc.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                cc.warn('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
                 break;
             case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                cc.log('Fail to download manifest file, hot update skipped. 无法下载');
+                cc.warn('Fail to download manifest file, hot update skipped. 无法下载');
                 failed = true;
                 break;
             case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                cc.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                cc.warn('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
                 failed = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_FINISHED:
-                cc.log(`Update finished. ${event.getMessage()}`);
+                cc.warn(`Update finished. ${event.getMessage()}`);
                 needRestart = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_FAILED:
-                cc.log(`Update failed. ${event.getMessage()}`);
+                cc.warn(`Update failed. ${event.getMessage()}`);
                 self._isUpdating = false;
                 self._canRetry = true;
                 break;
             case jsb.EventAssetsManager.ERROR_isUpdating:
-                cc.log(`Asset update error: ${event.getAssetId()}, ${event.getMessage()}`);
+                cc.warn(`Asset update error: ${event.getAssetId()}, ${event.getMessage()}`);
                 break;
             case jsb.EventAssetsManager.ERROR_DECOMPRESS:
-                cc.log(event.getMessage());
+                cc.warn(event.getMessage());
                 break;
             default:
                 break;
@@ -553,7 +553,7 @@ window.Tools.HotUpdate = {
                 // Prepend the manifest's search path
                 const searchPaths = jsb.fileUtils.getSearchPaths();
                 const newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
-                cc.log(JSON.stringify(newPaths));
+                cc.warn(JSON.stringify(newPaths));
                 Array.prototype.unshift(searchPaths, newPaths);
 
                 // This value will be retrieved and appended to the default search path during game startup,
@@ -594,7 +594,7 @@ window.Tools.HotUpdate = {
     retry() {
         if (!this._isUpdating && this._canRetry) {
             this._canRetry = false;
-            cc.log('Retry failed Assets...');
+            cc.warn('Retry failed Assets...');
             this._assetsManager.downloadFailedAssets();
         }
     },
@@ -666,7 +666,7 @@ window.Tools.protobufToJson = (protobuf) => {
         }
     }
 
-    cc.log(['window.Tools.protobufToJson: ', result]);
+    cc.warn(['window.Tools.protobufToJson: ', result]);
     return result;
 };
 

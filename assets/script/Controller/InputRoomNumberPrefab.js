@@ -43,7 +43,7 @@ cc.Class({
     },
 
     deleteNumberOnClick() {
-        cc.log(this.roomNumber);
+        cc.warn(this.roomNumber);
         if (this.roomNumber.length !== 0) {
             this[`number${this.roomNumber.length}`].spriteFrame = null;
             this.roomNumber = this.roomNumber.substr(0, this.roomNumber.length - 1);

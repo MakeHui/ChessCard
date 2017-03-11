@@ -13,12 +13,12 @@ window.NativeExtensionManager = {};
 
 window.NativeExtensionManager.execute = (args) => {
     if (!nativeExtension) {
-        cc.error('window.NativeExtensionManager.execute: 不是native平台');
+        cc.warn('window.NativeExtensionManager.execute: 不是native平台');
         return;
     }
 
     if (!args) {
-        cc.error('window.NativeExtensionManager.execute: 没有传递参数');
+        cc.warn('window.NativeExtensionManager.execute: 没有传递参数');
         return;
     }
 
@@ -26,7 +26,7 @@ window.NativeExtensionManager.execute = (args) => {
     args.splice(0, 1);
 
     if (!nativeExtension[name]) {
-        cc.error(`window.NativeExtensionManager.execute: 没有找到 ${name} 方法`);
+        cc.warn(`window.NativeExtensionManager.execute: 没有找到 ${name} 方法`);
         return;
     }
 
@@ -46,7 +46,7 @@ window.NativeExtensionManager.callback = {
 
     startRecord(data) {
         if (this._listener.startRecord) {
-            cc.log('window.NativeExtensionManager.callback.startRecord: 监听者不存在');
+            cc.warn('window.NativeExtensionManager.callback.startRecord: 监听者不存在');
             return;
         }
 
@@ -55,7 +55,7 @@ window.NativeExtensionManager.callback = {
 
     startLocation(data) {
         if (this._listener.startRecord) {
-            cc.log('window.NativeExtensionManager.callback.startLocation: 监听者不存在');
+            cc.warn('window.NativeExtensionManager.callback.startLocation: 监听者不存在');
             return;
         }
 

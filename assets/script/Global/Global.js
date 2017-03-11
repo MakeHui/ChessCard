@@ -1,4 +1,3 @@
-
 /**
  * 全局应用相关配置类
  *
@@ -261,6 +260,8 @@ window.Global = {
     },
 };
 
+window.UUID = Global.debug ? (+new Date()).toString() : '';
+
 /**
  * 弹出层
  *
@@ -324,7 +325,7 @@ window.Global.getDeviceId = () => {
  */
 window.Global.cardsSort = (listView) => {
     if (listView.length === 0) {
-        cc.error('window.Global.cardsSort: listView 不能为空~');
+        cc.warn('window.Global.cardsSort: listView 不能为空~');
         return;
     }
 
@@ -382,7 +383,7 @@ window.Global.appInit = (args) => {
         Global.checkUpdate.apply(this, args.checkUpdate);
     }
     else {
-        cc.log('window.Global.appInit: checkUpdate 参数不存在');
+        cc.warn('window.Global.appInit: checkUpdate 参数不存在');
     }
 };
 

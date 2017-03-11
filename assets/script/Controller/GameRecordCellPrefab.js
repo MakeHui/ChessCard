@@ -28,7 +28,7 @@ cc.Class({
     onLoad: function () {
         var cellData = Global.getTempCache();
 
-        cc.log(this,cellData);
+        cc.warn(this.cellData);
 
         this.roomNumber.string = "房间号: " + cellData.roomNumber;
         this.datetime.string = cellData.datetime;
@@ -52,7 +52,7 @@ cc.Class({
 
     openDetailsOnClick: function() {
         Global.openDialog(cc.instantiate(this.gameStep), this.node, function () {
-            cc.log("downloader success");
+            cc.warn("downloader success");
         });
     }
 });

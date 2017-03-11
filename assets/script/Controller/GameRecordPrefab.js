@@ -11,11 +11,11 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        cc.log("onLoad");
+        cc.warn("onLoad");
     },
 
     start: function() {
-        cc.log("start");
+        cc.warn("start");
     },
 
     seeOtherRoomOnClick: function() {

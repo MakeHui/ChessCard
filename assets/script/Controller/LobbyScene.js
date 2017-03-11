@@ -37,7 +37,7 @@ cc.Class({
      */
     openUserInfoPanelOnClick() {
         Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -47,7 +47,7 @@ cc.Class({
      */
     openPayPanelOnClick() {
         Global.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -58,7 +58,7 @@ cc.Class({
         // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
         Global.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -67,7 +67,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -83,7 +83,7 @@ cc.Class({
      */
     openGameRulesPanelOnClick() {
         Global.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -92,7 +92,7 @@ cc.Class({
      */
     openCreateRoomPanelOnClick() {
         Global.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -103,7 +103,7 @@ cc.Class({
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('InputRoomNumberPrefab').setData('GameRoom');
         Global.openDialog(node, this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     },
 
@@ -113,7 +113,7 @@ cc.Class({
     openMyRoomPanelOnClick() {
         // cc.director.loadScene('MyRoom');
         Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
-            cc.log('load success');
+            cc.warn('load success');
         });
     }
 

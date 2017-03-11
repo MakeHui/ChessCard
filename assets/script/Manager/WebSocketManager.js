@@ -174,7 +174,7 @@ window.WebSocketManager.ArrayBuffer = {
         if (buffer.byteLength >= size) {
             const cmd = dataView.getInt32(4);
             const data = buffer.slice(8, size);
-            cc.log(data);
+            cc.warn(data);
 
             const other = buffer.slice(size);
             if (other.byteLength !== 0) {
@@ -188,7 +188,7 @@ window.WebSocketManager.ArrayBuffer = {
             return false;
         }
 
-        cc.log(['没有数据包: ']);
+        cc.warn(['没有数据包: ']);
         return false;
     },
 
@@ -216,7 +216,7 @@ window.WebSocketManager.ArrayBuffer = {
         }
 
         if (size === 0) {
-            cc.log('mergeArrayBuffer byte number is 0');
+            cc.warn('mergeArrayBuffer byte number is 0');
             return false;
         }
 
@@ -240,7 +240,7 @@ window.WebSocketManager.ArrayBuffer = {
 window.WebSocketManager.sendMessage = (name, parameters) => {
     const message = WebSocketManager.requestMessage[`get${name}RequestMessage`](parameters);
     const data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
-    cc.log(data);
+    cc.warn(data);
     WebSocketManager.ws.sendMessage(data);
 };
 
@@ -265,7 +265,7 @@ window.WebSocketManager.ws = {
             for (const listener in self._onopenListener) {
                 self._onopenListener[listener](evt);
             }
-            cc.log(['onopen: ', evt]);
+            cc.warn(['onopen: ', evt]);
         };
 
         this._socket.onmessage = (evt) => {
@@ -277,23 +277,23 @@ window.WebSocketManager.ws = {
                 for (const linstener in self._onmessageListener) {
                     self._onmessageListener[linstener](evt, commandName, result);
                 }
-                cc.log([`socket onmessage ${commandName} code: `, result.getCode()]);
+                cc.warn([`socket onmessage ${commandName} code: `, result.getCode()]);
             }
-            cc.log(['onmessage: ', evt]);
+            cc.warn(['onmessage: ', evt]);
         };
 
         this._socket.onerror = (evt) => {
             for (const linstener in self._onerrorListener) {
                 self._onerrorListener[linstener](evt);
             }
-            cc.log(['onerror: ', evt]);
+            cc.warn(['onerror: ', evt]);
         };
 
         this._socket.onclose = (evt) => {
             for (const linstener in self._oncloseListener) {
                 self._oncloseListener[linstener](evt);
             }
-            cc.log(['onclose: ', evt]);
+            cc.warn(['onclose: ', evt]);
         };
     },
 

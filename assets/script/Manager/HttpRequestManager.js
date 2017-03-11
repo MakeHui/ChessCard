@@ -106,7 +106,7 @@ window.HttpRequestManager.requestMessage = {
         message.setVerNo(Global.version);
         message.setLocation(parameters.location);
         
-        cc.log([parameters.wxCode, Global.appUuid, Global.getDeviceId(), Global.version, parameters.location]);
+        cc.warn([parameters.wxCode, Global.appUuid, Global.getDeviceId(), Global.version, parameters.location]);
         return message;
     },
 
@@ -141,7 +141,7 @@ window.HttpRequestManager.requestMessage = {
         message.setAppUuid(Global.appUuid);
         message.setDeviceId(Global.getDeviceId());
         
-        cc.log([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
+        cc.warn([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
         return message;
     },
 
@@ -164,7 +164,7 @@ window.HttpRequestManager.requestMessage = {
         message.setMaxRounds(parameters.maxRounds);
         message.setRoomConfig(parameters.roomConfig);
 
-        cc.log(parameters);
+        cc.warn(parameters);
         return message;
     },
 
@@ -185,7 +185,7 @@ window.HttpRequestManager.requestMessage = {
         message.setDeviceId(Global.getDeviceId());
         message.setRoomId(parameters.roomId);
 
-        cc.log([Global.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
+        cc.warn([Global.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
         return message;
     },
 
@@ -300,6 +300,6 @@ window.HttpRequestManager.httpRequest = function(name, parameters, callback) {
         result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
 
         callback(event, result);
-        cc.log("HttpRequestManager.httpRequest " + name + " , code: "  + result.getCode());
+        cc.warn("HttpRequestManager.httpRequest " + name + " , code: "  + result.getCode());
     };
 };

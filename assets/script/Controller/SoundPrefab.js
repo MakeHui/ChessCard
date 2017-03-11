@@ -15,6 +15,6 @@ cc.Class({
      */
     closeOnClick: function(event, data) {
         Global.closeDialog(this.node);
-        cc.log("removeSelf");
+        cc.warn("removeSelf");
     }
 });
