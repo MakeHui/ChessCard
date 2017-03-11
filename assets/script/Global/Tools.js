@@ -40,14 +40,10 @@ window.Tools.removeArrayInValue = (array, value) => {
  * @return   {cc.Node}
  */
 window.Tools.findNode = (node, path) => {
-    function _findNode(name) {
-        return node.getChildByName(name) || false;
-    }
-
     path = path.split('>');
 
     for (let i = 0; i < path.length; i += 1) {
-        node = _findNode(path[i]);
+        node = window.Tools._findNode(node, path[i]);
         if (node === false) {
             return false;
         }
@@ -55,6 +51,11 @@ window.Tools.findNode = (node, path) => {
 
     return node;
 };
+
+window.Tools._findNode = (node, name) => {
+    return node.getChildByName(name) || false;
+};
+
 
 /**
  * 获取本地存储数据

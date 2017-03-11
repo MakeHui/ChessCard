@@ -614,6 +614,9 @@ cc.Class({
         if (data.code !== 1) {
             return;
         }
+
+        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerInfoList };
+        cc.director.loadScene('SmallAccount');
     },
 
     onSettleForRoomMessage(data) {
@@ -802,6 +805,16 @@ cc.Class({
     closeOnClick() {
         WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
         cc.director.loadScene('Lobby');
+    },
+
+    /**
+     *******************************************************************************************************************
+     *                                       callback
+     *******************************************************************************************************************
+     **/
+
+    onReadyGame() {
+        WebSocketManager.sendMessage('Ready');
     },
 
     /**
