@@ -77,8 +77,11 @@ cc.Class({
                 result.location = window.userLocation;
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
                 Tools.setLocalData(Global.localStorageKey.secretKey, secretKey);
+                cc.director.loadScene('Lobby');
                 Global.loading.close();
-                cc.director.loadScene(Global.scene.lobby);
+            }
+            else {
+                Global.loading.close();
             }
         });
     },

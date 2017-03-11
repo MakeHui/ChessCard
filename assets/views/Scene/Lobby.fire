@@ -1174,7 +1174,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 133.34,
+      "width": 61.34,
       "height": 24
     },
     "_children": [],
@@ -1218,7 +1218,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "超人不会飞..",
+    "_N$string": "沙发..",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -1683,8 +1683,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openGameRecordPanelOnClick",
     "customEventData": ""
   },
@@ -1833,8 +1835,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openSoundPanelOnClick",
     "customEventData": ""
   },
@@ -1983,8 +1987,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "logoutOnClick",
     "customEventData": ""
   },
@@ -2954,8 +2960,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openGameRulesPanelOnClick",
     "customEventData": ""
   },

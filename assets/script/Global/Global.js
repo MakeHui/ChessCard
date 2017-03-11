@@ -66,15 +66,6 @@ window.Global = {
     },
 
     /**
-     * 场景对应名称
-     * @type {Object}
-     */
-    scene: {
-        login: 'Login',
-        lobby: 'Lobby',
-    },
-
-    /**
      * api接口地址
      * @type {Object}
      */

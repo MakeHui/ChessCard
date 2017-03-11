@@ -13,7 +13,7 @@ cc.Class({
         gameRulesPrefab: cc.Prefab,
         createRoomPrefab: cc.Prefab,
         inputRoomNumberPrefab: cc.Prefab,
-        myRoomPrefab: cc.Prefab
+        myRoomPrefab: cc.Prefab,
     },
 
     // use this for initialization
@@ -75,7 +75,8 @@ cc.Class({
      * 登出
      */
     logoutOnClick() {
-
+        Tools.setLocalData(Global.localStorageKey.secretKey, '');
+        cc.director.loadScene('Login');
     },
 
     /**
@@ -115,6 +116,6 @@ cc.Class({
         Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
             cc.warn('load success');
         });
-    }
+    },
 
 });
