@@ -3,10 +3,21 @@ cc.Class({
 
     properties: {
         userAgreement: cc.Prefab,
+        secretKey: cc.Prefab,
     },
 
     // use this for initialization
-    onLoad () {
+    onLoad() {
+        const self = this;
+        NativeExtensionManager.execute(['startLocation']);
+        NativeExtensionManager.callback.addListener('startLocation', (data) => {
+            if (data.request === 0) {
+                self.location = data.data;
+            }
+            else {
+                self.location = '该用户未公开地理位置';
+            }
+        });
         // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
         // Global.backgroundMusic.play();
         // Global.backgroundMusic.stop();
@@ -16,31 +27,23 @@ cc.Class({
     },
 
     /**
-     * 检查客户端更新
-     */
-    checkVersion() {
-        let message = HttpRequestManager.getCheckVersionRequestMessage(123, "123", 1);
-        HttpRequestManager.httpRequest(Global.httpRequestName.check, message, function(event, data) {
-            data = proto.login.CheckVersionResponse.deserializeBinary(data);
-            cc.log(event);
-            cc.log(data.getCode());
-            cc.log(data.getMandatoryUpdate());
-            cc.log(data.getDownloadLink());
-        });
-    },
-
-    /**
      * 登录接口
      */
-    loginOnCLick(event, data) {
+    loginOnCLick() {
+        const secretKey = NativeExtensionManager.execute(['getPasteboard']);
+        if (!secretKey || secretKey.length !== 36) {
+            cc.log('LoginScene.loginOnCLick: 剪切板中没有数据');
+            Global.openDialog(cc.instantiate(this.secretKey), this.node);
+            return;
+        }
+
         Global.loading.open(this.node);
 
-        let parameters = {wxCode: "fe8ad7d8-fcb3-11e6-b3d8-00163e10f210", location: "江西 南昌"};
-        HttpRequestManager.httpRequest("login", parameters, function(event, result) {
-            if (result.getCode() == 1) {
+        const parameters = { wxCode: secretKey, location: this.location };
+        HttpRequestManager.httpRequest('login', parameters, (event, result) => {
+            if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
-                
                 Global.loading.close();
                 cc.director.loadScene(Global.scene.lobby);
             }
@@ -50,9 +53,7 @@ cc.Class({
     /**
      * 微信登录
      */
-    wechatLoginOnClick(event, data) {
-        
-
+    wechatLoginOnClick() {
         // webSocketManager.addOnopenListener(function(evt) {
         //     cc.log("open");
         // });
@@ -67,24 +68,8 @@ cc.Class({
     /**
      * 用户协议
      */
-    userAgreementOnClick(event, data) {
-        this.wsUrl = 'ws://game.7005.px258.qingwuguo.com/ws';
-        this.roomId = 100000;
-        let self = this;
-        let scriptName = 'GameRoomScene';
+    userAgreementOnClick() {
+        Global.openDialog(cc.instantiate(this.userAgreement), this.node);
+    },
 
-        WebSocketManager.ws.openSocket(this.wsUrl);
-        WebSocketManager.ws.addOnopenListener(scriptName, (evt) => {
-            WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
-        });
-        WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
-            cc.log([commandName, result]);
-        });
-        WebSocketManager.ws.addOnerrorListener(scriptName, (evt) => {
-
-        });
-        WebSocketManager.ws.addOncloseListener(scriptName, (evt) => {
-
-        });
-    }
 });

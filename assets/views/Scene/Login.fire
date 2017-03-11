@@ -1094,6 +1094,9 @@
     "_enabled": true,
     "userAgreement": {
       "__uuid__": "1e8eb39e-e6cd-49f1-9b98-67a76d999712"
+    },
+    "secretKey": {
+      "__uuid__": "6262a803-71b8-4859-893b-1c03035de5a1"
     }
   }
 ]

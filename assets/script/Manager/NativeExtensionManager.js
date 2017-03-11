@@ -17,6 +17,11 @@ window.NativeExtensionManager.execute = (args) => {
         return;
     }
 
+    if (!args) {
+        cc.error('window.NativeExtensionManager.execute: 没有传递参数');
+        return;
+    }
+
     const name = args[0];
     args.splice(0, 1);
 
@@ -29,8 +34,32 @@ window.NativeExtensionManager.execute = (args) => {
 };
 
 window.NativeExtensionManager.callback = {
-    record(data) {
+    _listener: {},
 
-    }
+    addListener(key, callback) {
+        this._listener[key] = callback;
+    },
+
+    removeListener(key) {
+        delete this._listener[key];
+    },
+
+    startRecord(data) {
+        if (this._listener.startRecord) {
+            cc.log('window.NativeExtensionManager.callback.startRecord: 监听者不存在');
+            return;
+        }
+
+        this._listener.startRecord(JSON.parse(data));
+    },
+
+    startLocation(data) {
+        if (this._listener.startRecord) {
+            cc.log('window.NativeExtensionManager.callback.startLocation: 监听者不存在');
+            return;
+        }
+
+        this._listener.startLocation(JSON.parse(data));
+    },
 };
 
