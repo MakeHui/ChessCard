@@ -18,7 +18,7 @@ cc.Class({
         }
 
         const self = this;
-        const parameters = { wxCode: this.input.string, location: this.location };
+        const parameters = { wxCode: this.input.string, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);

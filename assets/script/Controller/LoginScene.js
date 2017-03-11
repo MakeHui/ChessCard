@@ -10,9 +10,10 @@ cc.Class({
     onLoad() {
         cc.warn(window.UUID);
 
+        window.userLocation = '该用户未公开地理位置';
         NativeExtensionManager.execute(['startLocation']);
         NativeExtensionManager.callback.addListener('startLocation', (data) => {
-            window.userLocation = (data.request === 0) ? data.data : '该用户未公开地理位置';
+            window.userLocation = data.data;
         });
         // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
         // Global.backgroundMusic.play();
@@ -35,7 +36,7 @@ cc.Class({
 
         Global.loading.open(this.node);
 
-        const parameters = { wxCode: secretKey, location: this.location };
+        const parameters = { wxCode: secretKey, location: this.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);

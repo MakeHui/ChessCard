@@ -258,6 +258,22 @@ window.Global = {
         TH: '四和子 天胡',  // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
         DU: '四和子 地胡',  // 四和子 地胡 （即胡庄家打出的第一张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
     },
+
+    // 游戏玩法对应中文名称
+    playerTypes: {
+        100100: {
+            play_type: {
+                is_small_win: '小胡子可不可以胡',
+            },
+            options: {
+                small_win: '平胡(1番)',
+                big_win: '普通大胡(4番)',
+                two_win: '双和子(8番)',
+                three_win: '三和子(16番)',
+                four_win: '四和子(32番)',
+            },
+        },
+    },
 };
 
 window.UUID = Global.debug ? (+new Date()).toString() : '';
@@ -272,7 +288,7 @@ window.UUID = Global.debug ? (+new Date()).toString() : '';
  * @param    {cc.Node}                 parentNode 父节点对象
  * @param    {function}               callback   执行完毕后的回调方法
  */
-window.Global.openDialog = (node, parentNode, callback) => {
+window.Global.openDialog = (node, parentNode, callback = {}) => {
     parentNode.addChild(node);
 
     // Animation.openSceneTransitionAction(node.getChildByName('Dialog'), callback);
@@ -307,10 +323,10 @@ window.Global.closeDialog = (node, callback) => {
  * @return   {string}
  */
 window.Global.getDeviceId = () => {
-    let deviceId = cc.sys.localStorage.getItem(window.Global.localStorageKey.deviceId);
+    let deviceId = Tools.getLocalData(Global.localStorageKey.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
-        cc.sys.localStorage.setItem(window.Global.localStorageKey.deviceId, deviceId);
+        Tools.setLocalData(Global.localStorageKey.deviceId, deviceId);
     }
     return deviceId;
 };
@@ -387,17 +403,3 @@ window.Global.appInit = (args) => {
     }
 };
 
-window.Global.playerTypes = {
-    100100: {
-        play_type: {
-            is_small_win: '小胡子可不可以胡',
-        },
-        options: {
-            small_win: '平胡(1番)',
-            big_win: '普通大胡(4番)',
-            two_win: '双和子(8番)',
-            three_win: '三和子(16番)',
-            four_win: '四和子(32番)',
-        }
-    }
-};

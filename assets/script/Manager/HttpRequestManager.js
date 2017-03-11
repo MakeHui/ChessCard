@@ -1,76 +1,80 @@
 
 window.HttpRequestManager = {};
 
-/**********************************************************************************************************************
+/**
+ **********************************************************************************************************************
  *                                      接口名协议, 配置项
- **********************************************************************************************************************/
+ **********************************************************************************************************************
+ **/
 
 window.HttpRequestManager.requestProtocol = {
     check: {
-        api: "client/check",
-        description: "login",
-        protocol: "CheckVersion"
+        api: 'client/check',
+        description: 'login',
+        protocol: 'CheckVersion',
     },
     login: {
-        api: "client/login",
-        description: "login",
-        protocol: "Login"
+        api: 'client/login',
+        description: 'login',
+        protocol: 'Login',
     },
     heartbeat: {
-        api: "client/heartbeat",
-        description: "login",
-        protocol: " Heartbeat"
+        api: 'client/heartbeat',
+        description: 'login',
+        protocol: ' Heartbeat',
     },
     playerGold: {
-        api: "login/balance",
-        description: "login",
-        protocol: "PlayerGold"
+        api: 'login/balance',
+        description: 'login',
+        protocol: 'PlayerGold',
     },
     roomCreate: {
-        api: "room/create",
-        description: "login",
-        protocol: "RoomCreate"
+        api: 'room/create',
+        description: 'login',
+        protocol: 'RoomCreate',
     },
     roomEnter: {
-        api: "room/enter",
-        description: "login",
-        protocol: "RoomEnter"
+        api: 'room/enter',
+        description: 'login',
+        protocol: 'RoomEnter',
     },
     roomList: {
-        api: "room/ing_list_for_self",
-        description: "login",
-        protocol: "RoomList"
+        api: 'room/ing_list_for_self',
+        description: 'login',
+        protocol: 'RoomList',
     },
     recordList: {
-        api: "room/end_list_for_self",
-        description: "login",
-        protocol: "RecordList"
+        api: 'room/end_list_for_self',
+        description: 'login',
+        protocol: 'RecordList',
     },
     recordInfo: {
-        api: "room/record",
-        description: "login",
-        protocol: "RecordInfo"
+        api: 'room/record',
+        description: 'login',
+        protocol: 'RecordInfo',
     },
     recordListSelf: {
-        api: "room/record_self",
-        description: "login",
-        protocol: "RecordList"
+        api: 'room/record_self',
+        description: 'login',
+        protocol: 'RecordList',
     },
     replay: {
-        api: "room/replay",
-        description: "login",
-        protocol: "Replay"
+        api: 'room/replay',
+        description: 'login',
+        protocol: 'Replay',
     },
     roomReplay: {
-        api: "room/record_by_room_id",
-        description: "login",
-        protocol: "RoomReplay"
-    }
+        api: 'room/record_by_room_id',
+        description: 'login',
+        protocol: 'RoomReplay',
+    },
 };
 
-/**********************************************************************************************************************
+/**
+ **********************************************************************************************************************
  *                                      RequestMessage 构造方法
- **********************************************************************************************************************/
+ **********************************************************************************************************************
+ **/
 
 window.HttpRequestManager.requestMessage = {
     /**
@@ -79,10 +83,9 @@ window.HttpRequestManager.requestMessage = {
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-03-01T11:10:07+0800
      *
-     * @param    {Array}                 parameters
      */
-    getCheckVersionRequestMessage: function(parameters) {
-        let message = new proto.login.CheckVersionRequest();
+    getCheckVersionRequestMessage() {
+        const message = new proto.login.CheckVersionRequest();
         message.setAppUuid(Global.appUuid);
         message.setVerNo(Global.version);
         message.setAndroidOrIos(Global.os);
@@ -98,14 +101,14 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getLoginRequestMessage: function(parameters) {
-        let message = new proto.login.LoginRequest();
+    getLoginRequestMessage(parameters) {
+        const message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
         message.setAppUuid(Global.appUuid);
         message.setDeviceId(Global.getDeviceId());
         message.setVerNo(Global.version);
         message.setLocation(parameters.location);
-        
+
         cc.warn([parameters.wxCode, Global.appUuid, Global.getDeviceId(), Global.version, parameters.location]);
         return message;
     },
@@ -118,8 +121,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getHeartbeatRequestMessage: function(parameters) {
-        let message = new proto.login.HeartbeatRequest();
+    getHeartbeatRequestMessage(parameters) {
+        const message = new proto.login.HeartbeatRequest();
         message.setPlayerUuid(parameters.playerUuid);
         message.setDeviceId(parameters.deviceId);
         message.setAppUuid(parameters.appUuid);
@@ -135,12 +138,12 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getPlayerGoldRequestMessage: function(parameters) {
-        let message = new proto.login.PlayerGoldRequest();
+    getPlayerGoldRequestMessage(parameters) {
+        const message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
         message.setAppUuid(Global.appUuid);
         message.setDeviceId(Global.getDeviceId());
-        
+
         cc.warn([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
         return message;
     },
@@ -153,9 +156,9 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomCreateRequestMessage: function(parameters) {
-        let message = new proto.login.RoomCreateRequest();
-        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+    getRoomCreateRequestMessage(parameters) {
+        const message = new proto.login.RoomCreateRequest();
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setGameUuid(parameters.gameUuid);
@@ -176,9 +179,9 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomEnterRequestMessage: function(parameters) {
-        let message = new proto.login.RoomEnterRequest();
-        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+    getRoomEnterRequestMessage(parameters) {
+        const message = new proto.login.RoomEnterRequest();
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -195,11 +198,10 @@ window.HttpRequestManager.requestMessage = {
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-03-01T11:10:07+0800
      *
-     * @param    {Array}                 parameters
      */
-    getRoomListRequestMessage: function(parameters) {
-        let message = new proto.login.RoomListRequest();
-        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+    getRoomListRequestMessage() {
+        const message = new proto.login.RoomListRequest();
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -215,11 +217,10 @@ window.HttpRequestManager.requestMessage = {
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-03-01T11:10:07+0800
      *
-     * @param    {Array}                 parameters
      */
-    getRecordListRequestMessage: function(parameters) {
-        let message = new proto.login.RecordListRequest();
-        let userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+    getRecordListRequestMessage() {
+        const message = new proto.login.RecordListRequest();
+        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -236,8 +237,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRecordInfoRequestMessage: function(parameters) {
-        let message = new proto.login.RecordInfoRequest();
+    getRecordInfoRequestMessage(parameters) {
+        const message = new proto.login.RecordInfoRequest();
         message.setAppUuid(parameters.appUuid);
         message.setPlayerUuid(parameters.playerUuid);
         message.setDeviceId(parameters.deviceId);
@@ -254,8 +255,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    geReplayRequestMessage: function(parameters) {
-        let message = new proto.login.ReplayRequest();
+    geReplayRequestMessage(parameters) {
+        const message = new proto.login.ReplayRequest();
         message.setAppUuid(parameters.appUuid);
         message.setRoomUuid(parameters.roomUuid);
         message.setTheRound(parameters.theRound);
@@ -271,8 +272,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomReplayRequestMessage: function(parameters) {
-        let message = new proto.login.RoomReplayRequest();
+    getRoomReplayRequestMessage(parameters) {
+        const message = new proto.login.RoomReplayRequest();
         message.setAppUuid(parameters.appUuid);
         message.setRoomId(parameters.roomId);
 
@@ -287,19 +288,19 @@ window.HttpRequestManager.requestMessage = {
  * @param parameters
  * @param callback
  */
-window.HttpRequestManager.httpRequest = function(name, parameters, callback) {
-    let protocol = HttpRequestManager.requestProtocol[name];
-    let message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
-    let request = cc.loader.getXMLHttpRequest();
+window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
+    const protocol = HttpRequestManager.requestProtocol[name];
+    const message = HttpRequestManager.requestMessage[`get${protocol.protocol}RequestMessage`](parameters);
+    const request = cc.loader.getXMLHttpRequest();
 
-    request.open("POST", (Global.debug ? Global.apiAddress.development : Global.production) + protocol.api);
-    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.open('POST', (Global.debug ? Global.apiAddress.development : Global.production) + protocol.api);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(message.serializeBinary());
-    request.onload = function(event) {
+    request.onload = (event) => {
         let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
-        result = proto[protocol.description][protocol.protocol + "Response"].deserializeBinary(result);
+        result = proto[protocol.description][`${protocol.protocol}Response`].deserializeBinary(result);
 
         callback(event, result);
-        cc.warn("HttpRequestManager.httpRequest " + name + " , code: "  + result.getCode());
+        cc.warn(`HttpRequestManager.httpRequest #{name} , code: ${result.getCode()}`);
     };
 };

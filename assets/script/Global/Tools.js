@@ -82,7 +82,7 @@ window.Tools.getLocalData = (key) => {
  * @param    {Object}                 data
  */
 window.Tools.setLocalData = (key, data) => {
-    cc.sys.localStorage.setItem(key, JSON.stringify(data));
+    cc.sys.localStorage.setItem(`${key}-${window.UUID}`, JSON.stringify(data));
 };
 
 /**

@@ -27,6 +27,7 @@
     "Tools": true,
     "Animation": true,
     "proto": true,
+    "goog": true,
     "WebSocket": true,
     "clone": true,
     "md5": true,
