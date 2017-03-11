@@ -293,7 +293,7 @@ window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
     const message = HttpRequestManager.requestMessage[`get${protocol.protocol}RequestMessage`](parameters);
     const request = cc.loader.getXMLHttpRequest();
 
-    request.open('POST', (Global.debug ? Global.apiAddress.development : Global.production) + protocol.api);
+    request.open('POST', (Global.debug ? Global.apiAddress.development : Global.apiAddress.production) + protocol.api);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(message.serializeBinary());
     request.onload = (event) => {
