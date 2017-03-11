@@ -67,7 +67,7 @@ window.Tools._findNode = (node, name) => {
  * @return   {Object}
  */
 window.Tools.getLocalData = (key) => {
-    const data = cc.sys.localStorage.getItem(`${key}-${window.UUID}`); // 从本地读取数据
+    const data = cc.sys.localStorage.getItem(`${key}${window.UUID}`); // 从本地读取数据
 
     return data ? JSON.parse(data) : null;
 };
@@ -82,7 +82,7 @@ window.Tools.getLocalData = (key) => {
  * @param    {Object}                 data
  */
 window.Tools.setLocalData = (key, data) => {
-    cc.sys.localStorage.setItem(`${key}-${window.UUID}`, JSON.stringify(data));
+    cc.sys.localStorage.setItem(`${key}${window.UUID}`, JSON.stringify(data));
 };
 
 /**

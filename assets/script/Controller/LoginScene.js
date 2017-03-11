@@ -36,7 +36,7 @@ cc.Class({
 
         Global.loading.open(this.node);
 
-        const parameters = { wxCode: secretKey, location: this.userLocation };
+        const parameters = { wxCode: secretKey, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
