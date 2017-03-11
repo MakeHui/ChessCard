@@ -37,7 +37,7 @@ window.Global = {
      * 是否是debug环境
      * @type {Boolean}
      */
-    debug: true,
+    debug: false,
 
     /**
      * 临时数据传递对象
@@ -62,6 +62,7 @@ window.Global = {
     localStorageKey: {
         deviceId: 'DeviceId',
         userInfo: 'UserInfo',
+        secretKey: 'SecretKey',
     },
 
     /**

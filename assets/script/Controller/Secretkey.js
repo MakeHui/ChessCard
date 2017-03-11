@@ -24,6 +24,7 @@ cc.Class({
                 result = Tools.protobufToJson(result);
                 result.location = window.userLocation;
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
+                Tools.setLocalData(Global.localStorageKey.secretKey, self.input.string);
                 cc.director.loadScene(Global.scene.lobby);
             }
             else {

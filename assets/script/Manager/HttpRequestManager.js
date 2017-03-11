@@ -301,6 +301,6 @@ window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
         result = proto[protocol.description][`${protocol.protocol}Response`].deserializeBinary(result);
 
         callback(event, result);
-        cc.warn(`HttpRequestManager.httpRequest #{name} , code: ${result.getCode()}`);
+        cc.warn(`HttpRequestManager.httpRequest ${name} , code: ${result.getCode()}`);
     };
 };

@@ -8,13 +8,21 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        cc.warn(window.UUID);
-
         window.userLocation = '该用户未公开地理位置';
         NativeExtensionManager.execute(['startLocation']);
         NativeExtensionManager.callback.addListener('startLocation', (data) => {
             window.userLocation = data.data;
         });
+
+        // 判断本地存储中是否有秘钥
+        const secretKey = Tools.getLocalData(Global.localStorageKey.secretKey);
+        cc.warn(secretKey);
+        if (!secretKey) {
+            cc.warn('LoginScene.loginOnCLick: 本地没有secretKey');
+        }
+        else {
+            this._httpLogin(secretKey);
+        }
         // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
         // Global.backgroundMusic.play();
         // Global.backgroundMusic.stop();
@@ -27,6 +35,7 @@ cc.Class({
      * 登录接口
      */
     loginOnCLick() {
+        // 判断剪切板中是否有秘钥
         const secretKey = NativeExtensionManager.execute(['getPasteboard']);
         if (!secretKey || secretKey.length !== 36) {
             cc.warn('LoginScene.loginOnCLick: 剪切板中没有数据');
@@ -34,18 +43,7 @@ cc.Class({
             return;
         }
 
-        Global.loading.open(this.node);
-
-        const parameters = { wxCode: secretKey, location: window.userLocation };
-        HttpRequestManager.httpRequest('login', parameters, (event, result) => {
-            if (result.getCode() === 1) {
-                result = Tools.protobufToJson(result);
-                result.location = window.userLocation;
-                Tools.setLocalData(Global.localStorageKey.userInfo, result);
-                Global.loading.close();
-                cc.director.loadScene(Global.scene.lobby);
-            }
-        });
+        this._httpLogin(secretKey);
     },
 
     /**
@@ -68,6 +66,21 @@ cc.Class({
      */
     userAgreementOnClick() {
         Global.openDialog(cc.instantiate(this.userAgreement), this.node);
+    },
+
+    _httpLogin(secretKey) {
+        Global.loading.open(this.node);
+        const parameters = { wxCode: secretKey, location: window.userLocation };
+        HttpRequestManager.httpRequest('login', parameters, (event, result) => {
+            if (result.getCode() === 1) {
+                result = Tools.protobufToJson(result);
+                result.location = window.userLocation;
+                Tools.setLocalData(Global.localStorageKey.userInfo, result);
+                Tools.setLocalData(Global.localStorageKey.secretKey, secretKey);
+                Global.loading.close();
+                cc.director.loadScene(Global.scene.lobby);
+            }
+        });
     },
 
 });
