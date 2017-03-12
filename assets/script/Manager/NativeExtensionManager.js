@@ -3,10 +3,10 @@
  */
 let nativeExtension = null;
 if (cc.sys.os === cc.sys.OS_IOS) {
-    // nativeExtension = require('iOSExtension');
+    nativeExtension = require('iOSExtension');
 }
 else if (cc.sys.os === cc.sys.OS_ANDROID) {
-    // nativeExtension = require('AndroidExtension');
+    nativeExtension = require('AndroidExtension');
 }
 
 window.NativeExtensionManager = {};
