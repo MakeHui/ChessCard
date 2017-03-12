@@ -25,7 +25,7 @@ cc.Class({
                 result.location = window.userLocation;
                 Tools.setLocalData(Global.localStorageKey.userInfo, result);
                 Tools.setLocalData(Global.localStorageKey.secretKey, self.input.string);
-                cc.director.loadScene(Global.scene.lobby);
+                cc.director.loadScene('Lobby');
             }
             else {
                 self.info.string = '* 登录失败, 秘钥错误';
