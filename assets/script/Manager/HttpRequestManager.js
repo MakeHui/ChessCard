@@ -158,7 +158,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomCreateRequestMessage(parameters) {
         const message = new proto.login.RoomCreateRequest();
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setGameUuid(parameters.gameUuid);
@@ -181,7 +181,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomEnterRequestMessage(parameters) {
         const message = new proto.login.RoomEnterRequest();
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -201,7 +201,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomListRequestMessage() {
         const message = new proto.login.RoomListRequest();
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -220,7 +220,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordListRequestMessage() {
         const message = new proto.login.RecordListRequest();
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
