@@ -15,7 +15,6 @@ cc.Class({
     },
 
     musicToggleOnClick(target) {
-        cc.warn(target.isChecked);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
         Global.initBackgroundMusic();
@@ -31,6 +30,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
         cc.warn('removeSelf');
     },

@@ -80,19 +80,19 @@ window.Global = {
      * 音频本地地址
      * @type {Object}
      */
-    audioResourcesUrl: {
+    audioUrl: {
         background: {
             game: 'resources/audio/background/bgm1.mp3',
             menu: 'resources/audio/background/bg_menu.mp3',
         },
         effect: {
-            sound_button_click: 'resources/audio/effect/sound_button_click.mp3',
-            sound_card_out: 'resources/audio/effect/sound_card_out.mp3',
-            sound_deal_card: 'resources/audio/effect/sound_deal_card.mp3',
-            sound_ready: 'resources/audio/effect/sound_ready.mp3',
-            sound_shaizi: 'resources/audio/effect/sound_shaizi.mp3',
-            sound_start: 'resources/audio/effect/sound_start.mp3',
-            sound_timeup_alarm: 'resources/audio/effect/sound_timeup_alarm.mp3',
+            buttonClick: 'resources/audio/effect/sound_button_click.mp3',
+            cardOut: 'resources/audio/effect/sound_card_out.mp3',
+            dealCard: 'resources/audio/effect/sound_deal_card.mp3',
+            ready: 'resources/audio/effect/sound_ready.mp3',
+            shaizi: 'resources/audio/effect/sound_shaizi.mp3',
+            start: 'resources/audio/effect/sound_start.mp3',
+            timeupAlarm: 'resources/audio/effect/sound_timeup_alarm.mp3',
         },
         fastChat: {
             fw_female_0: 'resources/audio/fast_chat/fw_female_0.mp3',
@@ -282,7 +282,7 @@ window.UUID = Global.debug ? (+new Date()).toString() : '';
  * @param    {cc.Node}                 parentNode 父节点对象
  * @param    {function}               callback   执行完毕后的回调方法
  */
-window.Global.openDialog = (node, parentNode, callback = {}) => {
+window.Global.openDialog = (node, parentNode, callback = Function) => {
     parentNode.addChild(node);
 
     // Animation.openSceneTransitionAction(node.getChildByName('Dialog'), callback);
@@ -377,10 +377,9 @@ window.Global.loading = {
     },
 };
 
-/**
- * 检查应用更新
- */
-window.Global.checkUpdate = () => {
+window.Global.playEffect = (url) => {
+    const audioRaw = cc.url.raw(url);
+    cc.audioEngine.play(audioRaw, false, 1);
 };
 
 /**
@@ -409,7 +408,7 @@ window.Global.appInit = (args = {}) => {
 
 window.Global.initBackgroundMusic = () => {
     if (!Global.backgroundMusic) {
-        Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
+        Global.backgroundMusic = Tools.audioEngine.init(Global.audioUrl.background.game, true);
     }
     const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
     if (playMusicConfig.music) {
@@ -421,5 +420,11 @@ window.Global.initBackgroundMusic = () => {
     // Global.backgroundMusic.stop();
     // cc.warn(Global.backgroundMusic.state());
     // Global.backgroundMusic.play();
+};
+
+/**
+ * 检查应用更新
+ */
+window.Global.checkUpdate = () => {
 };
 

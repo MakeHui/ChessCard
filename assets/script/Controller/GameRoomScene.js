@@ -335,7 +335,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_${this._GameRoomCache.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
+                    this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
@@ -719,7 +719,7 @@ cc.Class({
         WebSocketManager.sendMessage('Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
-        this.audio.setAudioRaw(Global.audioResourcesUrl.fastChat[`fw_male_${data}`]).play();
+        this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_male_${data}`]).play();
 
         Animation.closePanel(this.fastChatPanel);
     },
