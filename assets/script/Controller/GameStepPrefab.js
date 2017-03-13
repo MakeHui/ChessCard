@@ -48,12 +48,12 @@ cc.Class({
 
         let self = this;
         HttpRequestManager.httpRequest("recordInfo", {}, function(event, result) {
-            if (result.getCode() == 1) {
-                self.datetime.string = result.getDatetime();
-                let recordInfoDataList = result.getRecordInfoDataList();
+            if (result.code == 1) {
+                self.datetime.string = result.datetime;
+                let recordInfoDataList = result.recordInfoDataList;
                 if (recordInfoDataList.length !== 0) {
                     self.gameRecordList.removeAllChildren();
-                    for (let i = 0; i < recordInfoDataList.length; ++i) {
+                    for (let i = 0; i < recordInfoDataList.length; i += 1) {
                         let cell = cc.instantiate(this.gameStepCell);
                         cell.getComponent('GameStepCellPrefab').setData(recordInfoDataList[i], this.roomId);
                         self.gameStepList.addChild(cell);

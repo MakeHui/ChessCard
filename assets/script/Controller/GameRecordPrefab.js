@@ -10,15 +10,11 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
-        cc.warn("onLoad");
+    onLoad() {
+        cc.warn('onLoad');
     },
 
-    start: function() {
-        cc.warn("start");
-    },
-
-    seeOtherRoomOnClick: function() {
+    seeOtherRoomOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         cc.instantiate(this.inputRoomNumber).parent = cc.director.getScene();
     },
@@ -26,35 +22,32 @@ cc.Class({
     /**
      * 关闭本窗口
      */
-    closeOnClick: function(event, data) {
+    closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 
-    setData: function(data) {
+    setData(data) {
         this.roomId = data;
     },
 
-    _getHttpGameRecordData: function () {
+    _getHttpGameRecordData() {
         Global.loading.open(this.node);
 
-        let self = this;
-        HttpRequestManager.httpRequest("recordListSelf", {}, function(event, result) {
-            if (result.getCode() == 1) {
-                let roomItemList = result.getRoomItemList();
+        const self = this;
+        HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
+            if (result.code === 1) {
+                const roomItemList = result.roomItemList;
                 if (roomItemList.length !== 0) {
                     self.gameRecordList.removeAllChildren();
-                    for (let i = 0; i < roomItemList.length; ++i) {
-                        let cell = cc.instantiate(this.gameIngCell);
-                        cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                    for (let i = 0; i < roomItemList.length; i += 1) {
+                        const cell = cc.instantiate(this.gameIngCell);
+                        cell.getComponent('GameIngCellPrefab').setData(roomItemList[i]);
                         self.gameRecordList.addChild(cell);
                     }
                 }
             }
-            else {
-
-            }
             Global.loading.close();
         });
-    }
+    },
 });

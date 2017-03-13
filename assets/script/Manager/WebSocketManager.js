@@ -277,7 +277,7 @@ window.WebSocketManager.ws = {
                 for (const linstener in self._onmessageListener) {
                     self._onmessageListener[linstener](evt, commandName, result);
                 }
-                cc.warn([`socket onmessage ${commandName} code: `, result.getCode()]);
+                cc.warn(`socket onmessage ${commandName} code: ${result}`);
             }
             cc.warn(['onmessage: ', evt]);
         };

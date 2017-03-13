@@ -69,8 +69,7 @@ cc.Class({
         Global.loading.open(this.node);
         const parameters = { wxCode: secretKey, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
-            if (result.getCode() === 1) {
-                result = Tools.protobufToJson(result);
+            if (result.code === 1) {
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);
                 Tools.setLocalData(Global.LSK.userInfo, result);
                 Tools.setLocalData(Global.LSK.secretKey, secretKey);

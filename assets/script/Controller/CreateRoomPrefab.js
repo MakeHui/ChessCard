@@ -18,8 +18,8 @@ cc.Class({
                 big_win: 0,
                 two_win: 0,
                 three_win: 0,
-                four_win: 0
-            }
+                four_win: 0,
+            },
         };
     },
 
@@ -46,17 +46,15 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.loading.open(this.node);
 
-        const self = this;
         const parameters = {
             gameUuid: this.gameUuid,
             maxRounds: this.maxRounds,
             roomConfig: JSON.stringify(this.roomConfig),
         };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
-            if (result.getCode() === 1) {
-                Global.tempCache = Tools.protobufToJson(result);
+            if (result.code === 1) {
                 Global.loading.close();
-                self.node.destroy();
+                Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {

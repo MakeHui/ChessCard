@@ -14,12 +14,12 @@ cc.Class({
 
         radioButton: {
             default: [],
-            type: cc.Toggle
+            type: cc.Toggle,
         },
     },
 
     // use this for initialization
-    onLoad: function () {
+    onLoad() {
         this._getHttpIngListForSelfData();
         // let self = this;
         // this.node.getChildByName('Dialog').getComponent(cc.Animation).on('stop', function() {
@@ -27,23 +27,22 @@ cc.Class({
         // }, this);
     },
 
-    shareOnClick: function() {
+    shareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        cc.warn("shareOnClick");
+        cc.warn('shareOnClick');
     },
 
     /**
      * 关闭本窗口
      */
-    closeOnClick: function(event, data) {
+    closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        // this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
 
         Global.closeDialog(this.node);
     },
 
-    radioButtonClicked: function(toggle) {
-        let index = this.radioButton.indexOf(toggle);
+    radioButtonClicked(toggle) {
+        const index = this.radioButton.indexOf(toggle);
         if (index === 0) {
             this.gameEndPanel.active = false;
             this.gameIngPanel.active = true;
@@ -61,20 +60,20 @@ cc.Class({
         }
     },
 
-    _getHttpIngListForSelfData: function() {
+    _getHttpIngListForSelfData() {
         Global.loading.open(this.node);
 
-        let self = this;
-        HttpRequestManager.httpRequest("roomList", {}, function(event, result) {
-            if (result.getCode() == 1) {
-                let roomItem = result.getRoomItemList();
+        const self = this;
+        HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
+            if (result.code === 1) {
+                const roomItem = result.roomItemList;
                 cc.warn(roomItem.length);
                 if (roomItem.length === 0) {
                     self.gameIngList.removeAllChildren();
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }
-                for (let i = 0; i < roomItem.length; ++i) {
-                    let cell = cc.instantiate(self.gameIngCell);
+                for (let i = 0; i < roomItem.length; i += 1) {
+                    const cell = cc.instantiate(self.gameIngCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
                     self.gameIngList.addChild(cell);
                 }
@@ -89,27 +88,25 @@ cc.Class({
         });
     },
 
-    _getHttpEndListForSelfData: function() {
+    _getHttpEndListForSelfData() {
         Global.loading.open(this.node);
 
-        let self = this;
-        HttpRequestManager.httpRequest("recordList", {}, function(event, result) {
-            if (result.getCode() == 1) {
-                let roomItem = result.getRoomItem();
+        const self = this;
+        HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
+            if (result.code === 1) {
+                const roomItem = result.getRoomItem();
                 if (roomItem.length > 0) {
                     this.gameEndList.removeAllChildren();
                     this.gameEndList.addChild(cc.instantiate(this.noDataCell));
                 }
-                for (let i = 0; i < roomItem.length; ++i) {
-                    let cell = cc.instantiate(this.gameEndCell);
+                for (let i = 0; i < roomItem.length; i += 1) {
+                    const cell = cc.instantiate(this.gameEndCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
                     self.gameIngList.addChild(cell);
                 }
             }
-            else {
-                if (self.gameEndList.childrenCount === 0) {
-                    self.gameEndList.addChild(cc.instantiate(self.noDataCell));
-                }
+            else if (self.gameEndList.childrenCount === 0) {
+                self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             }
             Global.loading.close();
         });

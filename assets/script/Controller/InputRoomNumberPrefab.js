@@ -64,12 +64,10 @@ cc.Class({
     _getHttpRoomEnterData() {
         Global.loading.open(this.node);
 
-        const self = this;
         const parameters = { roomId: this.roomNumber };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
-            if (result.getCode() === 1) {
+            if (result.code === 1) {
                 Global.loading.close();
-                self.node.destroy();
                 Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
@@ -81,5 +79,5 @@ cc.Class({
 
     setData(data) {
         this.gotoScene = data;
-    }
+    },
 });

@@ -128,7 +128,7 @@ cc.Class({
 
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
-                WebSocketManager.sendMessage('EnterRoom', { roomId: self.roomId });
+                WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 if (commandName === false) {
@@ -726,7 +726,7 @@ cc.Class({
         WebSocketManager.sendMessage('Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
-        this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_male_${data}`]).play();
+        Global.playEffect(Global.audioUrl.fastChat[`fw_male_${data}`]);
 
         Animation.closePanel(this.fastChatPanel);
     },

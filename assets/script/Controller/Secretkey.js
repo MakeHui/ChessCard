@@ -21,8 +21,7 @@ cc.Class({
         const self = this;
         const parameters = { wxCode: this.input.string, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
-            if (result.getCode() === 1) {
-                result = Tools.protobufToJson(result);
+            if (result.code === 1) {
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);
                 Tools.setLocalData(Global.LSK.userInfo, result);
                 Tools.setLocalData(Global.LSK.secretKey, self.input.string);

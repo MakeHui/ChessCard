@@ -9,23 +9,22 @@ cc.Class({
         },
         nickname: {
             default: [],
-            type: cc.Label
+            type: cc.Label,
         },
         playerPanel: {
             default: [],
             type: cc.Node,
-        }
+        },
     },
 
-    enterGameRoomOnClick: function() {
+    enterGameRoomOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.loading.open(this.node);
 
-        let self = this;
-        let parameters = {roomId: this.roomId};
-        HttpRequestManager.httpRequest("roomEnter", parameters, function(event, result) {
-            if (result.getCode() == 1) {
-                Global.roomInfo = Tools.protobufToJson(result);
+        const self = this;
+        const parameters = { roomId: this.roomId };
+        HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
+            if (result.code === 1) {
                 Global.loading.close();
                 self.node.destroy();
                 cc.director.loadScene('GameRoom');
@@ -36,19 +35,18 @@ cc.Class({
         });
     },
 
-    wechatShareOnClick: function() {
+    wechatShareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-
     },
 
-    setData: function(data) {
-        let player = data.getPlayerList();
-        for (let i = 0; i < player.length; ++i) {
-            Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
-            this.nickname[i].string = player[i].getPlayerName();
+    setData(data) {
+        const player = data.playerList;
+        for (let i = 0; i < player.length; i += 1) {
+            Tools.setWebImage(this.avatar[i], player[i].headimgurl);
+            this.nickname[i].string = player[i].playerName;
             this.playerPanel[i].active = true;
         }
-        this.roomNumber.string = '房间号: ' + data.getRoomId();
-        this.roomId = data.getRoomId();
-    }
+        this.roomNumber.string = `房间号: ${data.roomId}`;
+        this.roomId = data.roomId;
+    },
 });

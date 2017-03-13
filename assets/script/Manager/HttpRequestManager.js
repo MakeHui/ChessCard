@@ -299,8 +299,9 @@ window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
     request.onload = (event) => {
         let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
         result = proto[protocol.description][`${protocol.protocol}Response`].deserializeBinary(result);
+        result = Tools.protobufToJson(result);
 
         callback(event, result);
-        cc.warn(`HttpRequestManager.httpRequest ${name} , code: ${result.getCode()}`);
+        cc.warn(`HttpRequestManager.httpRequest ${name} , data: ${JSON.stringify(result)}`);
     };
 };

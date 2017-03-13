@@ -36,7 +36,7 @@ cc.Class({
 
     setData: function(data) {
         let player = data.getPlayer();
-        for (let i = 0; i < player.length; ++i) {
+        for (let i = 0; i < player.length; i += 1) {
             Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
             this.nickname[i].string = player[i].getPlayerName();
             this.point[i].string = '积分:' + player[i].getPoint();

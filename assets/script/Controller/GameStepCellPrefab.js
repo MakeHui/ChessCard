@@ -31,7 +31,7 @@ cc.Class({
         let playerInfoList = data.getPlayerInfoList();
         this.theRound = playerInfoList.getTheRound();
 
-        for (let i = 0; i < playerInfoList.length; ++i) {
+        for (let i = 0; i < playerInfoList.length; i += 1) {
             this.point.string = "积分:" + playerInfoList[i].getScore();
             if (playerInfoList[i].getFlag() == 1) {
                 this.winTag.active = true;
