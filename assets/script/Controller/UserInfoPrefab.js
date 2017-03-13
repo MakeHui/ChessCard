@@ -23,6 +23,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 });

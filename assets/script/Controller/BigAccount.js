@@ -89,10 +89,12 @@ cc.Class({
     },
 
     wechatShareOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.node.destroy();
     },
 

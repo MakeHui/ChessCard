@@ -12,6 +12,7 @@ cc.Class({
     },
 
     loginOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.input.string.length !== 36) {
             this.info.string = '* 秘钥长度为: 36';
             return;
@@ -35,6 +36,7 @@ cc.Class({
     },
 
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 });

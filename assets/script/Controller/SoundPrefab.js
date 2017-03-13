@@ -15,12 +15,14 @@ cc.Class({
     },
 
     musicToggleOnClick(target) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
         Global.initBackgroundMusic();
     },
 
     voiceToggleOnClick(target) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
         Global.initBackgroundMusic();

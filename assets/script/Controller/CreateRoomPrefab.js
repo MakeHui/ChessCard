@@ -24,6 +24,7 @@ cc.Class({
     },
 
     selectedOnClick(toggle, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         data = data.split('-');
         if (parseInt(data[0], 10) === 1) {
             if (parseInt(data[1], 10) === 1) {
@@ -42,6 +43,7 @@ cc.Class({
     },
 
     createRoomOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.loading.open(this.node);
 
         const self = this;
@@ -64,6 +66,7 @@ cc.Class({
     },
 
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 });

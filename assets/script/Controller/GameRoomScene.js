@@ -638,12 +638,14 @@ cc.Class({
      * 微信邀请
      */
     wechatInviteOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Tools.captureScreen(this.node, (filePath) => {
             cc.warn(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         cc.warn([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
@@ -662,6 +664,7 @@ cc.Class({
      * 发送语音
      */
     voiceOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.voiceProgressBar.progress <= 0) {
             this.voiceProgressBar.progress = 1.0;
             cc.warn('voiceOnClick');
@@ -669,6 +672,7 @@ cc.Class({
     },
 
     openMenuOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         cc.warn([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
@@ -682,6 +686,7 @@ cc.Class({
     },
 
     closeDialogOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // 检查是否关闭聊天面板
         if (this.fastChatPanel.position.x !== this.fastChatPanelPosition.x) {
             Animation.closePanel(this.fastChatPanel);
@@ -704,6 +709,7 @@ cc.Class({
     },
 
     switchFastChatPanelOnClick(evt, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (data === 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
@@ -715,6 +721,7 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
         WebSocketManager.sendMessage('Speaker', { content });
 
@@ -725,6 +732,7 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
         WebSocketManager.sendMessage('Speaker', { content });
 
@@ -743,6 +751,7 @@ cc.Class({
     },
 
     actionOnClick(event, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         this._hideActionPanel();
         if (data !== 0) {
             this.actionPanel[5].getComponent(cc.Sprite).spriteFrame = event.target.getComponent(cc.Sprite).spriteFrame;
@@ -757,6 +766,7 @@ cc.Class({
      * @param data
      */
     selectedHandCardOnClick(event, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.handCardIsSelected === data) {
             event.target.parent.destroy();
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
@@ -784,28 +794,33 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.warn('load success');
         });
     },
 
     dismissOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendMessage('DismissRoom', {});
     },
 
     voteConfirmOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
         this.dismissButton[0].active = false;
         this.dismissButton[1].active = false;
     },
 
     voteDisagreeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
         this.dismissButton[0].active = false;
         this.dismissButton[1].active = false;
     },
 
     closeOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
         cc.director.loadScene('Lobby');
     },

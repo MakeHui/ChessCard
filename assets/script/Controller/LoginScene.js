@@ -29,6 +29,7 @@ cc.Class({
      * 登录接口
      */
     loginOnCLick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // 判断剪切板中是否有秘钥
         const secretKey = NativeExtensionManager.execute('getPasteboard');
         if (!secretKey || secretKey.length !== 36) {
@@ -44,6 +45,7 @@ cc.Class({
      * 微信登录
      */
     wechatLoginOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // webSocketManager.addOnopenListener(function(evt) {
         //     cc.warn("open");
         // });
@@ -59,6 +61,7 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
