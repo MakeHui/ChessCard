@@ -270,14 +270,16 @@ window.WebSocketManager.ws = {
 
         this._socket.onmessage = (evt) => {
             const data = WebSocketManager.ArrayBuffer.reader(evt.data);
+            cc.warn(`WebSocket onmessage: ${JSON.stringify(data)}`);
+
             if (data !== false) {
                 const commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
                 const result = Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
 
+                cc.warn(`socket onmessage ${commandName} data: ${JSON.stringify(result)}`);
                 for (const linstener in self._onmessageListener) {
                     self._onmessageListener[linstener](evt, commandName, result);
                 }
-                cc.warn(`socket onmessage ${commandName} code: ${result}`);
             }
             cc.warn(['onmessage: ', evt]);
         };

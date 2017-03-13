@@ -21,12 +21,10 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.loading.open(this.node);
 
-        const self = this;
         const parameters = { roomId: this.roomId };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
             if (result.code === 1) {
-                Global.loading.close();
-                self.node.destroy();
+                Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
