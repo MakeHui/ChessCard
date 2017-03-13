@@ -144,9 +144,9 @@ window.Tools.audioEngine = {
     },
 
     play() {
-        // if (this.audioId === null) {
-        this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
-        // }
+        if (this.audioId === null) {
+            this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
+        }
         // else if (this.state() !== 1) {
         //     cc.audioEngine.resume(this.audioId);
         // }

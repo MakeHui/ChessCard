@@ -8,14 +8,14 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        window.userLocation = '该用户未公开地理位置';
-        NativeExtensionManager.execute(['startLocation']);
-        NativeExtensionManager.callback.addListener('startLocation', (data) => {
-            window.userLocation = data.data;
+        Global.appInit();
+
+        NativeExtensionManager.execute('startLocation', [], (data) => {
+            Tools.setLocalData(Global.LSK.userInfo_location, data.data);
         });
 
         // 判断本地存储中是否有秘钥
-        const secretKey = Tools.getLocalData(Global.localStorageKey.secretKey);
+        const secretKey = Tools.getLocalData(Global.LSK.secretKey);
         cc.warn(secretKey);
         if (!secretKey) {
             cc.warn('LoginScene.loginOnCLick: 本地没有secretKey');
@@ -23,12 +23,6 @@ cc.Class({
         else {
             this._httpLogin(secretKey);
         }
-        // Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
-        // Global.backgroundMusic.play();
-        // Global.backgroundMusic.stop();
-        // cc.warn(Global.backgroundMusic.state());
-        // Global.backgroundMusic.play();
-        // cc.warn("Login1");
     },
 
     /**
@@ -36,7 +30,7 @@ cc.Class({
      */
     loginOnCLick() {
         // 判断剪切板中是否有秘钥
-        const secretKey = NativeExtensionManager.execute(['getPasteboard']);
+        const secretKey = NativeExtensionManager.execute('getPasteboard');
         if (!secretKey || secretKey.length !== 36) {
             cc.warn('LoginScene.loginOnCLick: 剪切板中没有数据');
             Global.openDialog(cc.instantiate(this.secretKey), this.node);
@@ -74,9 +68,9 @@ cc.Class({
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
-                result.location = window.userLocation;
-                Tools.setLocalData(Global.localStorageKey.userInfo, result);
-                Tools.setLocalData(Global.localStorageKey.secretKey, secretKey);
+                result.location = Tools.getLocalData(Global.LSK.userInfo_location);
+                Tools.setLocalData(Global.LSK.userInfo, result);
+                Tools.setLocalData(Global.LSK.secretKey, secretKey);
                 cc.director.loadScene('Lobby');
                 Global.loading.close();
             }

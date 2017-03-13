@@ -22,9 +22,9 @@ cc.Class({
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
             if (result.getCode() === 1) {
                 result = Tools.protobufToJson(result);
-                result.location = window.userLocation;
-                Tools.setLocalData(Global.localStorageKey.userInfo, result);
-                Tools.setLocalData(Global.localStorageKey.secretKey, self.input.string);
+                result.location = Tools.getLocalData(Global.LSK.userInfo_location);
+                Tools.setLocalData(Global.LSK.userInfo, result);
+                Tools.setLocalData(Global.LSK.secretKey, self.input.string);
                 cc.director.loadScene('Lobby');
             }
             else {

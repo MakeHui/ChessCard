@@ -59,10 +59,12 @@ window.Global = {
      * 本地存储对应key名
      * @type {Object}
      */
-    localStorageKey: {
+    LSK: {
         deviceId: 'DeviceId',
         userInfo: 'UserInfo',
         secretKey: 'SecretKey',
+        userInfo_location: 'UserInfo_Location',
+        playMusicConfig: 'PlayMusicConfig',
     },
 
     /**
@@ -315,10 +317,10 @@ window.Global.closeDialog = (node, callback) => {
  * @return   {string}
  */
 window.Global.getDeviceId = () => {
-    let deviceId = Tools.getLocalData(Global.localStorageKey.deviceId);
+    let deviceId = Tools.getLocalData(Global.LSK.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
-        Tools.setLocalData(Global.localStorageKey.deviceId, deviceId);
+        Tools.setLocalData(Global.LSK.deviceId, deviceId);
     }
     return deviceId;
 };
@@ -386,12 +388,38 @@ window.Global.checkUpdate = () => {
  *
  * @param {Object} args
  */
-window.Global.appInit = (args) => {
+window.Global.appInit = (args = {}) => {
+    if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
+        Tools.setLocalData(Global.LSK.userInfo_location, '该用户未公开地理位置');
+    }
+
+    if (!Tools.getLocalData(Global.LSK.playMusicConfig)) {
+        Tools.setLocalData(Global.LSK.playMusicConfig, { music: 1, effect: 1 });
+    }
+
     if (args.checkUpdate) {
-        Global.checkUpdate.apply(this, args.checkUpdate);
+        Global.checkUpdate();
     }
     else {
         cc.warn('window.Global.appInit: checkUpdate 参数不存在');
     }
+
+    window.Global.backgroundMusicInit();
+};
+
+window.Global.backgroundMusicInit = () => {
+    if (!Global.backgroundMusic) {
+        Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
+    }
+    const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+    if (playMusicConfig.music === 1) {
+        Global.backgroundMusic.play();
+    }
+    else {
+        Global.backgroundMusic.stop();
+    }
+    // Global.backgroundMusic.stop();
+    // cc.warn(Global.backgroundMusic.state());
+    // Global.backgroundMusic.play();
 };
 

@@ -6,14 +6,14 @@ cc.Class({
     },
 
     // use this for initialization
-    onLoad: function () {
+    onLoad () {
 
     },
 
     /**
      * 关闭本窗口
      */
-    closeOnClick: function(event, data) {
+    closeOnClick(event, data) {
         Global.closeDialog(this.node);
         cc.warn("removeSelf");
     }

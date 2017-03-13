@@ -21,7 +21,7 @@ cc.Class({
         // this.node.setLocalZOrder(-1);
         // cc.game.addPersistRootNode(this.node);
 
-        const userInfo = Tools.getLocalData(Global.localStorageKey.userInfo);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.nickname.string = userInfo.nickname;
@@ -36,6 +36,7 @@ cc.Class({
      * 查看用户信息
      */
     openUserInfoPanelOnClick() {
+        Global.tempCache = Tools.getLocalData(Global.LSK.userInfo);
         Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
             cc.warn('load success');
         });
@@ -75,7 +76,7 @@ cc.Class({
      * 登出
      */
     logoutOnClick() {
-        Tools.setLocalData(Global.localStorageKey.secretKey, '');
+        Tools.setLocalData(Global.LSK.secretKey, '');
         cc.director.loadScene('Login');
     },
 
