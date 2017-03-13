@@ -51,6 +51,7 @@ cc.Class({
     },
 
     openDetailsOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.gameStep), this.node, function () {
             cc.warn("downloader success");
         });

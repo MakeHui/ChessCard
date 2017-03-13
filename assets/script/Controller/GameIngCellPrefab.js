@@ -18,6 +18,7 @@ cc.Class({
     },
 
     enterGameRoomOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.loading.open(this.node);
 
         let self = this;
@@ -36,6 +37,7 @@ cc.Class({
     },
 
     wechatShareOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
     },
 

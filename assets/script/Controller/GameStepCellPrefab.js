@@ -22,6 +22,7 @@ cc.Class({
     },
 
     playbackOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.inputRoomNumber), this.node);
     },
 

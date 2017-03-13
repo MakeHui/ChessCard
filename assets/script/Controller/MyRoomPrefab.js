@@ -28,6 +28,7 @@ cc.Class({
     },
 
     shareOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         cc.warn("shareOnClick");
     },
 
@@ -35,6 +36,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // this.node.getChildByName('Dialog').getComponent(cc.Animation).play('CloseDialog');
 
         Global.closeDialog(this.node);

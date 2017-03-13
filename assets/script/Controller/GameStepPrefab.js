@@ -21,6 +21,7 @@ cc.Class({
     },
 
     seeOtherRoomOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
     },
 
@@ -28,10 +29,12 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 
     shareOnClick: function(evt, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
     },
 

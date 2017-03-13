@@ -24,10 +24,12 @@ cc.Class({
     },
 
     payOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
 
     },
 
     closeOnClick: function() {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     }
 });
