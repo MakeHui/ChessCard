@@ -394,7 +394,7 @@ window.Global.appInit = (args = {}) => {
     }
 
     if (!Tools.getLocalData(Global.LSK.playMusicConfig)) {
-        Tools.setLocalData(Global.LSK.playMusicConfig, { music: 1, effect: 1 });
+        Tools.setLocalData(Global.LSK.playMusicConfig, { music: true, effect: true });
     }
 
     if (args.checkUpdate) {
@@ -404,15 +404,15 @@ window.Global.appInit = (args = {}) => {
         cc.warn('window.Global.appInit: checkUpdate 参数不存在');
     }
 
-    window.Global.backgroundMusicInit();
+    window.Global.initBackgroundMusic();
 };
 
-window.Global.backgroundMusicInit = () => {
+window.Global.initBackgroundMusic = () => {
     if (!Global.backgroundMusic) {
         Global.backgroundMusic = Tools.audioEngine.init(Global.audioResourcesUrl.background.game, true);
     }
     const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
-    if (playMusicConfig.music === 1) {
+    if (playMusicConfig.music) {
         Global.backgroundMusic.play();
     }
     else {

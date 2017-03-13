@@ -59,14 +59,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 49
       },
       {
-        "__id__": 48
+        "__id__": 50
       }
     ],
     "_prefab": {
-      "__id__": 49
+      "__id__": 51
     },
     "groupIndex": 0
   },
@@ -296,11 +296,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 45
+        "__id__": 47
       }
     ],
     "_prefab": {
-      "__id__": 46
+      "__id__": 48
     },
     "groupIndex": 0
   },
@@ -695,7 +695,7 @@
         "__id__": 26
       },
       {
-        "__id__": 35
+        "__id__": 36
       }
     ],
     "_rotationX": 0,
@@ -717,7 +717,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 44
+      "__id__": 46
     },
     "groupIndex": 0
   },
@@ -945,7 +945,7 @@
       }
     ],
     "_prefab": {
-      "__id__": 34
+      "__id__": 35
     },
     "groupIndex": 0
   },
@@ -1192,8 +1192,21 @@
     "checkMark": {
       "__id__": 29
     },
-    "checkEvents": [],
+    "checkEvents": [
+      {
+        "__id__": 34
+      }
+    ],
     "_N$isChecked": true
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "SoundPrefab",
+    "handler": "musicToggleOnClick",
+    "customEventData": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1234,7 +1247,7 @@
     },
     "_children": [
       {
-        "__id__": 36
+        "__id__": 37
       }
     ],
     "_rotationX": 0,
@@ -1256,11 +1269,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 42
+        "__id__": 43
       }
     ],
     "_prefab": {
-      "__id__": 43
+      "__id__": 45
     },
     "groupIndex": 0
   },
@@ -1278,7 +1291,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 35
+      "__id__": 36
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1292,7 +1305,7 @@
     },
     "_children": [
       {
-        "__id__": 37
+        "__id__": 38
       }
     ],
     "_rotationX": 0,
@@ -1314,11 +1327,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 40
+        "__id__": 41
       }
     ],
     "_prefab": {
-      "__id__": 41
+      "__id__": 42
     },
     "groupIndex": 0
   },
@@ -1336,7 +1349,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 36
+      "__id__": 37
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1368,11 +1381,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 38
+        "__id__": 39
       }
     ],
     "_prefab": {
-      "__id__": 39
+      "__id__": 40
     },
     "groupIndex": 0
   },
@@ -1381,7 +1394,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 37
+      "__id__": 38
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1420,7 +1433,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 36
+      "__id__": 37
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1459,7 +1472,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 35
+      "__id__": 36
     },
     "_enabled": true,
     "transition": 0,
@@ -1501,14 +1514,27 @@
     "_N$normalSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 36
+      "__id__": 37
     },
     "toggleGroup": null,
     "checkMark": {
-      "__id__": 38
+      "__id__": 39
     },
-    "checkEvents": [],
+    "checkEvents": [
+      {
+        "__id__": 44
+      }
+    ],
     "_N$isChecked": true
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "SoundPrefab",
+    "handler": "voiceToggleOnClick",
+    "customEventData": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1602,7 +1628,13 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "musicToggle": {
+      "__id__": 33
+    },
+    "voiceToggle": {
+      "__id__": 43
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
