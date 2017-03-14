@@ -23,6 +23,8 @@ goog.provide('proto.game.EnterRoomRequest');
 goog.provide('proto.game.EnterRoomResponse');
 goog.provide('proto.game.EnterRoomResponse.Player');
 goog.provide('proto.game.EnterRoomWebResponse');
+goog.provide('proto.game.ExistRoomWebRequest');
+goog.provide('proto.game.ExistRoomWebResponse');
 goog.provide('proto.game.ExitRoomRequest');
 goog.provide('proto.game.ExitRoomResponse');
 goog.provide('proto.game.ExitRoomWebResponse');
@@ -994,8 +996,7 @@ proto.game.EnterRoomResponse.Player.toObject = function(includeInstance, msg) {
     playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
     info: jspb.Message.getFieldWithDefault(msg, 3, ""),
     status: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    totalScore: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -1051,10 +1052,6 @@ proto.game.EnterRoomResponse.Player.deserializeBinaryFromReader = function(msg, 
     case 5:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setIsOnline(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setTotalScore(value);
       break;
     default:
       reader.skipField();
@@ -1126,13 +1123,6 @@ proto.game.EnterRoomResponse.Player.prototype.serializeBinaryToWriter = function
   if (f !== 0) {
     writer.writeUint32(
       5,
-      f
-    );
-  }
-  f = this.getTotalScore();
-  if (f !== 0) {
-    writer.writeUint32(
-      6,
       f
     );
   }
@@ -1211,21 +1201,6 @@ proto.game.EnterRoomResponse.Player.prototype.getIsOnline = function() {
 /** @param {number} value */
 proto.game.EnterRoomResponse.Player.prototype.setIsOnline = function(value) {
   jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * optional uint32 total_score = 6;
- * @return {number}
- */
-proto.game.EnterRoomResponse.Player.prototype.getTotalScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/** @param {number} value */
-proto.game.EnterRoomResponse.Player.prototype.setTotalScore = function(value) {
-  jspb.Message.setField(this, 6, value);
 };
 
 
@@ -1509,8 +1484,8 @@ proto.game.EnterRoomWebResponse.toObject = function(includeInstance, msg) {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     playerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -1560,11 +1535,11 @@ proto.game.EnterRoomWebResponse.deserializeBinaryFromReader = function(msg, read
       msg.setPlayerUuid(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     default:
@@ -1627,15 +1602,15 @@ proto.game.EnterRoomWebResponse.prototype.serializeBinaryToWriter = function (wr
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       4,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       5,
       f
     );
@@ -1689,30 +1664,30 @@ proto.game.EnterRoomWebResponse.prototype.setPlayerUuid = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 4;
- * @return {number}
+ * optional string game_uuid = 4;
+ * @return {string}
  */
 proto.game.EnterRoomWebResponse.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.EnterRoomWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 5;
- * @return {number}
+ * optional string app_uuid = 5;
+ * @return {string}
  */
 proto.game.EnterRoomWebResponse.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.EnterRoomWebResponse.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -2068,8 +2043,8 @@ proto.game.ExitRoomWebResponse.toObject = function(includeInstance, msg) {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     playerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -2119,11 +2094,11 @@ proto.game.ExitRoomWebResponse.deserializeBinaryFromReader = function(msg, reade
       msg.setPlayerUuid(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     default:
@@ -2186,15 +2161,15 @@ proto.game.ExitRoomWebResponse.prototype.serializeBinaryToWriter = function (wri
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       4,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       5,
       f
     );
@@ -2248,30 +2223,30 @@ proto.game.ExitRoomWebResponse.prototype.setPlayerUuid = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 4;
- * @return {number}
+ * optional string game_uuid = 4;
+ * @return {string}
  */
 proto.game.ExitRoomWebResponse.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.ExitRoomWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 5;
- * @return {number}
+ * optional string app_uuid = 5;
+ * @return {string}
  */
 proto.game.ExitRoomWebResponse.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.ExitRoomWebResponse.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -2625,8 +2600,8 @@ proto.game.DismissRoomWebRequest.prototype.toObject = function(opt_includeInstan
 proto.game.DismissRoomWebRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     roomId: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
     roomUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
@@ -2670,11 +2645,11 @@ proto.game.DismissRoomWebRequest.deserializeBinaryFromReader = function(msg, rea
       msg.setRoomId(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 4:
@@ -2731,15 +2706,15 @@ proto.game.DismissRoomWebRequest.prototype.serializeBinaryToWriter = function (w
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       2,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
@@ -2777,30 +2752,30 @@ proto.game.DismissRoomWebRequest.prototype.setRoomId = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 2;
- * @return {number}
+ * optional string game_uuid = 2;
+ * @return {string}
  */
 proto.game.DismissRoomWebRequest.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.DismissRoomWebRequest.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 3;
- * @return {number}
+ * optional string app_uuid = 3;
+ * @return {string}
  */
 proto.game.DismissRoomWebRequest.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.DismissRoomWebRequest.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -2884,8 +2859,8 @@ proto.game.DismissRoomWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
@@ -2932,11 +2907,11 @@ proto.game.DismissRoomWebResponse.deserializeBinaryFromReader = function(msg, re
       msg.setRoomId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 5:
@@ -2996,15 +2971,15 @@ proto.game.DismissRoomWebResponse.prototype.serializeBinaryToWriter = function (
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       4,
       f
     );
@@ -3050,30 +3025,30 @@ proto.game.DismissRoomWebResponse.prototype.setRoomId = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 3;
- * @return {number}
+ * optional string game_uuid = 3;
+ * @return {string}
  */
 proto.game.DismissRoomWebResponse.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.DismissRoomWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 4;
- * @return {number}
+ * optional string app_uuid = 4;
+ * @return {string}
  */
 proto.game.DismissRoomWebResponse.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.DismissRoomWebResponse.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -3142,8 +3117,8 @@ proto.game.RefundWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 5, ""),
     roomUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
@@ -3191,11 +3166,11 @@ proto.game.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader)
       msg.setRoomId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 4:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 5:
@@ -3259,15 +3234,15 @@ proto.game.RefundWebResponse.prototype.serializeBinaryToWriter = function (write
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       4,
       f
     );
@@ -3320,30 +3295,30 @@ proto.game.RefundWebResponse.prototype.setRoomId = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 3;
- * @return {number}
+ * optional string game_uuid = 3;
+ * @return {string}
  */
 proto.game.RefundWebResponse.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.RefundWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 4;
- * @return {number}
+ * optional string app_uuid = 4;
+ * @return {string}
  */
 proto.game.RefundWebResponse.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.RefundWebResponse.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 4, value);
 };
@@ -5760,8 +5735,8 @@ proto.game.LoadBalanceWebResponse.Unit.toObject = function(includeInstance, msg)
     roomStatus: jspb.Message.getFieldWithDefault(msg, 2, 0),
     playerUuidList: jspb.Message.getField(msg, 3),
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    appUuid: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    appUuid: jspb.Message.getFieldWithDefault(msg, 6, ""),
     roomUuid: jspb.Message.getFieldWithDefault(msg, 7, ""),
     st: jspb.Message.getFieldWithDefault(msg, 8, 0)
   };
@@ -5817,11 +5792,11 @@ proto.game.LoadBalanceWebResponse.Unit.deserializeBinaryFromReader = function(ms
       msg.setOwnerUuid(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 6:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setAppUuid(value);
       break;
     case 7:
@@ -5899,15 +5874,15 @@ proto.game.LoadBalanceWebResponse.Unit.prototype.serializeBinaryToWriter = funct
     );
   }
   f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       5,
       f
     );
   }
   f = this.getAppUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  if (f.length > 0) {
+    writer.writeString(
       6,
       f
     );
@@ -6006,30 +5981,30 @@ proto.game.LoadBalanceWebResponse.Unit.prototype.setOwnerUuid = function(value) 
 
 
 /**
- * optional uint32 game_uuid = 5;
- * @return {number}
+ * optional string game_uuid = 5;
+ * @return {string}
  */
 proto.game.LoadBalanceWebResponse.Unit.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.LoadBalanceWebResponse.Unit.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional uint32 app_uuid = 6;
- * @return {number}
+ * optional string app_uuid = 6;
+ * @return {string}
  */
 proto.game.LoadBalanceWebResponse.Unit.prototype.getAppUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.game.LoadBalanceWebResponse.Unit.prototype.setAppUuid = function(value) {
   jspb.Message.setField(this, 6, value);
 };
@@ -7044,6 +7019,308 @@ proto.game.SynchroniseCardsResponse.prototype.addCard = function(opt_value, opt_
 
 proto.game.SynchroniseCardsResponse.prototype.clearCardList = function() {
   this.setCardList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.ExistRoomWebRequest = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.game.ExistRoomWebRequest, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.ExistRoomWebRequest.displayName = 'proto.game.ExistRoomWebRequest';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.ExistRoomWebRequest.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.ExistRoomWebRequest.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.ExistRoomWebRequest} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.ExistRoomWebRequest.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    roomId: jspb.Message.getFieldWithDefault(msg, 1, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.ExistRoomWebRequest}
+ */
+proto.game.ExistRoomWebRequest.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.ExistRoomWebRequest;
+  return proto.game.ExistRoomWebRequest.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.ExistRoomWebRequest} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.ExistRoomWebRequest}
+ */
+proto.game.ExistRoomWebRequest.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRoomId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExistRoomWebRequest} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.ExistRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.ExistRoomWebRequest.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.ExistRoomWebRequest.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getRoomId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 room_id = 1;
+ * @return {number}
+ */
+proto.game.ExistRoomWebRequest.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ExistRoomWebRequest.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.ExistRoomWebResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.game.ExistRoomWebResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.ExistRoomWebResponse.displayName = 'proto.game.ExistRoomWebResponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.ExistRoomWebResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.ExistRoomWebResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.ExistRoomWebResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.ExistRoomWebResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    flag: jspb.Message.getFieldWithDefault(msg, 1, false)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.ExistRoomWebResponse}
+ */
+proto.game.ExistRoomWebResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.ExistRoomWebResponse;
+  return proto.game.ExistRoomWebResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.ExistRoomWebResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.ExistRoomWebResponse}
+ */
+proto.game.ExistRoomWebResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setFlag(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExistRoomWebResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.ExistRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.ExistRoomWebResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.ExistRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getFlag();
+  if (f) {
+    writer.writeBool(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional bool flag = 1;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.game.ExistRoomWebResponse.prototype.getFlag = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 1, false));
+};
+
+
+/** @param {boolean} value */
+proto.game.ExistRoomWebResponse.prototype.setFlag = function(value) {
+  jspb.Message.setField(this, 1, value);
 };
 
 

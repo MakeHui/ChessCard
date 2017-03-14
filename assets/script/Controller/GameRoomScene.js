@@ -128,7 +128,12 @@ cc.Class({
 
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
-                WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
+                if (Global.tempCache.reconnection) {
+                    // WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
+                }
+                else {
+                    WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
+                }
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 if (commandName === false) {
@@ -194,15 +199,15 @@ cc.Class({
         this._roomInfo(data.kwargs, 0, data.restCards);
         this._GameRoomCache = data;
 
-        for (let i = 0; i < data.playerInfoList.length; i += 1) {
-            const obj = data.playerInfoList[i];
+        for (let i = 0; i < data.playerList.length; i += 1) {
+            const obj = data.playerList[i];
             if (obj.playerUuid === this._userInfo.playerUuid) {
                 this._GameRoomCache.thisPlayerSeat = obj.seat;
             }
         }
 
-        for (let i = 0; i < data.playerInfoList.length; i += 1) {
-            const obj = data.playerInfoList[i];
+        for (let i = 0; i < data.playerList.length; i += 1) {
+            const obj = data.playerList[i];
             const playerIndex = this._computeSeat(obj.seat);
             obj.info = JSON.parse(obj.info);
 
@@ -211,7 +216,7 @@ cc.Class({
             Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.ownerUuid) {
+            if (obj.playerUuid === data.ownerUuid) {
                 this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
             }
 
@@ -822,6 +827,7 @@ cc.Class({
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
+        WebSocketManager.ws.closeSocket();
         cc.director.loadScene('Lobby');
     },
 
@@ -1056,6 +1062,6 @@ cc.Class({
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
         this.roomInfo[4].string = gameInfo;
-    }
+    },
 
 });

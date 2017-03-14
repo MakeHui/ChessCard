@@ -73,11 +73,25 @@ cc.Class({
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);
                 Tools.setLocalData(Global.LSK.userInfo, result);
                 Tools.setLocalData(Global.LSK.secretKey, secretKey);
-                cc.director.loadScene('Lobby');
+                /*
+                 bool player_reconnection = 23;        // 是否重连
+                 uint32 player_room_id = 24;           // 返回房间 ID
+                 string player_server_ip = 25;         // ip
+                 int32 player_server_port = 26;        // 端口
+                 */
+                if (result.playerReconnection) {
+                    Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
+                    cc.director.loadScene('GameRoom');
+                }
+                else {
+                    cc.director.loadScene('Lobby');
+                }
+            }
+            try {
                 Global.loading.close();
             }
-            else {
-                Global.loading.close();
+            catch (e) {
+                cc.warn(e);
             }
         });
     },
