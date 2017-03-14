@@ -258,7 +258,7 @@ window.WebSocketManager.ws = {
     _oncloseListener: {},
 
     _openSocket(url) {
-        this._socket = new WebSocket(url);
+        this._socket = new ReconnectingWebSocket(url, null, { debug: Global.debug, reconnectInterval: 3000, binaryType: 'arraybuffer' });
         const self = this;
 
         this._socket.onopen = (evt) => {
@@ -310,7 +310,6 @@ window.WebSocketManager.ws = {
         else {
             this._openSocket(url);
         }
-        this._socket.binaryType = 'arraybuffer';
     },
 
     sendMessage(data) {
