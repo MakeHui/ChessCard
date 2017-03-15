@@ -128,12 +128,7 @@ cc.Class({
 
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
-                if (Global.tempCache.reconnection) {
-                    // WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
-                }
-                else {
-                    WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
-                }
+                WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 if (commandName === false) {
@@ -352,7 +347,7 @@ cc.Class({
                 }
                 // 表情
                 else if (data.content.type === 2) {
-                    Tools.loadPrefab(`emoji/emotion${data.content.data}`, (prefab) => {
+                    Tools.loadRes(`emoji/emotion${data.content.data}`, cc.Prefab, (prefab) => {
                         const node = cc.instantiate(prefab);
                         self.emojiNode = node;
                         self.node.addChild(node);
@@ -477,10 +472,6 @@ cc.Class({
      **/
 
     onReconnectMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         data.kwargs = JSON.parse(data.kwargs);
         this._GameRoomCache.roomId = data;
 
@@ -745,7 +736,7 @@ cc.Class({
         this.fastChatShowTime = +new Date();
         const self = this;
 
-        Tools.loadPrefab(`emoji/emotion${data}`, (prefab) => {
+        Tools.loadRes(`emoji/emotion${data}`, cc.Prefab, (prefab) => {
             const node = cc.instantiate(prefab);
             self.emojiNode = node;
             self.node.addChild(node);

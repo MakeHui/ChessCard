@@ -69,12 +69,7 @@ cc.Class({
         Global.dialog.open('Loading', this.node);
         const parameters = { wxCode: secretKey, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
-            try {
-                Global.dialog.close();
-            }
-            catch (e) {
-                cc.error(e);
-            }
+            Global.dialog.close();
 
             if (result.code === 1) {
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);

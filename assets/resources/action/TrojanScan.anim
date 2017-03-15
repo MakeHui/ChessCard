@@ -21,5 +21,11 @@
       ]
     }
   },
-  "events": []
+  "events": [
+    {
+      "frame": 0.4666666666666667,
+      "func": "closeTrojanScanCallback",
+      "params": []
+    }
+  ]
 }

@@ -10,8 +10,8 @@ cc.Class({
 
     },
 
-    closeCallback() {
-        this.node.parent.destroy();
+    closeTrojanScanCallback() {
+        this.node.destroy();
         cc.warn('closeCallback');
     },
 });

@@ -65,6 +65,7 @@ window.Global = {
         secretKey: 'SecretKey',
         userInfo_location: 'UserInfo_Location',
         playMusicConfig: 'PlayMusicConfig',
+        showTrojanScan: 'ShowTrojanScan',
     },
 
     /**
@@ -373,7 +374,12 @@ window.Global.dialog = {
     },
 
     close() {
-        this.loadingNode.destroy();
+        try {
+            this.loadingNode.destroy();
+        }
+        catch (e) {
+            cc.error(e);
+        }
     },
 };
 
