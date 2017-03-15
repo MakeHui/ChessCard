@@ -204,9 +204,8 @@ window.WebSocketManager.ArrayBuffer = {
 
     /**
      * 合并buffer
-     *
      * @param bufferList
-     * @returns {ArrayBuffer}
+     * @returns {*}
      */
     mergeArrayBuffer(bufferList) {
         let size = 0;

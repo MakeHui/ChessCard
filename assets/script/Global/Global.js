@@ -389,8 +389,11 @@ window.Global.dialog = {
  * @param url
  */
 window.Global.playEffect = (url) => {
-    const audioRaw = cc.url.raw(url);
-    cc.audioEngine.play(audioRaw, false, 1);
+    const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+    if (playMusicConfig.effect) {
+        const audioRaw = cc.url.raw(url);
+        cc.audioEngine.play(audioRaw, false, 1);
+    }
 };
 
 /**

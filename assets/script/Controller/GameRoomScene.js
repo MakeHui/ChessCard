@@ -682,7 +682,6 @@ cc.Class({
     },
 
     closeDialogOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
         // 检查是否关闭聊天面板
         if (this.fastChatPanel.position.x !== this.fastChatPanelPosition.x) {
             Animation.closePanel(this.fastChatPanel);
@@ -799,6 +798,7 @@ cc.Class({
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendMessage('DismissRoom', {});
+        cc.director.loadScene('Lobby');
     },
 
     voteConfirmOnClick() {
