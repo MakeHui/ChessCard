@@ -66,19 +66,21 @@ cc.Class({
     },
 
     _httpLogin(secretKey) {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
         const parameters = { wxCode: secretKey, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {
+            try {
+                Global.dialog.close();
+            }
+            catch (e) {
+                cc.error(e);
+            }
+
             if (result.code === 1) {
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);
                 Tools.setLocalData(Global.LSK.userInfo, result);
                 Tools.setLocalData(Global.LSK.secretKey, secretKey);
-                /*
-                 bool player_reconnection = 23;        // 是否重连
-                 uint32 player_room_id = 24;           // 返回房间 ID
-                 string player_server_ip = 25;         // ip
-                 int32 player_server_port = 26;        // 端口
-                 */
+
                 if (result.playerReconnection) {
                     Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
                     cc.director.loadScene('GameRoom');
@@ -87,11 +89,9 @@ cc.Class({
                     cc.director.loadScene('Lobby');
                 }
             }
-            try {
-                Global.loading.close();
-            }
-            catch (e) {
-                cc.warn(e);
+            else {
+                Global.tempCache = '登录失败, 秘钥错误';
+                Global.dialog.open('Dialog', this.node);
             }
         });
     },

@@ -14,24 +14,29 @@ cc.Class({
     loginOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.input.string.length !== 36) {
-            this.info.string = '* 秘钥长度为: 36';
+            Global.tempCache = '秘钥长度必须为36';
+            Global.dialog.open('Dialog', this.node);
             return;
         }
 
-        const self = this;
-        const parameters = { wxCode: this.input.string, location: window.userLocation };
-        HttpRequestManager.httpRequest('login', parameters, (event, result) => {
-            if (result.code === 1) {
-                result.location = Tools.getLocalData(Global.LSK.userInfo_location);
-                Tools.setLocalData(Global.LSK.userInfo, result);
-                Tools.setLocalData(Global.LSK.secretKey, self.input.string);
-                cc.director.loadScene('Lobby');
-            }
-            else {
-                self.info.string = '* 登录失败, 秘钥错误';
-            }
-            Global.loading.close();
-        });
+        cc.director.getScene().getChildByName('Canvas').getComponent('LoginScene')._httpLogin(this.input.string);
+
+        // const self = this;
+        // const parameters = { wxCode: , location: window.userLocation };
+        // HttpRequestManager.httpRequest('login', parameters, (event, result) => {
+        //     if (result.code === 1) {
+        //         result.location = Tools.getLocalData(Global.LSK.userInfo_location);
+        //         Tools.setLocalData(Global.LSK.userInfo, result);
+        //         Tools.setLocalData(Global.LSK.secretKey, self.input.string);
+        //         cc.director.loadScene('Lobby');
+        //     }
+        //     else {
+        //         Global.tempCache = '登录失败, 秘钥错误';
+        //         Global.dialog.open('Dialog', this.node);
+        //     }
+        //
+        //     Global.dialog.close();
+        // });
     },
 
     closeOnClick() {

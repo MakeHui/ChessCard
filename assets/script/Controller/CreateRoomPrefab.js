@@ -44,7 +44,7 @@ cc.Class({
 
     createRoomOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         const parameters = {
             gameUuid: this.gameUuid,
@@ -53,12 +53,12 @@ cc.Class({
         };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
             if (result.code === 1) {
-                Global.loading.close();
+                Global.dialog.close();
                 Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
-                Global.loading.close();
+                Global.dialog.close();
             }
         });
     },

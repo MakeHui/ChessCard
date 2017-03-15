@@ -62,17 +62,17 @@ cc.Class({
     },
 
     _getHttpRoomEnterData() {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         const parameters = { roomId: this.roomNumber };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
             if (result.code === 1) {
-                Global.loading.close();
+                Global.dialog.close();
                 Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
-                Global.loading.close();
+                Global.dialog.close();
             }
         });
     },

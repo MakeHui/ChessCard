@@ -258,10 +258,13 @@ window.WebSocketManager.ws = {
     _oncloseListener: {},
 
     _openSocket(url) {
-        this._socket = new ReconnectingWebSocket(url, null, { debug: Global.debug, reconnectInterval: 3000, binaryType: 'arraybuffer' });
+        // this._socket = new ReconnectingWebSocket(url, null, { debug: true, reconnectInterval: 3000, binaryType: 'arraybuffer' });
+        this._socket = new WebSocket(url);
+        this._socket.binaryType = 'arraybuffer';
         const self = this;
 
         this._socket.onopen = (evt) => {
+            this._socket.binaryType = 'arraybuffer';
             for (const listener in self._onopenListener) {
                 self._onopenListener[listener](evt);
             }

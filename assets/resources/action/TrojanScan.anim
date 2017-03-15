@@ -1,0 +1,25 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "TrojanScan",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.4666666666666667,
+  "sample": 60,
+  "speed": 0.15,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "y": [
+        {
+          "frame": 0.38333333333333336,
+          "value": 94
+        },
+        {
+          "frame": 0.4666666666666667,
+          "value": -35
+        }
+      ]
+    }
+  },
+  "events": []
+}

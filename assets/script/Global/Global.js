@@ -348,17 +348,17 @@ window.Global.cardsSort = (listView) => {
 };
 
 /**
- * loading控制器
+ * 小部件控制
  *
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-27 15:04:48
  */
-window.Global.loading = {
+window.Global.dialog = {
     loadingNode: null,
 
-    open(node) {
+    open(name, node) {
         const self = this;
-        window.Tools.loadRes('Loading', cc.Prefab, (prefab) => {
+        window.Tools.loadRes(name, cc.Prefab, (prefab) => {
             self.loadingNode = cc.instantiate(prefab);
             self._open(node);
         });
@@ -377,6 +377,11 @@ window.Global.loading = {
     },
 };
 
+/**
+ * 播放音效
+ *
+ * @param url
+ */
 window.Global.playEffect = (url) => {
     const audioRaw = cc.url.raw(url);
     cc.audioEngine.play(audioRaw, false, 1);

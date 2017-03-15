@@ -44,7 +44,7 @@ cc.Class({
     },
 
     _getHttpRecordInfoData: function() {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         let self = this;
         HttpRequestManager.httpRequest("recordInfo", {}, function(event, result) {
@@ -64,7 +64,7 @@ cc.Class({
             else {
 
             }
-            Global.loading.close();
+            Global.dialog.close();
         });
     }
 });

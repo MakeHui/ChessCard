@@ -32,7 +32,7 @@ cc.Class({
     },
 
     _getHttpGameRecordData() {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         const self = this;
         HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
@@ -47,7 +47,7 @@ cc.Class({
                     }
                 }
             }
-            Global.loading.close();
+            Global.dialog.close();
         });
     },
 });

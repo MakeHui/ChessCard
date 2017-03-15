@@ -61,7 +61,7 @@ cc.Class({
     },
 
     _getHttpIngListForSelfData() {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         const self = this;
         HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
@@ -84,12 +84,12 @@ cc.Class({
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }
             }
-            Global.loading.close();
+            Global.dialog.close();
         });
     },
 
     _getHttpEndListForSelfData() {
-        Global.loading.open(this.node);
+        Global.dialog.open('Loading', this.node);
 
         const self = this;
         HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
@@ -108,7 +108,7 @@ cc.Class({
             else if (self.gameEndList.childrenCount === 0) {
                 self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             }
-            Global.loading.close();
+            Global.dialog.close();
         });
     },
 });
