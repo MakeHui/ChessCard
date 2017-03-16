@@ -397,6 +397,12 @@ window.Global.playEffect = (url) => {
 };
 
 /**
+ **********************************************************************************************************************
+ *                                      应用初始化
+ **********************************************************************************************************************
+ **/
+
+/**
  * 应用初始化需要自行的操作
  *
  * @param {Object} args
@@ -431,14 +437,11 @@ window.Global.initBackgroundMusic = () => {
     else {
         Global.backgroundMusic.stop();
     }
-    // Global.backgroundMusic.stop();
-    // cc.warn(Global.backgroundMusic.state());
-    // Global.backgroundMusic.play();
 };
 
-/**
- * 检查应用更新
- */
 window.Global.checkUpdate = () => {
 };
 
+window.Global.initHBT = () => {
+    setTimeout()
+};

@@ -61,8 +61,9 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.userAgreement), this.node);
+        jsb.reflection.callStaticMethod('com/huyaohui/cocos/extension/CocosExtensionTest', 'test');
+        // Global.playEffect(Global.audioUrl.effect.buttonClick);
+        // Global.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
     _httpLogin(secretKey) {
