@@ -8,8 +8,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        Global.appInit();
-
+        cc.warn('LoginScene');
         NativeExtensionManager.execute('startLocation', [], (data) => {
             Tools.setLocalData(Global.LSK.userInfo_location, data.data);
         });

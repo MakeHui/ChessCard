@@ -21,7 +21,7 @@ window.HttpRequestManager.requestProtocol = {
     heartbeat: {
         api: 'client/heartbeat',
         description: 'login',
-        protocol: ' Heartbeat',
+        protocol: 'Heartbeat',
     },
     playerGold: {
         api: 'login/balance',
@@ -119,13 +119,14 @@ window.HttpRequestManager.requestMessage = {
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-03-01T11:10:07+0800
      *
-     * @param    {Array}                 parameters
      */
-    getHeartbeatRequestMessage(parameters) {
+    getHeartbeatRequestMessage() {
         const message = new proto.login.HeartbeatRequest();
-        message.setPlayerUuid(parameters.playerUuid);
-        message.setDeviceId(parameters.deviceId);
-        message.setAppUuid(parameters.appUuid);
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setDeviceId(Global.getDeviceId());
+        message.setAppUuid(Global.appUuid);
 
         return message;
     },

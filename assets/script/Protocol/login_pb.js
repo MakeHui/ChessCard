@@ -1586,8 +1586,8 @@ proto.login.HeartbeatResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     isLogin: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    isNews: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    isChangeGold: jspb.Message.getFieldWithDefault(msg, 4, "")
+    news: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    gold: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -1634,11 +1634,11 @@ proto.login.HeartbeatResponse.deserializeBinaryFromReader = function(msg, reader
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setIsNews(value);
+      msg.setNews(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setIsChangeGold(value);
+      msg.setGold(value);
       break;
     default:
       reader.skipField();
@@ -1692,14 +1692,14 @@ proto.login.HeartbeatResponse.prototype.serializeBinaryToWriter = function (writ
       f
     );
   }
-  f = this.getIsNews();
+  f = this.getNews();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getIsChangeGold();
+  f = this.getGold();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -1740,31 +1740,31 @@ proto.login.HeartbeatResponse.prototype.setIsLogin = function(value) {
 
 
 /**
- * optional string is_news = 3;
+ * optional string news = 3;
  * @return {string}
  */
-proto.login.HeartbeatResponse.prototype.getIsNews = function() {
+proto.login.HeartbeatResponse.prototype.getNews = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.login.HeartbeatResponse.prototype.setIsNews = function(value) {
+proto.login.HeartbeatResponse.prototype.setNews = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional string is_change_gold = 4;
+ * optional string gold = 4;
  * @return {string}
  */
-proto.login.HeartbeatResponse.prototype.getIsChangeGold = function() {
+proto.login.HeartbeatResponse.prototype.getGold = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.login.HeartbeatResponse.prototype.setIsChangeGold = function(value) {
+proto.login.HeartbeatResponse.prototype.setGold = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -8023,9 +8023,9 @@ proto.login.RefundWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    gameType: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
     appUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    owner: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    ownerUuid: jspb.Message.getFieldWithDefault(msg, 5, ""),
     roomUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
@@ -8073,7 +8073,7 @@ proto.login.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader
       break;
     case 3:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setGameType(value);
+      msg.setGameUuid(value);
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
@@ -8081,7 +8081,7 @@ proto.login.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setOwner(value);
+      msg.setOwnerUuid(value);
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
@@ -8139,7 +8139,7 @@ proto.login.RefundWebResponse.prototype.serializeBinaryToWriter = function (writ
       f
     );
   }
-  f = this.getGameType();
+  f = this.getGameUuid();
   if (f !== 0) {
     writer.writeUint32(
       3,
@@ -8153,7 +8153,7 @@ proto.login.RefundWebResponse.prototype.serializeBinaryToWriter = function (writ
       f
     );
   }
-  f = this.getOwner();
+  f = this.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -8201,16 +8201,16 @@ proto.login.RefundWebResponse.prototype.setRoomId = function(value) {
 
 
 /**
- * optional uint32 game_type = 3;
+ * optional uint32 game_uuid = 3;
  * @return {number}
  */
-proto.login.RefundWebResponse.prototype.getGameType = function() {
+proto.login.RefundWebResponse.prototype.getGameUuid = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
 /** @param {number} value */
-proto.login.RefundWebResponse.prototype.setGameType = function(value) {
+proto.login.RefundWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -8231,16 +8231,16 @@ proto.login.RefundWebResponse.prototype.setAppUuid = function(value) {
 
 
 /**
- * optional string owner = 5;
+ * optional string owner_uuid = 5;
  * @return {string}
  */
-proto.login.RefundWebResponse.prototype.getOwner = function() {
+proto.login.RefundWebResponse.prototype.getOwnerUuid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.login.RefundWebResponse.prototype.setOwner = function(value) {
+proto.login.RefundWebResponse.prototype.setOwnerUuid = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
