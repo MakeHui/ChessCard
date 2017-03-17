@@ -3,6 +3,7 @@ cc.Class({
     // 708034
     properties: {
         soundPrefab: cc.Prefab,
+        userInfoPrefab: cc.Prefab,
 
         // 听牌提示
         tingCardDistrict: cc.Node,
@@ -231,7 +232,7 @@ cc.Class({
         }
 
         data.info = JSON.parse(data.info);
-        this._GameRoomCache.playerInfoList.push(data);
+        this._GameRoomCache.playerList.push(data);
 
         const playerIndex = this._computeSeat(data.seat);
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
@@ -252,14 +253,14 @@ cc.Class({
             return;
         }
 
-        for (let i; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
 
                 this.inviteButtonList[playerIndex].active = true;
                 this.playerInfoList[playerIndex].active = false;
 
-                cc.js.array.removeAt(this._GameRoomCache.playerInfoList, i);
+                cc.js.array.removeAt(this._GameRoomCache.playerList, i);
                 break;
             }
         }
@@ -279,12 +280,12 @@ cc.Class({
         }
 
         this._votePlayers = {};
-        for (let i; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.sponsor) {
-                this.voteSponsor.string = this._GameRoomCache.playerInfoList[i].nickname;
+        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.sponsor) {
+                this.voteSponsor.string = this._GameRoomCache.playerList[i].nickname;
             }
 
-            this._votePlayers.push(this._GameRoomCache.playerInfoList[i]);
+            this._votePlayers.push(this._GameRoomCache.playerList[i]);
         }
 
         for (let i; i < this._votePlayers.length; i += 1) {
@@ -311,9 +312,9 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
 
                 break;
@@ -328,14 +329,14 @@ cc.Class({
 
         data.content = JSON.parse(data.content);
 
-        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const self = this;
 
                 // 评论
                 if (data.content.type === 1) {
-                    this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerInfoList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
+                    this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
@@ -371,9 +372,9 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
 
                 break;
@@ -387,9 +388,9 @@ cc.Class({
         }
 
         // 庄家
-        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
-            if (this._GameRoomCache.playerInfoList[i].playerUuid === data.dealerUuid) {
-                this.dealeSeat = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
+                this.dealeSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 this.playerInfoList[this.dealeSeat].getChildByName('img_zhuang').active = false;
 
                 break;
@@ -430,9 +431,9 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this._GameRoomCache.playerInfoList.length; i += 1) {
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerInfoList[i].seat);
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
@@ -611,7 +612,7 @@ cc.Class({
             return;
         }
 
-        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerInfoList };
+        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
         cc.director.loadScene('SmallAccount');
     },
 
@@ -620,7 +621,7 @@ cc.Class({
             return;
         }
 
-        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerInfoList };
+        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
         cc.director.loadScene('SmallAccount');
     },
 
@@ -629,6 +630,18 @@ cc.Class({
      *                                       button on click
      *******************************************************************************************************************
      **/
+
+    showUserInfoOnClick(evt, data) {
+        cc.warn(this._GameRoomCache);
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+            if (playerIndex == data) {
+                Global.tempCache = this._GameRoomCache.playerList[i].info;
+                Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
+                break;
+            }
+        }
+    },
 
     /**
      * 微信邀请
