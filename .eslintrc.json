@@ -16,7 +16,8 @@
     "key-spacing": 0,
     "global-require": 0,
     "import/no-unresolved": 0,
-    "eqeqeq": 0
+    "eqeqeq": 0,
+    "eol-last": 0
   },
   "globals": {
     "window": true,

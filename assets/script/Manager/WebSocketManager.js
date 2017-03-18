@@ -24,14 +24,14 @@ window.WebSocketManager.Command = {
     SynchroniseCards: 0x000E,       // 13、服务端主动同步手牌
 
     // PX258 麻将
-    PX258: {
-        Reconnect       : 0x1000,       // 1、玩家断线重连
-        Prompt          : 0x1001,       // 2、操作提示
-        Action          : 0x1002,       // 3、玩家根据提示列表选择动作
-        ReadyHand       : 0x1003,       // 4、听牌提示
-        SettleForRound  : 0x1004,       // 5、小结算
-        SettleForRoom   : 0x1005,       // 6、大结算
-    },
+    // PX258: {
+    Reconnect       : 0x1000,       // 1、玩家断线重连
+    Prompt          : 0x1001,       // 2、操作提示
+    Action          : 0x1002,       // 3、玩家根据提示列表选择动作
+    ReadyHand       : 0x1003,       // 4、听牌提示
+    SettleForRound  : 0x1004,       // 5、小结算
+    SettleForRoom   : 0x1005,       // 6、大结算
+    // },
 };
 
 /**
@@ -235,10 +235,10 @@ window.WebSocketManager.ArrayBuffer = {
  * @param name
  * @param parameters
  */
-window.WebSocketManager.sendMessage = (name, parameters) => {
+window.WebSocketManager.sendMessage = (name, parameters = {}) => {
     const message = WebSocketManager.requestMessage[`get${name}RequestMessage`](parameters);
     const data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
-    cc.warn(['======= window.WebSocketManager.sendMessage ========', data, name, parameters]);
+    cc.warn([`WebSocketManager.sendMessage.${name}`, parameters]);
     WebSocketManager.ws.sendMessage(data);
 };
 
@@ -322,6 +322,11 @@ window.WebSocketManager.ws = {
 
     closeSocket() {
         this._socket.close();
+        this._socket = null;
+        this._onopenListener = {};
+        this._onmessageListener = {};
+        this._onerrorListener = {};
+        this._oncloseListener = {};
     },
 
     addOnopenListener(name, listner) {

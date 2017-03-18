@@ -45,7 +45,7 @@ cc.Class({
                     Tools.setLocalData(Global.LSK.userInfo, userInfo);
                 }
             });
-        }, this, 5, true);
+        }, this, 30, true);
     },
 
     backgroundMusic() {

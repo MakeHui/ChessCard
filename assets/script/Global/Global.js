@@ -355,7 +355,7 @@ window.Global.cardsSort = (listView) => {
  * @datetime 2017-02-27 15:04:48
  */
 window.Global.dialog = {
-    loadingNode: null,
+    loadingNode: cc.Node,
 
     open(name, node) {
         const self = this;
@@ -375,7 +375,7 @@ window.Global.dialog = {
 
     close() {
         try {
-            this.loadingNode.destroy();
+            this.loadingNode = cc.Node;
         }
         catch (e) {
             cc.error(e);

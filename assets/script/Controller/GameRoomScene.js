@@ -130,6 +130,7 @@ cc.Class({
             WebSocketManager.ws.openSocket(this.wsUrl);
             WebSocketManager.ws.addOnopenListener(scriptName, () => {
                 WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
+                WebSocketManager.sendMessage('Ready');
             });
             WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
                 if (commandName === false) {
@@ -193,7 +194,6 @@ cc.Class({
 
         data.kwargs = JSON.parse(data.kwargs);
         this._roomInfo(data.kwargs, 0, data.restCards);
-        this._GameRoomCache = data;
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
@@ -207,6 +207,8 @@ cc.Class({
             const playerIndex = this._computeSeat(obj.seat);
             obj.info = JSON.parse(obj.info);
 
+            this.inviteButtonList[playerIndex].active = false;
+            this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
             this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
             Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
@@ -217,13 +219,21 @@ cc.Class({
             }
 
             // 是否在线
-            this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+            if (this._userInfo.playerUuid !== obj.playerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+            }
 
             if (playerIndex !== 0) {
                 this.inviteButtonList[playerIndex].active = false;
                 this.playerInfoList[playerIndex].active = true;
             }
         }
+
+        if (data.playerList.length !== 4) {
+            this.inviteButtonList[0].active = true;
+        }
+
+        this._GameRoomCache.playerList = data.playerList;
     },
 
     onEnterRoomOtherMessage(data) {
@@ -235,6 +245,10 @@ cc.Class({
         this._GameRoomCache.playerList.push(data);
 
         const playerIndex = this._computeSeat(data.seat);
+
+        this.inviteButtonList[playerIndex].active = false;
+        this.playerInfoList[playerIndex].active = true;
+
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
         this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore;
         Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
@@ -244,8 +258,10 @@ cc.Class({
             this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
         }
 
-        this.inviteButtonList[playerIndex].active = false;
-        this.playerInfoList[playerIndex].active = true;
+        // 如果房间人数满了, 关闭邀请按钮
+        if (this._GameRoomCache.playerList.length === 4) {
+            this.inviteButtonList[0].active = false;
+        }
     },
 
     onExitRoomMessage(data) {
@@ -474,55 +490,65 @@ cc.Class({
 
     onReconnectMessage(data) {
         data.kwargs = JSON.parse(data.kwargs);
-        this._GameRoomCache.roomId = data;
+        this._GameRoomCache.roomId = data.roomId;
 
         // 初始化房间信息
         this._roomInfo(data.kwargs, data.currentRound, data.restCards);
 
-        // 情况当前所有玩家信息等待重新初始化
+        // 清空当前所有玩家信息等待重新初始化
         for (let i = 0; i < 4; i += 1) {
             this.handCardDistrict[i].removeAllChildren();
             this.dirtyCardDistrict[i].removeAllChildren();
             this.pongKongChowDistrict[i].removeAllChildren();
 
-            this.inviteButtonList[i].active = false;
-            this.playerInfoList[i].active = true;
+            this.inviteButtonList[i].active = true;
+            this.playerInfoList[i].active = false;
         }
 
         // 查找当前玩家的座位号
-        for (let i = 0; i < data.playerInfoList.length; i += 1) {
-            const obj = data.playerInfoList[i];
+        for (let i = 0; i < data.playerList.length; i += 1) {
+            const obj = data.playerList[i];
             if (obj.playerUuid === this._userInfo.playerUuid) {
                 this._GameRoomCache.thisPlayerSeat = obj.seat;
             }
         }
 
-        // 初始化玩家手牌
+        // 初始化玩家信息
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
             const playerIndex = this._computeSeat(obj.seat);
-            obj[i].info = JSON.parse(obj[i].info);
+            obj.info = JSON.parse(obj.info);
 
-            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj[i].info.nickname;
-            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj[i].totalScore;
-            Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj[i].info.headimgurl);
+            this.inviteButtonList[playerIndex].active = false;
+            this.playerInfoList[playerIndex].active = true;
+            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
+            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore;
+            Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
-            if (obj[i].playerUuid === data.ownerUuid) {
+            if (obj.playerUuid === data.ownerUuid) {
                 this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
             }
 
             // 是否在线
-            this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj[i].isOnline === 0;
+            if (this._userInfo.playerUuid !== obj.playerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+            }
 
             // 初始化手牌
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHand);
-            this._appendCardToDiscardDistrict(playerIndex, obj.cardsDiscard);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealed);
-            this._appendExposedToDistrict(playerIndex, obj.cardsKongExposed);
-            this._appendPongToDistrict(playerIndex, obj.cardsPong);
-            this._appendChowToDistrict(playerIndex, obj.cardsChow);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsDiscardList);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealedList);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongExposedList);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsPongList);
+            this._appendCardToHandCardDistrict(playerIndex, obj.cardsChowList);
         }
+
+        if (data.playerList.length !== 4) {
+            this.inviteButtonList[0].active = true;
+        }
+
+        this._GameRoomCache.playerList = data.playerList;
     },
 
     onPromptMessage(data) {
@@ -810,7 +836,9 @@ cc.Class({
 
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendMessage('DismissRoom', {});
+        WebSocketManager.sendMessage('DismissRoom');
+        WebSocketManager.ws.closeSocket();
+
         cc.director.loadScene('Lobby');
     },
 
@@ -887,18 +915,19 @@ cc.Class({
      * @private
      */
     _appendCardToHandCardDistrict(player, data) {
-        const node = cc.instantiate(this.handCardPrefabs[player]);
-        if (player === 0) {
-            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', data);
-            node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
-            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
-            // node.getChildByName('UserData').string = 'xxxxxx';
-        }
+        for (let i = 0; i < data.length; i += 1) {
+            const node = cc.instantiate(this.handCardPrefabs[player]);
+            this.handCardDistrict[player].addChild(node);
 
-        this.handCardDistrict[player].addChild(node);
+            if (player === 0) {
+                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', data[i]);
+                node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
+                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
+                    nodeSprite.spriteFrame = spriteFrame;
+                });
+            }
+        }
     },
 
     /**
@@ -918,12 +947,9 @@ cc.Class({
      * @private
      */
     _appendConcealedKongToDistrict(player, data) {
-        const index = player % 2;
-        let node = {};
-
         for (let i = 0; i < data.length; i += 1) {
             if (i % 4 === 0) {
-                node = cc.instantiate(this.concealedKongPrefab[index]);
+                const node = cc.instantiate(this.concealedKongPrefab[player]);
                 this.pongKongChowDistrict[player].addChild(node);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
@@ -942,12 +968,10 @@ cc.Class({
      * @private
      */
     _appendExposedToDistrict(player, data) {
-        const index = player % 2;
-        let node = {};
-
+        let node = cc.Node;
         for (let j = 0; j < data.length; j += 1) {
             if (j % 4 === 0) {
-                node = cc.instantiate(this.exposedPrefab[index]);
+                node = cc.instantiate(this.exposedPrefab[player]);
                 this.pongKongChowDistrict[player].addChild(node);
             }
 
@@ -966,12 +990,10 @@ cc.Class({
      * @private
      */
     _appendPongToDistrict(player, data) {
-        const index = player % 2;
-        let node = {};
-
+        let node = cc.Node;
         for (let j = 0; j < data.length; j += 1) {
             if (j % 3 === 0) {
-                node = cc.instantiate(this.pongAndChowPrefab[index]);
+                node = cc.instantiate(this.pongAndChowPrefab[player]);
                 this.pongKongChowDistrict[player].addChild(node);
             }
 
@@ -990,12 +1012,10 @@ cc.Class({
      * @private
      */
     _appendChowToDistrict(player, data) {
-        const index = player % 2;
-        let node = {};
-
+        let node = cc.Node;
         for (let j = 0; j < data.length; j += 1) {
             if (j % 3 === 0) {
-                node = cc.instantiate(this.pongAndChowPrefab[index]);
+                node = cc.instantiate(this.pongAndChowPrefab[player]);
                 this.pongKongChowDistrict[player].addChild(node);
             }
 
@@ -1007,7 +1027,7 @@ cc.Class({
     },
 
     /**
-     * 添加拍到打出去的区域
+     * 添加牌到打出去的区域
      *
      * @param player
      * @param data
@@ -1015,13 +1035,13 @@ cc.Class({
      */
     _appendCardToDiscardDistrict(player, data) {
         for (let i = 0; i < data.length; i += 1) {
-            const index = player % 2;
-            const node = cc.instantiate(this.dirtyCardPrefabs[index]);
+            const node = cc.instantiate(this.dirtyCardPrefabs[player]);
+            this.dirtyCardDistrict[player].addChild(node);
+
             const nodeSprite = Tools.findNode(node, 'Background>value');
             Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
-            this.dirtyCardDistrict[player].addChild(node);
         }
     },
 
