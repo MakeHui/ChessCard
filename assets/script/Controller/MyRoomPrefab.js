@@ -65,6 +65,8 @@ cc.Class({
 
         const self = this;
         HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
+            Global.dialog.close();
+
             if (result.code === 1) {
                 const roomItem = result.roomItemList;
                 cc.warn(roomItem.length);
@@ -84,7 +86,6 @@ cc.Class({
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }
             }
-            Global.dialog.close();
         });
     },
 

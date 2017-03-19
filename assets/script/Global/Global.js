@@ -55,6 +55,8 @@ window.Global = {
 
     fastChatShowTime: 1.5 * 1000,
 
+    hbtTime: 1000,
+
     /**
      * 本地存储对应key名
      * @type {Object}
@@ -355,18 +357,28 @@ window.Global.cardsSort = (listView) => {
  * @datetime 2017-02-27 15:04:48
  */
 window.Global.dialog = {
-    loadingNode: cc.Node,
+    loadingPrefab: null,
+    loadingNode: null,
 
     open(name, node) {
         const self = this;
-        window.Tools.loadRes(name, cc.Prefab, (prefab) => {
-            self.loadingNode = cc.instantiate(prefab);
+        if (!this.loadingPrefab) {
+            window.Tools.loadRes(name, cc.Prefab, (prefab) => {
+                self.loadingNode = cc.instantiate(prefab);
+                self._open(node);
+            });
+        }
+        else {
+            self.loadingNode = cc.instantiate(self.loadingPrefab);
             self._open(node);
-        });
+        }
 
-        cc.director.getScheduler().schedule(() => {
-            self.close();
-        }, this, 30, 0);
+        // this.schedule(() => {
+        //     cc.warn(123);
+        // }, 1);
+        // cc.director.getScheduler().schedule(() => {
+        //     self.close();
+        // }, this, 30, 0);
     },
 
     _open(node) {
@@ -374,12 +386,7 @@ window.Global.dialog = {
     },
 
     close() {
-        try {
-            this.loadingNode = cc.Node;
-        }
-        catch (e) {
-            cc.error(e);
-        }
+        this.loadingNode.destroy();
     },
 };
 

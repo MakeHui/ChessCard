@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        loading: cc.Prefab,
     },
 
     // use this for initialization
@@ -20,32 +20,33 @@ cc.Class({
 
         this.hbt();
         this.backgroundMusic();
+
+        Global.dialog.loadingPrefab = this.loading;
     },
 
     hbt() {
-        cc.director.getScheduler().schedule(() => {
+        this.schedule(() => {
             const scene = cc.director.getScene();
-            if (scene.name !== 'Lobby') {
-                return;
-            }
-
             HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
                 if (result.code === 1) {
                     if (result.isLogin == 0 || result.isLogin == 2) {
+                        Tools.setLocalData(Global.LSK.secretKey, '');
                         cc.director.loadScene('LoginScene');
                     }
 
-                    const lobbyScene = scene.getChildByName('Canvas').getComponent('LobbyScene');
-                    lobbyScene.money.string = result.glod;
-                    lobbyScene.notice.getComponent(cc.Label).string = result.news;
+                    if (scene.name === 'Lobby') {
+                        const lobbyScene = scene.getChildByName('Canvas').getComponent('LobbyScene');
+                        lobbyScene.money.string = result.gold;
+                        lobbyScene.notice.getComponent(cc.Label).string = result.news;
+                    }
 
                     const userInfo = Tools.getLocalData(Global.LSK.userInfo);
-                    userInfo.gold = result.glod;
+                    userInfo.gold = result.gold;
                     userInfo.notice = result.news;
                     Tools.setLocalData(Global.LSK.userInfo, userInfo);
                 }
             });
-        }, this, 30, true);
+        }, Global.hbtTime);
     },
 
     backgroundMusic() {

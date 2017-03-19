@@ -134,7 +134,10 @@
     "node": {
       "__id__": 2
     },
-    "_enabled": true
+    "_enabled": true,
+    "loading": {
+      "__uuid__": "ff1c9c53-f17a-4308-a649-31ee2c67265f"
+    }
   },
   {
     "__type__": "cc.Node",

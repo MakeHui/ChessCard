@@ -24,6 +24,14 @@ cc.Class({
         },
 
         /**
+         * 摸到的牌
+         */
+        getHandcard: {
+            default: [],
+            type: cc.Node,
+        },
+
+        /**
          * 0: 玩家1
          * 1: 玩家24
          * 3: 玩家3
@@ -250,7 +258,7 @@ cc.Class({
         this.playerInfoList[playerIndex].active = true;
 
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
-        this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore;
+        this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore || 0;
         Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
@@ -403,25 +411,25 @@ cc.Class({
             return;
         }
 
+        // 移动三号位的玩家头像到右边, 避免被挡住
+        this.playerInfoList[2].setPositionX(-134);
+
+        this._GameRoomCache.gameing = false;
+
         // 庄家
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
-                this.dealeSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[this.dealeSeat].getChildByName('img_zhuang').active = false;
+                this._GameRoomCache.dealeSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+                this.playerInfoList[this._GameRoomCache.dealeSeat].getChildByName('img_zhuang').active = true;
 
                 break;
             }
         }
 
-        const self = this;
-        let i = -1;
-        this.schedule(() => {
-            const obj = data.cardsInHandList[i += 1];
-            self._appendCardToHandCardDistrict(0, obj.card);
-            self._appendCardToHandCardDistrict(1);
-            self._appendCardToHandCardDistrict(2);
-            self._appendCardToHandCardDistrict(3);
-        }, 100, data.cardsInHandList.length);
+        this._appendCardToHandCardDistrict(0, data.cardsInHandList);
+        this._appendCardToHandCardDistrict(1);
+        this._appendCardToHandCardDistrict(2);
+        this._appendCardToHandCardDistrict(3);
     },
 
     onDrawMessage(data) {
@@ -434,7 +442,7 @@ cc.Class({
             node.setPositionX(24);
 
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
 
@@ -453,7 +461,7 @@ cc.Class({
                 const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                Tools.loadRes(`card_pin.plist/value_${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
+                Tools.loadRes(`card_pin.plist/value_0x${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
                     nodeSprite.spriteFrame = spriteFrame;
                 });
 
@@ -474,7 +482,7 @@ cc.Class({
             const obj = data.card[i];
             const node = cc.instantiate(this.handCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
 
@@ -491,6 +499,12 @@ cc.Class({
     onReconnectMessage(data) {
         data.kwargs = JSON.parse(data.kwargs);
         this._GameRoomCache.roomId = data.roomId;
+        this._GameRoomCache.gameing = true;
+
+        if (data.playerList[0].cardsInHandList.length > 0) {
+            // 移动三号位的玩家头像到右边, 避免被挡住
+            this.playerInfoList[2].setPositionX(-134);
+        }
 
         // 初始化房间信息
         this._roomInfo(data.kwargs, data.currentRound, data.restCards);
@@ -522,7 +536,7 @@ cc.Class({
             this.inviteButtonList[playerIndex].active = false;
             this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
-            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore;
+            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
             Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
@@ -537,11 +551,11 @@ cc.Class({
 
             // 初始化手牌
             this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsDiscardList);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealedList);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongExposedList);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsPongList);
-            this._appendCardToHandCardDistrict(playerIndex, obj.cardsChowList);
+            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsDiscardList);
+            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealedList);
+            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongExposedList);
+            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsPongList);
+            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsChowList);
         }
 
         if (data.playerList.length !== 4) {
@@ -625,7 +639,7 @@ cc.Class({
         for (let i = 0; i < data.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
 
@@ -800,15 +814,14 @@ cc.Class({
      * @param data
      */
     selectedHandCardOnClick(event, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        Global.playEffect(Global.audioUrl.effect.cardOut);
         if (this.handCardIsSelected === data) {
             event.target.parent.destroy();
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
+            cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
+                nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${data}`);
             });
-            // const backgroundNode = node.getChildByName('background');
             this.dirtyCardDistrict[0].addChild(node);
 
             WebSocketManager.sendMessage('Discard', { card: data });
@@ -915,18 +928,33 @@ cc.Class({
      * @private
      */
     _appendCardToHandCardDistrict(player, data) {
-        for (let i = 0; i < data.length; i += 1) {
-            const node = cc.instantiate(this.handCardPrefabs[player]);
-            this.handCardDistrict[player].addChild(node);
+        const self = this;
+        function insert(card) {
+            const node = cc.instantiate(self.handCardPrefabs[player]);
+            self.handCardDistrict[player].addChild(node);
 
             if (player === 0) {
-                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', data[i]);
+                const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
                 node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
-                    nodeSprite.spriteFrame = spriteFrame;
+                cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
+                    nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${card}`);
                 });
             }
+        }
+
+        if (this._GameRoomCache.gameing) {
+            for (let i = data.length - 1; i >= 0; i -= 1) {
+                insert(data[i].card);
+            }
+        }
+        else {
+            let i = data.length;
+            this.schedule(() => {
+                Global.playEffect(Global.audioUrl.effect.dealCard);
+                insert(data[i].card);
+                i -= 1;
+            }, 0.2, (data.length - 1));
         }
     },
 
@@ -953,7 +981,7 @@ cc.Class({
                 this.pongKongChowDistrict[player].addChild(node);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
+                Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
                     nodeSprite.spriteFrame = spriteFrame;
                 });
             }
@@ -976,7 +1004,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 4].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
         }
@@ -998,7 +1026,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
         }
@@ -1020,7 +1048,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_${data[j]}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
         }
@@ -1039,7 +1067,7 @@ cc.Class({
             this.dirtyCardDistrict[player].addChild(node);
 
             const nodeSprite = Tools.findNode(node, 'Background>value');
-            Tools.loadRes(`card_pin.plist/value_${data[i]}`, cc.SpriteFrame, (spriteFrame) => {
+            Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
                 nodeSprite.spriteFrame = spriteFrame;
             });
         }
@@ -1047,7 +1075,7 @@ cc.Class({
 
     _resetHandCardPosition() {
         for (let i = 0; i < this.handCardDistrict[0].childrenCount; i += 1) {
-            this.handCardDistrict[0].children[i].getChildByName('background').setPositionY(0);
+            this.handCardDistrict[0].children[i].getChildByName('Background').setPositionY(0);
         }
     },
 
