@@ -19,7 +19,7 @@ cc.Class({
             return;
         }
 
-        cc.director.getScene().getChildByName('Canvas').getComponent('LoginScene')._httpLogin(this.input.string);
+        cc.director.getScene().getChildByName('Canvas').getComponent('LoginScene').httpLogin(this.input.string);
 
         // const self = this;
         // const parameters = { wxCode: , location: window.userLocation };

@@ -358,20 +358,18 @@ window.Global.cardsSort = (listView) => {
  */
 window.Global.dialog = {
     loadingPrefab: null,
+    dialogPrefab: null,
     loadingNode: null,
 
     open(name, node) {
-        const self = this;
-        if (!this.loadingPrefab) {
-            window.Tools.loadRes(name, cc.Prefab, (prefab) => {
-                self.loadingNode = cc.instantiate(prefab);
-                self._open(node);
-            });
+        if (name === 'Loading') {
+            this.loadingNode = cc.instantiate(this.loadingPrefab);
         }
         else {
-            self.loadingNode = cc.instantiate(self.loadingPrefab);
-            self._open(node);
+            this.loadingNode = cc.instantiate(this.dialogPrefab);
         }
+
+        this._open(node);
 
         // this.schedule(() => {
         //     cc.warn(123);

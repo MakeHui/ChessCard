@@ -48,7 +48,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "InitApp",
+    "_name": "AppController",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -137,6 +137,9 @@
     "_enabled": true,
     "loading": {
       "__uuid__": "ff1c9c53-f17a-4308-a649-31ee2c67265f"
+    },
+    "dialog": {
+      "__uuid__": "36ee03ca-07d7-4842-87e8-14aabf27fac2"
     }
   },
   {

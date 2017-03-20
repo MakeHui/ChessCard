@@ -311,8 +311,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 215,
-      "y": 113
+      "x": 208,
+      "y": 106
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -561,12 +561,12 @@
     "__type__": "cc.Node",
     "_name": "Label",
     "_objFlags": 0,
-    "_opacity": 255,
+    "_opacity": 200,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -581,7 +581,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 320,
-      "height": 40
+      "height": 32
     },
     "_children": [],
     "_rotationX": 0,
@@ -620,9 +620,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
+    "_lineHeight": 0,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,

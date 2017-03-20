@@ -20,7 +20,7 @@ cc.Class({
             cc.warn('LoginScene.loginOnCLick: 本地没有secretKey');
         }
         else {
-            this._httpLogin(secretKey);
+            this.httpLogin(secretKey);
         }
     },
 
@@ -37,7 +37,7 @@ cc.Class({
             return;
         }
 
-        this._httpLogin(secretKey);
+        this.httpLogin(secretKey);
     },
 
     /**
@@ -60,12 +60,12 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        jsb.reflection.callStaticMethod('com/huyaohui/cocos/extension/CocosExtensionTest', 'test');
-        // Global.playEffect(Global.audioUrl.effect.buttonClick);
-        // Global.openDialog(cc.instantiate(this.userAgreement), this.node);
+        // jsb.reflection.callStaticMethod('com/huyaohui/cocos/extension/CocosExtensionTest', 'test');
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        Global.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
-    _httpLogin(secretKey) {
+    httpLogin(secretKey) {
         Global.dialog.open('Loading', this.node);
         const parameters = { wxCode: secretKey, location: window.userLocation };
         HttpRequestManager.httpRequest('login', parameters, (event, result) => {

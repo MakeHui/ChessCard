@@ -3,6 +3,7 @@ cc.Class({
 
     properties: {
         loading: cc.Prefab,
+        dialog: cc.Prefab,
     },
 
     // use this for initialization
@@ -22,6 +23,7 @@ cc.Class({
         this.backgroundMusic();
 
         Global.dialog.loadingPrefab = this.loading;
+        Global.dialog.dialogPrefab = this.dialog;
     },
 
     hbt() {

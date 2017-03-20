@@ -332,14 +332,10 @@ cc.Class({
     },
 
     onOnlineStatusMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
                 const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
 
                 break;
             }
@@ -420,7 +416,7 @@ cc.Class({
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
                 this._GameRoomCache.dealeSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[this._GameRoomCache.dealeSeat].getChildByName('img_zhuang').active = true;
+                this.playerInfoList[this._GameRoomCache.dealeSeat].getChildByName('img_zhuang').active = false;
 
                 break;
             }
@@ -551,12 +547,16 @@ cc.Class({
 
             // 初始化手牌
             this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList);
-            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsDiscardList);
-            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongConcealedList);
-            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsKongExposedList);
-            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsPongList);
-            // this._appendCardToHandCardDistrict(playerIndex, obj.cardsChowList);
+            this._appendCardToDiscardDistrict(playerIndex, obj.cardsDiscardList);
+            this._appendConcealedKongToDistrict(playerIndex, obj.cardsKongConcealedList);
+            this._appendExposedToDistrict(playerIndex, obj.cardsKongExposedList);
+            this._appendPongToDistrict(playerIndex, obj.cardsPongList);
+            this._appendChowToDistrict(playerIndex, obj.cardsChowList);
         }
+
+        // 庄家
+        this._GameRoomCache.dealerSeat = this._computeSeat(data.dealer);
+        this.playerInfoList[this._GameRoomCache.dealerSeat].getChildByName('img_zhuang').active = true;
 
         if (data.playerList.length !== 4) {
             this.inviteButtonList[0].active = true;
@@ -871,9 +871,11 @@ cc.Class({
 
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
-        WebSocketManager.ws.closeSocket();
-        cc.director.loadScene('Lobby');
+        if (this._GameRoomCache.playerList.length !== 4) {
+            WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
+            WebSocketManager.ws.closeSocket();
+            cc.director.loadScene('Lobby');
+        }
     },
 
     /**
@@ -957,15 +959,6 @@ cc.Class({
             }, 0.2, (data.length - 1));
         }
     },
-
-    /**
-     * 碰, 吃, 杠, 区域
-     *
-     * @param player
-     * @param type
-     * @param data
-     * @private
-     */
 
     /**
      * 暗杠

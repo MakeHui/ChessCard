@@ -10064,11 +10064,11 @@ proto.game.SettleForRoomResponse.PlayerData.toObject = function(includeInstance,
     seat: jspb.Message.getFieldWithDefault(msg, 2, 0),
     totalScore: jspb.Message.getFieldWithDefault(msg, 3, 0),
     topScore: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    bigWinDrawCnt: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    bigWinDiscardCnt: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    smallWinDrawCnt: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    smallWinDiscardCnt: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    paoCnt: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    winDrawCnt: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    winDiscardCnt: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    paoCnt: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    kongConcealedCnt: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    kongExposedCnt: jspb.Message.getFieldWithDefault(msg, 9, 0),
     isOwner: jspb.Message.getFieldWithDefault(msg, 10, 0)
   };
 
@@ -10124,23 +10124,23 @@ proto.game.SettleForRoomResponse.PlayerData.deserializeBinaryFromReader = functi
       break;
     case 5:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setBigWinDrawCnt(value);
+      msg.setWinDrawCnt(value);
       break;
     case 6:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setBigWinDiscardCnt(value);
+      msg.setWinDiscardCnt(value);
       break;
     case 7:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setSmallWinDrawCnt(value);
+      msg.setPaoCnt(value);
       break;
     case 8:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setSmallWinDiscardCnt(value);
+      msg.setKongConcealedCnt(value);
       break;
     case 9:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setPaoCnt(value);
+      msg.setKongExposedCnt(value);
       break;
     case 10:
       var value = /** @type {number} */ (reader.readUint32());
@@ -10212,35 +10212,35 @@ proto.game.SettleForRoomResponse.PlayerData.prototype.serializeBinaryToWriter = 
       f
     );
   }
-  f = this.getBigWinDrawCnt();
+  f = this.getWinDrawCnt();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getBigWinDiscardCnt();
+  f = this.getWinDiscardCnt();
   if (f !== 0) {
     writer.writeUint32(
       6,
       f
     );
   }
-  f = this.getSmallWinDrawCnt();
+  f = this.getPaoCnt();
   if (f !== 0) {
     writer.writeUint32(
       7,
       f
     );
   }
-  f = this.getSmallWinDiscardCnt();
+  f = this.getKongConcealedCnt();
   if (f !== 0) {
     writer.writeUint32(
       8,
       f
     );
   }
-  f = this.getPaoCnt();
+  f = this.getKongExposedCnt();
   if (f !== 0) {
     writer.writeUint32(
       9,
@@ -10318,76 +10318,76 @@ proto.game.SettleForRoomResponse.PlayerData.prototype.setTopScore = function(val
 
 
 /**
- * optional uint32 big_win_draw_cnt = 5;
+ * optional uint32 win_draw_cnt = 5;
  * @return {number}
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.getBigWinDrawCnt = function() {
+proto.game.SettleForRoomResponse.PlayerData.prototype.getWinDrawCnt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
 /** @param {number} value */
-proto.game.SettleForRoomResponse.PlayerData.prototype.setBigWinDrawCnt = function(value) {
+proto.game.SettleForRoomResponse.PlayerData.prototype.setWinDrawCnt = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional uint32 big_win_discard_cnt = 6;
+ * optional uint32 win_discard_cnt = 6;
  * @return {number}
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.getBigWinDiscardCnt = function() {
+proto.game.SettleForRoomResponse.PlayerData.prototype.getWinDiscardCnt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
 /** @param {number} value */
-proto.game.SettleForRoomResponse.PlayerData.prototype.setBigWinDiscardCnt = function(value) {
+proto.game.SettleForRoomResponse.PlayerData.prototype.setWinDiscardCnt = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
 
 /**
- * optional uint32 small_win_draw_cnt = 7;
+ * optional uint32 pao_cnt = 7;
  * @return {number}
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.getSmallWinDrawCnt = function() {
+proto.game.SettleForRoomResponse.PlayerData.prototype.getPaoCnt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
 /** @param {number} value */
-proto.game.SettleForRoomResponse.PlayerData.prototype.setSmallWinDrawCnt = function(value) {
+proto.game.SettleForRoomResponse.PlayerData.prototype.setPaoCnt = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
 
 /**
- * optional uint32 small_win_discard_cnt = 8;
+ * optional uint32 kong_concealed_cnt = 8;
  * @return {number}
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.getSmallWinDiscardCnt = function() {
+proto.game.SettleForRoomResponse.PlayerData.prototype.getKongConcealedCnt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
 };
 
 
 /** @param {number} value */
-proto.game.SettleForRoomResponse.PlayerData.prototype.setSmallWinDiscardCnt = function(value) {
+proto.game.SettleForRoomResponse.PlayerData.prototype.setKongConcealedCnt = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
 
 /**
- * optional uint32 pao_cnt = 9;
+ * optional uint32 kong_exposed_cnt = 9;
  * @return {number}
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.getPaoCnt = function() {
+proto.game.SettleForRoomResponse.PlayerData.prototype.getKongExposedCnt = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
 
 /** @param {number} value */
-proto.game.SettleForRoomResponse.PlayerData.prototype.setPaoCnt = function(value) {
+proto.game.SettleForRoomResponse.PlayerData.prototype.setKongExposedCnt = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
