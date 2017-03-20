@@ -4,6 +4,15 @@ cc.Class({
     properties: {
         soundPrefab: cc.Prefab,
         userInfoPrefab: cc.Prefab,
+        cardMarkPrefab: cc.Prefab,
+
+        cardPinList: cc.SpriteAtlas,
+
+        // 当前出牌的人前面的标识
+        makeSeat: {
+            default: [],
+            type: cc.Node,
+        },
 
         // 听牌提示
         tingCardDistrict: cc.Node,
@@ -434,20 +443,15 @@ cc.Class({
     },
 
     onDrawMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+                const nodeSprite = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
-        if (data.playerUuid === this._userInfo.playerUuid) {
-            const node = cc.instantiate(this.handCardPrefabs[0]);
-            node.setPositionX(24);
-
-            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
-
-            this.handCardDistrict[0].addChild(node);
+                this.getHandcard[playerIndex].active = true;
+                break;
+            }
         }
     },
 
@@ -462,9 +466,7 @@ cc.Class({
                 const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                Tools.loadRes(`card_pin.plist/value_0x${data.card.card}`, cc.SpriteFrame, (spriteFrame) => {
-                    nodeSprite.spriteFrame = spriteFrame;
-                });
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
                 this.dirtyCardDistrict[playerIndex].addChild(node);
                 break;
@@ -483,9 +485,7 @@ cc.Class({
             const obj = data.card[i];
             const node = cc.instantiate(this.handCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${obj.card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
 
             this.handCardDistrict[0].addChild(node);
         }
@@ -518,6 +518,9 @@ cc.Class({
 
             this.inviteButtonList[i].active = true;
             this.playerInfoList[i].active = false;
+
+            this.makeSeat[i].getComponent(cc.Animation).stop();
+            this.makeSeat[i].opacity = 255;
         }
 
         // 查找当前玩家的座位号
@@ -557,12 +560,6 @@ cc.Class({
             this._appendExposedToDistrict(playerIndex, obj.cardsKongExposedList);
             this._appendPongToDistrict(playerIndex, obj.cardsPongList);
             this._appendChowToDistrict(playerIndex, obj.cardsChowList);
-
-            // 当前活动玩家座位号, 打出去的牌上面的小标识
-            if (data.activeSeat !== -1) {
-                const childrenNode = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
-                childrenNode.addChild();
-            }
         }
 
         // 庄家
@@ -582,6 +579,19 @@ cc.Class({
         }
 
         this._GameRoomCache.playerList = data.playerList;
+
+        // 当前活动玩家座位号, 打出去的牌上面的小标识
+        if (data.discardSeat !== -1) {
+            const playerIndex = this._computeSeat(data.discardSeat);
+            const childrenNode = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
+            childrenNode.addChild(cc.instantiate(this.cardMarkPrefab));
+        }
+
+        // 当前出牌玩家
+        if (data.activeSeat !== -1) {
+            const playerIndex = this._computeSeat(data.activeSeat);
+            this.makeSeat[playerIndex].getComponent(cc.Animation).play();
+        }
     },
 
     onPromptMessage(data) {
@@ -658,9 +668,7 @@ cc.Class({
         for (let i = 0; i < data.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
 
             this.tingCardDistrict.addChild(node);
         }
@@ -838,9 +846,7 @@ cc.Class({
             event.target.parent.destroy();
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
-                nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${data}`);
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.toString(16)}`);
             this.dirtyCardDistrict[0].addChild(node);
 
             WebSocketManager.sendMessage('Discard', { card: data });
@@ -958,9 +964,7 @@ cc.Class({
                 const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
                 node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
-                    nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${card}`);
-                });
+                nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
             }
         }
 
@@ -993,9 +997,7 @@ cc.Class({
                 this.pongKongChowDistrict[player].addChild(node);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
-                    nodeSprite.spriteFrame = spriteFrame;
-                });
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
             }
         }
     },
@@ -1016,9 +1018,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 4].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
         }
     },
 
@@ -1038,9 +1038,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
         }
     },
 
@@ -1060,9 +1058,7 @@ cc.Class({
             }
 
             const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            Tools.loadRes(`card_pin.plist/value_0x${data[j].card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
         }
     },
 
@@ -1079,9 +1075,7 @@ cc.Class({
             this.dirtyCardDistrict[player].addChild(node);
 
             const nodeSprite = Tools.findNode(node, 'Background>value');
-            Tools.loadRes(`card_pin.plist/value_0x${data[i].card}`, cc.SpriteFrame, (spriteFrame) => {
-                nodeSprite.spriteFrame = spriteFrame;
-            });
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
         }
     },
 
