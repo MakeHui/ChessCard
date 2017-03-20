@@ -252,6 +252,11 @@ cc.Class({
         data.info = JSON.parse(data.info);
         this._GameRoomCache.playerList.push(data);
 
+        if (this._GameRoomCache.playerList.length === 4) {
+            // 移动三号位的玩家头像到右边, 避免被挡住
+            this.playerInfoList[2].setPositionX(-134);
+        }
+
         const playerIndex = this._computeSeat(data.seat);
 
         this.inviteButtonList[playerIndex].active = false;
@@ -552,11 +557,25 @@ cc.Class({
             this._appendExposedToDistrict(playerIndex, obj.cardsKongExposedList);
             this._appendPongToDistrict(playerIndex, obj.cardsPongList);
             this._appendChowToDistrict(playerIndex, obj.cardsChowList);
+
+            // 当前活动玩家座位号, 打出去的牌上面的小标识
+            if (data.activeSeat !== -1) {
+                const childrenNode = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
+                childrenNode.addChild();
+            }
         }
 
         // 庄家
         this._GameRoomCache.dealerSeat = this._computeSeat(data.dealer);
         this.playerInfoList[this._GameRoomCache.dealerSeat].getChildByName('img_zhuang').active = true;
+
+        // 玩家摸到的牌
+        // if (data.cardDraw) {
+        //     const nodeSprite = this.getHandcard[0].getChildByName('value').getComponent(cc.Sprite);
+        //     cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
+        //         nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${data.cardDraw}`);
+        //     });
+        // }
 
         if (data.playerList.length !== 4) {
             this.inviteButtonList[0].active = true;
