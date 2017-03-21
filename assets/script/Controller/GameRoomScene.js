@@ -138,6 +138,15 @@ cc.Class({
 
     onLoad() {
         this._GameRoomCache = {};
+        this._GameRoomCache.roomId = '';        // 房间号
+        this._GameRoomCache.ownerUuid = '';     // 房主uuid
+        this._GameRoomCache.playerList = [];    // 玩家信息列表
+        this._GameRoomCache.promptList = [];    // 提示操作信息
+        this._GameRoomCache.thisPlayerSeat = 0; // 当前玩家实际座位号
+        this._GameRoomCache.thisDealerSeat = 0; // 当前庄家相对座位号
+        this._GameRoomCache.activeCard = {};    // 当前最后出的那张牌
+        this._GameRoomCache.waitDraw = true;    // 是否等待抓拍, 客户端逻辑
+
         if (Global.tempCache) {
             const self = this;
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
@@ -220,6 +229,7 @@ cc.Class({
         }
 
         data.kwargs = JSON.parse(data.kwargs);
+        this._GameRoomCache.ownerUuid = data.ownerUuid;
         this._roomInfo(data.kwargs, 0, data.restCards);
 
         for (let i = 0; i < data.playerList.length; i += 1) {
@@ -271,11 +281,6 @@ cc.Class({
         data.info = JSON.parse(data.info);
         this._GameRoomCache.playerList.push(data);
 
-        if (this._GameRoomCache.playerList.length === 4) {
-            // 移动三号位的玩家头像到右边, 避免被挡住
-            this.playerInfoList[2].setPositionX(-134);
-        }
-
         const playerIndex = this._computeSeat(data.seat);
 
         this.inviteButtonList[playerIndex].active = false;
@@ -286,7 +291,7 @@ cc.Class({
         Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
-        if (data.playerUuid === this._userInfo.playerUuid) {
+        if (data.playerUuid === this._GameRoomCache.ownerUuid) {
             this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
         }
 
@@ -301,7 +306,7 @@ cc.Class({
             return;
         }
 
-        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
                 const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
 
@@ -326,11 +331,17 @@ cc.Class({
         }
 
         if (data.flag === 0) {
-            Global.tempCache = '房主已解散房间';
-            Global.dialog.open('Dialog', this.node, () => {
+            if (this._GameRoomCache.ownerUuid === this._userInfo.playerUuid) {
                 this.webSocket.close();
                 cc.director.loadScene('Lobby');
-            });
+            }
+            else {
+                Global.tempCache = '房主已解散房间';
+                Global.dialog.open('Dialog', this.node, () => {
+                    this.webSocket.close();
+                    cc.director.loadScene('Lobby');
+                });
+            }
         }
         else if (data.flag === 1) {
             this.webSocket.close();
@@ -421,12 +432,13 @@ cc.Class({
         this.playerInfoList[2].setPositionX(-134);
 
         this._GameRoomCache.gameing = false;
+        this._GameRoomCache.waitDraw = true;
 
         // 庄家
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
-                this._GameRoomCache.dealeSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[this._GameRoomCache.dealeSeat].getChildByName('img_zhuang').active = false;
+                this._GameRoomCache.thisDealerSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+                this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = false;
 
                 break;
             }
@@ -439,17 +451,28 @@ cc.Class({
     },
 
     onDrawMessage(data) {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            const obj = this._GameRoomCache.playerList[i];
-            if (obj.playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(obj.seat);
-                const nodeSprite = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
+        const self = this;
+        this.scheduleOnce(() => {
+            Global.playEffect(Global.audioUrl.effect.dealCard);
+            for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+                const obj = this._GameRoomCache.playerList[i];
+                if (obj.playerUuid === data.playerUuid) {
+                    if (data.playerUuid === this._userInfo.playerUuid) {
+                        const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card.toString(16));
+                        this.getHandcard[0].getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
+                    }
 
-                this.getHandcard[playerIndex].active = true;
-                break;
+                    const playerIndex = this._computeSeat(obj.seat);
+                    const nodeSprite = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite);
+                    nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
+
+                    this.getHandcard[playerIndex].active = true;
+                    break;
+                }
             }
-        }
+        }, this._GameRoomCache.waitDraw ? 3 : 0);
+
+        this._GameRoomCache.waitDraw = false;
     },
 
     onDiscardMessage(data) {
@@ -497,7 +520,9 @@ cc.Class({
     onReconnectMessage(data) {
         data.kwargs = JSON.parse(data.kwargs);
         this._GameRoomCache.roomId = data.roomId;
+        this._GameRoomCache.ownerUuid = data.ownerUuid;
         this._GameRoomCache.gameing = true;
+        this._GameRoomCache.waitDraw = false;
 
         if (data.playerList[0].cardsInHandList.length > 0) {
             // 移动三号位的玩家头像到右边, 避免被挡住
@@ -560,8 +585,8 @@ cc.Class({
         }
 
         // 庄家
-        this._GameRoomCache.dealerSeat = this._computeSeat(data.dealer);
-        this.playerInfoList[this._GameRoomCache.dealerSeat].getChildByName('img_zhuang').active = true;
+        this._GameRoomCache.thisDealerSeat = this._computeSeat(data.dealer);
+        this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
         // 玩家摸到的牌
         // if (data.cardDraw) {
@@ -872,16 +897,16 @@ cc.Class({
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(this.webSocket, 'DismissRoom');
-
-        this._initVotePanel({ sponsor: this._userInfo.playerUuid, expireSeconds: 0 });
     },
 
     voteOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(this.webSocket, 'PlayerVote', { flog: data == 1 });
 
-        this.dismissButton[0].active = false;
-        this.dismissButton[1].active = false;
+        this.voteDismissButton[0].active = false;
+        this.voteDismissButton[1].active = false;
+
+        this.unschedule(this._expireSeconds);
     },
 
     closeOnClick() {
@@ -1103,34 +1128,45 @@ cc.Class({
 
     _initVotePanel(data) {
         this._votePlayers = [];
-        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             const obj = this._GameRoomCache.playerList[i];
             if (obj.playerUuid === data.sponsor) {
-                this.voteSponsor.string = obj.nickname;
+                this.voteSponsor.string = obj.info.nickname;
             }
             else {
                 this._votePlayers.push(obj);
-                this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = obj.nickname;
             }
+        }
+
+        for (let i = 0; i < this._votePlayers.length; i += 1) {
+            const obj = this._votePlayers[i];
+            this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = obj.info.nickname;
         }
 
         this.voteDismiss.active = true;
 
         // 如果是自己发起的投票, 就不需要再确认
         if (this._userInfo.playerUuid === data.sponsor) {
+            data.expireSeconds = 1;
+
             this.voteDismissButton[0].active = false;
             this.voteDismissButton[1].active = false;
-        }
-        const self = this;
-        self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
-        this._expireSeconds = () => {
-            if (data.expireSeconds === 0) {
-                self.unschedule(this._expireSeconds);
-                self._computeVote(this._userInfo.playerUuid, true);
-            }
 
-            data.expireSeconds -= 1;
-            self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+            this.voteExpireSeconds.string = '等待倒计时：0秒';
+        }
+        else {
+            this.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+        }
+
+        const self = this;
+        this._expireSeconds = () => {
+            if (data.expireSeconds > 0) {
+                data.expireSeconds -= 1;
+                self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+            }
+            else if (data.expireSeconds === 0) {
+                self.unschedule(this._expireSeconds);
+            }
         };
         this.schedule(this._expireSeconds, 1);
     },
