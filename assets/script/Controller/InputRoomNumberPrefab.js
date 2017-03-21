@@ -46,7 +46,7 @@ cc.Class({
 
     deleteNumberOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        cc.warn(this.roomNumber);
+        Global.log(this.roomNumber);
         if (this.roomNumber.length !== 0) {
             this[`number${this.roomNumber.length}`].spriteFrame = null;
             this.roomNumber = this.roomNumber.substr(0, this.roomNumber.length - 1);

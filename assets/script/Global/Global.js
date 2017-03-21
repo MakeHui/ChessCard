@@ -37,7 +37,7 @@ window.Global = {
      * 是否是debug环境
      * @type {Boolean}
      */
-    debug: false,
+    debug: true,
 
     /**
      * 临时数据传递对象
@@ -273,8 +273,6 @@ window.Global = {
     },
 };
 
-window.UUID = Global.debug ? (+new Date()).toString() : '';
-
 /**
  * 弹出层
  *
@@ -338,7 +336,7 @@ window.Global.getDeviceId = () => {
  */
 window.Global.cardsSort = (listView) => {
     if (listView.length === 0) {
-        cc.warn('window.Global.cardsSort: listView 不能为空~');
+        Global.log('window.Global.cardsSort: listView 不能为空~');
         return;
     }
 
@@ -359,20 +357,21 @@ window.Global.cardsSort = (listView) => {
 window.Global.dialog = {
     loadingPrefab: null,
     dialogPrefab: null,
-    loadingNode: null,
+    node: null,
 
-    open(name, node) {
+    open(name, node, callback) {
         if (name === 'Loading') {
-            this.loadingNode = cc.instantiate(this.loadingPrefab);
+            this.node = cc.instantiate(this.loadingPrefab);
         }
         else {
-            this.loadingNode = cc.instantiate(this.dialogPrefab);
+            this.node = cc.instantiate(this.dialogPrefab);
+            this.node.getComponent('Dialog').callback = callback;
         }
 
         this._open(node);
 
         // this.schedule(() => {
-        //     cc.warn(123);
+        //     Global.log(123);
         // }, 1);
         // cc.director.getScheduler().schedule(() => {
         //     self.close();
@@ -380,11 +379,11 @@ window.Global.dialog = {
     },
 
     _open(node) {
-        node.addChild(this.loadingNode);
+        node.addChild(this.node);
     },
 
     close() {
-        this.loadingNode.destroy();
+        this.node.destroy();
     },
 };
 
@@ -398,5 +397,12 @@ window.Global.playEffect = (url) => {
     if (playMusicConfig.effect) {
         const audioRaw = cc.url.raw(url);
         cc.audioEngine.play(audioRaw, false, 1);
+    }
+};
+
+
+window.Global.log = (obj) => {
+    if (Global.debug) {
+        cc.warn(obj);
     }
 };

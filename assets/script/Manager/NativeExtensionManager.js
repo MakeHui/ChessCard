@@ -14,17 +14,17 @@ window.NativeExtensionManager = {
 
     execute(name, args = [], callback = Function) {
         if (!nativeExtension) {
-            cc.warn('window.NativeExtensionManager.execute: 不是native平台');
+            Global.log('window.NativeExtensionManager.execute: 不是native平台');
             return;
         }
 
         if (!args) {
-            cc.warn('window.NativeExtensionManager.execute: 没有传递参数');
+            Global.log('window.NativeExtensionManager.execute: 没有传递参数');
             return;
         }
 
         if (!nativeExtension[name]) {
-            cc.warn(`window.NativeExtensionManager.execute: 没有找到 ${name} 方法`);
+            Global.log(`window.NativeExtensionManager.execute: 没有找到 ${name} 方法`);
             return;
         }
 

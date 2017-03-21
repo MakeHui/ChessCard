@@ -11,6 +11,9 @@ cc.Class({
     },
 
     closeOnClick() {
+        if (this.callback) {
+            this.callback();
+        }
         this.node.destroy();
     },
 });

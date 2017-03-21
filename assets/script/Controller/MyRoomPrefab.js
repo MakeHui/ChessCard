@@ -29,7 +29,7 @@ cc.Class({
 
     shareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        cc.warn('shareOnClick');
+        Global.log('shareOnClick');
     },
 
     /**
@@ -53,7 +53,7 @@ cc.Class({
         else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            cc.warn(this.gameEndList.getChildByName('sa_item_noData'));
+            Global.log(this.gameEndList.getChildByName('sa_item_noData'));
             if (this.gameEndList.getChildByName('sa_item_noData') === null) {
                 this._getHttpEndListForSelfData();
             }
@@ -69,7 +69,7 @@ cc.Class({
 
             if (result.code === 1) {
                 const roomItem = result.roomItemList;
-                cc.warn(roomItem.length);
+                Global.log(roomItem.length);
                 if (roomItem.length === 0) {
                     self.gameIngList.removeAllChildren();
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
@@ -81,7 +81,7 @@ cc.Class({
                 }
             }
             else {
-                cc.warn(self.gameIngList.childrenCount);
+                Global.log(self.gameIngList.childrenCount);
                 if (self.gameIngList.childrenCount === 0) {
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }

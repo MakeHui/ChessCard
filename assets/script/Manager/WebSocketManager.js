@@ -187,7 +187,7 @@ window.WebSocketManager.ArrayBuffer = {
             return false;
         }
 
-        cc.warn(['没有数据包: ']);
+        Global.log(['没有数据包: ']);
         return false;
     },
 
@@ -214,7 +214,7 @@ window.WebSocketManager.ArrayBuffer = {
         }
 
         if (size === 0) {
-            cc.warn('mergeArrayBuffer byte number is 0');
+            Global.log('mergeArrayBuffer byte number is 0');
             return false;
         }
 
@@ -230,135 +230,40 @@ window.WebSocketManager.ArrayBuffer = {
 };
 
 /**
- * 发送 socket 消息
- *
- * @param name
- * @param parameters
- */
-window.WebSocketManager.sendMessage = (name, parameters = {}) => {
-    const message = WebSocketManager.requestMessage[`get${name}RequestMessage`](parameters);
-    const data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
-    cc.warn([`WebSocketManager.sendMessage.${name}`, parameters]);
-    WebSocketManager.ws.sendMessage(data);
-};
-
-/**
  ***********************************************************************************************************************
  *                                      WebSocket 管理器
  ***********************************************************************************************************************
  **/
 
-window.WebSocketManager.ws = {
-    _socket: null,
-    _onopenListener: {},
-    _onmessageListener: {},
-    _onerrorListener: {},
-    _oncloseListener: {},
-
-    _openSocket(url) {
-        this._socket = new ReconnectingWebSocket(url, null, { debug: true, reconnectInterval: 3000, binaryType: 'arraybuffer' });
-        // this._socket = new WebSocket(url);
-        // this._socket.binaryType = 'arraybuffer';
-        const self = this;
-
-        this._socket.onopen = (evt) => {
-            cc.warn(['onopen: ', evt]);
-            // this._socket.binaryType = 'arraybuffer';
-            for (const listener in self._onopenListener) {
-                self._onopenListener[listener](evt);
-            }
-        };
-
-        this._socket.onmessage = (evt) => {
-            cc.warn(['onmessage: ', evt]);
-
-            const data = WebSocketManager.ArrayBuffer.reader(evt.data);
-            cc.warn(`WebSocket onmessage: ${JSON.stringify(data)}`);
-
-            if (data !== false) {
-                const commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
-                const result = Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
-
-                cc.warn(`socket onmessage ${commandName} data: ${JSON.stringify(result)}`);
-                for (const linstener in self._onmessageListener) {
-                    self._onmessageListener[linstener](evt, commandName, result);
-                }
-            }
-        };
-
-        this._socket.onerror = (evt) => {
-            cc.warn(['onerror: ', evt]);
-
-            for (const linstener in self._onerrorListener) {
-                self._onerrorListener[linstener](evt);
-            }
-        };
-
-        this._socket.onclose = (evt) => {
-            cc.warn(['onclose: ', evt]);
-
-            for (const linstener in self._oncloseListener) {
-                self._oncloseListener[linstener](evt);
-            }
-        };
-    },
-
-    openSocket(url) {
-        if (this._socket) {
-            if (this._socket.readyState !== WebSocket.CONNECTING
-                || this._socket.readyState !== WebSocket.OPEN) {
-                this.closeSocket();
-                this._openSocket(url);
-            }
-        }
-        else {
-            this._openSocket(url);
-        }
-    },
-
-    sendMessage(data) {
-        this._socket.send(data);
-    },
-
-    closeSocket() {
-        this._socket.close();
-        this._socket = null;
-        this._onopenListener = {};
-        this._onmessageListener = {};
-        this._onerrorListener = {};
-        this._oncloseListener = {};
-    },
-
-    addOnopenListener(name, listner) {
-        this._onopenListener[name] = listner;
-    },
-
-    addOnmessageListener(name, listner) {
-        this._onmessageListener[name] = listner;
-    },
-
-    addOnerrorListener(name, listner) {
-        this._onerrorListener[name] = listner;
-    },
-
-    addOncloseListener(name, listner) {
-        this._oncloseListener[name] = listner;
-    },
-
-    removeOnopenListener(name) {
-        delete this._onopenListener[name];
-    },
-
-    removeOnmessageListener(name) {
-        delete this._onmessageListener[name];
-    },
-
-    removeOnerrorListener(name) {
-        delete this._onerrorListener[name];
-    },
-
-    removeOncloseListener(name) {
-        delete this._oncloseListener[name];
-    },
+/**
+ * 链接webSocket
+ * @param url
+ * @returns ReconnectingWebSocket
+ */
+window.WebSocketManager.openSocketLink = (url) => {
+    return new ReconnectingWebSocket(url, null, { debug: true, reconnectInterval: 3000, binaryType: 'arraybuffer' });
 };
 
+/**
+ * 查询webSocket 状态
+ * @param webSocket WebSocket
+ * @returns {boolean}
+ */
+window.WebSocketManager.getSocketState = (webSocket) => {
+    return (webSocket.readyState === WebSocket.CONNECTING || webSocket.readyState === WebSocket.OPEN);
+};
+
+
+/**
+ * 发送 socket 消息
+ *
+ * @param webSocket WebSocket
+ * @param name
+ * @param parameters
+ */
+window.WebSocketManager.sendSocketMessage = (webSocket, name, parameters = {}) => {
+    const message = WebSocketManager.requestMessage[`get${name}RequestMessage`](parameters);
+    const data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
+    Global.log([`WebSocketManager.sendMessage.${name}`, parameters]);
+    webSocket.send(data);
+};

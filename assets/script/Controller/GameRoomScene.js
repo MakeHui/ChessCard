@@ -138,30 +138,40 @@ cc.Class({
 
     onLoad() {
         this._GameRoomCache = {};
-        const scriptName = 'GameRoomScene';
         if (Global.tempCache) {
             const self = this;
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
             this._GameRoomCache.roomId = Global.tempCache.roomId;
 
-            WebSocketManager.ws.openSocket(this.wsUrl);
-            WebSocketManager.ws.addOnopenListener(scriptName, () => {
-                WebSocketManager.sendMessage('EnterRoom', { roomId: self._GameRoomCache.roomId });
-                WebSocketManager.sendMessage('Ready');
-            });
-            WebSocketManager.ws.addOnmessageListener(scriptName, (evt, commandName, result) => {
-                if (commandName === false) {
-                    cc.warn(['WebSocketManager.ws.addOnmessageListener', '数据解析失败']);
+            this.webSocket = WebSocketManager.openSocketLink(this.wsUrl);
+            this.webSocket.addEventListener('open', (evt) => {
+                Global.log(['WebSocket.open: ', evt]);
+                WebSocketManager.sendSocketMessage(self.webSocket, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
+                WebSocketManager.sendSocketMessage(self.webSocket, 'Ready');
+            }, false);
+            this.webSocket.addEventListener('message', (evt) => {
+                const data = WebSocketManager.ArrayBuffer.reader(evt.data);
+                Global.log(`WebSocket onmessage: ${JSON.stringify(data)}`);
+                if (data === false) {
+                    Global.log('WebSocket.message: WebSocket数据解析失败');
                     return;
                 }
+
+                const commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
+                if (commandName === false) {
+                    Global.log('WebSocket.message: Tools.findKeyForValue数据解析失败');
+                    return;
+                }
+
+                const result = Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
+                if (!result) {
+                    Global.log('WebSocket.message: Tools.protobufToJson数据解析失败');
+                    return;
+                }
+
+                Global.log([`WebSocket.message ${commandName}: `, result]);
                 self[`on${commandName}Message`](result);
-            });
-            WebSocketManager.ws.addOnerrorListener(scriptName, () => {
-
-            });
-            WebSocketManager.ws.addOncloseListener(scriptName, () => {
-
-            });
+            }, false);
 
             this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         }
@@ -305,44 +315,35 @@ cc.Class({
     },
 
     onDismissRoomMessage(data) {
+        if (data.code === 5003) {
+            Global.tempCache = '您不是房主, 无法解散房间';
+            Global.dialog.open('Dialog', this.node);
+            return;
+        }
+
         if (data.code !== 1) {
             return;
         }
 
-        cc.director.loadScene('GameRoom');
+        if (data.flag === 0) {
+            Global.tempCache = '房主已解散房间';
+            Global.dialog.open('Dialog', this.node, () => {
+                this.webSocket.close();
+                cc.director.loadScene('Lobby');
+            });
+        }
+        else if (data.flag === 1) {
+            this.webSocket.close();
+            cc.director.loadScene('Lobby');
+        }
     },
 
     onSponsorVoteMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
-        this._votePlayers = {};
-        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.sponsor) {
-                this.voteSponsor.string = this._GameRoomCache.playerList[i].nickname;
-            }
-
-            this._votePlayers.push(this._GameRoomCache.playerList[i]);
-        }
-
-        for (let i; i < this._votePlayers.length; i += 1) {
-            this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = this._votePlayers[i].nickname;
-        }
-
-        this.voteDismiss.active = true;
+        this._initVotePanel(data);
     },
 
     onPlayerVoteMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
-        for (let i; i < this._votePlayers.length; i += 1) {
-            if (this._votePlayers[i] === data.playerUuid) {
-                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = data.flag ? '同意' : '拒绝';
-            }
-        }
+        this._computeVote(data.playerUuid, data.flag);
     },
 
     onOnlineStatusMessage(data) {
@@ -372,8 +373,7 @@ cc.Class({
                 if (data.content.type === 1) {
                     this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
-                    const text = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
-                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
+                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
 
                     self.chatList[playerIndex].active = true;
                     this.scheduleOnce(() => {
@@ -417,10 +417,6 @@ cc.Class({
     },
 
     onDealMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         // 移动三号位的玩家头像到右边, 避免被挡住
         this.playerInfoList[2].setPositionX(-134);
 
@@ -437,15 +433,16 @@ cc.Class({
         }
 
         this._appendCardToHandCardDistrict(0, data.cardsInHandList);
-        this._appendCardToHandCardDistrict(1);
-        this._appendCardToHandCardDistrict(2);
-        this._appendCardToHandCardDistrict(3);
+        this._appendCardToHandCardDistrict(1, new Array(13));
+        this._appendCardToHandCardDistrict(2, new Array(13));
+        this._appendCardToHandCardDistrict(3, new Array(13));
     },
 
     onDrawMessage(data) {
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+            const obj = this._GameRoomCache.playerList[i];
+            if (obj.playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(obj.seat);
                 const nodeSprite = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
@@ -699,7 +696,7 @@ cc.Class({
      **/
 
     showUserInfoOnClick(evt, data) {
-        cc.warn(this._GameRoomCache);
+        Global.log(this._GameRoomCache);
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
             if (playerIndex == data) {
@@ -716,13 +713,13 @@ cc.Class({
     wechatInviteOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Tools.captureScreen(this.node, (filePath) => {
-            cc.warn(filePath);
+            Global.log(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        cc.warn([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
+        Global.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
                 Animation.openPanel(this.fastChatPanel);
@@ -743,13 +740,13 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.voiceProgressBar.progress <= 0) {
             this.voiceProgressBar.progress = 1.0;
-            cc.warn('voiceOnClick');
+            Global.log('voiceOnClick');
         }
     },
 
     openMenuOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        cc.warn([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
+        Global.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
         }
@@ -798,7 +795,7 @@ cc.Class({
     wordChatOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
-        WebSocketManager.sendMessage('Speaker', { content });
+        WebSocketManager.sendSocketMessage(this.webSocket, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
         Global.playEffect(Global.audioUrl.fastChat[`fw_male_${data}`]);
@@ -809,7 +806,7 @@ cc.Class({
     emojiChatOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
-        WebSocketManager.sendMessage('Speaker', { content });
+        WebSocketManager.sendSocketMessage(this.webSocket, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
         this.fastChatShowTime = +new Date();
@@ -849,7 +846,7 @@ cc.Class({
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.toString(16)}`);
             this.dirtyCardDistrict[0].addChild(node);
 
-            WebSocketManager.sendMessage('Discard', { card: data });
+            WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
 
             return;
         }
@@ -859,7 +856,7 @@ cc.Class({
         this._resetHandCardPosition();
         event.target.setPositionY(24);
 
-        cc.warn(event.target.parent.getChildByName('UserData').string);
+        Global.log(event.target.parent.getChildByName('UserData').string);
     },
 
     /**
@@ -868,27 +865,20 @@ cc.Class({
     openSoundPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
-            cc.warn('load success');
+            Global.log('load success');
         });
     },
 
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendMessage('DismissRoom');
-        WebSocketManager.ws.closeSocket();
+        WebSocketManager.sendSocketMessage(this.webSocket, 'DismissRoom');
 
-        cc.director.loadScene('Lobby');
+        this._initVotePanel({ sponsor: this._userInfo.playerUuid, expireSeconds: 0 });
     },
 
-    voteConfirmOnClick() {
+    voteOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-
-        this.dismissButton[0].active = false;
-        this.dismissButton[1].active = false;
-    },
-
-    voteDisagreeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        WebSocketManager.sendSocketMessage(this.webSocket, 'PlayerVote', { flog: data == 1 });
 
         this.dismissButton[0].active = false;
         this.dismissButton[1].active = false;
@@ -897,9 +887,13 @@ cc.Class({
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
-            WebSocketManager.sendMessage('ExitRoom', { roomId: this._GameRoomCache.roomId });
-            WebSocketManager.ws.closeSocket();
+            WebSocketManager.sendSocketMessage(this.webSocket, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
+            this.webSocket.close();
             cc.director.loadScene('Lobby');
+        }
+        else {
+            Global.tempCache = '游戏中无法退出';
+            Global.dialog.open('Dialog', this.node);
         }
     },
 
@@ -910,7 +904,7 @@ cc.Class({
      **/
 
     onReadyGame() {
-        WebSocketManager.sendMessage('Ready');
+        WebSocketManager.sendSocketMessage(this.webSocket, 'Ready');
     },
 
     /**
@@ -970,17 +964,25 @@ cc.Class({
 
         if (this._GameRoomCache.gameing) {
             for (let i = data.length - 1; i >= 0; i -= 1) {
+                if (!data[i].card) {
+                    data[i].card = 0;
+                }
                 insert(data[i].card);
             }
         }
         else {
-            let i = data.length;
+            let i = data.length - 1;
             this.schedule(() => {
                 Global.playEffect(Global.audioUrl.effect.dealCard);
+                if (!data[i].card) {
+                    data[i].card = 0;
+                }
                 insert(data[i].card);
                 i -= 1;
             }, 0.2, (data.length - 1));
         }
+
+        this._GameRoomCache.gameing = true;
     },
 
     /**
@@ -1089,6 +1091,50 @@ cc.Class({
         const desplaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
         return (desplaySeat < 0 ? desplaySeat + 4 : desplaySeat);
     },
+
+    _computeVote(playerUuid, result) {
+        for (let i = 0; i < this._votePlayers.length; i += 1) {
+            const obj = this._votePlayers[i];
+            if (obj.playerUuid === playerUuid) {
+                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = result ? '同意' : '拒绝';
+            }
+        }
+    },
+
+    _initVotePanel(data) {
+        this._votePlayers = [];
+        for (let i; i < this._GameRoomCache.playerList.length; i += 1) {
+            const obj = this._GameRoomCache.playerList[i];
+            if (obj.playerUuid === data.sponsor) {
+                this.voteSponsor.string = obj.nickname;
+            }
+            else {
+                this._votePlayers.push(obj);
+                this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = obj.nickname;
+            }
+        }
+
+        this.voteDismiss.active = true;
+
+        // 如果是自己发起的投票, 就不需要再确认
+        if (this._userInfo.playerUuid === data.sponsor) {
+            this.voteDismissButton[0].active = false;
+            this.voteDismissButton[1].active = false;
+        }
+        const self = this;
+        self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+        this._expireSeconds = () => {
+            if (data.expireSeconds === 0) {
+                self.unschedule(this._expireSeconds);
+                self._computeVote(this._userInfo.playerUuid, true);
+            }
+
+            data.expireSeconds -= 1;
+            self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+        };
+        this.schedule(this._expireSeconds, 1);
+    },
+
 
     /**
      * 设置房间信息

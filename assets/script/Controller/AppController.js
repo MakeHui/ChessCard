@@ -8,7 +8,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        cc.warn('InitApp');
+        Global.log('InitApp');
         cc.game.addPersistRootNode(this.node);
 
         if (!Tools.getLocalData(Global.LSK.userInfo_location)) {

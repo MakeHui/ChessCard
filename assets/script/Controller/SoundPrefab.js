@@ -34,6 +34,6 @@ cc.Class({
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
-        cc.warn('removeSelf');
+        Global.log('removeSelf');
     },
 });

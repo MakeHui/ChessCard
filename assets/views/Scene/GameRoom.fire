@@ -28497,8 +28497,8 @@
       "__id__": 2
     },
     "component": "GameRoomScene",
-    "handler": "voteConfirmOnClick",
-    "customEventData": ""
+    "handler": "voteOnClick",
+    "customEventData": "1"
   },
   {
     "__type__": "cc.Sprite",
@@ -28778,8 +28778,8 @@
       "__id__": 2
     },
     "component": "GameRoomScene",
-    "handler": "voteDisagreeOnClick",
-    "customEventData": ""
+    "handler": "voteOnClick",
+    "customEventData": "0"
   },
   {
     "__type__": "cc.Sprite",

@@ -11,7 +11,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        cc.warn('onLoad');
+        Global.log('onLoad');
     },
 
     seeOtherRoomOnClick() {

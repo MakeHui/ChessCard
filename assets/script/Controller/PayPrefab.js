@@ -21,7 +21,7 @@ cc.Class({
     payOnClick: function(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.shopStore), this.node, function () {
-            cc.warn("load success");
+            Global.log("load success");
         });
     }
 });

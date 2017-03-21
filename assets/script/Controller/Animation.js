@@ -12,6 +12,6 @@ cc.Class({
 
     closeTrojanScanCallback() {
         this.node.destroy();
-        cc.warn('closeCallback');
+        Global.log('closeCallback');
     },
 });
