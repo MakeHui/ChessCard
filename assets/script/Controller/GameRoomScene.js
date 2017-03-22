@@ -133,7 +133,7 @@ cc.Class({
 
         wechatInviteButton: cc.Button,
 
-        handCardIsSelected: 0,
+        sequence: 99999,
     },
 
     onLoad() {
@@ -458,8 +458,8 @@ cc.Class({
                 const obj = this._GameRoomCache.playerList[i];
                 if (obj.playerUuid === data.playerUuid) {
                     if (data.playerUuid === this._userInfo.playerUuid) {
-                        const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card.toString(16));
-                        this.getHandcard[0].getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
+                        const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
+                        this.getHandcard[0].getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                     }
 
                     const playerIndex = this._computeSeat(obj.seat);
@@ -476,15 +476,11 @@ cc.Class({
     },
 
     onDiscardMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (data.roomInfoData.playerList[i].playerUuid === data.playerUuid) {
+            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
                 const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
-
+                node.setLocalZOrder(this.sequence += 1);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
@@ -864,24 +860,30 @@ cc.Class({
      */
     selectedHandCardOnClick(event, data) {
         Global.playEffect(Global.audioUrl.effect.cardOut);
-        if (this.handCardIsSelected === data) {
+
+        if (event.target.getPositionY() !== 0) {
             event.target.parent.destroy();
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.toString(16)}`);
             this.dirtyCardDistrict[0].addChild(node);
 
+            if (this.getHandcard[0].active) {
+                const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                const node2 = cc.instantiate(this.dirtyCardPrefabs[0]);
+                const nodeSprite2 = Tools.findNode(node2, 'Background>value').getComponent(cc.Sprite);
+                nodeSprite2.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
+                this.handCardDistrict[0].addChild(node2);
+            }
+
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
 
-            return;
+            Global.cardsSort(this.handCardDistrict[0]);
         }
-
-        this.handCardIsSelected = data;
-
-        this._resetHandCardPosition();
-        event.target.setPositionY(24);
-
-        Global.log(event.target.parent.getChildByName('UserData').string);
+        else {
+            this._resetHandCardPosition();
+            event.target.setPositionY(24);
+        }
     },
 
     /**
@@ -1110,6 +1112,7 @@ cc.Class({
         for (let i = 0; i < this.handCardDistrict[0].childrenCount; i += 1) {
             this.handCardDistrict[0].children[i].getChildByName('Background').setPositionY(0);
         }
+        this.getHandcard[0].getChildByName('Background').setPositionY(0);
     },
 
     _computeSeat(playerSeat) {

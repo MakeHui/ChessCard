@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DirtyCard24",
+    "_name": "DirtyCardHorizontal",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -46,8 +46,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": 190.5,
+      "y": -29
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -144,8 +144,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 44,
-      "height": 73
+      "width": 48,
+      "height": 77
     },
     "_children": [],
     "_rotationX": 90,
@@ -184,7 +184,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "e27da5e0-0f4c-47f1-bd33-a2cd62e1b330"
+      "__uuid__": "5d6c2c36-aaf9-4f21-be35-b15ac9fd7623"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -346,7 +346,7 @@
     "asset": {
       "__uuid__": "5648eed4-585b-4823-b6ca-593353dc7267"
     },
-    "fileId": "10c58180iJMwak7aD/bo9Jx",
+    "fileId": "74ee17GqxFLK4e6vRhhmNVa",
     "sync": false
   }
 ]
