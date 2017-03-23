@@ -162,6 +162,9 @@ cc.Class({
         this._GameRoomCache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
         this._GameRoomCache.allowOutCard = false;   // 是否允许出牌
 
+        // todo: 需要删除
+        this._initScene();
+
         if (Global.tempCache) {
             const self = this;
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
@@ -364,7 +367,12 @@ cc.Class({
     },
 
     onPlayerVoteMessage(data) {
-        this._computeVote(data.playerUuid, data.flag);
+        for (let i = 0; i < this._votePlayers.length; i += 1) {
+            const obj = this._votePlayers[i];
+            if (obj.playerUuid === data.playerUuid) {
+                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = data.flag ? '同意' : '拒绝';
+            }
+        }
     },
 
     onOnlineStatusMessage(data) {
@@ -871,6 +879,9 @@ cc.Class({
         });
     },
 
+    /**
+     * 解散房间
+     */
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(this.webSocket, 'DismissRoom');
@@ -1111,15 +1122,6 @@ cc.Class({
     _computeSeat(playerSeat) {
         const desplaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
         return (desplaySeat < 0 ? desplaySeat + 4 : desplaySeat);
-    },
-
-    _computeVote(playerUuid, result) {
-        for (let i = 0; i < this._votePlayers.length; i += 1) {
-            const obj = this._votePlayers[i];
-            if (obj.playerUuid === playerUuid) {
-                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = result ? '同意' : '拒绝';
-            }
-        }
     },
 
     _initVotePanel(data) {
