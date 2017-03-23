@@ -157,8 +157,8 @@ cc.Class({
         this._GameRoomCache.promptList = [];    // 提示操作信息
         this._GameRoomCache.thisPlayerSeat = 0; // 当前玩家实际座位号
         this._GameRoomCache.thisDealerSeat = 0; // 当前庄家相对座位号
-        this._GameRoomCache.activeCardFlag = {};// 最后出的那张牌上面的标识
-        this._GameRoomCache.activeCard = {};    // 当前最后出的那张牌
+        this._GameRoomCache.activeCardFlag = null;// 最后出的那张牌上面的标识
+        this._GameRoomCache.activeCard = null;    // 当前最后出的那张牌
         this._GameRoomCache.waitDraw = true;    // 是否等待抓拍, 客户端逻辑
 
         if (Global.tempCache) {
@@ -436,28 +436,27 @@ cc.Class({
     },
 
     onDrawMessage(data) {
+        Global.playEffect(Global.audioUrl.effect.dealCard);
+
         const self = this;
         this.scheduleOnce(() => {
-            Global.playEffect(Global.audioUrl.effect.dealCard);
-            for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-                const obj = this._GameRoomCache.playerList[i];
-                if (obj.playerUuid === data.playerUuid) {
-                    if (data.playerUuid === this._userInfo.playerUuid) {
-                        const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
-                        this.getHandcard[0].getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-                    }
+            const playerIndex = self._computeSeat(self._getSeatForPlayerUuid(data.playerUuid));
 
-                    const playerIndex = this._computeSeat(obj.seat);
-                    const nodeSprite = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite);
-                    nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
-
-                    this.getHandcard[playerIndex].active = true;
-                    break;
-                }
+            // 如果抓拍的人是自己就绑定点击事件
+            if (playerIndex === 0) {
+                const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
+                this.getHandcard[playerIndex].getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
             }
+
+            const nodeSprite = Tools.findNode(self.getHandcard[playerIndex], 'Background>value').getComponent(cc.Sprite);
+            nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
+
+            self.getHandcard[playerIndex].active = true;
+
+            self._openLight(playerIndex);
         }, this._GameRoomCache.waitDraw ? 3 : 0);
 
-        this._GameRoomCache.waitDraw = false;
+        this._GameRoomCache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
     },
 
     onDiscardMessage(data) {
@@ -1206,11 +1205,11 @@ cc.Class({
     /**
      * 生成标识
      */
-    _createActiveCardFlag(playerIndex) {
+    _createActiveCardFlag(index) {
         this._deleteActiveCardFlag();
-        if (this.dirtyCardDistrict.childrenCount > 0) {
+        if (this.dirtyCardDistrict[index].childrenCount > 0) {
             this._GameRoomCache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
-            const node = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
+            const node = this.dirtyCardDistrict[index].children[this.dirtyCardDistrict[index].childrenCount - 1];
             node.addChild(this._GameRoomCache.activeCardFlag);
         }
     },
@@ -1224,9 +1223,9 @@ cc.Class({
     /**
      * 当玩家出牌时前面的灯是亮的
      */
-    _openLight(playerIndex) {
+    _openLight(index) {
         this._closeAllLight();
-        this.makeSeat[playerIndex].getComponent(cc.Animation).play();
+        this.makeSeat[index].getComponent(cc.Animation).play();
     },
 
     _closeAllLight() {
