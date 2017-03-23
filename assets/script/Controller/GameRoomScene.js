@@ -315,13 +315,13 @@ cc.Class({
             return;
         }
 
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this._showInvietButton(playerIndex);
+        this._hidePlayerInfoList(playerIndex);
+
+        // 从玩家列表中删除该用户
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-
-                this.inviteButtonList[playerIndex].active = true;
-                this.playerInfoList[playerIndex].active = false;
-
                 cc.js.array.removeAt(this._GameRoomCache.playerList, i);
                 break;
             }
@@ -367,21 +367,12 @@ cc.Class({
     },
 
     onOnlineStatusMessage(data) {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
-
-                break;
-            }
-        }
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
     },
 
+    // todo: 需要优化, 每个表情都需要定位到玩家前面, 或者干脆就不要表情了
     onSpeakerMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         data.content = JSON.parse(data.content);
 
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
@@ -422,37 +413,22 @@ cc.Class({
     },
 
     onReadyMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
-
-                break;
-            }
-        }
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
     },
 
     onDealMessage(data) {
-        // 移动三号位的玩家头像到右边, 避免被挡住
-        this.playerInfoList[2].setPositionX(-134);
-
         this._GameRoomCache.gameing = false;
         this._GameRoomCache.waitDraw = true;
 
+        // 移动三号位的玩家头像到右边, 避免被挡住
+        this.playerInfoList[2].setPositionX(-134);
+
         // 庄家
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
-                this._GameRoomCache.thisDealerSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
+        this._GameRoomCache.thisDealerSeat = this._computeSeat(this._getSeatForPlayerUuid(data.dealerUuid));
+        this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
-                break;
-            }
-        }
-
+        // 初始化手牌
         this._appendCardToHandCardDistrict(0, data.cardsInHandList);
         this._appendCardToHandCardDistrict(1, new Array(13));
         this._appendCardToHandCardDistrict(2, new Array(13));
@@ -485,18 +461,13 @@ cc.Class({
     },
 
     onDiscardMessage(data) {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
+        const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
-                this.dirtyCardDistrict[playerIndex].addChild(node);
-                this._GameRoomCache.activeCard = node;
-                break;
-            }
-        }
+        this.dirtyCardDistrict[playerIndex].addChild(node);
+        this._GameRoomCache.activeCard = node;
     },
 
     onSynchroniseCardsMessage(data) {
@@ -532,7 +503,7 @@ cc.Class({
         this._initScene();
 
         if (data.playerList.length !== 4) {
-            this._hideInvietButton([0, 1, 2, 3]);
+            this._hideInvietButton();
             this.playerInfoList[2].setPositionX(-134);  // 移动三号位的玩家头像到右边, 避免被挡住
         }
 
@@ -1269,12 +1240,14 @@ cc.Class({
      * 邀请按钮
      */
     _hideInvietButton(indexs) {
+        indexs = indexs || [0, 1, 2, 3];
         for (let i = 0; i < indexs.length; i += 1) {
             this.inviteButtonList[indexs[i]].active = false;
         }
     },
 
     _showInvietButton(indexs) {
+        indexs = indexs || [0, 1, 2, 3];
         for (let i = 0; i < indexs.length; i += 1) {
             this.inviteButtonList[indexs[i]].active = true;
         }
@@ -1284,12 +1257,14 @@ cc.Class({
      * 玩家信息
      */
     _hidePlayerInfoList(indexs) {
+        indexs = indexs || [0, 1, 2, 3];
         for (let i = 0; i < indexs.length; i += 1) {
             this.playerInfoList[indexs[i]].active = false;
         }
     },
 
     _showPlayerInfoList(indexs) {
+        indexs = indexs || [0, 1, 2, 3];
         for (let i = 0; i < indexs.length; i += 1) {
             this.playerInfoList[indexs[i]].active = true;
         }
@@ -1335,6 +1310,18 @@ cc.Class({
                 break;
             }
         }
+    },
+
+    /**
+     * 获取用户座位号
+     */
+    _getSeatForPlayerUuid(playerUuid) {
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            if (this._GameRoomCache.playerList[i].playerUuid === playerUuid) {
+                return this._GameRoomCache.playerList[i].seat;
+            }
+        }
+        return -1;
     },
 
 });
