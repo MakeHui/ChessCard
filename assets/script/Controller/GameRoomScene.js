@@ -157,6 +157,7 @@ cc.Class({
         this._GameRoomCache.promptList = [];    // 提示操作信息
         this._GameRoomCache.thisPlayerSeat = 0; // 当前玩家实际座位号
         this._GameRoomCache.thisDealerSeat = 0; // 当前庄家相对座位号
+        this._GameRoomCache.activeCardFlag = {};// 最后出的那张牌上面的标识
         this._GameRoomCache.activeCard = {};    // 当前最后出的那张牌
         this._GameRoomCache.waitDraw = true;    // 是否等待抓拍, 客户端逻辑
 
@@ -245,12 +246,7 @@ cc.Class({
         this._GameRoomCache.ownerUuid = data.ownerUuid;
         this._roomInfo(data.kwargs, 0, data.restCards);
 
-        for (let i = 0; i < data.playerList.length; i += 1) {
-            const obj = data.playerList[i];
-            if (obj.playerUuid === this._userInfo.playerUuid) {
-                this._GameRoomCache.thisPlayerSeat = obj.seat;
-            }
-        }
+        this._setThisPlayerSeat(data.playerList);
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
@@ -497,6 +493,7 @@ cc.Class({
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
                 this.dirtyCardDistrict[playerIndex].addChild(node);
+                this._GameRoomCache.activeCard = node;
                 break;
             }
         }
@@ -532,46 +529,25 @@ cc.Class({
         this._GameRoomCache.gameing = true;
         this._GameRoomCache.waitDraw = false;
 
-        if (data.playerList[0].cardsInHandList.length > 0) {
-            // 移动三号位的玩家头像到右边, 避免被挡住
-            this.playerInfoList[2].setPositionX(-134);
+        this._initScene();
+
+        if (data.playerList.length !== 4) {
+            this._hideInvietButton([0, 1, 2, 3]);
+            this.playerInfoList[2].setPositionX(-134);  // 移动三号位的玩家头像到右边, 避免被挡住
         }
 
         // 初始化房间信息
         this._roomInfo(data.kwargs, data.currentRound, data.restCards);
 
-        // 清空当前所有玩家信息等待重新初始化
-        for (let i = 0; i < 4; i += 1) {
-            this.handCardDistrict[i].removeAllChildren();
-            this.dirtyCardDistrict[i].removeAllChildren();
-            this.pongKongChowDistrict[i].removeAllChildren();
-
-            this.inviteButtonList[i].active = true;
-            this.playerInfoList[i].active = false;
-
-            this.makeSeat[i].getComponent(cc.Animation).stop();
-            this.makeSeat[i].opacity = 255;
-        }
-
-        // 查找当前玩家的座位号
-        for (let i = 0; i < data.playerList.length; i += 1) {
-            const obj = data.playerList[i];
-            if (obj.playerUuid === this._userInfo.playerUuid) {
-                this._GameRoomCache.thisPlayerSeat = obj.seat;
-            }
-        }
+        // 设置当前玩家的座位号
+        this._setThisPlayerSeat(data.playerList);
 
         // 初始化玩家信息
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
-            const playerIndex = this._computeSeat(obj.seat);
             obj.info = JSON.parse(obj.info);
-
-            this.inviteButtonList[playerIndex].active = false;
-            this.playerInfoList[playerIndex].active = true;
-            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
-            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
-            Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
+            const playerIndex = this._computeSeat(obj.seat);
+            this._setPlayerInfoList(playerIndex, obj.info, obj.totalScore);
 
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
@@ -596,23 +572,16 @@ cc.Class({
         this._GameRoomCache.thisDealerSeat = this._computeSeat(data.dealer);
         this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
-        if (data.playerList.length !== 4) {
-            this.inviteButtonList[0].active = true;
-        }
-
         this._GameRoomCache.playerList = data.playerList;
 
         // 当前活动玩家座位号, 打出去的牌上面的小标识
         if (data.discardSeat !== -1) {
-            const playerIndex = this._computeSeat(data.discardSeat);
-            const childrenNode = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
-            childrenNode.addChild(cc.instantiate(this.cardMarkPrefab));
+            this._createActiveCardFlag(this._computeSeat(data.discardSeat));
         }
 
         // 当前出牌玩家
         if (data.activeSeat !== -1) {
-            const playerIndex = this._computeSeat(data.activeSeat);
-            this.makeSeat[playerIndex].getComponent(cc.Animation).play();
+            this._openLight(this._computeSeat(data.activeSeat));
         }
     },
 
@@ -1261,6 +1230,111 @@ cc.Class({
             }
         }
         return promptList;
+    },
+
+    /**
+     * 生成标识
+     */
+    _createActiveCardFlag(playerIndex) {
+        this._deleteActiveCardFlag();
+        if (this.dirtyCardDistrict.childrenCount > 0) {
+            this._GameRoomCache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
+            const node = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
+            node.addChild(this._GameRoomCache.activeCardFlag);
+        }
+    },
+
+    _deleteActiveCardFlag() {
+        if (this._GameRoomCache.activeCardFlag) {
+            this._GameRoomCache.activeCardFlag.destroy();
+        }
+    },
+
+    /**
+     * 当玩家出牌时前面的灯是亮的
+     */
+    _openLight(playerIndex) {
+        this._closeAllLight();
+        this.makeSeat[playerIndex].getComponent(cc.Animation).play();
+    },
+
+    _closeAllLight() {
+        for (let i = 0; i < 4; i += 1) {
+            this.makeSeat[i].getComponent(cc.Animation).stop();
+            this.makeSeat[i].opacity = 255;
+        }
+    },
+
+    /**
+     * 邀请按钮
+     */
+    _hideInvietButton(indexs) {
+        for (let i = 0; i < indexs.length; i += 1) {
+            this.inviteButtonList[indexs[i]].active = false;
+        }
+    },
+
+    _showInvietButton(indexs) {
+        for (let i = 0; i < indexs.length; i += 1) {
+            this.inviteButtonList[indexs[i]].active = true;
+        }
+    },
+
+    /**
+     * 玩家信息
+     */
+    _hidePlayerInfoList(indexs) {
+        for (let i = 0; i < indexs.length; i += 1) {
+            this.playerInfoList[indexs[i]].active = false;
+        }
+    },
+
+    _showPlayerInfoList(indexs) {
+        for (let i = 0; i < indexs.length; i += 1) {
+            this.playerInfoList[indexs[i]].active = true;
+        }
+    },
+
+    _setPlayerInfoList(index, data, totalScore) {
+        this._hideInvietButton([index]);
+        this._showPlayerInfoList([index]);
+
+        this.playerInfoList[index].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
+        this.playerInfoList[index].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
+        Tools.setWebImage(this.playerInfoList[index].getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
+    },
+
+    /**
+     * 初始化场景
+     */
+    _initScene() {
+        for (let i = 0; i < 4; i += 1) {
+            this.handCardDistrict[i].removeAllChildren();
+            this.dirtyCardDistrict[i].removeAllChildren();
+            this.pongKongChowDistrict[i].removeAllChildren();
+
+            this._showInvietButton([0, 1, 2, 3]);
+            this._hidePlayerInfoList([0, 1, 2, 3]);
+            this._closeAllLight();
+
+            this.playerInfoList[i].getChildByName('img_zhuang').active = false;
+            this.playerInfoList[i].getChildByName('img_hostmark').active = false;
+        }
+
+        this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
+    },
+
+    /**
+     * 查找当前玩家的座位号
+     */
+    _setThisPlayerSeat(playerList) {
+        for (let i = 0; i < playerList.length; i += 1) {
+            const obj = playerList[i];
+            if (obj.playerUuid === this._userInfo.playerUuid) {
+                this._GameRoomCache.thisPlayerSeat = obj.seat;
+                break;
+            }
+        }
     },
 
 });
