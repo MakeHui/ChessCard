@@ -117,6 +117,11 @@ cc.Class({
             type: cc.Node,
         },
 
+        actionSprite: {
+            default: [],
+            type: cc.Node,
+        },
+
         waitPanel: cc.Node,
 
         fastChatPanel: cc.Node,
@@ -480,7 +485,6 @@ cc.Class({
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
                 const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
-                node.setLocalZOrder(this.sequence += 1);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
@@ -584,14 +588,6 @@ cc.Class({
         this._GameRoomCache.thisDealerSeat = this._computeSeat(data.dealer);
         this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
-        // 玩家摸到的牌
-        // if (data.cardDraw) {
-        //     const nodeSprite = this.getHandcard[0].getChildByName('value').getComponent(cc.Sprite);
-        //     cc.loader.loadRes('Texture/card_pin', cc.SpriteAtlas, (err, atlas) => {
-        //         nodeSprite.spriteFrame = atlas.getSpriteFrame(`value_0x${data.cardDraw}`);
-        //     });
-        // }
-
         if (data.playerList.length !== 4) {
             this.inviteButtonList[0].active = true;
         }
@@ -613,18 +609,14 @@ cc.Class({
     },
 
     onPromptMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
+        this._GameRoomCache.promptList = data.promptList;
 
-        this._GameRoomCache.promptList = data;
-
-        if (data.length > 0) {
+        if (data.promptList.length > 0) {
             this.actionPanel[0].active = true;
         }
 
-        for (let i = 0; i < data.length; i += 1) {
-            const obj = data[i];
+        for (let i = 0; i < data.promptList.length; i += 1) {
+            const obj = data.promptList[i];
 
             if (obj.prompt === Global.promptType.Chow) {
                 this.actionPanel[1].active = true;
@@ -642,10 +634,6 @@ cc.Class({
     },
 
     onActionMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         if (data.activeCard) {
             this._GameRoomCache.activeCard.destroy();
         }
@@ -671,10 +659,6 @@ cc.Class({
     },
 
     onReadyHandMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         for (let j = 0; j < this.tingCardDistrict.children.length; j += 1) {
             if (j !== 0) {
                 this.tingCardDistrict.children[j].destroy();
@@ -693,19 +677,11 @@ cc.Class({
     },
 
     onSettleForRoundMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
         cc.director.loadScene('SmallAccount');
     },
 
     onSettleForRoomMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
         cc.director.loadScene('SmallAccount');
     },
@@ -846,10 +822,20 @@ cc.Class({
     actionOnClick(event, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         this._hideActionPanel();
-        if (data !== 0) {
-            this.actionPanel[5].getComponent(cc.Sprite).spriteFrame = event.target.getComponent(cc.Sprite).spriteFrame;
-            this._showActionPanel([5]);
+
+        let actionId = null;
+        const actionIdList = this._getActionIdFromPromptList(JSON.parse(data));
+
+        if (actionIdList.length === 1) {
+            actionId = actionIdList[0].actionId;
         }
+        // 大于1表示需要弹出吃的选择
+        else if (actionIdList.length > 1) {
+
+            return;
+        }
+
+        WebSocketManager.sendSocketMessage(this.webSocket, 'Action', { actionId });
     },
 
     /**
@@ -867,10 +853,12 @@ cc.Class({
             if (this.getHandcard[0].active) {
                 this.getHandcard[0].active = false;
                 const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                const node2 = cc.instantiate(this.handCardPrefabs[0]);
-                const nodeSprite2 = Tools.findNode(node2, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite2.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
-                this.handCardDistrict[0].addChild(node2);
+                const node = cc.instantiate(this.handCardPrefabs[0]);
+                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
+                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
+                node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                this.handCardDistrict[0].addChild(node);
             }
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
@@ -1099,10 +1087,9 @@ cc.Class({
     _appendCardToDiscardDistrict(player, data) {
         for (let i = 0; i < data.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[player]);
-            this.dirtyCardDistrict[player].addChild(node);
-
-            const nodeSprite = Tools.findNode(node, 'Background>value');
+            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
+            this.dirtyCardDistrict[player].addChild(node);
         }
     },
 
@@ -1203,6 +1190,17 @@ cc.Class({
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
         this.roomInfo[4].string = gameInfo;
+    },
+
+    _getActionIdFromPromptList(prompt) {
+        const promptList = [];
+        for (let i = 0; i < this._GameRoomCache.promptList.length; i += 1) {
+            const obj = this._GameRoomCache.promptList[i];
+            if (prompt.indexOf(obj.prompt) !== -1) {
+                promptList.push(obj);
+            }
+        }
+        return promptList;
     },
 
 });
