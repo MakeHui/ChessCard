@@ -14,7 +14,7 @@ window.WebSocketManager.Command = {
     ExitRoom        : 0x0003,       // 3、离开房间
     DismissRoom     : 0x0004,       // 4、解散房间
     SponsorVote     : 0x0005,       // 5、发起投票解散
-    PlayerVot       : 0x0007,       // 6、玩家投票
+    PlayerVote      : 0x0007,       // 6、玩家投票
     OnlineStatus    : 0x0008,       // 7、玩家上线离线广播
     Speaker         : 0x0009,       // 8、超级广播命令
     Ready           : 0x000A,       // 9、准备
@@ -241,7 +241,7 @@ window.WebSocketManager.ArrayBuffer = {
  * @returns ReconnectingWebSocket
  */
 window.WebSocketManager.openSocketLink = (url) => {
-    return new ReconnectingWebSocket(url, null, { debug: true, reconnectInterval: 3000, binaryType: 'arraybuffer' });
+    return new ReconnectingWebSocket(url, null, { debug: false, reconnectInterval: 3000, binaryType: 'arraybuffer' });
 };
 
 /**
