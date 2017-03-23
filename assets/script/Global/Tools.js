@@ -666,7 +666,6 @@ window.Tools.protobufToJson = (protobuf) => {
         }
     }
 
-    Global.log(['window.Tools.protobufToJson: ', result]);
     return result;
 };
 

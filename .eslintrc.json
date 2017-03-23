@@ -21,6 +21,8 @@
   },
   "globals": {
     "window": true,
+    "Math": true,
+    "WebSocket": true,
     "Global": true,
     "WebSocketManager": true,
     "HttpRequestManager": true,
@@ -29,7 +31,6 @@
     "Animation": true,
     "proto": true,
     "goog": true,
-    "WebSocket": true,
     "ReconnectingWebSocket": true,
     "clone": true,
     "md5": true,

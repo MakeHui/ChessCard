@@ -438,7 +438,7 @@ cc.Class({
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.dealerUuid) {
                 this._GameRoomCache.thisDealerSeat = this._computeSeat(this._GameRoomCache.playerList[i].seat);
-                this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = false;
+                this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
                 break;
             }
@@ -863,14 +863,11 @@ cc.Class({
 
         if (event.target.getPositionY() !== 0) {
             event.target.parent.destroy();
-            const node = cc.instantiate(this.dirtyCardPrefabs[0]);
-            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.toString(16)}`);
-            this.dirtyCardDistrict[0].addChild(node);
 
             if (this.getHandcard[0].active) {
+                this.getHandcard[0].active = false;
                 const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                const node2 = cc.instantiate(this.dirtyCardPrefabs[0]);
+                const node2 = cc.instantiate(this.handCardPrefabs[0]);
                 const nodeSprite2 = Tools.findNode(node2, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite2.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
                 this.handCardDistrict[0].addChild(node2);
@@ -878,7 +875,8 @@ cc.Class({
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
 
-            Global.cardsSort(this.handCardDistrict[0]);
+            // TODO: 排序有问题
+            // Global.cardsSort(this.handCardDistrict[0]);
         }
         else {
             this._resetHandCardPosition();
