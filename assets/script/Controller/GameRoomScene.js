@@ -112,12 +112,20 @@ cc.Class({
             type: cc.Label,
         },
 
+        /**
+         * 动作相关
+         */
         actionPanel: {
             default: [],
             type: cc.Node,
         },
 
         actionSprite: {
+            default: [],
+            type: cc.Node,
+        },
+
+        selectChi: {
             default: [],
             type: cc.Node,
         },
@@ -615,21 +623,33 @@ cc.Class({
             this.actionPanel[0].active = true;
         }
 
-        for (let i = 0; i < data.promptList.length; i += 1) {
-            const obj = data.promptList[i];
+        let promptType = [];
 
-            if (obj.prompt === Global.promptType.Chow) {
-                this.actionPanel[1].active = true;
+        for (let i = 0; i < data.promptList.length; i += 1) {
+            promptType.push(data.promptList[i].prompt);
+        }
+
+        promptType = Tools.unique(promptType);
+
+        for (let i = 0; i < promptType.length; i += 1) {
+            let actionPanelIndex = 0;
+            if (promptType[i] === Global.promptType.Chow) {
+                actionPanelIndex = 1;
             }
-            else if (obj.prompt === Global.promptType.Pong) {
-                this.actionPanel[2].active = true;
+            else if (promptType[i] === Global.promptType.Pong) {
+                actionPanelIndex = 2;
             }
-            else if (obj.prompt === Global.promptType.KongConcealed || obj.prompt === Global.promptType.kongExposed) {
-                this.actionPanel[3].active = true;
+            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed) {
+                actionPanelIndex = 3;
             }
-            else if (obj.prompt === Global.promptType.WinDiscard || obj.prompt === Global.promptType.WinDraw) {
-                this.actionPanel[4].active = true;
+            else if (promptType[i] === Global.promptType.WinDiscard || promptType[i] === Global.promptType.WinDraw) {
+                actionPanelIndex = 4;
             }
+
+            const promptList = this._getActionIdFromPromptList([promptType[i]]);
+            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', JSON.stringify(promptList));
+            this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+            this.actionPanel[actionPanelIndex].active = true;
         }
     },
 
@@ -824,14 +844,33 @@ cc.Class({
         this._hideActionPanel();
 
         let actionId = null;
-        const actionIdList = this._getActionIdFromPromptList(JSON.parse(data));
+        const actionIdList = JSON.parse(data);
 
         if (actionIdList.length === 1) {
             actionId = actionIdList[0].actionId;
         }
-        // 大于1表示需要弹出吃的选择
+        // TODO: 大于1表示需要弹出吃的选择
         else if (actionIdList.length > 1) {
+            for (let i = 0; i < actionIdList.length; i += 1) {
+                const obj = actionIdList[i];
 
+                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectChiOnClick', JSON.stringify(obj));
+                this.selectChi[i + 1].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+
+                const children = this.selectChi[i + 1].children;
+                for (let j = 0; j < children.length; j += 1) {
+                    const nodeSprite = children[j].getChildByName('value').getComponent(cc.Sprite);
+                    if (j === 0) {
+                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.opCard.card.toString(16)}`);
+                    }
+                    else {
+                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[j + 1].card.toString(16)}`);
+                    }
+                }
+
+                this.selectChi[i + 1].active = true;
+            }
+            this.selectChi[0].active = true;
             return;
         }
 
@@ -897,6 +936,17 @@ cc.Class({
         this.unschedule(this._expireSeconds);
     },
 
+    /**
+     * 选择需要吃的牌
+     */
+    selectChiOnClick(evt, data) {
+        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        this._hideSelectChiPanel();
+
+        data = JSON.parse(data);
+        WebSocketManager.sendSocketMessage(this.webSocket, 'Action', { actionId: data.actionId });
+    },
+
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
@@ -937,6 +987,16 @@ cc.Class({
     _hideActionPanel() {
         for (let i = 0; i < this.actionPanel.length; i += 1) {
             this.actionPanel[i].active = false;
+        }
+    },
+
+    /**
+     * 隐藏词牌提示
+     * @private
+     */
+    _hideSelectChiPanel() {
+        for (let i = 0; i < this.selectChi.length; i += 1) {
+            this.selectChi[i].active = false;
         }
     },
 
