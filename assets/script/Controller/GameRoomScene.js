@@ -159,8 +159,8 @@ cc.Class({
         this._GameRoomCache.thisDealerSeat = 0; // 当前庄家相对座位号
         this._GameRoomCache.activeCardFlag = null;  // 最后出的那张牌上面的标识
         this._GameRoomCache.activeCard = null;      // 当前最后出的那张牌
-        this._GameRoomCache.waitDraw = true;        // 是否等待抓拍, 客户端逻辑
-        this._GameRoomCache.allowOutCard = false;    // 是否允许出牌
+        this._GameRoomCache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
+        this._GameRoomCache.allowOutCard = false;   // 是否允许出牌
 
         if (Global.tempCache) {
             const self = this;
@@ -434,6 +434,8 @@ cc.Class({
         this._appendCardToHandCardDistrict(1, new Array(13));
         this._appendCardToHandCardDistrict(2, new Array(13));
         this._appendCardToHandCardDistrict(3, new Array(13));
+
+        this._GameRoomCache.gameing = true;
     },
 
     onDrawMessage(data) {
@@ -454,6 +456,8 @@ cc.Class({
             }
 
             self.getHandcard[playerIndex].active = true;
+
+            this._openLight(playerIndex);
         }, this._GameRoomCache.waitDraw ? 3 : 0);
 
         this._GameRoomCache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
@@ -468,7 +472,7 @@ cc.Class({
         this.dirtyCardDistrict[playerIndex].addChild(node);
         this._GameRoomCache.activeCard = node;
 
-        this._openLight(playerIndex);
+        this._createActiveCardFlag(playerIndex);
     },
 
     onSynchroniseCardsMessage(data) {
@@ -1000,8 +1004,6 @@ cc.Class({
                 i -= 1;
             }, 0.2, (data.length - 1));
         }
-
-        this._GameRoomCache.gameing = true;
     },
 
     /**
