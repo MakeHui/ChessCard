@@ -10,8 +10,18 @@ cc.Class({
 
     },
 
+    closeAnimationCallback() {
+        this.node.active = true;
+        Global.log('closeAnimationCallback');
+    },
+
+    hideAnimationCallback() {
+        this.node.active = false;
+        Global.log('hideAnimationCallback');
+    },
+
     closeTrojanScanCallback() {
         this.node.destroy();
-        Global.log('closeCallback');
+        Global.log('closeTrojanScanCallback');
     },
 });

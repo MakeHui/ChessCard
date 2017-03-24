@@ -130,6 +130,11 @@ cc.Class({
             type: cc.Node,
         },
 
+        actionSpriteFrame: {
+            type: cc.SpriteFrame,
+            default: [],
+        },
+
         waitPanel: cc.Node,
 
         fastChatPanel: cc.Node,
@@ -455,6 +460,8 @@ cc.Class({
         this.scheduleOnce(() => {
             const playerIndex = self._computeSeat(self._getSeatForPlayerUuid(data.playerUuid));
 
+            self.getHandcard[playerIndex].active = true;
+
             // 如果抓拍的人是自己才对数据进行处理
             if (playerIndex === 0) {
                 const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
@@ -462,8 +469,6 @@ cc.Class({
                 const nodeSprite = Tools.findNode(self.getHandcard[playerIndex], 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
             }
-
-            self.getHandcard[playerIndex].active = true;
 
             this._openLight(playerIndex);
         }, this._GameRoomCache.waitDraw ? 3 : 0);
@@ -481,6 +486,8 @@ cc.Class({
         this._GameRoomCache.activeCard = node;
 
         this._createActiveCardFlag(playerIndex);
+        const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
+        this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
     },
 
     onSynchroniseCardsMessage(data) {
@@ -560,23 +567,19 @@ cc.Class({
 
         // 当前活动玩家座位号, 打出去的牌上面的小标识
         if (data.discardSeat !== -1) {
-            this._createActiveCardFlag(this._computeSeat(data.discardSeat));
+            const discardSeatIndex = this._computeSeat(data.discardSeat);
+            this._createActiveCardFlag(discardSeatIndex);
+            this._GameRoomCache.activeCard = this.dirtyCardDistrict[discardSeatIndex].children[this.dirtyCardDistrict[discardSeatIndex].childrenCount - 1];
         }
 
         // 当前出牌玩家
         if (data.activeSeat !== -1) {
             this._openLight(this._computeSeat(data.activeSeat));
         }
-
-        window.testData = this.handCardDistrict[0];
     },
 
     onPromptMessage(data) {
         this._GameRoomCache.promptList = data.promptList;
-
-        if (data.promptList.length > 0) {
-            this.actionPanel[0].active = true;
-        }
 
         let promptType = [];
 
@@ -585,51 +588,91 @@ cc.Class({
         }
 
         promptType = Tools.unique(promptType);
-
-        for (let i = 0; i < promptType.length; i += 1) {
-            let actionPanelIndex = 0;
-            if (promptType[i] === Global.promptType.Chow) {
-                actionPanelIndex = 1;
-            }
-            else if (promptType[i] === Global.promptType.Pong) {
-                actionPanelIndex = 2;
-            }
-            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed) {
-                actionPanelIndex = 3;
-            }
-            else if (promptType[i] === Global.promptType.WinDiscard || promptType[i] === Global.promptType.WinDraw) {
-                actionPanelIndex = 4;
-            }
-
-            const promptList = this._getActionIdFromPromptList([promptType[i]]);
-            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', JSON.stringify(promptList));
-            this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-            this.actionPanel[actionPanelIndex].active = true;
-        }
+        this._showActionPrompt(promptType);
     },
 
     onActionMessage(data) {
-        if (data.activeCard) {
-            this._GameRoomCache.activeCard.destroy();
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+
+        if (data.playerUuid === this._userInfo.playerUuid) {
+            this._GameRoomCache.allowOutCard = true;
         }
 
-        const playerIndex = this._computeSeat(data.triggerSeat);
-
-        // todo: 音频, 根据不同的用户的位置动画提示
         if (data.activeType === Global.promptType.Chow) {
-            this._appendChowToDistrict(playerIndex, data.refCard);
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
+
+            // 删除需要删除的手牌
+            for (let i = 0; i < data.refCardList.length; i += 1) {
+                const obj = data.refCardList[i];
+                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+            }
+            this._GameRoomCache.activeCard.destroy();
+
+            data.refCardList.push(data.activeCard);
+            data.refCardList.sort((a, b) => {
+                return a - b;
+            });
+            this._appendChowToDistrict(playerIndex, data.refCardList);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[0];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.Pong) {
-            this._appendPongToDistrict(playerIndex, data.refCard);
-        }
-        else if (data.activeType === Global.promptType.KongConcealed) {
-            this._appendConcealedKongToDistrict(playerIndex, data.refCard);
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
+
+            // 删除需要删除的手牌
+            for (let i = 0; i < data.refCardList.length; i += 1) {
+                const obj = data.refCardList[i];
+                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+            }
+            this._GameRoomCache.activeCard.destroy();
+
+            data.refCardList.push(data.activeCard);
+            this._appendPongToDistrict(playerIndex, data.refCardList);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.kongExposed) {
-            this._appendExposedToDistrict(playerIndex, data.refCard);
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+
+            // 删除需要删除的手牌
+            for (let i = 0; i < data.refCardList.length; i += 1) {
+                const obj = data.refCardList[i];
+                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+            }
+            this._GameRoomCache.activeCard.destroy();
+
+            data.refCardList.push(data.activeCard);
+            this._appendExposedToDistrict(playerIndex, data.refCardList);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+        }
+        else if (data.activeType === Global.promptType.KongConcealed) {
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+
+            // 删除需要删除的手牌
+            for (let i = 0; i < data.refCardList.length; i += 1) {
+                const obj = data.refCardList[i];
+                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+            }
+            const card = Tools.findNode(this.getHandcard[playerIndex], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+            if (card == data.activeCard.card) {
+                this.getHandcard[playerIndex].active = false;
+            }
+
+            data.refCardList.push(data.activeCard);
+            this._appendConcealedKongToDistrict(playerIndex, data.refCardList);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.WinDiscard || data.activeType === Global.promptType.WinDraw) {
-            // todo: 胡牌
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
     },
 
@@ -795,7 +838,7 @@ cc.Class({
 
     actionOnClick(event, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        this._hideActionPanel();
+        this._hideActionPrompt();
 
         let actionId = null;
         const actionIdList = JSON.parse(data);
@@ -818,13 +861,13 @@ cc.Class({
                         nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.opCard.card.toString(16)}`);
                     }
                     else {
-                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[j + 1].card.toString(16)}`);
+                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[j - 1].card.toString(16)}`);
                     }
                 }
 
                 this.selectChi[i + 1].active = true;
             }
-            this.selectChi[0].active = true;
+            this.selectChi[3].active = true;
             return;
         }
 
@@ -851,7 +894,7 @@ cc.Class({
             this._GameRoomCache.allowOutCard = false;
             event.target.parent.destroy();
 
-            if (this.getHandcard[0].active) {
+            if (event.target.name.indexOf('GetHandCard') !== -1) {
                 this.getHandcard[0].active = false;
                 const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 this._appendCardToHandCardDistrict(0, [{ card }]);
@@ -936,40 +979,20 @@ cc.Class({
      **/
 
     /**
-     * 0: 过
-     * 1: 吃
-     * 2: 碰
-     * 3: 杠
-     * 4: 胡
-     * 5: 中间显示当前选择的动作, 0 除外
+     * 删除手牌
      */
-    _hideActionPanel() {
-        for (let i = 0; i < this.actionPanel.length; i += 1) {
-            this.actionPanel[i].active = false;
-        }
-    },
-
-    /**
-     * 隐藏词牌提示
-     * @private
-     */
-    _hideSelectChiPanel() {
-        for (let i = 0; i < this.selectChi.length; i += 1) {
-            this.selectChi[i].active = false;
-        }
-    },
-
-    _showActionPanel(indexs) {
-        if (indexs.length === 1) {
-            const self = this;
-            self._hideActionPanel();
-            this.scheduleOnce(() => {
-                self._hideActionPanel();
-            }, 1);
-        }
-
-        for (let i = 0; i < indexs.length; i += 1) {
-            this.actionPanel[indexs[i]].active = true;
+    _deleteHandCardByCode(player, data) {
+        for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
+            const obj = this.handCardDistrict[player].children[i];
+            if (player === 0) {
+                const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                if (code == data) {
+                    obj.destroy();
+                }
+            }
+            else {
+                obj.destroy();
+            }
         }
     },
 
@@ -1120,7 +1143,10 @@ cc.Class({
         for (let i = 0; i < this.handCardDistrict[0].childrenCount; i += 1) {
             this.handCardDistrict[0].children[i].getChildByName('Background').setPositionY(0);
         }
-        this.getHandcard[0].getChildByName('Background').setPositionY(0);
+
+        if (this.getHandcard[0].active) {
+            this.getHandcard[0].getChildByName('Background').setPositionY(0);
+        }
     },
 
     _computeSeat(playerSeat) {
@@ -1336,6 +1362,51 @@ cc.Class({
             }
         }
         return -1;
+    },
+
+    /**
+     * 提示信息
+     */
+    _hideActionPrompt() {
+        for (let i = 0; i < this.actionPanel.length; i += 1) {
+            const obj = this.actionPanel[i];
+            obj.active = false;
+        }
+    },
+
+    _showActionPrompt(promptType) {
+        this._hideActionPrompt();
+
+        if (promptType.length > 0) {
+            this.actionPanel[0].active = true;
+        }
+
+        for (let i = 0; i < promptType.length; i += 1) {
+            let actionPanelIndex = 0;
+            if (promptType[i] === Global.promptType.Chow) {
+                actionPanelIndex = 1;
+            }
+            else if (promptType[i] === Global.promptType.Pong) {
+                actionPanelIndex = 2;
+            }
+            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed) {
+                actionPanelIndex = 3;
+            }
+            else if (promptType[i] === Global.promptType.WinDiscard || promptType[i] === Global.promptType.WinDraw) {
+                actionPanelIndex = 4;
+            }
+
+            const promptList = this._getActionIdFromPromptList([promptType[i]]);
+            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', JSON.stringify(promptList));
+            this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+            this.actionPanel[actionPanelIndex].active = true;
+        }
+    },
+
+    _hideSelectChiPanel() {
+        for (let i = 0; i < this.selectChi.length; i += 1) {
+            this.selectChi[i].active = false;
+        }
     },
 
 });
