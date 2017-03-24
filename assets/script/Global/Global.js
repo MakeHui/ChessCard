@@ -347,7 +347,6 @@ window.Global.cardsSort = (listView) => {
     });
 
     for (let i = 0; i < listView.length; i += 1) {
-        Global.log(Tools.findNode(listView[i], 'Background>value').getComponent(cc.Sprite).spriteFrame._name);
         listView[i].setLocalZOrder(i);
     }
 };
