@@ -340,12 +340,16 @@ window.Global.cardsSort = (listView) => {
         return;
     }
 
-    const lastNode = listView[0];
-    listView.sort();
+    listView.sort((nodeA, nodeB) => {
+        const cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        const cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        return parseInt(cardB, 16) - parseInt(cardA, 16);
+    });
+
     for (let i = 0; i < listView.length; i += 1) {
+        Global.log(Tools.findNode(listView[i], 'Background>value').getComponent(cc.Sprite).spriteFrame._name);
         listView[i].setLocalZOrder(i);
     }
-    lastNode.setLocalZOrder(-1);
 };
 
 /**

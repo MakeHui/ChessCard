@@ -567,6 +567,8 @@ cc.Class({
         if (data.activeSeat !== -1) {
             this._openLight(this._computeSeat(data.activeSeat));
         }
+
+        window.testData = this.handCardDistrict[0];
     },
 
     onPromptMessage(data) {
@@ -852,18 +854,18 @@ cc.Class({
             if (this.getHandcard[0].active) {
                 this.getHandcard[0].active = false;
                 const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                const node = cc.instantiate(this.handCardPrefabs[0]);
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
-                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
-                node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-                this.handCardDistrict[0].addChild(node);
+
+                this._appendCardToHandCardDistrict(0, [{ card }]);
+
+                // const node = cc.instantiate(this.handCardPrefabs[0]);
+                // const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                // nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
+                // const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
+                // node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                // this.handCardDistrict[0].addChild(node);
             }
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
-
-            // TODO: 排序有问题
-            // Global.cardsSort(this.handCardDistrict[0]);
 
             Global.playEffect(Global.audioUrl.effect.cardOut);
         }
@@ -1007,8 +1009,9 @@ cc.Class({
                 }
                 insert(data[i].card);
             }
+            Global.cardsSort(this.handCardDistrict[0].children);
         }
-        else {
+        else if (data.length > 0) {
             let i = data.length - 1;
             this.schedule(() => {
                 Global.playEffect(Global.audioUrl.effect.dealCard);
@@ -1017,6 +1020,9 @@ cc.Class({
                 }
                 insert(data[i].card);
                 i -= 1;
+                if (i === -1) {
+                    Global.cardsSort(this.handCardDistrict[0].children);
+                }
             }, 0.2, (data.length - 1));
         }
     },
