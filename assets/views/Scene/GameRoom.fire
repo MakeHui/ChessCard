@@ -21682,7 +21682,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Background",
+    "_name": "GetHandCard",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {

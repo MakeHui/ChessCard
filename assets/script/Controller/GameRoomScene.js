@@ -460,17 +460,16 @@ cc.Class({
         this.scheduleOnce(() => {
             const playerIndex = self._computeSeat(self._getSeatForPlayerUuid(data.playerUuid));
 
-            self.getHandcard[playerIndex].active = true;
-
             // 如果抓拍的人是自己才对数据进行处理
             if (playerIndex === 0) {
                 const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
-                this.getHandcard[playerIndex].getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-                const nodeSprite = Tools.findNode(self.getHandcard[playerIndex], 'Background>value').getComponent(cc.Sprite);
+                self.getHandcard[playerIndex].getChildByName('GetHandCard').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                const nodeSprite = Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
             }
 
-            this._openLight(playerIndex);
+            self.getHandcard[playerIndex].active = true;
+            self._openLight(playerIndex);
         }, this._GameRoomCache.waitDraw ? 3 : 0);
 
         this._GameRoomCache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
@@ -490,6 +489,7 @@ cc.Class({
         this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
     },
 
+    // todo: 需要完善
     onSynchroniseCardsMessage(data) {
         if (data.code !== 1) {
             return;
@@ -657,7 +657,7 @@ cc.Class({
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            const card = Tools.findNode(this.getHandcard[playerIndex], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+            const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
             if (card == data.activeCard.card) {
                 this.getHandcard[playerIndex].active = false;
             }
@@ -892,12 +892,14 @@ cc.Class({
             }
 
             this._GameRoomCache.allowOutCard = false;
-            event.target.parent.destroy();
-
+            Global.log(event.target.name);
             if (event.target.name.indexOf('GetHandCard') !== -1) {
                 this.getHandcard[0].active = false;
-                const card = Tools.findNode(this.getHandcard[0], 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 this._appendCardToHandCardDistrict(0, [{ card }]);
+            }
+            else {
+                event.target.parent.destroy();
             }
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
@@ -1145,7 +1147,7 @@ cc.Class({
         }
 
         if (this.getHandcard[0].active) {
-            this.getHandcard[0].getChildByName('Background').setPositionY(0);
+            this.getHandcard[0].getChildByName('GetHandCard').setPositionY(0);
         }
     },
 
