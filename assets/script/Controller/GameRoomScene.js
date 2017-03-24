@@ -638,15 +638,14 @@ cc.Class({
             }
         }
 
-        this.tingCardDistrict.active = true;
-
-        for (let i = 0; i < data.length; i += 1) {
+        for (let i = 0; i < data.cardList.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
             const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
-
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.cardList[i].card.toString(16)}`);
             this.tingCardDistrict.addChild(node);
         }
+
+        this.tingCardDistrict.active = true;
     },
 
     onSettleForRoundMessage(data) {
@@ -837,6 +836,11 @@ cc.Class({
      * @param data
      */
     selectedHandCardOnClick(event, data) {
+        // 关闭听提示
+        if (this.tingCardDistrict.active) {
+            this.tingCardDistrict.active = false;
+        }
+
         if (event.target.getPositionY() !== 0) {
             if (!this._GameRoomCache.allowOutCard) {
                 return;
@@ -998,8 +1002,8 @@ cc.Class({
 
         if (this._GameRoomCache.gameing) {
             for (let i = data.length - 1; i >= 0; i -= 1) {
-                if (!data[i].card) {
-                    data[i].card = 0;
+                if (!data[i]) {
+                    data[i] = { card: 0 };
                 }
                 insert(data[i].card);
             }
@@ -1008,8 +1012,8 @@ cc.Class({
             let i = data.length - 1;
             this.schedule(() => {
                 Global.playEffect(Global.audioUrl.effect.dealCard);
-                if (!data[i].card) {
-                    data[i].card = 0;
+                if (!data[i]) {
+                    data[i] = { card: 0 };
                 }
                 insert(data[i].card);
                 i -= 1;
