@@ -18435,7 +18435,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 142.5
+      "y": -142.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -18681,7 +18681,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 123.5
+      "y": -123.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -18927,7 +18927,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 104.5
+      "y": -104.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -19173,7 +19173,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 85.5
+      "y": -85.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -19419,7 +19419,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 66.5
+      "y": -66.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -19665,7 +19665,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 47.5
+      "y": -47.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -19911,7 +19911,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 28.5
+      "y": -28.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -20157,7 +20157,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 9.5
+      "y": -9.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -20403,7 +20403,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -9.5
+      "y": 9.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -20649,7 +20649,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -28.5
+      "y": 28.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -20895,7 +20895,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -47.5
+      "y": 47.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -21141,7 +21141,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -66.5
+      "y": 66.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -21387,7 +21387,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -85.5
+      "y": 85.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -21620,7 +21620,7 @@
     "_N$paddingBottom": 0,
     "_N$spacingX": 0,
     "_N$spacingY": -33,
-    "_N$verticalDirection": 1,
+    "_N$verticalDirection": 0,
     "_N$horizontalDirection": 0
   },
   {
