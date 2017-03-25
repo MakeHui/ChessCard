@@ -1,6 +1,6 @@
 cc.Class({
     extends: cc.Component,
-    // 708034
+
     properties: {
         soundPrefab: cc.Prefab,
         userInfoPrefab: cc.Prefab,
@@ -391,19 +391,19 @@ cc.Class({
 
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+                // const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const self = this;
 
                 // 评论
                 if (data.content.type === 1) {
                     this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
 
-                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
-
-                    self.chatList[playerIndex].active = true;
-                    this.scheduleOnce(() => {
-                        self.chatList[playerIndex].active = false;
-                    }, 3);
+                    // this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
+                    //
+                    // self.chatList[playerIndex].active = true;
+                    // this.scheduleOnce(() => {
+                    //     self.chatList[playerIndex].active = false;
+                    // }, 3);
                 }
                 // 表情
                 else if (data.content.type === 2) {
@@ -659,7 +659,7 @@ cc.Class({
             }
             const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
             if (card == data.activeCard.card) {
-                this.getHandcard[playerIndex].active = false;
+                this._hideGetHandCard(playerIndex);
             }
 
             data.refCardList.push(data.activeCard);
@@ -677,11 +677,7 @@ cc.Class({
     },
 
     onReadyHandMessage(data) {
-        for (let j = 0; j < this.tingCardDistrict.children.length; j += 1) {
-            if (j !== 0) {
-                this.tingCardDistrict.children[j].destroy();
-            }
-        }
+        this._initReadyHand();
 
         for (let i = 0; i < data.cardList.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
@@ -892,14 +888,16 @@ cc.Class({
             }
 
             this._GameRoomCache.allowOutCard = false;
-            Global.log(event.target.name);
-            if (event.target.name.indexOf('GetHandCard') !== -1) {
-                this.getHandcard[0].active = false;
-                const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                this._appendCardToHandCardDistrict(0, [{ card }]);
+            if (event.target.name === 'GetHandCard') {
+                this._hideGetHandCard(0);
             }
             else {
                 event.target.parent.destroy();
+            }
+
+            if (this.getHandcard[0].active) {
+                const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                this._appendCardToHandCardDistrict(0, [{ card }]);
             }
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
@@ -984,16 +982,19 @@ cc.Class({
      * 删除手牌
      */
     _deleteHandCardByCode(player, data) {
+        Global.log([player, data]);
         for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
             const obj = this.handCardDistrict[player].children[i];
             if (player === 0) {
                 const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                if (code == data) {
+                if (code == data && obj.active) {
+                    obj.active = false;
                     obj.destroy();
                     break;
                 }
             }
-            else {
+            else if (obj.active) {
+                obj.active = false;
                 obj.destroy();
                 break;
             }
@@ -1332,13 +1333,15 @@ cc.Class({
             this.dirtyCardDistrict[i].removeAllChildren();
             this.pongKongChowDistrict[i].removeAllChildren();
 
-            this._showInvietButton([0, 1, 2, 3]);
-            this._hidePlayerInfoList([0, 1, 2, 3]);
-            this._closeAllLight();
-
             this.playerInfoList[i].getChildByName('img_zhuang').active = false;
             this.playerInfoList[i].getChildByName('img_hostmark').active = false;
         }
+
+        this._showInvietButton([0, 1, 2, 3]);
+        this._hidePlayerInfoList([0, 1, 2, 3]);
+        this._closeAllLight();
+        this._hideActionPrompt();
+        this._initReadyHand();
 
         this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
     },
@@ -1411,6 +1414,26 @@ cc.Class({
         for (let i = 0; i < this.selectChi.length; i += 1) {
             this.selectChi[i].active = false;
         }
+    },
+
+    /**
+     * 隐藏摸到的手牌
+     */
+    _hideGetHandCard(index) {
+        this.getHandcard[index].active = false;
+        this.getHandcard[index].setPositionY(0);
+    },
+
+    /**
+     * 听牌提示
+     */
+    _initReadyHand() {
+        for (let j = 0; j < this.tingCardDistrict.children.length; j += 1) {
+            if (j !== 0) {
+                this.tingCardDistrict.children[j].destroy();
+            }
+        }
+        this.tingCardDistrict.active = false;
     },
 
 });
