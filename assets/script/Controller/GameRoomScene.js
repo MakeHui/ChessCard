@@ -990,10 +990,12 @@ cc.Class({
                 const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 if (code == data) {
                     obj.destroy();
+                    break;
                 }
             }
             else {
                 obj.destroy();
+                break;
             }
         }
     },
