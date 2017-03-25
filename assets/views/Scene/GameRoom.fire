@@ -40748,6 +40748,12 @@
     "cardMarkPrefab": {
       "__uuid__": "b7463b7d-aab8-446c-9f14-403240c58196"
     },
+    "smallAccountPrefab": {
+      "__uuid__": "81976b6e-888b-4bd8-94b3-de50ece830b6"
+    },
+    "bigAccountPrefab": {
+      "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
+    },
     "cardPinList": {
       "__uuid__": "f0091fa5-77ef-4f42-888c-bd96ed419715"
     },

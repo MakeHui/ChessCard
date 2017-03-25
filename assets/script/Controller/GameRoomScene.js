@@ -5,6 +5,8 @@ cc.Class({
         soundPrefab: cc.Prefab,
         userInfoPrefab: cc.Prefab,
         cardMarkPrefab: cc.Prefab,
+        smallAccountPrefab: cc.Prefab,
+        bigAccountPrefab: cc.Prefab,
 
         cardPinList: cc.SpriteAtlas,
 
