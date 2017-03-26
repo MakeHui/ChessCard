@@ -1428,7 +1428,7 @@ cc.Class({
      */
     _hideGetHandCard(index) {
         this.getHandcard[index].active = false;
-        this.getHandcard[index].setPositionY(0);
+        this.getHandcard[0].getChildByName('GetHandCard').setPositionY(0);
     },
 
     /**
