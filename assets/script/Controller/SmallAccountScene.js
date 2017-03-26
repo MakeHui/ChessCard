@@ -67,7 +67,7 @@ cc.Class({
     gameAgenOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.director.getScene().getChildByName('Canvas');
-        node.getComponent('GameRoomScene').onReadyGame();
+        node.getComponent('GameRoomScene').readyGameCallback();
         Global.closeDialog(this.node);
     },
 

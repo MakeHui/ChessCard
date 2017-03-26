@@ -33,37 +33,22 @@ cc.Class({
         for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
             const playerData = Global.tempCache.data.playerDataList[i];
             const playerNode = this.playerList[playerData.seat];
-            const avatar = playerNode.getChildByName('headNode').getComponent(cc.Sprite);
+            const userInfo = this._getUserInfoInList(playerData.playerUuid);
 
-            Tools.setWebImage(avatar, this._getAvatarInList(playerData.playerUuid));
-            playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
+            Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
+            playerNode.getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
 
             if (playerData.isOwner === 1) {
                 playerNode.getChildByName('roomHolderMark').active = true;
             }
 
-            const detailList = playerNode.getChildByName('detailPanel').children;
-            for (let j = 0; j < detailList.length; j += 1) {
-                const obj = playerData[j];
-                if (i === 0) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.bigWinDrawCnt;
-                }
-                else if (i === 1) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.bigWinDiscardCnt;
-                }
-                else if (i === 2) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.smallWinDrawCnt;
-                }
-                else if (i === 3) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.smallWinDiscardCnt;
-                }
-                else if (i === 4) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
-                }
-                else if (i === 5) {
-                    obj.getChildByName('atlasLable').getComponent(cc.Label).string = playerData.totalScore;
-                }
-            }
+            const detailList = playerNode.getChildByName('detailPanel');
+            Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
+            Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
+            Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
+            Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
+            Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
+            Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
 
             if (bigLosser < playerData.paoCnt) {
                 bigLosser = playerData.paoCnt;
@@ -96,23 +81,14 @@ cc.Class({
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.node.destroy();
+        cc.director.loadScene('Lobby');
     },
 
-    _getNicknameInList(playerUuid) {
+    _getUserInfoInList(playerUuid) {
         for (let i = 0; i < Global.tempCache.playerInfoList.length; i += 1) {
             const obj = Global.tempCache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
-                return obj.nickname;
-            }
-        }
-        return false;
-    },
-
-    _getAvatarInList(playerUuid) {
-        for (let i = 0; i < Global.tempCache.playerInfoList.length; i += 1) {
-            const obj = Global.tempCache.playerInfoList[i];
-            if (obj.playerUuid === playerUuid) {
-                return obj.headimgurl;
+                return obj.info;
             }
         }
         return false;

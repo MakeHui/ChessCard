@@ -168,6 +168,7 @@ cc.Class({
         this._GameRoomCache.activeCard = null;      // 当前最后出的那张牌
         this._GameRoomCache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
         this._GameRoomCache.allowOutCard = false;   // 是否允许出牌
+        this._GameRoomCache.settleForRoomData = null;    // 大结算数据
 
         // todo: 需要删除
         this._initScene();
@@ -688,17 +689,27 @@ cc.Class({
     },
 
     onSettleForRoundMessage(data) {
+        const self = this;
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
-        Global.openDialog(cc.instantiate(this.smallAccountPrefab), this.node);
+        Global.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
+            for (let i = 0; i < 4; i += 1) {
+                self.handCardDistrict[i].removeAllChildren();
+                self.dirtyCardDistrict[i].removeAllChildren();
+                self.pongKongChowDistrict[i].removeAllChildren();
+            }
+        });
     },
 
     onSettleForRoomMessage(data) {
-        if (this.voteDismiss.active) {
+        if (this.voteDismiss.active || this._GameRoomCache.settleForRoomData) {
             this.voteDismiss.active = false;
+            this.webSocket.close();
+            Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
+            Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
-        this.webSocket.close();
-        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
-        Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
+        else {
+            this._GameRoomCache.settleForRoomData = data;
+        }
     },
 
     /**
@@ -971,8 +982,13 @@ cc.Class({
      *******************************************************************************************************************
      **/
 
-    onReadyGame() {
-        WebSocketManager.sendSocketMessage(this.webSocket, 'Ready');
+    readyGameCallback() {
+        if (this._GameRoomCache.settleForRoomData) {
+            this.onSettleForRoomMessage(this._GameRoomCache.settleForRoomData);
+        }
+        else {
+            WebSocketManager.sendSocketMessage(this.webSocket, 'Ready');
+        }
     },
 
     /**

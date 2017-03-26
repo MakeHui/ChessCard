@@ -295,11 +295,13 @@ window.Global = {
  * @author Make.<makehuir@gmail.com>
  * @datetime 2017-02-14T18:46:33+0800
  *
- * @param    {cc.Node}                 node     需要弹出的节点对象
- * @param    {cc.Node}                 parentNode 父节点对象
+ * @param node          cc.Node     需要弹出的节点对象
+ * @param parentNode    cc.Node     父节点对象
+ * @param callback      Function    回调方法
  */
-window.Global.openDialog = (node, parentNode) => {
+window.Global.openDialog = (node, parentNode, callback = Function) => {
     parentNode.addChild(node);
+    callback();
 
     // Animation.openSceneTransitionAction(node.getChildByName('Dialog'), callback);
 };

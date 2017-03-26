@@ -1225,7 +1225,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Text",
+    "_name": "text",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1292,7 +1292,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡自摸",
+    "_N$string": "自摸次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -1484,7 +1484,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 175,
       "height": 25
     },
     "_children": [],
@@ -1530,7 +1530,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡点炮胡",
+    "_N$string": "大胡点炮胡次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -1768,7 +1768,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡自摸",
+    "_N$string": "放炮次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -1960,7 +1960,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 100,
       "height": 25
     },
     "_children": [],
@@ -2006,7 +2006,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡点炮胡",
+    "_N$string": "暗杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -2244,7 +2244,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "放炮次数",
+    "_N$string": "明杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -2814,7 +2814,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "56731XNipRIQppEjzGPCsxL",
+    "fileId": "67f7c+B8wNKHZ9+iFtVkTZU",
     "sync": false
   },
   {
@@ -2903,7 +2903,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "45f83nt6FJMAY129dADT1Ie",
+    "fileId": "953b12AVQlKZocTnRbAFImZ",
     "sync": false
   },
   {
@@ -2994,7 +2994,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "2dcc79kf/BNA40aD/oKd4Cv",
+    "fileId": "aa81fQcElNAwq3KDS7OKns0",
     "sync": false
   },
   {
@@ -3079,7 +3079,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "7fd487hLDlJTI9Lm/UGFVJa",
+    "fileId": "2754ev9JfJAs5861H1pAKzT",
     "sync": false
   },
   {
@@ -3170,7 +3170,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "e4287vBanhIXId4lva0e4Mi",
+    "fileId": "10c0aij+R9Hbb9ndHliXZnF",
     "sync": false
   },
   {
@@ -3261,7 +3261,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "6e7c3mC5T5Enrqw5XT8vHYy",
+    "fileId": "b37e2EZ39BKm5fxchfzCHGV",
     "sync": false
   },
   {
@@ -3352,7 +3352,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "8016cFSgIxI1qgCoNR5I/lY",
+    "fileId": "1bb7exNjdhIrJnydIyGzqms",
     "sync": false
   },
   {
@@ -3483,7 +3483,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Text",
+    "_name": "text",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -3550,7 +3550,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡自摸",
+    "_N$string": "自摸次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -3563,7 +3563,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "5d375wZGQhGko0+kdvl4zEf",
+    "fileId": "94bfcVSqIxD1JuihnqSRrCz",
     "sync": false
   },
   {
@@ -3648,7 +3648,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "3d6e49+PspOYa4KNcyfvedL",
+    "fileId": "dafcdDRs99JB65Sm8TvVfvE",
     "sync": false
   },
   {
@@ -3659,7 +3659,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "3701675mIlDw77Khl7e55+E",
+    "fileId": "a3a6bF6YAJOmJgtV+5GZyRN",
     "sync": false
   },
   {
@@ -3742,7 +3742,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 175,
       "height": 25
     },
     "_children": [],
@@ -3788,7 +3788,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡点炮胡",
+    "_N$string": "大胡点炮胡次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -3801,7 +3801,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "26f95UkOEBMUZYtGOv6ULD3",
+    "fileId": "59c46zYPZxLC5Qk034NHHrY",
     "sync": false
   },
   {
@@ -3886,7 +3886,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "964535urAtPfIUzrZL2NH9E",
+    "fileId": "7999dZFzY5GSrHHZHKkmIAE",
     "sync": false
   },
   {
@@ -3897,7 +3897,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "82b76/HTchDSoIeJxOx/oSD",
+    "fileId": "d0b28O0JJxMP4EinxWkTS/u",
     "sync": false
   },
   {
@@ -4026,7 +4026,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡自摸",
+    "_N$string": "放炮次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -4039,7 +4039,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "7d75ctRaJtKs4Sb4q4PTgJ4",
+    "fileId": "08e28NiDGFP86EDW3vW5Rp+",
     "sync": false
   },
   {
@@ -4124,7 +4124,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "a9d07csL2pBmINP7FGK0h59",
+    "fileId": "c59ebhZ2ShIZbmrG54rvRVS",
     "sync": false
   },
   {
@@ -4135,7 +4135,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "f5770V4pghNh7XZQZo0Ewt5",
+    "fileId": "b6dc5HG46dEra2zFGB9nZB+",
     "sync": false
   },
   {
@@ -4218,7 +4218,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 100,
       "height": 25
     },
     "_children": [],
@@ -4264,7 +4264,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡点炮胡",
+    "_N$string": "暗杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -4277,7 +4277,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "5e6beOa80ZI+r0HDWjOapYj",
+    "fileId": "0bcb3GlsVNJuqIzeM3xlzHo",
     "sync": false
   },
   {
@@ -4362,7 +4362,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "60815jAk6RHcYpYn9dIPqmY",
+    "fileId": "bcfceqvAf5Mo5dQSfeNgHH7",
     "sync": false
   },
   {
@@ -4373,7 +4373,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "54fdffQvmhFTbOqU+dIq0w/",
+    "fileId": "6fe14fCOENGTKhWd06mxv3J",
     "sync": false
   },
   {
@@ -4502,7 +4502,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "放炮次数",
+    "_N$string": "明杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -4515,7 +4515,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "2f5b1yHoeRD3p51KrVvXRPP",
+    "fileId": "6e3aeb3UclBJJGFGQOvDEsr",
     "sync": false
   },
   {
@@ -4600,7 +4600,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "8bca0cgcvFFHb7iingHEu5U",
+    "fileId": "5078e9AiVRJKqc/Yrlkl4K7",
     "sync": false
   },
   {
@@ -4611,7 +4611,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "ec45frInKxK25DhLE4S/K3u",
+    "fileId": "69e22qGsURMHJdezDoV4z8C",
     "sync": false
   },
   {
@@ -4759,7 +4759,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "59367jA9rRMso2VfqQfP0hf",
+    "fileId": "379252lsnFP9ooE2lRB5UZ+",
     "sync": false
   },
   {
@@ -4844,7 +4844,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "c314cvXBF1JB7s2+WBmZONA",
+    "fileId": "516d8x8N/VHC4SkOwtLGtOj",
     "sync": false
   },
   {
@@ -4855,7 +4855,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "f1ef8kPZFdCxKZW1JvpHdUf",
+    "fileId": "e06679U1e9Kj5zxVLGAnvLI",
     "sync": false
   },
   {
@@ -4866,7 +4866,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "65f8deeCkxJzqkT3aCvCvY3",
+    "fileId": "f466e8GiANPcrJPPIel5rLA",
     "sync": false
   },
   {
@@ -4877,7 +4877,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "3bb31D8ue9HroV7h3rnOyTd",
+    "fileId": "811a10TsSdGtJH5Xo2ZjIOF",
     "sync": false
   },
   {
@@ -5072,7 +5072,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fc742yr6MNNA7O6AYN5KE+Q",
+    "fileId": "23d6fsG5cJMuaobYbSK+6/2",
     "sync": false
   },
   {
@@ -5161,7 +5161,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "b6c6efyD6JInaBF5zOv+4fF",
+    "fileId": "f43d86o5eNFR7Lw560BphOL",
     "sync": false
   },
   {
@@ -5252,7 +5252,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "ae175/MkNBNspfcPHVO0nSE",
+    "fileId": "91043aeSMVC+pMbHCmGWsXI",
     "sync": false
   },
   {
@@ -5337,7 +5337,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "a15f9X8PZJFl7Y0ly+lYz0z",
+    "fileId": "a7a91p//zJIwquZhiovLr8B",
     "sync": false
   },
   {
@@ -5428,7 +5428,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "7c862QLf9BFIoOjLw6Bs9GD",
+    "fileId": "c63ccBURkRFNrB9uldQ3lVH",
     "sync": false
   },
   {
@@ -5519,7 +5519,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "9a2d25ta0BBIaDaVdQpph6p",
+    "fileId": "d8487EGyjpMQ5VjNM1XnkM2",
     "sync": false
   },
   {
@@ -5610,7 +5610,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "99c56AnMaRB9KxaCqPUeFOv",
+    "fileId": "b5e37WfYApLL7+aPrzBvisx",
     "sync": false
   },
   {
@@ -5741,7 +5741,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Text",
+    "_name": "text",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -5808,7 +5808,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡自摸",
+    "_N$string": "自摸次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -5821,7 +5821,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "8eda9RsyOxKEKqOYJ2c85S0",
+    "fileId": "da772+cu9JDkbR2PJ0zf3/a",
     "sync": false
   },
   {
@@ -5906,7 +5906,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "f250e3sPyVN47Onyj5/MALu",
+    "fileId": "52ee5WwDt1PrrxytysCZO58",
     "sync": false
   },
   {
@@ -5917,7 +5917,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "b5bd4rcqQ1DaLiqLOM6/0P0",
+    "fileId": "b8db9VFYiBLlrT+OPWchdy0",
     "sync": false
   },
   {
@@ -6000,7 +6000,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 175,
       "height": 25
     },
     "_children": [],
@@ -6046,7 +6046,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡点炮胡",
+    "_N$string": "大胡点炮胡次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -6059,7 +6059,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "edc08tCR/ZPP5Yi/qjJXIHv",
+    "fileId": "82f6fjV6cpDUa500Az/Ot/h",
     "sync": false
   },
   {
@@ -6144,7 +6144,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "cc2bfGqxQVPf4F2qQhOfcgm",
+    "fileId": "5e927oI8ARNUoogQy45ENeF",
     "sync": false
   },
   {
@@ -6155,7 +6155,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "2314d+BGfdIG7/Oj3KHCa5i",
+    "fileId": "c3da7XbCMNGrIDhfVmzj5vW",
     "sync": false
   },
   {
@@ -6284,7 +6284,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡自摸",
+    "_N$string": "放炮次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -6297,7 +6297,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "8dba9v2awVMoIeH9oUpwlad",
+    "fileId": "7a3a6fuO0hE465Emw9f87iW",
     "sync": false
   },
   {
@@ -6382,7 +6382,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "7481cmJroNHAqCMqtTlp63W",
+    "fileId": "8dd24sSbV5OKa6UtPoVFs/Z",
     "sync": false
   },
   {
@@ -6393,7 +6393,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "4a30cbUyZBNcZlaoiYZbZul",
+    "fileId": "3d9105OFWRKDbe1u0Dd1CHb",
     "sync": false
   },
   {
@@ -6476,7 +6476,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 100,
       "height": 25
     },
     "_children": [],
@@ -6522,7 +6522,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡点炮胡",
+    "_N$string": "暗杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -6535,7 +6535,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "e0d4c18djRIsrgNNuES3FZ9",
+    "fileId": "8a78aNo2qtOVJObke/VoNuq",
     "sync": false
   },
   {
@@ -6620,7 +6620,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "0dd10WpScVDN7jHrrK0sQXR",
+    "fileId": "ce092i5MmVDuKnX4GBr/VeR",
     "sync": false
   },
   {
@@ -6631,7 +6631,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "87f83IHDE1NqrdP9QnfNcjj",
+    "fileId": "83df4Vrk6tLJbT+7Up+l6rk",
     "sync": false
   },
   {
@@ -6760,7 +6760,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "放炮次数",
+    "_N$string": "明杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -6773,7 +6773,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "0f15aD8sP9KCaAODhgcCEQ+",
+    "fileId": "c7c213nQ+xKBbhYxPUVCYiY",
     "sync": false
   },
   {
@@ -6858,7 +6858,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "c7478RJuh9KgoHTzxGas++s",
+    "fileId": "3b623t4qhFMQ6sXCIOYrcQ1",
     "sync": false
   },
   {
@@ -6869,7 +6869,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "b2d9epfVWJLtrQNQikIzh2V",
+    "fileId": "a5e0ctVftRFcK5cshGAD4yD",
     "sync": false
   },
   {
@@ -7017,7 +7017,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "05e4bSgrlxN9LCNDj8XNH/K",
+    "fileId": "d1ff0cpVsZDoYiZxwWSuqs4",
     "sync": false
   },
   {
@@ -7102,7 +7102,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "c91bb0kV0FEw7BmRRKS3wOh",
+    "fileId": "5e5d0LkNQdF7rWHpIuu7e8o",
     "sync": false
   },
   {
@@ -7113,7 +7113,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fb4f6dcLmNLnL0LXoWAsJlI",
+    "fileId": "2af798rl6JJs7Lt4fpu7BzD",
     "sync": false
   },
   {
@@ -7124,7 +7124,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "8a2ffliGhtHVpVORXhJc41B",
+    "fileId": "a9cbefFrTVFFJhlCST2ZsNl",
     "sync": false
   },
   {
@@ -7135,7 +7135,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "d8c435dendOlISMV75DaZ3n",
+    "fileId": "06a7fea8OlMSp19h73x43TA",
     "sync": false
   },
   {
@@ -7330,7 +7330,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "e6c73HZhTdDiIUP0HOj9pth",
+    "fileId": "2a8d9fK0rpIFqXytTsthe9X",
     "sync": false
   },
   {
@@ -7419,7 +7419,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "cf96eKuTLFCwoS4OyO+9Q0+",
+    "fileId": "74e1cJjhXdPqaY5WDKES7SR",
     "sync": false
   },
   {
@@ -7510,7 +7510,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "f50aevZuh5JaKMgjmFfJbcH",
+    "fileId": "743fezZZUxNEIVd3fe1XyU7",
     "sync": false
   },
   {
@@ -7595,7 +7595,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "f2f64ftSjhF7Z/9moDDEfAV",
+    "fileId": "bdd2cIkPu1CjarbDHNeGeL2",
     "sync": false
   },
   {
@@ -7686,7 +7686,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "7b23fSIJDlB2ZMJBEqTxgI/",
+    "fileId": "17abba/26FDya2eOmOYgrTZ",
     "sync": false
   },
   {
@@ -7777,7 +7777,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "238f7eh0H1HwpIP0YO0qgo8",
+    "fileId": "5ac8btYWApP94RK+oSQuYhR",
     "sync": false
   },
   {
@@ -7868,7 +7868,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "23cd4by1t9NiYWikH22LeZt",
+    "fileId": "4c6051ytuRKvbQpoRw1y265",
     "sync": false
   },
   {
@@ -7999,7 +7999,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Text",
+    "_name": "text",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -8066,7 +8066,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡自摸",
+    "_N$string": "自摸次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -8079,7 +8079,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "157599117tKDr1xyyAtj/K7",
+    "fileId": "abee6FBSspBGIUpWpm9PcyK",
     "sync": false
   },
   {
@@ -8164,7 +8164,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "0a85eZwPUpARZihRiLLQj3L",
+    "fileId": "a1677IzbP1BTKeG6KEOjSqH",
     "sync": false
   },
   {
@@ -8175,7 +8175,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "41ae8isvmpFtKdPqgVmQKW8",
+    "fileId": "6d5eaUVlLNFVrLckAbT3aw/",
     "sync": false
   },
   {
@@ -8258,7 +8258,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 175,
       "height": 25
     },
     "_children": [],
@@ -8304,7 +8304,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "大胡点炮胡",
+    "_N$string": "大胡点炮胡次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -8317,7 +8317,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "c60c1K+R+ROiayr4Gx3fKkn",
+    "fileId": "906ebgeOkVGEauOXu18gXFi",
     "sync": false
   },
   {
@@ -8402,7 +8402,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "ef745ePnI5BN6KEYaMCKbhH",
+    "fileId": "1ccef4SlwdMdYh0zVuermpa",
     "sync": false
   },
   {
@@ -8413,7 +8413,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fce6cV6LMVDh6bV2BkDxaqZ",
+    "fileId": "e96f5m8gqlHlLE4H+gLelSt",
     "sync": false
   },
   {
@@ -8542,7 +8542,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡自摸",
+    "_N$string": "放炮次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -8555,7 +8555,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "08922x3kxhONo3OwXZ/CK7e",
+    "fileId": "d04cblKCKNMB60ZDwVv3eYd",
     "sync": false
   },
   {
@@ -8640,7 +8640,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "6a408ocfqRNkIMrOJxgdSQI",
+    "fileId": "c1b319/EfZPUrR2fVoFJ9by",
     "sync": false
   },
   {
@@ -8651,7 +8651,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "41799bb2TpFIYE9F94qT9Sm",
+    "fileId": "775b7kQsnNILZgXS1fbFYx5",
     "sync": false
   },
   {
@@ -8734,7 +8734,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 125,
+      "width": 100,
       "height": 25
     },
     "_children": [],
@@ -8780,7 +8780,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "小胡点炮胡",
+    "_N$string": "暗杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -8793,7 +8793,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "ac5e66FkulJ7p5QRdDcwtf9",
+    "fileId": "cc0a1dBkKVPiIFWLz4/EA+3",
     "sync": false
   },
   {
@@ -8878,7 +8878,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fa816YRqbdO+beHsDo7+i+M",
+    "fileId": "acd21Bn2BZHobJl6kAMJwgb",
     "sync": false
   },
   {
@@ -8889,7 +8889,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "a6b4e5l9/dIlIVfNOmkyoa8",
+    "fileId": "939870p7s5BPpphdJh/v8Dp",
     "sync": false
   },
   {
@@ -9018,7 +9018,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "放炮次数",
+    "_N$string": "明杠次数",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -9031,7 +9031,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "0b7f0ixYs5FSKEl057m96LO",
+    "fileId": "8b1323hvbtAEJehcJxYDFVj",
     "sync": false
   },
   {
@@ -9116,7 +9116,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "dda56jQMnlAbZ7eoj/a8GSl",
+    "fileId": "59c0b09cQxBsL8ZI6ZJhh8Z",
     "sync": false
   },
   {
@@ -9127,7 +9127,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "c8a83dKv5ZLYqPwwL2UFxg9",
+    "fileId": "668a4ouQVhOtZDtI8NLGYZu",
     "sync": false
   },
   {
@@ -9275,7 +9275,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "46a9dlK+k5DrbvQMeZjGVGa",
+    "fileId": "642d2VSFmFDGJJxzT+HF3F6",
     "sync": false
   },
   {
@@ -9360,7 +9360,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "d05b9j2jYBLxo6m25Yy7/4+",
+    "fileId": "ef17cqPAlVH16VUDE1Df2vO",
     "sync": false
   },
   {
@@ -9371,7 +9371,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "9fb26/Emz1LKYWE272uZOGt",
+    "fileId": "cb04dvhptdH6aiJH1fpKgxF",
     "sync": false
   },
   {
@@ -9382,7 +9382,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fd909LNKNxNy4A92yVfKQEk",
+    "fileId": "73e62+7E7VOn6M8qz1lu3rt",
     "sync": false
   },
   {
@@ -9393,7 +9393,7 @@
     "asset": {
       "__uuid__": "33ead7b9-82df-43cf-8cf8-f9bd99f109ed"
     },
-    "fileId": "fb4e8pzDBdKLKofITHLp6uN",
+    "fileId": "249bccdxx9EYoszpfHZM0L+",
     "sync": false
   },
   {
