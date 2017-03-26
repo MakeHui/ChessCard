@@ -322,13 +322,9 @@ cc.Class({
     },
 
     onExitRoomMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this._showInvietButton(playerIndex);
-        this._hidePlayerInfoList(playerIndex);
+        this._showInvietButton([playerIndex]);
+        this._hidePlayerInfoList([playerIndex]);
 
         // 从玩家列表中删除该用户
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
@@ -693,7 +689,7 @@ cc.Class({
 
     onSettleForRoundMessage(data) {
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
-        cc.director.loadScene('SmallAccount');
+        Global.openDialog(cc.instantiate(this.smallAccountPrefab), this.node);
     },
 
     onSettleForRoomMessage(data) {
@@ -702,7 +698,7 @@ cc.Class({
         }
         this.webSocket.close();
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
-        cc.director.loadScene('BigAccount');
+        Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
     },
 
     /**
@@ -848,7 +844,7 @@ cc.Class({
         if (actionIdList.length === 1) {
             actionId = actionIdList[0].actionId;
         }
-        // TODO: 大于1表示需要弹出吃的选择
+        // 大于1表示需要弹出吃的选择
         else if (actionIdList.length > 1) {
             for (let i = 0; i < actionIdList.length; i += 1) {
                 const obj = actionIdList[i];
@@ -856,7 +852,7 @@ cc.Class({
                 const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectChiOnClick', JSON.stringify(obj));
                 this.selectChi[i + 1].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
-                const children = this.selectChi[i + 1].children;
+                const children = this.selectChi[i].children;
                 for (let j = 0; j < children.length; j += 1) {
                     const nodeSprite = children[j].getChildByName('value').getComponent(cc.Sprite);
                     if (j === 0) {
@@ -867,7 +863,7 @@ cc.Class({
                     }
                 }
 
-                this.selectChi[i + 1].active = true;
+                this.selectChi[i].active = true;
             }
             this.selectChi[3].active = true;
             return;
@@ -903,7 +899,7 @@ cc.Class({
 
             if (this.getHandcard[0].active) {
                 const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                this._appendCardToHandCardDistrict(0, [{ card }]);
+                this._appendCardToHandCardDistrict(0, [{ card: parseInt(card, 16) }]);
                 this._hideGetHandCard(0);
             }
 
@@ -1335,6 +1331,11 @@ cc.Class({
      * 初始化场景
      */
     _initScene() {
+        const smallAccountNode = Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
+        if (smallAccountNode) {
+            smallAccountNode.destroy();
+        }
+
         for (let i = 0; i < 4; i += 1) {
             this.handCardDistrict[i].removeAllChildren();
             this.dirtyCardDistrict[i].removeAllChildren();

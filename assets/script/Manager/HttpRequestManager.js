@@ -302,7 +302,7 @@ window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
         result = proto[protocol.description][`${protocol.protocol}Response`].deserializeBinary(result);
         result = Tools.protobufToJson(result);
 
-        Global.log(`HttpRequestManager.httpRequest ${name} , data: ${JSON.stringify(result)}`);
+        Global.log([`HttpRequestManager.httpRequest ${name}`, result]);
         callback(event, result);
     };
 };
