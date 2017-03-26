@@ -5204,8 +5204,8 @@ proto.game.LoadPlusWebResponse.prototype.toObject = function(opt_includeInstance
  */
 proto.game.LoadPlusWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    addr: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    port: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    serverIp: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -5244,11 +5244,11 @@ proto.game.LoadPlusWebResponse.deserializeBinaryFromReader = function(msg, reade
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setAddr(value);
+      msg.setServerIp(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setPort(value);
+      msg.setServerPort(value);
       break;
     default:
       reader.skipField();
@@ -5288,14 +5288,14 @@ proto.game.LoadPlusWebResponse.prototype.serializeBinary = function() {
  */
 proto.game.LoadPlusWebResponse.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getAddr();
+  f = this.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPort();
+  f = this.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -5306,31 +5306,31 @@ proto.game.LoadPlusWebResponse.prototype.serializeBinaryToWriter = function (wri
 
 
 /**
- * optional string addr = 1;
+ * optional string server_ip = 1;
  * @return {string}
  */
-proto.game.LoadPlusWebResponse.prototype.getAddr = function() {
+proto.game.LoadPlusWebResponse.prototype.getServerIp = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.game.LoadPlusWebResponse.prototype.setAddr = function(value) {
+proto.game.LoadPlusWebResponse.prototype.setServerIp = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional uint32 port = 2;
+ * optional uint32 server_port = 2;
  * @return {number}
  */
-proto.game.LoadPlusWebResponse.prototype.getPort = function() {
+proto.game.LoadPlusWebResponse.prototype.getServerPort = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.game.LoadPlusWebResponse.prototype.setPort = function(value) {
+proto.game.LoadPlusWebResponse.prototype.setServerPort = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -5381,8 +5381,8 @@ proto.game.LoadMinusWebResponse.prototype.toObject = function(opt_includeInstanc
  */
 proto.game.LoadMinusWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    addr: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    port: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    serverIp: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    serverPort: jspb.Message.getFieldWithDefault(msg, 2, 0)
   };
 
   if (includeInstance) {
@@ -5421,11 +5421,11 @@ proto.game.LoadMinusWebResponse.deserializeBinaryFromReader = function(msg, read
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setAddr(value);
+      msg.setServerIp(value);
       break;
     case 2:
       var value = /** @type {number} */ (reader.readUint32());
-      msg.setPort(value);
+      msg.setServerPort(value);
       break;
     default:
       reader.skipField();
@@ -5465,14 +5465,14 @@ proto.game.LoadMinusWebResponse.prototype.serializeBinary = function() {
  */
 proto.game.LoadMinusWebResponse.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getAddr();
+  f = this.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPort();
+  f = this.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -5483,31 +5483,31 @@ proto.game.LoadMinusWebResponse.prototype.serializeBinaryToWriter = function (wr
 
 
 /**
- * optional string addr = 1;
+ * optional string server_ip = 1;
  * @return {string}
  */
-proto.game.LoadMinusWebResponse.prototype.getAddr = function() {
+proto.game.LoadMinusWebResponse.prototype.getServerIp = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.game.LoadMinusWebResponse.prototype.setAddr = function(value) {
+proto.game.LoadMinusWebResponse.prototype.setServerIp = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional uint32 port = 2;
+ * optional uint32 server_port = 2;
  * @return {number}
  */
-proto.game.LoadMinusWebResponse.prototype.getPort = function() {
+proto.game.LoadMinusWebResponse.prototype.getServerPort = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.game.LoadMinusWebResponse.prototype.setPort = function(value) {
+proto.game.LoadMinusWebResponse.prototype.setServerPort = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 

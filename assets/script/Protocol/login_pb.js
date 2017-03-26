@@ -781,6 +781,7 @@ proto.login.LoginResponse.toObject = function(includeInstance, msg) {
     notice: jspb.Message.getFieldWithDefault(msg, 18, ""),
     shareIco: jspb.Message.getFieldWithDefault(msg, 20, ""),
     shareUrl: jspb.Message.getFieldWithDefault(msg, 21, ""),
+    loginKey: jspb.Message.getFieldWithDefault(msg, 22, ""),
     playerReconnection: jspb.Message.getFieldWithDefault(msg, 23, false),
     playerRoomId: jspb.Message.getFieldWithDefault(msg, 24, 0),
     playerServerIp: jspb.Message.getFieldWithDefault(msg, 25, ""),
@@ -876,6 +877,10 @@ proto.login.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
     case 21:
       var value = /** @type {string} */ (reader.readString());
       msg.setShareUrl(value);
+      break;
+    case 22:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setLoginKey(value);
       break;
     case 23:
       var value = /** @type {boolean} */ (reader.readBool());
@@ -1026,6 +1031,13 @@ proto.login.LoginResponse.prototype.serializeBinaryToWriter = function (writer) 
   if (f.length > 0) {
     writer.writeString(
       21,
+      f
+    );
+  }
+  f = this.getLoginKey();
+  if (f.length > 0) {
+    writer.writeString(
+      22,
       f
     );
   }
@@ -1269,6 +1281,21 @@ proto.login.LoginResponse.prototype.getShareUrl = function() {
 /** @param {string} value */
 proto.login.LoginResponse.prototype.setShareUrl = function(value) {
   jspb.Message.setField(this, 21, value);
+};
+
+
+/**
+ * optional string login_key = 22;
+ * @return {string}
+ */
+proto.login.LoginResponse.prototype.getLoginKey = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 22, ""));
+};
+
+
+/** @param {string} value */
+proto.login.LoginResponse.prototype.setLoginKey = function(value) {
+  jspb.Message.setField(this, 22, value);
 };
 
 
