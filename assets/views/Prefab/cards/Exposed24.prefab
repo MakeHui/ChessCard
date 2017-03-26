@@ -74,7 +74,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "card1",
+    "_name": "Background",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {

@@ -667,6 +667,34 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
+        else if (data.activeType === Global.promptType.KongPong) {
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+
+            // 删除需要删除的手牌
+            for (let i = 0; i < data.refCardList.length; i += 1) {
+                const obj = data.refCardList[i];
+                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+            }
+            let card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+            if (card == data.activeCard.card.toString(16)) {
+                this._hideGetHandCard(playerIndex);
+            }
+
+            for (let i = 0; i < this.pongKongChowDistrict.childrenCount; i += 1) {
+                const children = this.pongKongChowDistrict.children[i];
+                card = Tools.findNode(children, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                if (card == data.activeCard.card.toString(16)) {
+                    children.destroy();
+                    break;
+                }
+            }
+
+            data.refCardList.push(data.activeCard);
+            this._appendExposedToDistrict(playerIndex, data.refCardList);
+
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+        }
         else if (data.activeType === Global.promptType.WinDiscard || data.activeType === Global.promptType.WinDraw) {
             Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
