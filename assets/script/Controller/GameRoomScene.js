@@ -256,7 +256,7 @@ cc.Class({
 
         data.kwargs = JSON.parse(data.kwargs);
         this._GameRoomCache.ownerUuid = data.ownerUuid;
-        this._roomInfo(data.kwargs, 0, data.restCards);
+        this._setRoomInfo(data.kwargs, 0, data.restCards);
 
         this._setThisPlayerSeat(data.playerList);
 
@@ -527,7 +527,7 @@ cc.Class({
         }
 
         // 初始化房间信息
-        this._roomInfo(data.kwargs, data.currentRound, data.restCards);
+        this._setRoomInfo(data.kwargs, data.currentRound, data.restCards);
 
         // 设置当前玩家的座位号
         this._setThisPlayerSeat(data.playerList);
@@ -988,6 +988,8 @@ cc.Class({
         }
         else {
             WebSocketManager.sendSocketMessage(this.webSocket, 'Ready');
+            const currentRound = this.roomInfo[2].string.match(/: ([0-9]?)\//);
+            this.roomInfo[2].string = this.roomInfo[2].string.replace(/: [0-9]?\//, `: ${parseInt(currentRound[1], 10) + 1}/`);
         }
     },
 
@@ -1232,7 +1234,7 @@ cc.Class({
      * @param restCards
      * @private
      */
-    _roomInfo(info, currentRound, restCards) {
+    _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
         const _gameInfo = Global.playerTypes[info.game_uuid];
         let gameInfo = '玩法: ';
