@@ -29,8 +29,8 @@ window.WebSocketManager.Command = {
     Prompt          : 0x1001,       // 2、操作提示
     Action          : 0x1002,       // 3、玩家根据提示列表选择动作
     ReadyHand       : 0x1003,       // 4、听牌提示
-    SettleForRound  : 0x1004,       // 5、小结算
-    SettleForRoom   : 0x1005,       // 6、大结算
+    SettleForRound  : 0x1005,       // 5、小结算
+    SettleForRoom   : 0x1006,       // 6、大结算
     // },
 };
 

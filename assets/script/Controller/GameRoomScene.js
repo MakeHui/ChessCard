@@ -900,6 +900,7 @@ cc.Class({
             if (this.getHandcard[0].active) {
                 const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 this._appendCardToHandCardDistrict(0, [{ card }]);
+                this._hideGetHandCard(0);
             }
 
             WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
@@ -932,7 +933,7 @@ cc.Class({
 
     voteOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendSocketMessage(this.webSocket, 'PlayerVote', { flog: data == 1 });
+        WebSocketManager.sendSocketMessage(this.webSocket, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
         this.voteDismissButton[1].active = false;
