@@ -18,7 +18,8 @@
     "import/no-unresolved": 0,
     "eqeqeq": "off",
     "eol-last": "off",
-    "prefer-rest-params": "off"
+    "prefer-rest-params": "off",
+    "no-bitwise": "off"
   },
   "globals": {
     "window": true,

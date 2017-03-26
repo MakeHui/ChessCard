@@ -33,7 +33,7 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.dialog.open('Loading', this.node);
 
-        const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType || this.options };
+        const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
             if (result.code === 1) {
                 Global.dialog.close();

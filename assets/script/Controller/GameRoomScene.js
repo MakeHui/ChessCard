@@ -1281,26 +1281,14 @@ cc.Class({
      */
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
-        const _gameInfo = Global.playerTypes[info.game_uuid];
-        let gameInfo = '玩法: ';
-        for (const k in info.play_type) {
-            if (info.play_type[k] === 1) {
-                gameInfo += `${_gameInfo.play_type[k]},`;
-            }
-        }
-        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n封顶: `;
+        const playTypes = Global.playTypes[info.game_uuid];
+        info.options = `0x${info.options.toString(16)}`;
+        const num = info.options & 0x1;
 
-        for (const k in info.options) {
-            if (info.options[k] === 1) {
-                gameInfo += `${_gameInfo.options[k]},`;
-            }
-        }
-        gameInfo = gameInfo.substr(0, gameInfo.length - 1);
-
+        this.roomInfo[4].string = `玩法: ${playTypes.playType[num]}\n封顶: ${playTypes.options[info.options ^ num]}`;
         this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
-        this.roomInfo[4].string = gameInfo;
     },
 
     _getActionIdFromPromptList(prompt) {
