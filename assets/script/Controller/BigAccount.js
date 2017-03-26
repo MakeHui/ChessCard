@@ -5,7 +5,7 @@ cc.Class({
         playerList: {
             default: [],
             type: cc.Node,
-        }
+        },
     },
 
     // use this for initialization

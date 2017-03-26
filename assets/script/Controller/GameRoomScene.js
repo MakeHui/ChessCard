@@ -697,8 +697,12 @@ cc.Class({
     },
 
     onSettleForRoomMessage(data) {
+        if (this.voteDismiss.active) {
+            this.voteDismiss.active = false;
+        }
+        this.webSocket.close();
         Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
-        cc.director.loadScene('SmallAccount');
+        cc.director.loadScene('BigAccount');
     },
 
     /**
