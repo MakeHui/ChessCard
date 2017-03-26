@@ -10,6 +10,8 @@ cc.Class({
 
         cardPinList: cc.SpriteAtlas,
 
+        countDownAnimation: cc.Animation,
+
         // 当前出牌的人前面的标识
         makeSeat: {
             default: [],
@@ -168,6 +170,7 @@ cc.Class({
         this._GameRoomCache.activeCard = null;      // 当前最后出的那张牌
         this._GameRoomCache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
         this._GameRoomCache.allowOutCard = false;   // 是否允许出牌
+        this._GameRoomCache.lastHasAction = false;  // 上一次出牌是否有action
         this._GameRoomCache.settleForRoomData = null;    // 大结算数据
 
         // todo: 需要删除
@@ -452,6 +455,7 @@ cc.Class({
 
     onDrawMessage(data) {
         Global.playEffect(Global.audioUrl.effect.dealCard);
+        this.countDownAnimation.play();
 
         this._GameRoomCache.allowOutCard = true;
 
@@ -485,7 +489,12 @@ cc.Class({
 
         this._createActiveCardFlag(playerIndex);
         const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
-        this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
+        if (!this._GameRoomCache.lastHasAction) {
+            this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
+        }
+        else {
+            this._GameRoomCache.lastHasAction = false;
+        }
     },
 
     // todo: 需要完善
@@ -578,6 +587,7 @@ cc.Class({
     },
 
     onPromptMessage(data) {
+        this.countDownAnimation.play();
         this._GameRoomCache.promptList = data.promptList;
 
         let promptType = [];
@@ -591,6 +601,9 @@ cc.Class({
     },
 
     onActionMessage(data) {
+        this.countDownAnimation.play();
+
+        this._GameRoomCache.lastHasAction = true;
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
 
         if (data.playerUuid === this._userInfo.playerUuid) {
@@ -701,6 +714,8 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
+
+        this._openLight(playerIndex);
     },
 
     onReadyHandMessage(data) {
@@ -875,6 +890,8 @@ cc.Class({
 
     actionOnClick(event, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
+        this.countDownAnimation.play();
+
         this._hideActionPrompt();
 
         let actionId = null;

@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        countDownLabel: cc.Label,
     },
 
     // use this for initialization
@@ -23,5 +23,9 @@ cc.Class({
     closeTrojanScanCallback() {
         this.node.destroy();
         Global.log('closeTrojanScanCallback');
+    },
+
+    countDownCallback(data) {
+        this.countDownLabel.string = data;
     },
 });

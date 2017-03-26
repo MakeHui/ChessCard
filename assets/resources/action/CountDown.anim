@@ -1,0 +1,113 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "CountDown",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 9,
+  "sample": 1,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "color": [
+        {
+          "frame": 0,
+          "value": {
+            "__type__": "cc.Color",
+            "r": 252,
+            "g": 248,
+            "b": 248,
+            "a": 255
+          }
+        },
+        {
+          "frame": 9,
+          "value": {
+            "__type__": "cc.Color",
+            "r": 255,
+            "g": 0,
+            "b": 0,
+            "a": 255
+          }
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "countDownCallback",
+      "params": [
+        9
+      ]
+    },
+    {
+      "frame": 0,
+      "func": "",
+      "params": []
+    },
+    {
+      "frame": 1,
+      "func": "countDownCallback",
+      "params": [
+        "8"
+      ]
+    },
+    {
+      "frame": 2,
+      "func": "countDownCallback",
+      "params": [
+        "7"
+      ]
+    },
+    {
+      "frame": 3,
+      "func": "countDownCallback",
+      "params": [
+        "6"
+      ]
+    },
+    {
+      "frame": 4,
+      "func": "countDownCallback",
+      "params": [
+        "5"
+      ]
+    },
+    {
+      "frame": 5,
+      "func": "countDownCallback",
+      "params": [
+        "4"
+      ]
+    },
+    {
+      "frame": 6,
+      "func": "countDownCallback",
+      "params": [
+        "3"
+      ]
+    },
+    {
+      "frame": 7,
+      "func": "countDownCallback",
+      "params": [
+        "2"
+      ]
+    },
+    {
+      "frame": 8,
+      "func": "countDownCallback",
+      "params": [
+        "1"
+      ]
+    },
+    {
+      "frame": 9,
+      "func": "countDownCallback",
+      "params": [
+        "0"
+      ]
+    }
+  ]
+}
