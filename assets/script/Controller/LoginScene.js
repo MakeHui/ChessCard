@@ -96,7 +96,7 @@ cc.Class({
                 Global.tempCache = '登陆失败，验证码过期';
             }
             else if (result.code === 1031) {
-                Global.tempCache = '登陆失败，验证码过期';
+                Global.tempCache = '登陆失败，请稍后重试';
             }
             Global.dialog.open('Dialog', this.node);
         });

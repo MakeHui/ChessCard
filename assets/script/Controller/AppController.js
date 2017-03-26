@@ -33,7 +33,7 @@ cc.Class({
                 if (result.code === 1) {
                     if (result.isLogin == 0 || result.isLogin == 2) {
                         Tools.setLocalData(Global.LSK.secretKey, '');
-                        cc.director.loadScene('LoginScene');
+                        cc.director.loadScene('Login');
                     }
 
                     if (scene.name === 'Lobby') {

@@ -9,36 +9,23 @@ cc.Class({
     onLoad() {
         this.gameUuid = '100100';
         this.maxRounds = 8;
-        this.roomConfig = {
-            play_type: {
-                is_small_win: 1,
-            },
-            options: {
-                small_win: 1,
-                big_win: 0,
-                two_win: 0,
-                three_win: 0,
-                four_win: 0,
-            },
-        };
+        this.playType = 0x1;
+        this.options = 0x10;
     },
 
     selectedOnClick(toggle, data) {
+        Global.log(arguments);
+
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         data = data.split('-');
-        if (parseInt(data[0], 10) === 1) {
-            if (parseInt(data[1], 10) === 1) {
-                this.maxRounds = 8;
-            }
-            else {
-                this.maxRounds = 16;
-            }
+        if (data[0] == 0) {
+            this.maxRounds = parseInt(data[1], 10);
         }
-        else if (parseInt(data[0], 10) === 3) {
-            for (const k in this.roomConfig.options) {
-                this.roomConfig.options[k] = 0;
-            }
-            this.roomConfig.options[data[1]] = 1;
+        else if (data[0] == 1) {
+            this.playType = data[1];
+        }
+        else if (data[0] == 2) {
+            this.options = data[1];
         }
     },
 
@@ -46,11 +33,7 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.dialog.open('Loading', this.node);
 
-        const parameters = {
-            gameUuid: this.gameUuid,
-            maxRounds: this.maxRounds,
-            roomConfig: JSON.stringify(this.roomConfig),
-        };
+        const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType || this.options };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
             if (result.code === 1) {
                 Global.dialog.close();

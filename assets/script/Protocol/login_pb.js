@@ -2555,7 +2555,7 @@ proto.login.RoomCreateRequest.toObject = function(includeInstance, msg) {
     playerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     deviceId: jspb.Message.getFieldWithDefault(msg, 4, ""),
     maxRounds: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    roomConfig: jspb.Message.getFieldWithDefault(msg, 6, "")
+    roomConfig: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -2613,7 +2613,7 @@ proto.login.RoomCreateRequest.deserializeBinaryFromReader = function(msg, reader
       msg.setMaxRounds(value);
       break;
     case 6:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setRoomConfig(value);
       break;
     default:
@@ -2690,8 +2690,8 @@ proto.login.RoomCreateRequest.prototype.serializeBinaryToWriter = function (writ
     );
   }
   f = this.getRoomConfig();
-  if (f.length > 0) {
-    writer.writeString(
+  if (f !== 0) {
+    writer.writeInt32(
       6,
       f
     );
@@ -2775,15 +2775,15 @@ proto.login.RoomCreateRequest.prototype.setMaxRounds = function(value) {
 
 
 /**
- * optional string room_config = 6;
- * @return {string}
+ * optional int32 room_config = 6;
+ * @return {number}
  */
 proto.login.RoomCreateRequest.prototype.getRoomConfig = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
-/** @param {string} value */
+/** @param {number} value */
 proto.login.RoomCreateRequest.prototype.setRoomConfig = function(value) {
   jspb.Message.setField(this, 6, value);
 };

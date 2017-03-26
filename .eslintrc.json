@@ -5,19 +5,20 @@
     "es6":true
   },
   "rules": {
-    "no-param-reassign": 0,
-    "no-underscore-dangle": 0,
-    "brace-style": 0,
-    "max-len": 0,
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "brace-style": "off",
+    "max-len": "off",
     "indent": ["error", 4],
     "arrow-body-style": ["error", "always"],
-    "no-restricted-syntax": 0,
-    "guard-for-in": 0,
-    "key-spacing": 0,
-    "global-require": 0,
+    "no-restricted-syntax": "off",
+    "guard-for-in": "off",
+    "key-spacing": "off",
+    "global-require": "off",
     "import/no-unresolved": 0,
-    "eqeqeq": 0,
-    "eol-last": 0
+    "eqeqeq": "off",
+    "eol-last": "off",
+    "prefer-rest-params": "off"
   },
   "globals": {
     "window": true,

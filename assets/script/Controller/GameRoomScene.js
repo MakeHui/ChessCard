@@ -1288,7 +1288,7 @@ cc.Class({
                 gameInfo += `${_gameInfo.play_type[k]},`;
             }
         }
-        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n可选: `;
+        gameInfo = `${gameInfo.substr(0, gameInfo.length - 1)}\n封顶: `;
 
         for (const k in info.options) {
             if (info.options[k] === 1) {
