@@ -20,7 +20,7 @@ cc.Class({
             Global.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
         else {
-            this.httpLogin(secretKey);
+            this.httpLogin(secretKey, 'login');
         }
     },
 
@@ -37,7 +37,7 @@ cc.Class({
             return;
         }
 
-        this.httpLogin(secretKey);
+        this.httpLogin(secretKey, 'login');
     },
 
     /**
@@ -65,16 +65,16 @@ cc.Class({
         Global.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
-    httpLogin(secretKey) {
+    httpLogin(secretKey, requestName) {
         Global.dialog.open('Loading', this.node);
         const parameters = { wxCode: secretKey, location: window.userLocation };
-        HttpRequestManager.httpRequest('login', parameters, (event, result) => {
+        HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
             Global.dialog.close();
 
             if (result.code === 1) {
                 result.location = Tools.getLocalData(Global.LSK.userInfo_location);
                 Tools.setLocalData(Global.LSK.userInfo, result);
-                Tools.setLocalData(Global.LSK.secretKey, secretKey);
+                Tools.setLocalData(Global.LSK.secretKey, result.loginKey);
 
                 if (result.playerReconnection) {
                     Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
@@ -83,11 +83,22 @@ cc.Class({
                 else {
                     cc.director.loadScene('Lobby');
                 }
+                return;
             }
-            else {
-                Global.tempCache = '登录失败, 秘钥错误';
-                Global.dialog.open('Dialog', this.node);
+
+            if (result.code === 1011) {
+                Global.tempCache = '登陆失败，用户不存在';
             }
+            else if (result.code === 1012) {
+                Global.tempCache = '登陆失败，账号被封';
+            }
+            else if (result.code === 1013) {
+                Global.tempCache = '登陆失败，验证码过期';
+            }
+            else if (result.code === 1031) {
+                Global.tempCache = '登陆失败，验证码过期';
+            }
+            Global.dialog.open('Dialog', this.node);
         });
     },
 

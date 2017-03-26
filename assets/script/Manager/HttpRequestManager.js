@@ -18,6 +18,11 @@ window.HttpRequestManager.requestProtocol = {
         description: 'login',
         protocol: 'Login',
     },
+    authCodeLogin: {
+        api: 'client/login/auth_code',
+        description: 'login',
+        protocol: 'Login',
+    },
     heartbeat: {
         api: 'client/heartbeat',
         description: 'login',
