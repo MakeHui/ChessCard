@@ -495,6 +495,8 @@ cc.Class({
         else {
             this._GameRoomCache.lastHasAction = false;
         }
+
+        Global.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
 
     // todo: 需要完善
@@ -662,7 +664,7 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.KongConcealed) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -708,11 +710,19 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.WinDiscard || data.activeType === Global.promptType.WinDraw) {
+        else if (data.activeType === Global.promptType.WinDraw) {
+            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
+
+            // todo: 胡牌动画, 更改为胡了之后显示该张牌
+            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
+            // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+        }
+        else if (data.activeType === Global.promptType.WinDiscard) {
             Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
-            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+            // todo: 胡牌动画, 更改为胡了之后显示该张牌
+            // this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
+            // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
 
         this._openLight(playerIndex);
