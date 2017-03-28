@@ -179,16 +179,15 @@ cc.Class({
 
         if (Global.tempCache) {
             const self = this;
-            this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
             this._GameRoomCache.roomId = Global.tempCache.roomId;
+            this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
 
-            this.webSocket = WebSocketManager.openSocketLink(this.wsUrl);
-            this.webSocket.addEventListener('open', (evt) => {
+            WebSocketManager.onopen = (evt) => {
                 Global.log(['WebSocket.open: ', evt]);
-                WebSocketManager.sendSocketMessage(self.webSocket, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
-                WebSocketManager.sendSocketMessage(self.webSocket, 'Ready');
-            }, false);
-            this.webSocket.addEventListener('message', (evt) => {
+                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
+                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
+            };
+            WebSocketManager.onmessage = (evt) => {
                 const data = WebSocketManager.ArrayBuffer.reader(evt.data);
                 Global.log(`WebSocket onmessage: ${JSON.stringify(data)}`);
                 if (data === false) {
@@ -210,7 +209,8 @@ cc.Class({
 
                 Global.log([`WebSocket.message ${commandName}: `, result]);
                 self[`on${commandName}Message`](result);
-            }, false);
+            };
+            WebSocketManager.openSocketLink(this.wsUrl);
 
             this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         }
@@ -353,19 +353,19 @@ cc.Class({
 
         if (data.flag === 0) {
             if (this._GameRoomCache.ownerUuid === this._userInfo.playerUuid) {
-                this.webSocket.close();
+                WebSocketManager.ws.close();
                 cc.director.loadScene('Lobby');
             }
             else {
                 Global.tempCache = '房主已解散房间';
                 Global.dialog.open('Dialog', this.node, () => {
-                    this.webSocket.close();
+                    WebSocketManager.ws.close();
                     cc.director.loadScene('Lobby');
                 });
             }
         }
         else if (data.flag === 1) {
-            this.webSocket.close();
+            WebSocketManager.ws.close();
             cc.director.loadScene('Lobby');
         }
     },
@@ -765,7 +765,7 @@ cc.Class({
     onSettleForRoomMessage(data) {
         if (this.voteDismiss.active || this._GameRoomCache.settleForRoomData) {
             this.voteDismiss.active = false;
-            this.webSocket.close();
+            WebSocketManager.ws.close();
             Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
             Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
@@ -879,7 +879,7 @@ cc.Class({
     wordChatOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
-        WebSocketManager.sendSocketMessage(this.webSocket, 'Speaker', { content });
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
         Global.playEffect(Global.audioUrl.fastChat[`fw_male_${data}`]);
@@ -890,7 +890,7 @@ cc.Class({
     emojiChatOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
-        WebSocketManager.sendSocketMessage(this.webSocket, 'Speaker', { content });
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
         this.fastChatShowTime = +new Date();
@@ -943,7 +943,7 @@ cc.Class({
             return;
         }
 
-        WebSocketManager.sendSocketMessage(this.webSocket, 'Action', { actionId });
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId });
     },
 
     /**
@@ -976,7 +976,7 @@ cc.Class({
                 this._hideGetHandCard(0);
             }
 
-            WebSocketManager.sendSocketMessage(this.webSocket, 'Discard', { card: data });
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Discard', { card: data });
 
             Global.playEffect(Global.audioUrl.effect.cardOut);
         }
@@ -1001,12 +1001,12 @@ cc.Class({
      */
     dismissOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendSocketMessage(this.webSocket, 'DismissRoom');
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'DismissRoom');
     },
 
     voteOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        WebSocketManager.sendSocketMessage(this.webSocket, 'PlayerVote', { flag: data == 1 });
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
         this.voteDismissButton[1].active = false;
@@ -1022,14 +1022,14 @@ cc.Class({
         this._hideSelectChiPanel();
 
         data = JSON.parse(data);
-        WebSocketManager.sendSocketMessage(this.webSocket, 'Action', { actionId: data.actionId });
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data.actionId });
     },
 
     closeOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
-            WebSocketManager.sendSocketMessage(this.webSocket, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
-            this.webSocket.close();
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
+            WebSocketManager.ws.close();
             cc.director.loadScene('Lobby');
         }
         else {
@@ -1049,7 +1049,7 @@ cc.Class({
             this.onSettleForRoomMessage(this._GameRoomCache.settleForRoomData);
         }
         else {
-            WebSocketManager.sendSocketMessage(this.webSocket, 'Ready');
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
             const currentRound = this.roomInfo[2].string.match(/: ([0-9]?)\//);
             this.roomInfo[2].string = this.roomInfo[2].string.replace(/: [0-9]?\//, `: ${parseInt(currentRound[1], 10) + 1}/`);
         }

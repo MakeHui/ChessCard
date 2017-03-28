@@ -243,11 +243,25 @@ window.WebSocketManager.ArrayBuffer = {
 /**
  * 链接webSocket
  * @param url
- * @returns ReconnectingWebSocket
  */
 window.WebSocketManager.openSocketLink = function (url) {
-    return new RobustWebSocket(url);
+    window.WebSocketManager.ws = new WebSocket(url);
+    window.WebSocketManager.ws.addEventListener('open', function() {
+        this.binaryType = 'arraybuffer';
+    }, false);
+    window.WebSocketManager.ws.addEventListener('close', function(evt) {
+        Global.log(['window.WebSocketManager.openSocketLink.close', evt]);
+        setTimeout(function() {
+            WebSocketManager.openSocketLink(url);
+        }, 5000);
+    }, false);
+
+    window.WebSocketManager.ws.addEventListener('open', WebSocketManager.onopen, false);
+    window.WebSocketManager.ws.addEventListener('message', WebSocketManager.onmessage, false);
 };
+
+window.WebSocketManager.onmessage = function (evt) {};
+window.WebSocketManager.onopen = function (evt) {};
 
 /**
  * 查询webSocket 状态
