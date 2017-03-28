@@ -457,6 +457,10 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.dealCard);
         this.countDownAnimation.play();
 
+        if (data.card.card === 0) {
+            return;
+        }
+
         this._GameRoomCache.allowOutCard = true;
 
         const self = this;
@@ -954,7 +958,6 @@ cc.Class({
             if (!this._GameRoomCache.allowOutCard) {
                 return;
             }
-
             this._GameRoomCache.allowOutCard = false;
             if (event.target.name === 'GetHandCard') {
                 this._hideGetHandCard(0);
