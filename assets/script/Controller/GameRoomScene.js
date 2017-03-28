@@ -162,6 +162,7 @@ cc.Class({
         this._GameRoomCache = {};
         this._GameRoomCache.roomId = '';        // 房间号
         this._GameRoomCache.ownerUuid = '';     // 房主uuid
+        this._GameRoomCache.cardCount = 0;     // 剩余牌数
         this._GameRoomCache.playerList = [];    // 玩家信息列表
         this._GameRoomCache.promptList = [];    // 提示操作信息
         this._GameRoomCache.thisPlayerSeat = 0; // 当前玩家实际座位号
@@ -754,6 +755,8 @@ cc.Class({
                 self.dirtyCardDistrict[i].removeAllChildren();
                 self.pongKongChowDistrict[i].removeAllChildren();
             }
+
+            this.roomInfo[3].string = `剩余牌数: ${this._GameRoomCache.cardCount}`;
             this._initReadyHand();
             this._hideSelectChiPanel();
         });
@@ -1303,6 +1306,8 @@ cc.Class({
         this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
+
+        this._GameRoomCache.cardCount = restCards;
     },
 
     _getActionIdFromPromptList(prompt) {
