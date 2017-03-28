@@ -240,24 +240,27 @@ window.WebSocketManager.ArrayBuffer = {
  ***********************************************************************************************************************
  **/
 
+window.WebSocketManager.ws = {};
+
 /**
  * 链接webSocket
  * @param url
  */
 window.WebSocketManager.openSocketLink = function (url) {
-    window.WebSocketManager.ws = new WebSocket(url);
-    window.WebSocketManager.ws.addEventListener('open', function() {
+    WebSocketManager.ws = new WebSocket(url);
+    WebSocketManager.ws.onopen = function(evt) {
         this.binaryType = 'arraybuffer';
-    }, false);
-    window.WebSocketManager.ws.addEventListener('close', function(evt) {
+        WebSocketManager.onopen(evt);
+    };
+
+    WebSocketManager.ws.onclose = function(evt) {
         Global.log(['window.WebSocketManager.openSocketLink.close', evt]);
         setTimeout(function() {
             WebSocketManager.openSocketLink(url);
-        }, 5000);
-    }, false);
+        }, 3000);
+    };
 
-    window.WebSocketManager.ws.addEventListener('open', WebSocketManager.onopen, false);
-    window.WebSocketManager.ws.addEventListener('message', WebSocketManager.onmessage, false);
+    WebSocketManager.ws.onmessage = WebSocketManager.onmessage;
 };
 
 window.WebSocketManager.onmessage = function (evt) {};
