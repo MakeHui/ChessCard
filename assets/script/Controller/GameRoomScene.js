@@ -680,7 +680,6 @@ cc.Class({
                 this._hideGetHandCard(playerIndex);
             }
 
-            data.refCardList.push(data.activeCard);
             this._appendConcealedKongToDistrict(playerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
@@ -698,8 +697,8 @@ cc.Class({
                 }
             }
 
-            for (let i = 0; i < this.pongKongChowDistrict.childrenCount; i += 1) {
-                const children = this.pongKongChowDistrict.children[i];
+            for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
+                const children = this.pongKongChowDistrict[playerIndex].children[i];
                 const card = Tools.findNode(children, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 if (card == data.refCardList[0].card.toString(16)) {
                     children.destroy();
@@ -708,7 +707,7 @@ cc.Class({
             }
 
             for (let i = 0; i < 3; i += 1) {
-                data.refCardList.push({ card: data.refCardList[0] });
+                data.refCardList.push({ card: data.refCardList[0].card });
             }
             this._appendExposedToDistrict(playerIndex, data.refCardList);
 
@@ -755,6 +754,8 @@ cc.Class({
                 self.dirtyCardDistrict[i].removeAllChildren();
                 self.pongKongChowDistrict[i].removeAllChildren();
             }
+            this._initReadyHand();
+            this._hideSelectChiPanel();
         });
     },
 
@@ -777,7 +778,6 @@ cc.Class({
      **/
 
     showUserInfoOnClick(evt, data) {
-        Global.log(this._GameRoomCache);
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
             if (playerIndex == data) {
@@ -1415,6 +1415,7 @@ cc.Class({
         this._closeAllLight();
         this._hideActionPrompt();
         this._initReadyHand();
+        this._hideSelectChiPanel();
 
         this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
     },
