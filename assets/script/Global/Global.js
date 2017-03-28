@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * 全局应用相关配置类
  *
@@ -67,7 +69,7 @@ window.Global = {
         secretKey: 'SecretKey',
         userInfo_location: 'UserInfo_Location',
         playMusicConfig: 'PlayMusicConfig',
-        showTrojanScan: 'ShowTrojanScan',
+        showTrojanScan: 'ShowTrojanScan'
     },
 
     /**
@@ -76,7 +78,7 @@ window.Global = {
      */
     apiAddress: {
         development: 'http://login.px258.qingwuguo.com/',
-        production: 'http://login.px258.qingwuguo.com/',
+        production: 'http://login.px258.qingwuguo.com/'
     },
 
     /**
@@ -86,7 +88,7 @@ window.Global = {
     audioUrl: {
         background: {
             game: 'resources/audio/background/bgm1.mp3',
-            menu: 'resources/audio/background/bg_menu.mp3',
+            menu: 'resources/audio/background/bg_menu.mp3'
         },
         effect: {
             buttonClick: 'resources/audio/effect/sound_button_click.mp3',
@@ -95,7 +97,7 @@ window.Global = {
             ready: 'resources/audio/effect/sound_ready.mp3',
             shaizi: 'resources/audio/effect/sound_shaizi.mp3',
             start: 'resources/audio/effect/sound_start.mp3',
-            timeupAlarm: 'resources/audio/effect/sound_timeup_alarm.mp3',
+            timeupAlarm: 'resources/audio/effect/sound_timeup_alarm.mp3'
         },
         fastChat: {
             fw_female_0: 'resources/audio/fast_chat/fw_female_0.mp3',
@@ -113,7 +115,7 @@ window.Global = {
             fw_male_4: 'resources/audio/fast_chat/fw_male_4.mp3',
             fw_male_5: 'resources/audio/fast_chat/fw_male_5.mp3',
             fw_male_6: 'resources/audio/fast_chat/fw_male_6.mp3',
-            fw_male_7: 'resources/audio/fast_chat/fw_male_7.mp3',
+            fw_male_7: 'resources/audio/fast_chat/fw_male_7.mp3'
         },
         common: {
             man: {
@@ -157,7 +159,7 @@ window.Global = {
                 ankong: 'resources/audio/game/common/man/action/angang.mp3',
                 win: 'resources/audio/game/common/man/action/hu.mp3',
                 ting: 'resources/audio/game/common/man/action/ting.mp3',
-                zimo: 'resources/audio/game/common/man/action/zhimo.mp3',
+                zimo: 'resources/audio/game/common/man/action/zhimo.mp3'
             },
             woman: {
                 0x11: 'resources/audio/game/common/woman/card/wan1.mp3',
@@ -200,94 +202,90 @@ window.Global = {
                 ankong: 'resources/audio/game/common/woman/action/angang.mp3',
                 win: 'resources/audio/game/common/woman/action/hu.mp3',
                 ting: 'resources/audio/game/common/woman/action/ting.mp3',
-                zimo: 'resources/audio/game/common/woman/action/zhimo.mp3',
-            },
-        },
+                zimo: 'resources/audio/game/common/woman/action/zhimo.mp3'
+            }
+        }
     },
 
     /**
      * 房间状态吗
      */
     roomStatusCode: {
-        InitState: 0,     // 初始状态
-        ReadyState: 1,    // 准备状态
-        DealState: 2,     // 发牌状态
-        StepState: 3,     // 玩家出完牌后桌子进入step状态
-        WaitState: 4,     // 等待状态
-        EndState: 5,      // 结束状态
-        LiujuState: 6,    // 流局
-        RestartState: 7,  // 再来
-        SettleForRoundState: 8,   // 小结算
-        SettleForRoomState: 9,    //大结算
-    },
+        InitState: 0, // 初始状态
+        ReadyState: 1, // 准备状态
+        DealState: 2, // 发牌状态
+        StepState: 3, // 玩家出完牌后桌子进入step状态
+        WaitState: 4, // 等待状态
+        EndState: 5, // 结束状态
+        LiujuState: 6, // 流局
+        RestartState: 7, // 再来
+        SettleForRoundState: 8, // 小结算
+        SettleForRoomState: 9 },
 
     /**
      * 操作类型
      */
     promptType: {
-        Chow: 1,  // 吃
-        Pong: 2,  // 碰
-        KongConcealed: 3,  // 暗杠
-        kongExposed: 4,  // 明杠
-        KongPong: 5,  // 碰杠（转弯杠）
-        WinDiscard: 6,  // 放炮胡
-        WinDraw: 7,  // 自摸胡
-    },
+        Chow: 1, // 吃
+        Pong: 2, // 碰
+        KongConcealed: 3, // 暗杠
+        kongExposed: 4, // 明杠
+        KongPong: 5, // 碰杠（转弯杠）
+        WinDiscard: 6, // 放炮胡
+        WinDraw: 7 },
 
     winType: {
         Pao: -1, // 放炮
         None: 0, // 平局
         Discard: 1, // 点炮胡
-        Draw: 2,  // 自摸胡
-    },
+        Draw: 2 },
 
     /**
      * 胡牌类型
      */
     winFlag: {
-        PH: '平胡',  // 平胡： 即为最普通的胡牌，可吃可碰，可杠，但是在所胡的牌中，必须要有一对 2 或者 5 或者 8 为头才允许胡牌（即“有 258 将的要求”），否则不允许胡牌。
+        PH: '平胡', // 平胡： 即为最普通的胡牌，可吃可碰，可杠，但是在所胡的牌中，必须要有一对 2 或者 5 或者 8 为头才允许胡牌（即“有 258 将的要求”），否则不允许胡牌。
 
-        QYS: '清一色',  // 一和子 清一色：不带 258 做头，俗称不带“ 真 将 ”，可吃可碰
-        QDZ: '七对子',  // 一和子 七对子：无需 258 将的要求
-        DDH: '对对胡',  // 一和子 对对胡：（有 258 将的要求）举例：“ 222 万， 333 索， 444 筒，东东东， 6 万”，并无听叫，不能胡牌！必须要 是有真将 “ 222 万， 333 索， 444 筒，东东东， 8 万”，听牌只能胡“ 8 万”，其他牌不能胡。再比如：“ 22 万， 333 梭， 444 筒， 777 筒，北北”，听牌只能胡“北风”，其他牌不能胡。 『不管有没有碰或者杠，只要没有吃牌，最后牌型为 4 组刻子（其中允许存在明、暗刻子或者杠）+真将即可』
-        LJ: '乱将',  // 一和子 乱将：（可碰，无吃牌，即为手上所有的牌都为 2 或者 5 或者 8 ，不论万索筒均可，而无其他任何平和牌的规则，只需全部为 258 即可）举例：“ 2258 万， 225558 索， 288 筒”，听牌能胡“所有的 258 数字的牌，不论万索筒”
-        YTL: '一条龙',  // 一和子 一条龙：（有 258 将的要求，而且龙不能下水，即龙不能吃，只能最后一张牌胡别人的）举例：“ 12345678 万，吃了 345 筒， 88 索”，听牌能胡“ 9 万”，算一条龙！举例：“ 12378 万，吃了 456 万， 345 筒， 88 索”，听牌胡“ 69 万”，但只能算平胡，不能算一条龙大胡！
+        QYS: '清一色', // 一和子 清一色：不带 258 做头，俗称不带“ 真 将 ”，可吃可碰
+        QDZ: '七对子', // 一和子 七对子：无需 258 将的要求
+        DDH: '对对胡', // 一和子 对对胡：（有 258 将的要求）举例：“ 222 万， 333 索， 444 筒，东东东， 6 万”，并无听叫，不能胡牌！必须要 是有真将 “ 222 万， 333 索， 444 筒，东东东， 8 万”，听牌只能胡“ 8 万”，其他牌不能胡。再比如：“ 22 万， 333 梭， 444 筒， 777 筒，北北”，听牌只能胡“北风”，其他牌不能胡。 『不管有没有碰或者杠，只要没有吃牌，最后牌型为 4 组刻子（其中允许存在明、暗刻子或者杠）+真将即可』
+        LJ: '乱将', // 一和子 乱将：（可碰，无吃牌，即为手上所有的牌都为 2 或者 5 或者 8 ，不论万索筒均可，而无其他任何平和牌的规则，只需全部为 258 即可）举例：“ 2258 万， 225558 索， 288 筒”，听牌能胡“所有的 258 数字的牌，不论万索筒”
+        YTL: '一条龙', // 一和子 一条龙：（有 258 将的要求，而且龙不能下水，即龙不能吃，只能最后一张牌胡别人的）举例：“ 12345678 万，吃了 345 筒， 88 索”，听牌能胡“ 9 万”，算一条龙！举例：“ 12378 万，吃了 456 万， 345 筒， 88 索”，听牌胡“ 69 万”，但只能算平胡，不能算一条龙大胡！
 
-        QYSDZJ: '双和子 清一色带真将',  // 双和子 清一色带真将：有 258 做头，俗称带“真将”，可吃可碰，也有 *2 包牌规则
-        LQ: '双和子 龙七',  // 双和子 龙七：（无 258 将的要求，和普通七对子的唯一区别为：七对子中有四张同样的牌，即称为隆七）举例：“ 2233 万， 2244 索， 8888 筒，中”，听牌胡“中字”，其他牌不能胡。清一色的七对（有无真将相同）。字一色的七对。举例：“ 2233 万， 2244 索， 88 筒，中中中”，听牌胡“中字”，其他牌不能胡。
-        SSL: '双和子 十三烂',  // 双和子 十三烂：（无 258 将的要求，要求非常严格，必须为五个字，万筒索中必须为 147 、 258 、 369 ，不允许重复）举例：“ 147 万， 258 索， 369 万，东南西北”，听牌胡“中发白”，其他牌不能胡。举例：“ 369 万， 14 索， 258 筒，东南西北中”，听牌只能胡“ 7 索”，其他牌不能胡。
-        ZYS: '双和子 字一色',  // 双和子 字一色：（规则类似于乱将，无 258 将要求，只需手中所有牌均为字牌即可，可碰，无吃牌）举例：“东东东东，西西西，南南南，中中白”，听牌胡“任何字牌”
-        QYSQD: '双和子 清一色七对',  // 双和子 清一色七对 ：可带，但不能全是将
-        QYSDDH: '双和子 清一色对对胡',  // 双和子 清一色对对胡 ：( 不带真将 )( 规则如对对胡和清一色 , 但无将做头 )
-        JYSQD: '双和子 将一色七对',  // 双和子 将一色七对
-        JYSDDH: '双和子 将一色对对胡',  // 双和子 将一色对对胡
+        QYSDZJ: '双和子 清一色带真将', // 双和子 清一色带真将：有 258 做头，俗称带“真将”，可吃可碰，也有 *2 包牌规则
+        LQ: '双和子 龙七', // 双和子 龙七：（无 258 将的要求，和普通七对子的唯一区别为：七对子中有四张同样的牌，即称为隆七）举例：“ 2233 万， 2244 索， 8888 筒，中”，听牌胡“中字”，其他牌不能胡。清一色的七对（有无真将相同）。字一色的七对。举例：“ 2233 万， 2244 索， 88 筒，中中中”，听牌胡“中字”，其他牌不能胡。
+        SSL: '双和子 十三烂', // 双和子 十三烂：（无 258 将的要求，要求非常严格，必须为五个字，万筒索中必须为 147 、 258 、 369 ，不允许重复）举例：“ 147 万， 258 索， 369 万，东南西北”，听牌胡“中发白”，其他牌不能胡。举例：“ 369 万， 14 索， 258 筒，东南西北中”，听牌只能胡“ 7 索”，其他牌不能胡。
+        ZYS: '双和子 字一色', // 双和子 字一色：（规则类似于乱将，无 258 将要求，只需手中所有牌均为字牌即可，可碰，无吃牌）举例：“东东东东，西西西，南南南，中中白”，听牌胡“任何字牌”
+        QYSQD: '双和子 清一色七对', // 双和子 清一色七对 ：可带，但不能全是将
+        QYSDDH: '双和子 清一色对对胡', // 双和子 清一色对对胡 ：( 不带真将 )( 规则如对对胡和清一色 , 但无将做头 )
+        JYSQD: '双和子 将一色七对', // 双和子 将一色七对
+        JYSDDH: '双和子 将一色对对胡', // 双和子 将一色对对胡
 
-        QYSDDHDZJ: '三和子 清一色对对和带 真 将',  // 三和子 清一色对对和带 真 将 （规则同上，只是同时符合三种规则）
-        SLQ: '三和子 双龙七',  // 三和子 双龙七 （无 258 将的要求，和龙七的唯一区别为：七对子中有两个四张同样的牌，即称为双龙七）
-        ZYSDDH: '三和子 字一色对对和',  // 三和子 字一色对对和 （顾名思义）
-        QYSYTL: '三和子 清一色一条龙',  // 三和子 清一色一条龙
+        QYSDDHDZJ: '三和子 清一色对对和带 真 将', // 三和子 清一色对对和带 真 将 （规则同上，只是同时符合三种规则）
+        SLQ: '三和子 双龙七', // 三和子 双龙七 （无 258 将的要求，和龙七的唯一区别为：七对子中有两个四张同样的牌，即称为双龙七）
+        ZYSDDH: '三和子 字一色对对和', // 三和子 字一色对对和 （顾名思义）
+        QYSYTL: '三和子 清一色一条龙', // 三和子 清一色一条龙
 
-        SANLQ: '四和子 三龙七',  // 四和子 三龙七（顾名思义）
-        TH: '四和子 天胡',  // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
-        DU: '四和子 地胡',  // 四和子 地胡 （即胡庄家打出的第一张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
-    },
+        SANLQ: '四和子 三龙七', // 四和子 三龙七（顾名思义）
+        TH: '四和子 天胡', // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
+        DU: '四和子 地胡' },
 
     // 游戏玩法对应中文名称
     playTypes: {
         100100: {
             playType: {
                 0x1: '小胡子胡',
-                0x0: '小胡子不可胡',
+                0x0: '小胡子不可胡'
             },
             options: {
                 0x10: '平胡(1番)',
                 0x100: '普通大胡(4番)',
                 0x1000: '双和子(8番)',
                 0x10000: '三和子(16番)',
-                0x100000: '四和子(32番)',
-            },
-        },
-    },
+                0x100000: '四和子(32番)'
+            }
+        }
+    }
 };
 
 /**
@@ -300,7 +298,9 @@ window.Global = {
  * @param parentNode    cc.Node     父节点对象
  * @param callback      Function    回调方法
  */
-window.Global.openDialog = (node, parentNode, callback = Function) => {
+window.Global.openDialog = function (node, parentNode) {
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
+
     parentNode.addChild(node);
     callback();
 
@@ -316,10 +316,10 @@ window.Global.openDialog = (node, parentNode, callback = Function) => {
  * @param    {cc.Node}                 node     需要关闭的节点对象
  * @param    {Function}               callback 自行完毕后的回调方法
  */
-window.Global.closeDialog = (node, callback) => {
-    callback = callback || (() => {});
+window.Global.closeDialog = function (node, callback) {
+    callback = callback || function () {};
 
-    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), () => {
+    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), function () {
         node.destroy();
         callback();
     });
@@ -335,8 +335,8 @@ window.Global.closeDialog = (node, callback) => {
  *
  * @return   {string}
  */
-window.Global.getDeviceId = () => {
-    let deviceId = Tools.getLocalData(Global.LSK.deviceId);
+window.Global.getDeviceId = function () {
+    var deviceId = Tools.getLocalData(Global.LSK.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
         Tools.setLocalData(Global.LSK.deviceId, deviceId);
@@ -352,19 +352,19 @@ window.Global.getDeviceId = () => {
  *
  * @param {Array} listView
  */
-window.Global.cardsSort = (listView) => {
+window.Global.cardsSort = function (listView) {
     if (listView.length === 0) {
         Global.log('window.Global.cardsSort: listView 不能为空~');
         return;
     }
 
-    listView.sort((nodeA, nodeB) => {
-        const cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-        const cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+    listView.sort(function (nodeA, nodeB) {
+        var cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        var cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
         return parseInt(cardB, 16) - parseInt(cardA, 16);
     });
 
-    for (let i = 0; i < listView.length; i += 1) {
+    for (var i = 0; i < listView.length; i += 1) {
         listView[i].setLocalZOrder(i);
     }
 };
@@ -380,11 +380,10 @@ window.Global.dialog = {
     dialogPrefab: null,
     node: null,
 
-    open(name, node, callback) {
+    open: function open(name, node, callback) {
         if (name === 'Loading') {
             this.node = cc.instantiate(this.loadingPrefab);
-        }
-        else {
+        } else {
             this.node = cc.instantiate(this.dialogPrefab);
             this.node.getComponent('Dialog').callback = callback;
         }
@@ -398,14 +397,12 @@ window.Global.dialog = {
         //     self.close();
         // }, this, 30, 0);
     },
-
-    _open(node) {
+    _open: function _open(node) {
         node.addChild(this.node);
     },
-
-    close() {
+    close: function close() {
         this.node.destroy();
-    },
+    }
 };
 
 /**
@@ -413,20 +410,19 @@ window.Global.dialog = {
  *
  * @param url
  */
-window.Global.playEffect = (url) => {
+window.Global.playEffect = function (url) {
     if (!url) {
-        Global.log(`window.Global.playEffect: url不存在, ${url}`);
+        Global.log('window.Global.playEffect: url不存在, ' + url);
         return;
     }
-    const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+    var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
     if (playMusicConfig.effect) {
-        const audioRaw = cc.url.raw(url);
+        var audioRaw = cc.url.raw(url);
         cc.audioEngine.play(audioRaw, false, 1);
     }
 };
 
-
-window.Global.log = (obj) => {
+window.Global.log = function (obj) {
     if (Global.debug) {
         cc.warn(obj);
     }

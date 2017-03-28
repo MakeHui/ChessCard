@@ -1,3 +1,4 @@
+'use strict';
 
 window.HttpRequestManager = {};
 
@@ -11,68 +12,68 @@ window.HttpRequestManager.requestProtocol = {
     check: {
         api: 'client/check',
         description: 'login',
-        protocol: 'CheckVersion',
+        protocol: 'CheckVersion'
     },
     login: {
         api: 'client/login',
         description: 'login',
-        protocol: 'Login',
+        protocol: 'Login'
     },
     authCodeLogin: {
         api: 'client/login/auth_code',
         description: 'login',
-        protocol: 'Login',
+        protocol: 'Login'
     },
     heartbeat: {
         api: 'client/heartbeat',
         description: 'login',
-        protocol: 'Heartbeat',
+        protocol: 'Heartbeat'
     },
     playerGold: {
         api: 'login/balance',
         description: 'login',
-        protocol: 'PlayerGold',
+        protocol: 'PlayerGold'
     },
     roomCreate: {
         api: 'room/create',
         description: 'login',
-        protocol: 'RoomCreate',
+        protocol: 'RoomCreate'
     },
     roomEnter: {
         api: 'room/enter',
         description: 'login',
-        protocol: 'RoomEnter',
+        protocol: 'RoomEnter'
     },
     roomList: {
         api: 'room/ing_list_for_self',
         description: 'login',
-        protocol: 'RoomList',
+        protocol: 'RoomList'
     },
     recordList: {
         api: 'room/end_list_for_self',
         description: 'login',
-        protocol: 'RecordList',
+        protocol: 'RecordList'
     },
     recordInfo: {
         api: 'room/record',
         description: 'login',
-        protocol: 'RecordInfo',
+        protocol: 'RecordInfo'
     },
     recordListSelf: {
         api: 'room/record_self',
         description: 'login',
-        protocol: 'RecordList',
+        protocol: 'RecordList'
     },
     replay: {
         api: 'room/replay',
         description: 'login',
-        protocol: 'Replay',
+        protocol: 'Replay'
     },
     roomReplay: {
         api: 'room/record_by_room_id',
         description: 'login',
-        protocol: 'RoomReplay',
-    },
+        protocol: 'RoomReplay'
+    }
 };
 
 /**
@@ -89,14 +90,15 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getCheckVersionRequestMessage() {
-        const message = new proto.login.CheckVersionRequest();
+    getCheckVersionRequestMessage: function getCheckVersionRequestMessage() {
+        var message = new proto.login.CheckVersionRequest();
         message.setAppUuid(Global.appUuid);
         message.setVerNo(Global.version);
         message.setAndroidOrIos(Global.os);
 
         return message;
     },
+
 
     /**
      * 2、登陆
@@ -106,8 +108,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getLoginRequestMessage(parameters) {
-        const message = new proto.login.LoginRequest();
+    getLoginRequestMessage: function getLoginRequestMessage(parameters) {
+        var message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
         message.setAppUuid(Global.appUuid);
         message.setDeviceId(Global.getDeviceId());
@@ -118,6 +120,7 @@ window.HttpRequestManager.requestMessage = {
         return message;
     },
 
+
     /**
      * 3、客户端大厅心跳
      *
@@ -125,9 +128,9 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getHeartbeatRequestMessage() {
-        const message = new proto.login.HeartbeatRequest();
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+    getHeartbeatRequestMessage: function getHeartbeatRequestMessage() {
+        var message = new proto.login.HeartbeatRequest();
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Global.getDeviceId());
@@ -135,6 +138,7 @@ window.HttpRequestManager.requestMessage = {
 
         return message;
     },
+
 
     /**
      * 4、用户获取账户信息，获取用户金币
@@ -144,8 +148,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getPlayerGoldRequestMessage(parameters) {
-        const message = new proto.login.PlayerGoldRequest();
+    getPlayerGoldRequestMessage: function getPlayerGoldRequestMessage(parameters) {
+        var message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
         message.setAppUuid(Global.appUuid);
         message.setDeviceId(Global.getDeviceId());
@@ -153,6 +157,7 @@ window.HttpRequestManager.requestMessage = {
         Global.log([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
         return message;
     },
+
 
     /**
      * 6、创建房间
@@ -162,9 +167,9 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomCreateRequestMessage(parameters) {
-        const message = new proto.login.RoomCreateRequest();
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+    getRoomCreateRequestMessage: function getRoomCreateRequestMessage(parameters) {
+        var message = new proto.login.RoomCreateRequest();
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setGameUuid(parameters.gameUuid);
@@ -177,6 +182,7 @@ window.HttpRequestManager.requestMessage = {
         return message;
     },
 
+
     /**
      * 7、进入房间
      *
@@ -185,9 +191,9 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomEnterRequestMessage(parameters) {
-        const message = new proto.login.RoomEnterRequest();
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+    getRoomEnterRequestMessage: function getRoomEnterRequestMessage(parameters) {
+        var message = new proto.login.RoomEnterRequest();
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -198,6 +204,7 @@ window.HttpRequestManager.requestMessage = {
         return message;
     },
 
+
     /**
      * 8、获取玩家进行中房间列表
      *
@@ -205,9 +212,9 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getRoomListRequestMessage() {
-        const message = new proto.login.RoomListRequest();
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+    getRoomListRequestMessage: function getRoomListRequestMessage() {
+        var message = new proto.login.RoomListRequest();
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -215,6 +222,7 @@ window.HttpRequestManager.requestMessage = {
 
         return message;
     },
+
 
     /**
      * 9、获取玩家已结束房间列表
@@ -224,9 +232,9 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getRecordListRequestMessage() {
-        const message = new proto.login.RecordListRequest();
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+    getRecordListRequestMessage: function getRecordListRequestMessage() {
+        var message = new proto.login.RecordListRequest();
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
@@ -234,6 +242,7 @@ window.HttpRequestManager.requestMessage = {
 
         return message;
     },
+
 
     /**
      * 10、获取玩家战绩详情
@@ -243,8 +252,8 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRecordInfoRequestMessage(parameters) {
-        const message = new proto.login.RecordInfoRequest();
+    getRecordInfoRequestMessage: function getRecordInfoRequestMessage(parameters) {
+        var message = new proto.login.RecordInfoRequest();
         message.setAppUuid(parameters.appUuid);
         message.setPlayerUuid(parameters.playerUuid);
         message.setDeviceId(parameters.deviceId);
@@ -252,6 +261,7 @@ window.HttpRequestManager.requestMessage = {
 
         return message;
     },
+
 
     /**
      * 12、获取回放数据
@@ -261,14 +271,15 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    geReplayRequestMessage(parameters) {
-        const message = new proto.login.ReplayRequest();
+    geReplayRequestMessage: function geReplayRequestMessage(parameters) {
+        var message = new proto.login.ReplayRequest();
         message.setAppUuid(parameters.appUuid);
         message.setRoomUuid(parameters.roomUuid);
         message.setTheRound(parameters.theRound);
 
         return message;
     },
+
 
     /**
      * 13、根据6位房间id获取数据
@@ -278,13 +289,13 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomReplayRequestMessage(parameters) {
-        const message = new proto.login.RoomReplayRequest();
+    getRoomReplayRequestMessage: function getRoomReplayRequestMessage(parameters) {
+        var message = new proto.login.RoomReplayRequest();
         message.setAppUuid(parameters.appUuid);
         message.setRoomId(parameters.roomId);
 
         return message;
-    },
+    }
 };
 
 /**
@@ -294,20 +305,20 @@ window.HttpRequestManager.requestMessage = {
  * @param parameters
  * @param callback
  */
-window.HttpRequestManager.httpRequest = (name, parameters, callback) => {
-    const protocol = HttpRequestManager.requestProtocol[name];
-    const message = HttpRequestManager.requestMessage[`get${protocol.protocol}RequestMessage`](parameters);
-    const request = cc.loader.getXMLHttpRequest();
+window.HttpRequestManager.httpRequest = function (name, parameters, callback) {
+    var protocol = HttpRequestManager.requestProtocol[name];
+    var message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
+    var request = cc.loader.getXMLHttpRequest();
 
     request.open('POST', (Global.debug ? Global.apiAddress.development : Global.apiAddress.production) + protocol.api);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(message.serializeBinary());
-    request.onload = (event) => {
-        let result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
-        result = proto[protocol.description][`${protocol.protocol}Response`].deserializeBinary(result);
+    request.onload = function (event) {
+        var result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
+        result = proto[protocol.description][protocol.protocol + 'Response'].deserializeBinary(result);
         result = Tools.protobufToJson(result);
 
-        Global.log([`HttpRequestManager.httpRequest ${name}`, result]);
+        Global.log(['HttpRequestManager.httpRequest ' + name, result]);
         callback(event, result);
     };
 };

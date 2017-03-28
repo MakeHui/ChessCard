@@ -7,6 +7,8 @@
  *
  * @datetime 2017-02-14 18:51:29
  */
+'use strict';
+
 window.Tools = {};
 
 /**
@@ -19,8 +21,8 @@ window.Tools = {};
  * @param    {value}                 value
  * @return   {Boolean}
  */
-window.Tools.removeArrayInValue = (array, value) => {
-    const index = array.indexOf(value);
+window.Tools.removeArrayInValue = function (array, value) {
+    var index = array.indexOf(value);
     if (index > -1) {
         array.splice(index, 1);
         return true;
@@ -39,10 +41,10 @@ window.Tools.removeArrayInValue = (array, value) => {
  * @param    {string}                  path 子节点名称
  * @return   {cc.Node}
  */
-window.Tools.findNode = (node, path) => {
+window.Tools.findNode = function (node, path) {
     path = path.split('>');
 
-    for (let i = 0; i < path.length; i += 1) {
+    for (var i = 0; i < path.length; i += 1) {
         node = window.Tools._findNode(node, path[i]);
         if (node === false) {
             return false;
@@ -52,10 +54,9 @@ window.Tools.findNode = (node, path) => {
     return node;
 };
 
-window.Tools._findNode = (node, name) => {
+window.Tools._findNode = function (node, name) {
     return node.getChildByName(name) || false;
 };
-
 
 /**
  * 获取本地存储数据
@@ -66,8 +67,8 @@ window.Tools._findNode = (node, name) => {
  * @param    {string}                 key 存储本地数据的key
  * @return   {Object}
  */
-window.Tools.getLocalData = (key) => {
-    const data = cc.sys.localStorage.getItem(key); // 从本地读取数据
+window.Tools.getLocalData = function (key) {
+    var data = cc.sys.localStorage.getItem(key); // 从本地读取数据
 
     return data ? JSON.parse(data) : null;
 };
@@ -81,7 +82,7 @@ window.Tools.getLocalData = (key) => {
  * @param    {string}                 key
  * @param    {Object}                 data
  */
-window.Tools.setLocalData = (key, data) => {
+window.Tools.setLocalData = function (key, data) {
     cc.sys.localStorage.setItem(key, JSON.stringify(data));
 };
 
@@ -91,16 +92,15 @@ window.Tools.setLocalData = (key, data) => {
  * @param {cc.Sprite} sprite
  * @param url
  */
-window.Tools.setWebImage = (sprite, url) => {
+window.Tools.setWebImage = function (sprite, url) {
     if (!url) {
         Global.log(['window.Tools.setWebImage', 'url 不存在']);
         return;
     }
-    cc.loader.load(url, (err, texture) => {
+    cc.loader.load(url, function (err, texture) {
         if (err) {
             Global.log(err);
-        }
-        else {
+        } else {
             sprite.spriteFrame = new cc.SpriteFrame(texture);
         }
     });
@@ -111,18 +111,17 @@ window.Tools.setWebImage = (sprite, url) => {
  * @param url
  * @param callback
  */
-window.Tools.getWebAudio = (url, callback) => {
-    callback = callback || (() => {});
+window.Tools.getWebAudio = function (url, callback) {
+    callback = callback || function () {};
 
     if (!url) {
         Global.log(['window.Tools.setWebAudio', 'url 不存在']);
         return;
     }
-    cc.loader.load(url, (err, audioRaw) => {
+    cc.loader.load(url, function (err, audioRaw) {
         if (err) {
             Global.log(err);
-        }
-        else {
+        } else {
             callback(audioRaw);
         }
     });
@@ -135,7 +134,7 @@ window.Tools.getWebAudio = (url, callback) => {
 window.Tools.audioEngine = {
     audioId: null,
 
-    init(audioUrl, isLoop, volume) {
+    init: function init(audioUrl, isLoop, volume) {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
@@ -143,33 +142,31 @@ window.Tools.audioEngine = {
         return clone(this);
     },
 
-    play() {
+    play: function play() {
         if (this.audioId === null) {
             this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
-        }
-        else if (this.state() !== 1) {
+        } else if (this.state() !== 1) {
             cc.audioEngine.resume(this.audioId);
         }
     },
 
-    stop() {
+    stop: function stop() {
         cc.audioEngine.pause(this.audioId);
     },
 
-    state() {
+    state: function state() {
         return cc.audioEngine.getState(this.audioId);
     },
 
-    setAudioRaw(audio) {
+    setAudioRaw: function setAudioRaw(audio) {
         if (typeof audio === 'string') {
             this.audioRaw = cc.url.raw(audio);
-        }
-        else {
+        } else {
             this.audioRaw = audio;
         }
 
         return this;
-    },
+    }
 };
 
 /**
@@ -192,26 +189,26 @@ window.Tools.audioEngine = {
  *
  * @return   {string}
  */
-window.Tools.formatDatetime = (formatString, datetime) => {
+window.Tools.formatDatetime = function (formatString, datetime) {
     datetime = datetime || new Date();
     datetime = typeof datetime === 'object' ? datetime : new Date(datetime);
 
-    const o = {
-        'M+': datetime.getMonth() + 1,                      // 月份
-        'd+': datetime.getDate(),                           // 日
-        'h+': datetime.getHours(),                          // 小时
-        'i+': datetime.getMinutes(),                        // 分
-        's+': datetime.getSeconds(),                        // 秒
-        'q+': Math.floor((datetime.getMonth() + 3) / 3),    // 季度
-        S: datetime.getMilliseconds(),                    // 毫秒
-    };
+    var o = {
+        'M+': datetime.getMonth() + 1, // 月份
+        'd+': datetime.getDate(), // 日
+        'h+': datetime.getHours(), // 小时
+        'i+': datetime.getMinutes(), // 分
+        's+': datetime.getSeconds(), // 秒
+        'q+': Math.floor((datetime.getMonth() + 3) / 3), // 季度
+        S: datetime.getMilliseconds() };
+    // 毫秒
     if (/(y+)/.test(formatString)) {
-        formatString = formatString.replace(RegExp.$1, (datetime.getFullYear().toString()).substr(4 - RegExp.$1.length));
+        formatString = formatString.replace(RegExp.$1, datetime.getFullYear().toString().substr(4 - RegExp.$1.length));
     }
 
-    for (const k in o) {
-        if (new RegExp(`(${k})`).test(formatString)) {
-            formatString = formatString.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : ((`00${o[k]}`).substr((o[k].toString()).length)));
+    for (var k in o) {
+        if (new RegExp('(' + k + ')').test(formatString)) {
+            formatString = formatString.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ('00' + o[k]).substr(o[k].toString().length));
         }
     }
     return formatString;
@@ -227,33 +224,35 @@ window.Tools.formatDatetime = (formatString, datetime) => {
  * @param    {Function}               callback
  * @param    {string}                 fileName 保存的名称
  */
-window.Tools.captureScreen = (node, callback, fileName) => {
+window.Tools.captureScreen = function (node, callback, fileName) {
     fileName = fileName || 'temp.jpg';
 
     // 注意，EditBox，VideoPlayer，Webview 等控件无法截图
 
     if (CC_JSB) {
-        // 如果待截图的场景中含有 mask，请开启下面注释的语句
-        const renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
-        // var renderTexture = cc.RenderTexture.create(node.width, node.height);
+        (function () {
+            // 如果待截图的场景中含有 mask，请开启下面注释的语句
+            var renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
+            // var renderTexture = cc.RenderTexture.create(node.width, node.height);
 
-        // 把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
-        node.parent._sgNode.addChild(renderTexture);
-        // 把 renderTexture 设置为不可见，可以避免截图成功后，移除 renderTexture 造成的闪烁
-        renderTexture.setVisible(false);
+            // 把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
+            node.parent._sgNode.addChild(renderTexture);
+            // 把 renderTexture 设置为不可见，可以避免截图成功后，移除 renderTexture 造成的闪烁
+            renderTexture.setVisible(false);
 
-        // 实际截屏的代码
-        renderTexture.begin();
-        // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
-        node._sgNode.visit();
-        renderTexture.end();
-        renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, () => {
-            // 把 renderTexture 从场景中移除
-            renderTexture.removeFromParent();
-            Global.log('capture screen successfully!');
+            // 实际截屏的代码
+            renderTexture.begin();
+            // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
+            node._sgNode.visit();
+            renderTexture.end();
+            renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, function () {
+                // 把 renderTexture 从场景中移除
+                renderTexture.removeFromParent();
+                Global.log('capture screen successfully!');
 
-            callback(jsb.fileUtils.getWritablePath() + fileName);
-        });
+                callback(jsb.fileUtils.getWritablePath() + fileName);
+            });
+        })();
     }
 };
 
@@ -267,18 +266,17 @@ window.Tools.captureScreen = (node, callback, fileName) => {
  * @param    {Object}                 type
  * @param    {Function}               callback
  */
-window.Tools.loadRes = (name, type, callback) => {
-    let folder = '';
+window.Tools.loadRes = function (name, type, callback) {
+    var folder = '';
     if (type === cc.Prefab) {
         folder = 'prefab';
-    }
-    else if (type === cc.SpriteFrame) {
+    } else if (type === cc.SpriteFrame) {
         folder = 'Texture';
     }
 
-    cc.loader.loadRes(`${folder}/${name}`, type, (error, resource) => {
+    cc.loader.loadRes(folder + '/' + name, type, function (error, resource) {
         if (error) {
-            Global.log(`window.Tools.loadRes: 获取失败~, error: ${error}`);
+            Global.log('window.Tools.loadRes: 获取失败~, error: ' + error);
             return;
         }
         callback(resource);
@@ -296,8 +294,8 @@ window.Tools.loadRes = (name, type, callback) => {
  * @param    {string}               handler 响应事件函数名
  * @param    {string}               customEventData 自定义事件数据
  */
-window.Tools.createEventHandler = (node, component, handler, customEventData) => {
-    const eventHandler = new cc.Component.EventHandler();
+window.Tools.createEventHandler = function (node, component, handler, customEventData) {
+    var eventHandler = new cc.Component.EventHandler();
     eventHandler.target = node;
     eventHandler.component = component;
     eventHandler.handler = handler;
@@ -338,7 +336,7 @@ window.Tools.HotUpdate = {
      *
      * @param    {cc.RawAsset}                 manifestUrl [description]
      */
-    init(manifestUrl) {
+    init: function init(manifestUrl) {
         // Hot update is only available in Native build
         if (!cc.sys.isNative) {
             return;
@@ -351,8 +349,8 @@ window.Tools.HotUpdate = {
 
         this.manifestUrl = manifestUrl;
 
-        const storagePath = (`${jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/'}remote-asset`);
-        Global.log(`Storage path for remote asset : ${storagePath}`);
+        var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset';
+        Global.log('Storage path for remote asset : ' + storagePath);
         // Global.log('Local manifest URL : ' + this.manifestUrl);
 
         // 获取 manifest 地址
@@ -365,13 +363,13 @@ window.Tools.HotUpdate = {
         // if the return value greater than 0, versionA is greater than B,
         // if the return value equals 0, versionA equals to B,
         // if the return value smaller than 0, versionA is smaller than B.
-        this._assetsManager.setVersionCompareHandle((versionA, versionB) => {
-            Global.log(`JS Custom Version Compare: version A is ${versionA}, version B is ${versionB}`);
-            const vA = versionA.split('.');
-            const vB = versionB.split('.');
-            for (let i = 0; i < vA.length; i += 1) {
-                const a = parseInt(vA[i], 10);
-                const b = parseInt(vB[i] || 0, 10);
+        this._assetsManager.setVersionCompareHandle(function (versionA, versionB) {
+            Global.log('JS Custom Version Compare: version A is ' + versionA + ', version B is ' + versionB);
+            var vA = versionA.split('.');
+            var vB = versionB.split('.');
+            for (var i = 0; i < vA.length; i += 1) {
+                var a = parseInt(vA[i], 10);
+                var b = parseInt(vB[i] || 0, 10);
                 if (a !== b) {
                     return a - b;
                 }
@@ -385,21 +383,21 @@ window.Tools.HotUpdate = {
 
         // Setup the verification callback, but we don't have md5 check function yet, so only print some message
         // Return true if the verification passed, otherwise return false
-        this._assetsManager.setVerifyCallback((path, asset) => {
+        this._assetsManager.setVerifyCallback(function (path, asset) {
             // When asset is compressed, we don't need to check its md5, because zip file have been deleted.
-            const compressed = asset.compressed;
+            var compressed = asset.compressed;
             // Retrieve the correct md5 value.
-            const expectedMD5 = asset.md5;
+            var expectedMD5 = asset.md5;
             // asset.path is relative path and path is absolute.
-            const relativePath = asset.path;
+            var relativePath = asset.path;
             // The size of asset file, but this value could be absent.
             // var size = asset.size;
             if (compressed) {
-                Global.log(`Verification passed : ${relativePath}`);
+                Global.log('Verification passed : ' + relativePath);
                 return true;
             }
 
-            Global.log(`Verification passed : ${relativePath} (${expectedMD5})`);
+            Global.log('Verification passed : ' + relativePath + ' (' + expectedMD5 + ')');
             return true;
         });
         Global.log('Hot update is ready, please check or directly update.');
@@ -420,33 +418,33 @@ window.Tools.HotUpdate = {
      *
      * @param    {Function}               callback
      */
-    checkUpdateCallback(callback) {
-        const self = this;
+    checkUpdateCallback: function checkUpdateCallback(callback) {
+        var self = this;
 
-        this._checkCallback = (event) => {
-            Global.log(`Code: ${event.getEventCode()}`);
-            let hasUpdate = false;
+        this._checkCallback = function (event) {
+            Global.log('Code: ' + event.getEventCode());
+            var hasUpdate = false;
 
             switch (event.getEventCode()) {
-            case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                Global.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
-                break;
-            case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                Global.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
-                break;
-            case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                Global.log('Fail to download manifest file, hot update skipped. 无法下载');
-                break;
-            case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                Global.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
-                break;
-            case jsb.EventAssetsManager.NEW_VERSION_FOUND:
-                Global.log('New version found, please try to update. 找到新版本');
-                hasUpdate = true;
-                break;
-            default:
-                Global.log('error');
-                break;
+                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                    Global.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                    break;
+                case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                    Global.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                    break;
+                case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+                    Global.log('Fail to download manifest file, hot update skipped. 无法下载');
+                    break;
+                case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                    Global.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                    break;
+                case jsb.EventAssetsManager.NEW_VERSION_FOUND:
+                    Global.log('New version found, please try to update. 找到新版本');
+                    hasUpdate = true;
+                    break;
+                default:
+                    Global.log('error');
+                    break;
             }
 
             cc.eventManager.removeListener(self._checkUpdateListener);
@@ -465,7 +463,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:50:20+0800
      *
      */
-    _checkUpdate() {
+    _checkUpdate: function _checkUpdate() {
         if (!this._assetsManager.getLocalManifest().isLoaded()) {
             Global.log('Failed to load local manifest ...');
             return;
@@ -484,58 +482,58 @@ window.Tools.HotUpdate = {
      *
      * @param    {Function}               callback [description]
      */
-    hotUpdateCallback(callback) {
-        const self = this;
+    hotUpdateCallback: function hotUpdateCallback(callback) {
+        var self = this;
 
-        this._updateCallback = (event) => {
-            let needRestart = false;
-            let failed = false;
-            const isSuccess = false;
-            let byteProgress = 0.0;
-            let fileProgress = 0.0;
+        this._updateCallback = function (event) {
+            var needRestart = false;
+            var failed = false;
+            var isSuccess = false;
+            var byteProgress = 0.0;
+            var fileProgress = 0.0;
 
             switch (event.getEventCode()) {
-            case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
-                Global.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
-                failed = true;
-                break;
-            case jsb.EventAssetsManager.UPDATE_PROGRESSION:
-                byteProgress = event.getPercent() / 100;
-                fileProgress = event.getPercentByFile() / 100;
+                case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
+                    Global.log('No local manifest file found, hot update skipped. 没有本地 manifest 文件');
+                    failed = true;
+                    break;
+                case jsb.EventAssetsManager.UPDATE_PROGRESSION:
+                    byteProgress = event.getPercent() / 100;
+                    fileProgress = event.getPercentByFile() / 100;
 
-                if (event.getMessage()) {
-                    Global.log(`Updated file: ${event.getMessage()}`);
-                    Global.log(`${event.getPercent().toFixed(2)}% : ${event.getMessage()}`);
-                }
-                break;
-            case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
-                Global.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
-                break;
-            case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
-                Global.log('Fail to download manifest file, hot update skipped. 无法下载');
-                failed = true;
-                break;
-            case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
-                Global.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
-                failed = true;
-                break;
-            case jsb.EventAssetsManager.UPDATE_FINISHED:
-                Global.log(`Update finished. ${event.getMessage()}`);
-                needRestart = true;
-                break;
-            case jsb.EventAssetsManager.UPDATE_FAILED:
-                Global.log(`Update failed. ${event.getMessage()}`);
-                self._isUpdating = false;
-                self._canRetry = true;
-                break;
-            case jsb.EventAssetsManager.ERROR_isUpdating:
-                Global.log(`Asset update error: ${event.getAssetId()}, ${event.getMessage()}`);
-                break;
-            case jsb.EventAssetsManager.ERROR_DECOMPRESS:
-                Global.log(event.getMessage());
-                break;
-            default:
-                break;
+                    if (event.getMessage()) {
+                        Global.log('Updated file: ' + event.getMessage());
+                        Global.log(event.getPercent().toFixed(2) + '% : ' + event.getMessage());
+                    }
+                    break;
+                case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
+                    Global.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                    break;
+                case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
+                    Global.log('Fail to download manifest file, hot update skipped. 无法下载');
+                    failed = true;
+                    break;
+                case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
+                    Global.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                    failed = true;
+                    break;
+                case jsb.EventAssetsManager.UPDATE_FINISHED:
+                    Global.log('Update finished. ' + event.getMessage());
+                    needRestart = true;
+                    break;
+                case jsb.EventAssetsManager.UPDATE_FAILED:
+                    Global.log('Update failed. ' + event.getMessage());
+                    self._isUpdating = false;
+                    self._canRetry = true;
+                    break;
+                case jsb.EventAssetsManager.ERROR_isUpdating:
+                    Global.log('Asset update error: ' + event.getAssetId() + ', ' + event.getMessage());
+                    break;
+                case jsb.EventAssetsManager.ERROR_DECOMPRESS:
+                    Global.log(event.getMessage());
+                    break;
+                default:
+                    break;
             }
 
             callback(isSuccess, byteProgress, fileProgress);
@@ -551,8 +549,8 @@ window.Tools.HotUpdate = {
                 self._hotUpdateListener = null;
 
                 // Prepend the manifest's search path
-                const searchPaths = jsb.fileUtils.getSearchPaths();
-                const newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
+                var searchPaths = jsb.fileUtils.getSearchPaths();
+                var newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
                 Global.log(JSON.stringify(newPaths));
                 Array.prototype.unshift(searchPaths, newPaths);
 
@@ -575,7 +573,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:50:53+0800
      *
      */
-    _hotUpdate() {
+    _hotUpdate: function _hotUpdate() {
         if (this._assetsManager && !this._isUpdating) {
             this._isUpdating = true;
             this._hotUpdateListener = new jsb.EventListenerAssetsManager(this._assetsManager, this._updateCallback.bind(this));
@@ -591,7 +589,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:51:03+0800
      *
      */
-    retry() {
+    retry: function retry() {
         if (!this._isUpdating && this._canRetry) {
             this._canRetry = false;
             Global.log('Retry failed Assets...');
@@ -606,7 +604,7 @@ window.Tools.HotUpdate = {
      * @datetime 2017-02-24T18:51:16+0800
      *
      */
-    destroy() {
+    destroy: function destroy() {
         if (this._hotUpdateListener) {
             cc.eventManager.removeListener(this._hotUpdateListener);
             this._hotUpdateListener = null;
@@ -614,7 +612,7 @@ window.Tools.HotUpdate = {
         if (this._assetsManager && !cc.sys.ENABLE_GC_FOR_NATIVE_OBJECTS) {
             this._assetsManager.release();
         }
-    },
+    }
 };
 
 /**
@@ -625,7 +623,11 @@ window.Tools.HotUpdate = {
  *
  * @param    {string}                 str
  */
-window.Tools.firstUpperCase = (str) => { return str.replace(/\b[a-z]/g, (s) => { return s.toUpperCase(); }); };
+window.Tools.firstUpperCase = function (str) {
+    return str.replace(/\b[a-z]/g, function (s) {
+        return s.toUpperCase();
+    });
+};
 
 /**
  * 字符串首字母小写
@@ -635,7 +637,11 @@ window.Tools.firstUpperCase = (str) => { return str.replace(/\b[a-z]/g, (s) => {
  *
  * @param    {string}                 str
  */
-window.Tools.firstLowerCase = (str) => { return str.replace(/^\S/g, (s) => { return s.toLowerCase(); }); };
+window.Tools.firstLowerCase = function (str) {
+    return str.replace(/^\S/g, function (s) {
+        return s.toLowerCase();
+    });
+};
 
 /**
  * protobuf 转 json
@@ -645,23 +651,21 @@ window.Tools.firstLowerCase = (str) => { return str.replace(/^\S/g, (s) => { ret
  *
  * @param    {Object} protobuf
  */
-window.Tools.protobufToJson = (protobuf) => {
-    const result = {};
-    for (const name in protobuf) {
-        if (name.substring(0, 3) === 'get') {
-            const data = protobuf[name]();
+window.Tools.protobufToJson = function (protobuf) {
+    var result = {};
+    for (var _name in protobuf) {
+        if (_name.substring(0, 3) === 'get') {
+            var data = protobuf[_name]();
             if (Tools.isArray(data)) {
-                const array = [];
-                for (let i = 0; i < data.length; i += 1) {
+                var array = [];
+                for (var i = 0; i < data.length; i += 1) {
                     array.push(Tools.protobufToJson(data[i]));
                 }
-                result[Tools.firstLowerCase(name.substring(3))] = array;
-            }
-            else if (Tools.isObject(data)) {
-                result[Tools.firstLowerCase(name.substring(3))] = Tools.protobufToJson(data);
-            }
-            else {
-                result[Tools.firstLowerCase(name.substring(3))] = data;
+                result[Tools.firstLowerCase(_name.substring(3))] = array;
+            } else if (Tools.isObject(data)) {
+                result[Tools.firstLowerCase(_name.substring(3))] = Tools.protobufToJson(data);
+            } else {
+                result[Tools.firstLowerCase(_name.substring(3))] = data;
             }
         }
     }
@@ -675,8 +679,8 @@ window.Tools.protobufToJson = (protobuf) => {
  * @param value
  * @returns {string}
  */
-window.Tools.findKeyForValue = (obj, value) => {
-    for (const key in obj) {
+window.Tools.findKeyForValue = function (obj, value) {
+    for (var key in obj) {
         if (value === obj[key]) {
             return key;
         }
@@ -684,14 +688,14 @@ window.Tools.findKeyForValue = (obj, value) => {
     return false;
 };
 
-window.Tools.unique = (array) => {
+window.Tools.unique = function (array) {
     return Array.from(new Set(array));
 };
 
-window.Tools.isArray = (object) => {
+window.Tools.isArray = function (object) {
     return Object.prototype.toString.call(object) === '[object Array]';
 };
 
-window.Tools.isObject = (object) => {
+window.Tools.isObject = function (object) {
     return Object.prototype.toString.call(object) === '[object Object]';
 };

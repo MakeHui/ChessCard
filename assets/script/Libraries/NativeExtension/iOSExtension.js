@@ -1,4 +1,4 @@
-module.exports = {
+var iOSExtension = {
 
     /**
      获取系统剪切板中的数据
@@ -88,3 +88,5 @@ module.exports = {
     },
 
 };
+
+module.exports = iOSExtension;

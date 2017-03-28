@@ -1,5 +1,6 @@
-module.exports = {
+var AndroidExtension = {
 
 
 
 };
+module.exports = AndroidExtension;
