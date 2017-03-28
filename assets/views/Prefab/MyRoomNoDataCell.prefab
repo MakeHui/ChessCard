@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Scene",
+    "_name": "MyRoomNoDataCell",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -225,6 +225,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "您暂时没有任何记录",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,

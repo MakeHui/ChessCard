@@ -21,10 +21,6 @@ cc.Class({
     // use this for initialization
     onLoad() {
         this._getHttpIngListForSelfData();
-        // let self = this;
-        // this.node.getChildByName('Dialog').getComponent(cc.Animation).on('stop', function() {
-        //     self.node.destroy();
-        // }, this);
     },
 
     shareOnClick() {
@@ -46,15 +42,16 @@ cc.Class({
         if (index === 0) {
             this.gameEndPanel.active = false;
             this.gameIngPanel.active = true;
-            if (this.gameIngList.getChildByName('sa_item_noData') === null) {
+            Global.log(this.gameIngList.getChildByName('MyRoomNoDataCell'));
+            if (this.gameIngList.childrenCount === 0) {
                 this._getHttpIngListForSelfData();
             }
         }
         else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            Global.log(this.gameEndList.getChildByName('sa_item_noData'));
-            if (this.gameEndList.getChildByName('sa_item_noData') === null) {
+            Global.log(this.gameEndList.getChildByName('MyRoomNoDataCell'));
+            if (this.gameEndList.childrenCount === 0) {
                 this._getHttpEndListForSelfData();
             }
         }
@@ -103,7 +100,7 @@ cc.Class({
                 for (let i = 0; i < roomItem.length; i += 1) {
                     const cell = cc.instantiate(this.gameEndCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
-                    self.gameIngList.addChild(cell);
+                    self.gameEndList.addChild(cell);
                 }
             }
             else if (self.gameEndList.childrenCount === 0) {

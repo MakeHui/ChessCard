@@ -20,7 +20,7 @@ cc.Class({
             const cardPanel = playerNode.getChildByName('CardPanel');
 
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
-            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = `+${playerData.score}`;
+            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = playerData.score;
             playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.total;
 
             for (let j = 0; j < playerData.cardsGroupList.length; j += 1) {

@@ -690,25 +690,26 @@ cc.Class({
             Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
-            for (let i = 0; i < data.refCardList.length; i += 1) {
-                const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
-            }
-            let card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-            if (card == data.activeCard.card.toString(16)) {
-                this._hideGetHandCard(playerIndex);
+            this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
+            if (this.getHandcard[playerIndex].active) {
+                const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                if (card == data.refCardList[0].card.toString(16)) {
+                    this._hideGetHandCard(playerIndex);
+                }
             }
 
             for (let i = 0; i < this.pongKongChowDistrict.childrenCount; i += 1) {
                 const children = this.pongKongChowDistrict.children[i];
-                card = Tools.findNode(children, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                if (card == data.activeCard.card.toString(16)) {
+                const card = Tools.findNode(children, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                if (card == data.refCardList[0].card.toString(16)) {
                     children.destroy();
                     break;
                 }
             }
 
-            data.refCardList.push(data.activeCard);
+            for (let i = 0; i < 3; i += 1) {
+                data.refCardList.push({ card: data.refCardList[0] });
+            }
             this._appendExposedToDistrict(playerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
@@ -920,7 +921,7 @@ cc.Class({
                 const obj = actionIdList[i];
 
                 const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectChiOnClick', JSON.stringify(obj));
-                this.selectChi[i + 1].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                this.selectChi[i].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
                 const children = this.selectChi[i].children;
                 for (let j = 0; j < children.length; j += 1) {
@@ -1468,7 +1469,8 @@ cc.Class({
             else if (promptType[i] === Global.promptType.Pong) {
                 actionPanelIndex = 2;
             }
-            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed) {
+            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed
+                || promptType[i] === Global.promptType.KongPong) {
                 actionPanelIndex = 3;
             }
             else if (promptType[i] === Global.promptType.WinDiscard || promptType[i] === Global.promptType.WinDraw) {

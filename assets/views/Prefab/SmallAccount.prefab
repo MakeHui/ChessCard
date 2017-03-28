@@ -500,6 +500,7 @@
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -646,6 +647,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "888",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -731,6 +733,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "+88",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -816,6 +819,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -894,7 +898,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_1",
+    "_name": "littleTxt_-1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -987,7 +991,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_-1",
+    "_name": "littleTxt_1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1526,6 +1530,7 @@
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1672,6 +1677,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "888",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -1757,6 +1763,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "+88",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1842,6 +1849,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1920,7 +1928,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_-1",
+    "_name": "littleTxt_1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2013,7 +2021,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_1",
+    "_name": "littleTxt_-1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2453,6 +2461,7 @@
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2538,6 +2547,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "888",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -2623,6 +2633,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "+88",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2708,6 +2719,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2879,7 +2891,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_-1",
+    "_name": "littleTxt_1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2972,7 +2984,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_1",
+    "_name": "littleTxt_-1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -3415,6 +3427,7 @@
     "_enableWrapText": false,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3596,6 +3609,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "888",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -3681,6 +3695,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "+88",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3766,6 +3781,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3937,7 +3953,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_-1",
+    "_name": "littleTxt_1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -4030,7 +4046,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "littleTxt_1",
+    "_name": "littleTxt_-1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -4369,6 +4385,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "确定",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
