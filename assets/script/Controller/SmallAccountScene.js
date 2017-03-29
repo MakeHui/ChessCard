@@ -23,18 +23,36 @@ cc.Class({
             playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = playerData.score;
             playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.total;
 
+            let positionXOffset = 0;
+            let lastValue = playerData.cardsGroupList.length > 0 ? playerData.cardsGroupList[0].card : false;
+            let isChi = false;
             for (let j = 0; j < playerData.cardsGroupList.length; j += 1) {
                 const obj = playerData.cardsGroupList[j];
+                if (j !== 0) {
+                    if (obj.card === lastValue + 1 && isChi === false) {
+                        isChi = 3;
+                    }
+                    else if (j % 3 === 0 && isChi === 3) {
+                        isChi = false;
+                        positionXOffset += 12;
+                    }
+                    else if (obj.card !== lastValue && isChi === false) {
+                        positionXOffset += 12;
+                    }
+                }
+                lastValue = obj.card;
+
                 const node = cc.instantiate(this.testPrefab);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
+                node.getChildByName('Background').setPositionX(positionXOffset);
                 cardPanel.addChild(node);
             }
 
             for (let j = 0; j < playerData.cardsInHandList.length; j += 1) {
                 const obj = playerData.cardsInHandList[j];
                 const node = cc.instantiate(this.testPrefab);
-                node.getChildByName('Background').setPositionX(24);
+                node.getChildByName('Background').setPositionX(positionXOffset + 24);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);

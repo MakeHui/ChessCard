@@ -608,6 +608,7 @@ cc.Class({
     },
 
     onActionMessage(data) {
+        this._hideActionPrompt();
         this.countDownAnimation.play();
 
         this._GameRoomCache.lastHasAction = true;
