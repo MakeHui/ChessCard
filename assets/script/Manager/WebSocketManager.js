@@ -241,23 +241,28 @@ window.WebSocketManager.ArrayBuffer = {
  **/
 
 window.WebSocketManager.ws = {};
+window.WebSocketManager.isClose = false;
 
 /**
  * 链接webSocket
  * @param url
  */
 window.WebSocketManager.openSocketLink = function (url) {
+    window.WebSocketManager.isClose = false;
     WebSocketManager.ws = new WebSocket(url);
+
     WebSocketManager.ws.onopen = function(evt) {
         this.binaryType = 'arraybuffer';
         WebSocketManager.onopen(evt);
     };
 
     WebSocketManager.ws.onclose = function(evt) {
-        Global.log(['window.WebSocketManager.openSocketLink.close', evt]);
-        setTimeout(function() {
-            WebSocketManager.openSocketLink(url);
-        }, 3000);
+        Global.log(['window.WebSocketManager.openSocketLink.close', evt, WebSocketManager.ws]);
+        if (!window.WebSocketManager.isClose) {
+            setTimeout(function() {
+                WebSocketManager.openSocketLink(url);
+            }, 3000);
+        }
     };
 
     WebSocketManager.ws.onmessage = WebSocketManager.onmessage;
@@ -265,6 +270,11 @@ window.WebSocketManager.openSocketLink = function (url) {
 
 window.WebSocketManager.onmessage = function (evt) {};
 window.WebSocketManager.onopen = function (evt) {};
+
+window.WebSocketManager.close = function () {
+    window.WebSocketManager.isClose = true;
+    WebSocketManager.ws.close();
+};
 
 /**
  * 查询webSocket 状态

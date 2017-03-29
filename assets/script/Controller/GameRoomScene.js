@@ -353,19 +353,19 @@ cc.Class({
 
         if (data.flag === 0) {
             if (this._GameRoomCache.ownerUuid === this._userInfo.playerUuid) {
-                WebSocketManager.ws.close();
+                WebSocketManager.close();
                 cc.director.loadScene('Lobby');
             }
             else {
                 Global.tempCache = '房主已解散房间';
                 Global.dialog.open('Dialog', this.node, () => {
-                    WebSocketManager.ws.close();
+                    WebSocketManager.close();
                     cc.director.loadScene('Lobby');
                 });
             }
         }
         else if (data.flag === 1) {
-            WebSocketManager.ws.close();
+            WebSocketManager.close();
             cc.director.loadScene('Lobby');
         }
     },
@@ -765,7 +765,7 @@ cc.Class({
     onSettleForRoomMessage(data) {
         if (this.voteDismiss.active || this._GameRoomCache.settleForRoomData) {
             this.voteDismiss.active = false;
-            WebSocketManager.ws.close();
+            WebSocketManager.close();
             Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
             Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
@@ -1029,7 +1029,7 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
-            WebSocketManager.ws.close();
+            WebSocketManager.close();
             cc.director.loadScene('Lobby');
         }
         else {

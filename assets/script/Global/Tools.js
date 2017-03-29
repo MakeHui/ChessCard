@@ -245,6 +245,7 @@ window.Tools.captureScreen = function (node, callback, fileName) {
             // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
             node._sgNode.visit();
             renderTexture.end();
+            // TODO: Error: js_cocos2dx_RenderTexture_saveToFile : wrong number of arguments
             renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, function () {
                 // 把 renderTexture 从场景中移除
                 renderTexture.removeFromParent();
