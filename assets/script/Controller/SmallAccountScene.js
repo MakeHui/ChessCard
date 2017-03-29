@@ -26,6 +26,7 @@ cc.Class({
             let positionXOffset = 0;
             let lastValue = playerData.cardsGroupList.length > 0 ? playerData.cardsGroupList[0].card : false;
             let isChi = false;
+
             for (let j = 0; j < playerData.cardsGroupList.length; j += 1) {
                 const obj = playerData.cardsGroupList[j];
                 if (j !== 0) {
