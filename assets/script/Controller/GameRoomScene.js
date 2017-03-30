@@ -404,7 +404,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
+                    Global.playEffect(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     self.chatList[playerIndex].active = true;
@@ -880,7 +880,6 @@ cc.Class({
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
-        Global.playEffect(Global.audioUrl.fastChat[`fw_male_${data}`]);
 
         Animation.closePanel(this.fastChatPanel);
     },
@@ -892,14 +891,6 @@ cc.Class({
 
         this.fastChatProgressBar.progress = 1.0;
         this.fastChatShowTime = +new Date();
-        const self = this;
-
-        Tools.loadRes(`emoji/emotion${data}`, cc.Prefab, (prefab) => {
-            const node = cc.instantiate(prefab);
-            self.emojiNode = node;
-            self.node.addChild(node);
-            node.getComponent(cc.Animation).play(`emotion${data}`);
-        });
 
         Animation.closePanel(this.fastChatPanel);
     },
