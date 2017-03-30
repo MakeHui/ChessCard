@@ -485,12 +485,7 @@ cc.Class({
 
     onDiscardMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
-        const node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
-        const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
-
-        this.dirtyCardDistrict[playerIndex].addChild(node);
-        this._GameRoomCache.activeCard = node;
+        this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{card: data.card.card}]);
 
         this._createActiveCardFlag(playerIndex);
         const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
@@ -1217,15 +1212,37 @@ cc.Class({
      *
      * @param player
      * @param data
+     * @return cc.Node
      * @private
      */
     _appendCardToDiscardDistrict(player, data) {
+        let node = {};
         for (let i = 0; i < data.length; i += 1) {
-            const node = cc.instantiate(this.dirtyCardPrefabs[player]);
-            const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            node = cc.instantiate(this.dirtyCardPrefabs[player]);
+            let nodeSprite = {};
+            if (player === 0 || player === 3) {
+                nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            }
+            else {
+                nodeSprite = Tools.findNode(node, 'Mask>Background>value').getComponent(cc.Sprite);
+                // TODO: 处理特殊排列问题
+                if (player === 1) {
+                    if (this.dirtyCardDistrict[player].childrenCount % 6 !== 0) {
+                        node.getChildByName('Mask').height = 60;
+                    }
+                }
+                else if (player === 2) {
+                    if (this.dirtyCardDistrict[player].childrenCount >= 6) {
+                        node.getChildByName('Mask').height = 81;
+                    }
+                }
+            }
+
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
             this.dirtyCardDistrict[player].addChild(node);
         }
+
+        return node;
     },
 
     _resetHandCardPosition() {

@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "DirtyCardVertical",
+    "_name": "DirtyCard1",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -46,8 +46,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": -165,
+      "y": 42
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -144,8 +144,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 44,
-      "height": 73
+      "width": 48,
+      "height": 74
     },
     "_children": [],
     "_rotationX": 0,
@@ -155,7 +155,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 11
+      "y": 9
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -183,7 +183,9 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "00d230e2-7079-48b3-b4dc-5a242ba96c4a"
+    },
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -197,7 +199,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "f0091fa5-77ef-4f42-888c-bd96ed419715"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -318,6 +322,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
