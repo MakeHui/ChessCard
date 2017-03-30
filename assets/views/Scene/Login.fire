@@ -239,7 +239,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -568,
-      "y": -320.00000000000006
+      "y": -320
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -692,6 +692,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "同意用户协议",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1045,6 +1046,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "登录",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

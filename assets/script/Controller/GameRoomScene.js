@@ -1346,6 +1346,7 @@ cc.Class({
         this._deleteActiveCardFlag();
         if (this.dirtyCardDistrict[index].childrenCount > 0) {
             this._GameRoomCache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
+            // this._GameRoomCache.activeCardFlag.setPositionY(-20);
             const node = this.dirtyCardDistrict[index].children[this.dirtyCardDistrict[index].childrenCount - 1];
             node.addChild(this._GameRoomCache.activeCardFlag);
         }
