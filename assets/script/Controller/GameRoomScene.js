@@ -10,6 +10,11 @@ cc.Class({
 
         cardPinList: cc.SpriteAtlas,
 
+        emojiList: {
+            default: [],
+            type: cc.Prefab,
+        },
+
         countDownAnimation: cc.Animation,
 
         // 当前出牌的人前面的标识
@@ -394,28 +399,25 @@ cc.Class({
 
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                // const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
                 const self = this;
 
                 // 评论
                 if (data.content.type === 1) {
                     this.audio.setAudioRaw(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].sex === 1 ? 'male' : 'female'}_${data.content.data}`]).play();
-
-                    // this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = Tools.findNode(this.fastChatPanel, `fastChatView1>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
-                    //
-                    // self.chatList[playerIndex].active = true;
-                    // this.scheduleOnce(() => {
-                    //     self.chatList[playerIndex].active = false;
-                    // }, 3);
+                    const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
+                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
+                    self.chatList[playerIndex].active = true;
+                    this.scheduleOnce(() => {
+                        self.chatList[playerIndex].active = false;
+                    }, 3);
                 }
                 // 表情
                 else if (data.content.type === 2) {
-                    Tools.loadRes(`emoji/emotion${data.content.data}`, cc.Prefab, (prefab) => {
-                        const node = cc.instantiate(prefab);
-                        self.emojiNode = node;
-                        self.node.addChild(node);
-                        node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
-                    });
+                    const node = cc.instantiate(this.emojiList[data.content.data - 1]);
+                    this.emojiNode = node;
+                    this.node.addChild(node);
+                    node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
                 }
                 // 语音
                 else if (data.content.type === 3) {
@@ -485,7 +487,7 @@ cc.Class({
 
     onDiscardMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{card: data.card.card}]);
+        this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
 
         this._createActiveCardFlag(playerIndex);
         const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);

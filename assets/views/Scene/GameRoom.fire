@@ -100,9 +100,6 @@
       },
       {
         "__id__": 1862
-      },
-      {
-        "__id__": 1863
       }
     ],
     "_prefab": null,
@@ -62481,6 +62478,53 @@
     "cardPinList": {
       "__uuid__": "f0091fa5-77ef-4f42-888c-bd96ed419715"
     },
+    "emojiList": [
+      {
+        "__uuid__": "6ece5bc8-845f-486d-a4ff-ac79e3ab3e1d"
+      },
+      {
+        "__uuid__": "830ef327-aae3-4a80-b54f-aab7f8601b12"
+      },
+      {
+        "__uuid__": "d3596e0d-8ddf-4bf7-be39-10ea07ec8997"
+      },
+      {
+        "__uuid__": "d4b9373f-7133-4684-b185-ec0347ce60d8"
+      },
+      {
+        "__uuid__": "87a4d846-15bf-4b9d-807a-84e091d8c796"
+      },
+      {
+        "__uuid__": "0bc7a21f-094b-4480-ab15-afb792df2ba7"
+      },
+      {
+        "__uuid__": "9740d231-5af1-4373-a405-2f1ed8d66d29"
+      },
+      {
+        "__uuid__": "1569b50e-b796-4536-b7a4-e8994efa202e"
+      },
+      {
+        "__uuid__": "cad18abc-341c-4479-b705-27cd63304757"
+      },
+      {
+        "__uuid__": "a71b7904-abaf-417b-bb22-a2dec66b70b9"
+      },
+      {
+        "__uuid__": "7bbd9bbe-2bc8-4488-af04-1eac270a6853"
+      },
+      {
+        "__uuid__": "eb2ba858-a324-4e38-b878-aaba306623ee"
+      },
+      {
+        "__uuid__": "ce66546a-662e-4e4b-af86-bb36c7dc0b4b"
+      },
+      {
+        "__uuid__": "14296493-5fbf-4ca4-a216-7b800ca6b2ea"
+      },
+      {
+        "__uuid__": "619794a7-6c96-4424-b1f8-42b4b3d77925"
+      }
+    ],
     "countDownAnimation": {
       "__id__": 34
     },
@@ -62796,19 +62840,5 @@
       "__id__": 135
     },
     "sequence": 99999
-  },
-  {
-    "__type__": "cc.Mask",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 2
-    },
-    "_enabled": true,
-    "_type": 0,
-    "_segements": 64,
-    "_N$spriteFrame": null,
-    "_N$alphaThreshold": 1,
-    "_N$inverted": false
   }
 ]
