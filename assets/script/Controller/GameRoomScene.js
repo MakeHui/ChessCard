@@ -220,9 +220,6 @@ cc.Class({
             this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
         }
 
-        this.emojiNode = cc.Node;
-        this.fastChatShowTime = +new Date();
-
         this.fastChatPanelPosition = this.fastChatPanel.position;
         this.menuPanelPosition = this.menuPanel.position;
 
@@ -235,13 +232,6 @@ cc.Class({
 
     update(dt) {
         this.roomInfo[0].string = Tools.formatDatetime('hh:ii:ss');
-
-        // 每次聊天的冷却时间
-        if (+new Date() > Global.fastChatShowTime + this.fastChatShowTime) {
-            if (this.emojiNode.isValid) {
-                this.emojiNode.destroy();
-            }
-        }
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
             this.fastChatProgressBar.progress -= dt * Global.fastChatWaitTime;
@@ -407,7 +397,7 @@ cc.Class({
                     Global.playEffect(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
-                    self.chatList[playerIndex].active = true;
+                    this.chatList[playerIndex].active = true;
                     this.scheduleOnce(() => {
                         self.chatList[playerIndex].active = false;
                     }, 3);
@@ -415,9 +405,11 @@ cc.Class({
                 // 表情
                 else if (data.content.type === 2) {
                     const node = cc.instantiate(this.emojiList[data.content.data - 1]);
-                    this.emojiNode = node;
                     this.node.addChild(node);
                     node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
+                    this.scheduleOnce(() => {
+                        node.destroy();
+                    }, 3);
                 }
                 // 语音
                 else if (data.content.type === 3) {
@@ -864,7 +856,7 @@ cc.Class({
 
     switchFastChatPanelOnClick(evt, data) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        if (data === 1) {
+        if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
         }
@@ -890,7 +882,6 @@ cc.Class({
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
         this.fastChatProgressBar.progress = 1.0;
-        this.fastChatShowTime = +new Date();
 
         Animation.closePanel(this.fastChatPanel);
     },
