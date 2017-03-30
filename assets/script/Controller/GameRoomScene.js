@@ -405,8 +405,24 @@ cc.Class({
                 // 表情
                 else if (data.content.type === 2) {
                     const node = cc.instantiate(this.emojiList[data.content.data - 1]);
-                    this.node.addChild(node);
                     node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
+                    if (playerIndex === 0) {
+                        node.setPosition(0, -126);
+                    }
+                    else if (playerIndex === 1) {
+                        node.setPosition(162, 0);
+                        node.rotation = 270;
+                    }
+                    else if (playerIndex === 2) {
+                        node.setPosition(0, 126);
+                        node.rotation = 180;
+                    }
+                    else if (playerIndex === 3) {
+                        node.setPosition(-162, 0);
+                        node.rotation = 90;
+                    }
+
+                    this.node.addChild(node);
                     this.scheduleOnce(() => {
                         node.destroy();
                     }, 3);
