@@ -159,8 +159,6 @@ cc.Class({
         voiceProgressBar: cc.ProgressBar,
 
         wechatInviteButton: cc.Button,
-
-        sequence: 99999,
     },
 
     onLoad() {
@@ -228,6 +226,14 @@ cc.Class({
         this._userInfo = Tools.getLocalData(Global.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
+
+        // TODO: 录音长按监听
+        this.myButton.on(cc.Node.EventType.TOUCH_START, () => {
+            cc.log('cc.Node.EventType.TOUCH_START');
+        }, this);
+        this.myButton.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.log('cc.Node.EventType.TOUCH_END');
+        }, this);
     },
 
     update(dt) {
