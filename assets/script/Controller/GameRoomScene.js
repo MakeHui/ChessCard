@@ -432,9 +432,9 @@ cc.Class({
                 }
                 // 语音
                 else if (data.content.type === 3) {
-                    Tools.setWebAudio(data.content.data, (audioRaw) => {
-                        self.audio.setAudioRaw(audioRaw).play();
-                    });
+                    // Tools.setWebAudio(data.content.data, (audioRaw) => {
+                    //     self.audio.setAudioRaw(audioRaw).play();
+                    // });
                 }
 
                 break;
@@ -1219,7 +1219,7 @@ cc.Class({
      * @private
      */
     _appendCardToDiscardDistrict(player, data) {
-        let node = {};
+        let node = cc.Node;
         for (let i = 0; i < data.length; i += 1) {
             node = cc.instantiate(this.dirtyCardPrefabs[player]);
             let nodeSprite = {};
