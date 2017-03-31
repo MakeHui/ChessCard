@@ -228,12 +228,9 @@ cc.Class({
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // TODO: 录音长按监听
-        this.myButton.on(cc.Node.EventType.TOUCH_START, () => {
-            cc.log('cc.Node.EventType.TOUCH_START');
-        }, this);
-        this.myButton.on(cc.Node.EventType.TOUCH_END, () => {
-            cc.log('cc.Node.EventType.TOUCH_END');
-        }, this);
+        // this.myButton.on(cc.Node.EventType.TOUCH_START, () => {
+        //     cc.log('cc.Node.EventType.TOUCH_START');
+        // }, this);
     },
 
     update(dt) {
