@@ -19,7 +19,8 @@
     "eqeqeq": "off",
     "eol-last": "off",
     "prefer-rest-params": "off",
-    "no-bitwise": "off"
+    "no-bitwise": "off",
+    "comma-dangle": "off"
   },
   "globals": {
     "window": true,
