@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Canvas",
+    "_name": "Scene",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -165,6 +165,7 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": null,
     "_alignFlags": 18,
     "_left": 0,
     "_right": 0,
@@ -244,7 +245,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Image_1",
+    "_name": "Dialog",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -544,6 +545,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "南昌未命名网络科技有限公司游戏用户隐私权保护和个人信息利用政策",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -889,6 +891,7 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": null,
     "_alignFlags": 37,
     "_left": 0,
     "_right": 0,
@@ -1037,6 +1040,7 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": null,
     "_alignFlags": 18,
     "_left": -350,
     "_right": 786,
@@ -1073,6 +1077,7 @@
     },
     "_enabled": true,
     "isAlignOnce": true,
+    "_target": null,
     "_alignFlags": 18,
     "_left": 0,
     "_right": 0,
