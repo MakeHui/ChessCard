@@ -475,6 +475,10 @@ cc.Class({
             return;
         }
 
+        // 抓拍后剩余牌数减一
+        const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
+        this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
+
         this._GameRoomCache.allowOutCard = true;
 
         const self = this;
@@ -499,15 +503,6 @@ cc.Class({
     onDiscardMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
-
-        this._createActiveCardFlag(playerIndex);
-        const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
-        if (!this._GameRoomCache.lastHasAction) {
-            this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
-        }
-        else {
-            this._GameRoomCache.lastHasAction = false;
-        }
 
         Global.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
