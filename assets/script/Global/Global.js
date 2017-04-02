@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * 全局应用相关配置类
  *
@@ -159,7 +157,7 @@ window.Global = {
                 ankong: 'resources/audio/game/common/man/action/angang.mp3',
                 win: 'resources/audio/game/common/man/action/hu.mp3',
                 ting: 'resources/audio/game/common/man/action/ting.mp3',
-                zimo: 'resources/audio/game/common/man/action/zhimo.mp3'
+                zimo: 'resources/audio/game/common/man/action/zimo.mp3'
             },
             woman: {
                 0x11: 'resources/audio/game/common/woman/card/wan1.mp3',
@@ -202,7 +200,7 @@ window.Global = {
                 ankong: 'resources/audio/game/common/woman/action/angang.mp3',
                 win: 'resources/audio/game/common/woman/action/hu.mp3',
                 ting: 'resources/audio/game/common/woman/action/ting.mp3',
-                zimo: 'resources/audio/game/common/woman/action/zhimo.mp3'
+                zimo: 'resources/audio/game/common/woman/action/zimo.mp3'
             }
         }
     },
@@ -252,23 +250,23 @@ window.Global = {
         LJ: '乱将', // 一和子 乱将：（可碰，无吃牌，即为手上所有的牌都为 2 或者 5 或者 8 ，不论万索筒均可，而无其他任何平和牌的规则，只需全部为 258 即可）举例：“ 2258 万， 225558 索， 288 筒”，听牌能胡“所有的 258 数字的牌，不论万索筒”
         YTL: '一条龙', // 一和子 一条龙：（有 258 将的要求，而且龙不能下水，即龙不能吃，只能最后一张牌胡别人的）举例：“ 12345678 万，吃了 345 筒， 88 索”，听牌能胡“ 9 万”，算一条龙！举例：“ 12378 万，吃了 456 万， 345 筒， 88 索”，听牌胡“ 69 万”，但只能算平胡，不能算一条龙大胡！
 
-        QYSDZJ: '双和子 清一色带真将', // 双和子 清一色带真将：有 258 做头，俗称带“真将”，可吃可碰，也有 *2 包牌规则
-        LQ: '双和子 龙七', // 双和子 龙七：（无 258 将的要求，和普通七对子的唯一区别为：七对子中有四张同样的牌，即称为隆七）举例：“ 2233 万， 2244 索， 8888 筒，中”，听牌胡“中字”，其他牌不能胡。清一色的七对（有无真将相同）。字一色的七对。举例：“ 2233 万， 2244 索， 88 筒，中中中”，听牌胡“中字”，其他牌不能胡。
-        SSL: '双和子 十三烂', // 双和子 十三烂：（无 258 将的要求，要求非常严格，必须为五个字，万筒索中必须为 147 、 258 、 369 ，不允许重复）举例：“ 147 万， 258 索， 369 万，东南西北”，听牌胡“中发白”，其他牌不能胡。举例：“ 369 万， 14 索， 258 筒，东南西北中”，听牌只能胡“ 7 索”，其他牌不能胡。
-        ZYS: '双和子 字一色', // 双和子 字一色：（规则类似于乱将，无 258 将要求，只需手中所有牌均为字牌即可，可碰，无吃牌）举例：“东东东东，西西西，南南南，中中白”，听牌胡“任何字牌”
-        QYSQD: '双和子 清一色七对', // 双和子 清一色七对 ：可带，但不能全是将
-        QYSDDH: '双和子 清一色对对胡', // 双和子 清一色对对胡 ：( 不带真将 )( 规则如对对胡和清一色 , 但无将做头 )
-        JYSQD: '双和子 将一色七对', // 双和子 将一色七对
-        JYSDDH: '双和子 将一色对对胡', // 双和子 将一色对对胡
+        QYSDZJ: '清一色带真将', // 双和子 清一色带真将：有 258 做头，俗称带“真将”，可吃可碰，也有 *2 包牌规则
+        LQ: '龙七', // 双和子 龙七：（无 258 将的要求，和普通七对子的唯一区别为：七对子中有四张同样的牌，即称为隆七）举例：“ 2233 万， 2244 索， 8888 筒，中”，听牌胡“中字”，其他牌不能胡。清一色的七对（有无真将相同）。字一色的七对。举例：“ 2233 万， 2244 索， 88 筒，中中中”，听牌胡“中字”，其他牌不能胡。
+        SSL: '十三烂', // 双和子 十三烂：（无 258 将的要求，要求非常严格，必须为五个字，万筒索中必须为 147 、 258 、 369 ，不允许重复）举例：“ 147 万， 258 索， 369 万，东南西北”，听牌胡“中发白”，其他牌不能胡。举例：“ 369 万， 14 索， 258 筒，东南西北中”，听牌只能胡“ 7 索”，其他牌不能胡。
+        ZYS: '字一色', // 双和子 字一色：（规则类似于乱将，无 258 将要求，只需手中所有牌均为字牌即可，可碰，无吃牌）举例：“东东东东，西西西，南南南，中中白”，听牌胡“任何字牌”
+        QYSQD: '清一色七对', // 双和子 清一色七对 ：可带，但不能全是将
+        QYSDDH: '清一色对对胡', // 双和子 清一色对对胡 ：( 不带真将 )( 规则如对对胡和清一色 , 但无将做头 )
+        JYSQD: '将一色七对', // 双和子 将一色七对
+        JYSDDH: '将一色对对胡', // 双和子 将一色对对胡
 
-        QYSDDHDZJ: '三和子 清一色对对和带 真 将', // 三和子 清一色对对和带 真 将 （规则同上，只是同时符合三种规则）
-        SLQ: '三和子 双龙七', // 三和子 双龙七 （无 258 将的要求，和龙七的唯一区别为：七对子中有两个四张同样的牌，即称为双龙七）
-        ZYSDDH: '三和子 字一色对对和', // 三和子 字一色对对和 （顾名思义）
-        QYSYTL: '三和子 清一色一条龙', // 三和子 清一色一条龙
+        QYSDDHDZJ: '清一色对对和带 真 将', // 三和子 清一色对对和带 真 将 （规则同上，只是同时符合三种规则）
+        SLQ: '双龙七', // 三和子 双龙七 （无 258 将的要求，和龙七的唯一区别为：七对子中有两个四张同样的牌，即称为双龙七）
+        ZYSDDH: '字一色对对和', // 三和子 字一色对对和 （顾名思义）
+        QYSYTL: '清一色一条龙', // 三和子 清一色一条龙
 
-        SANLQ: '四和子 三龙七', // 四和子 三龙七（顾名思义）
-        TH: '四和子 天胡', // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
-        DU: '四和子 地胡' },
+        SANLQ: '三龙七', // 四和子 三龙七（顾名思义）
+        TH: '天胡', // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
+        DU: '地胡' },
 
     // 游戏玩法对应中文名称
     playTypes: {
@@ -299,7 +297,7 @@ window.Global = {
  * @param callback      Function    回调方法
  */
 window.Global.openDialog = function (node, parentNode) {
-    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
+    const callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
 
     parentNode.addChild(node);
     callback();
@@ -319,7 +317,7 @@ window.Global.openDialog = function (node, parentNode) {
 window.Global.closeDialog = function (node, callback) {
     callback = callback || function () {};
 
-    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), function () {
+    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), () => {
         node.destroy();
         callback();
     });
@@ -336,7 +334,7 @@ window.Global.closeDialog = function (node, callback) {
  * @return   {string}
  */
 window.Global.getDeviceId = function () {
-    var deviceId = Tools.getLocalData(Global.LSK.deviceId);
+    let deviceId = Tools.getLocalData(Global.LSK.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
         Tools.setLocalData(Global.LSK.deviceId, deviceId);
@@ -358,13 +356,13 @@ window.Global.cardsSort = function (listView) {
         return;
     }
 
-    listView.sort(function (nodeA, nodeB) {
-        var cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-        var cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+    listView.sort((nodeA, nodeB) => {
+        const cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        const cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
         return parseInt(cardB, 16) - parseInt(cardA, 16);
     });
 
-    for (var i = 0; i < listView.length; i += 1) {
+    for (let i = 0; i < listView.length; i += 1) {
         listView[i].setLocalZOrder(i);
     }
 };
@@ -412,12 +410,12 @@ window.Global.dialog = {
  */
 window.Global.playEffect = function (url) {
     if (!url) {
-        Global.log('window.Global.playEffect: url不存在, ' + url);
+        Global.log(`window.Global.playEffect: url不存在, ${url}`);
         return;
     }
-    var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+    const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
     if (playMusicConfig.effect) {
-        var audioRaw = cc.url.raw(url);
+        const audioRaw = cc.url.raw(url);
         cc.audioEngine.play(audioRaw, false, 1);
     }
 };
