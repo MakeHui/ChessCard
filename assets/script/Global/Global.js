@@ -57,7 +57,7 @@ window.Global = {
 
     fastChatShowTime: 1.5 * 1000,
 
-    hbtTime: 10000,
+    hbtTime: 15,
 
     /**
      * 本地存储对应key名

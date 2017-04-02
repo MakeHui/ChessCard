@@ -38,6 +38,9 @@ cc.Class({
             if (result.code === 1) {
                 Global.dialog.close();
                 Global.tempCache = result;
+                const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+                userInfo.gold -= result.payGold;
+                Tools.setLocalData(Global.LSK.userINfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
             else {
