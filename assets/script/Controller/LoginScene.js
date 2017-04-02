@@ -87,7 +87,7 @@ cc.Class({
             }
 
             if (result.code === 1011) {
-                Global.tempCache = '登陆失败，用户不存在';
+                Global.tempCache = '登陆失败，验证码错误';
             }
             else if (result.code === 1012) {
                 Global.tempCache = '登陆失败，账号被封';

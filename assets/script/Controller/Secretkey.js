@@ -13,8 +13,8 @@ cc.Class({
 
     loginOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        if (this.input.string.length !== 4) {
-            Global.tempCache = '秘钥长度必须为4';
+        if (this.input.string.length !== 6) {
+            Global.tempCache = '秘钥长度必须为6';
             Global.dialog.open('Dialog', this.node);
             return;
         }
