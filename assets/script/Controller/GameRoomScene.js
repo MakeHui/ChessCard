@@ -365,7 +365,7 @@ cc.Class({
         this._GameRoomCache.gameing = false;
         this._GameRoomCache.waitDraw = true;
 
-        this._initScene();
+        this._initCardDistrict();
 
         // 移动三号位的玩家头像到右边, 避免被挡住
         this.playerInfoList[2].setPositionX(-134);
@@ -1367,14 +1367,7 @@ cc.Class({
             smallAccountNode.destroy();
         }
 
-        for (let i = 0; i < 4; i += 1) {
-            this.handCardDistrict[i].removeAllChildren();
-            this.dirtyCardDistrict[i].removeAllChildren();
-            this.pongKongChowDistrict[i].removeAllChildren();
-
-            this.playerInfoList[i].getChildByName('img_zhuang').active = false;
-            this.playerInfoList[i].getChildByName('img_hostmark').active = false;
-        }
+        this._initCardDistrict();
 
         this._showInviteButton([0, 1, 2, 3]);
         this._hidePlayerInfoList([0, 1, 2, 3]);
@@ -1384,6 +1377,17 @@ cc.Class({
         this._hideSelectChiPanel();
 
         this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
+    },
+
+    _initCardDistrict() {
+        for (let i = 0; i < 4; i += 1) {
+            this.handCardDistrict[i].removeAllChildren();
+            this.dirtyCardDistrict[i].removeAllChildren();
+            this.pongKongChowDistrict[i].removeAllChildren();
+
+            this.playerInfoList[i].getChildByName('img_zhuang').active = false;
+            this.playerInfoList[i].getChildByName('img_hostmark').active = false;
+        }
     },
 
     /**

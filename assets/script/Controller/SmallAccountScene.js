@@ -14,15 +14,7 @@ cc.Class({
             return;
         }
 
-        if (Global.tempCache.data.winType === -1) {
-            this.winPanel[0].active = true;
-        }
-        else if (Global.tempCache.data.winType === 0) {
-            this.winPanel[2].active = true;
-        }
-        else if ([1, 2].indexOf(Global.tempCache.data.winType) !== -1) {
-            this.winPanel[1].active = true;
-        }
+        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
@@ -60,10 +52,11 @@ cc.Class({
                 cardPanel.addChild(node);
             }
 
+            positionXOffset += 24;
             for (let j = 0; j < playerData.cardsInHandList.length; j += 1) {
                 const obj = playerData.cardsInHandList[j];
                 const node = cc.instantiate(this.cardPrefab);
-                node.getChildByName('Background').setPositionX(positionXOffset + 24);
+                node.getChildByName('Background').setPositionX(positionXOffset);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
@@ -78,11 +71,24 @@ cc.Class({
                 if ([1, 2].indexOf(playerData.winType) !== -1) {
                     playerNode.getChildByName('littleHuMark').active = true;
 
+                    positionXOffset += 24;
                     const node = cc.instantiate(this.cardPrefab);
-                    node.getChildByName('Background').setPositionX(48);
+                    node.getChildByName('Background').setPositionX(positionXOffset);
                     const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${playerData.winCard.card.toString(16)}`);
                     cardPanel.addChild(node);
+                }
+            }
+
+            if (userInfo.playerUuid === playerData.playerUuid) {
+                if (playerData.winType === -1) {
+                    this.winPanel[0].active = true;
+                }
+                else if (playerData.winType === 0) {
+                    this.winPanel[2].active = true;
+                }
+                else if ([1, 2].indexOf(playerData.winType) !== -1) {
+                    this.winPanel[1].active = true;
                 }
             }
         }
