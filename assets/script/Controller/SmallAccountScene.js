@@ -20,8 +20,8 @@ cc.Class({
             const cardPanel = playerNode.getChildByName('CardPanel');
 
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
-            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = playerData.score;
-            playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.total;
+            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = `总: ${playerData.total}`;
+            playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.score;
 
             let positionXOffset = 0;
             let lastValue = playerData.cardsGroupList.length > 0 ? playerData.cardsGroupList[0].card : false;
