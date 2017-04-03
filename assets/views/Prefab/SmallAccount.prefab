@@ -5116,6 +5116,9 @@
     ],
     "cardPinList": {
       "__uuid__": "f0091fa5-77ef-4f42-888c-bd96ed419715"
+    },
+    "cardPrefab": {
+      "__uuid__": "19cbe916-155d-4b23-8703-f79da45fdfd6"
     }
   },
   {

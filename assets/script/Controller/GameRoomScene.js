@@ -413,6 +413,7 @@ cc.Class({
     onDiscardMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
+        this._createActiveCardFlag(playerIndex);
 
         Global.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
@@ -507,6 +508,10 @@ cc.Class({
     },
 
     onPromptMessage(data) {
+        if (this.tingCardDistrict.childrenCount > 1) {
+            this._initReadyHand();
+        }
+
         this.countDownAnimation.play();
         this._GameRoomCache.promptList = data.promptList;
 
@@ -648,6 +653,10 @@ cc.Class({
     },
 
     onReadyHandMessage(data) {
+        if (this._actionIsShow()) {
+            return;
+        }
+
         this._initReadyHand();
 
         for (let i = 0; i < data.cardList.length; i += 1) {
@@ -1254,7 +1263,6 @@ cc.Class({
         this._deleteActiveCardFlag();
         if (this.dirtyCardDistrict[index].childrenCount > 0) {
             this._GameRoomCache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
-            // this._GameRoomCache.activeCardFlag.setPositionY(-20);
             const node = this.dirtyCardDistrict[index].children[this.dirtyCardDistrict[index].childrenCount - 1];
             node.addChild(this._GameRoomCache.activeCardFlag);
         }
@@ -1423,6 +1431,20 @@ cc.Class({
         }
     },
 
+    _actionIsShow() {
+        for (let i = 0; i < this.actionPanel.length; i += 1) {
+            if (this.actionPanel[i].active) {
+                return true;
+            }
+        }
+        for (let i = 0; i < this.selectChi.length; i += 1) {
+            if (this.selectChi[i].active) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     /**
      * 隐藏摸到的手牌
      */
@@ -1455,6 +1477,6 @@ cc.Class({
 
     _hideWaitPanel() {
         this.waitPanel.active = false;
-    }
+    },
 
 });

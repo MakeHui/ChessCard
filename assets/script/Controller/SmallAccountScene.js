@@ -5,6 +5,7 @@ cc.Class({
         playerList: [cc.Node],
         winPanel: [cc.Node],
         cardPinList: cc.SpriteAtlas,
+        cardPrefab: cc.Prefab,
     },
 
     // use this for initialization
@@ -17,10 +18,10 @@ cc.Class({
             this.winPanel[0].active = true;
         }
         else if (Global.tempCache.data.winType === 0) {
-            this.winPanel[1].active = true;
+            this.winPanel[2].active = true;
         }
         else if ([1, 2].indexOf(Global.tempCache.data.winType) !== -1) {
-            this.winPanel[2].active = true;
+            this.winPanel[1].active = true;
         }
 
         for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
@@ -52,7 +53,7 @@ cc.Class({
                 }
                 lastValue = obj.card;
 
-                const node = cc.instantiate(this.testPrefab);
+                const node = cc.instantiate(this.cardPrefab);
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
                 node.getChildByName('Background').setPositionX(positionXOffset);
@@ -61,7 +62,7 @@ cc.Class({
 
             for (let j = 0; j < playerData.cardsInHandList.length; j += 1) {
                 const obj = playerData.cardsInHandList[j];
-                const node = cc.instantiate(this.testPrefab);
+                const node = cc.instantiate(this.cardPrefab);
                 node.getChildByName('Background').setPositionX(positionXOffset + 24);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
@@ -77,7 +78,7 @@ cc.Class({
                 if ([1, 2].indexOf(playerData.winType) !== -1) {
                     playerNode.getChildByName('littleHuMark').active = true;
 
-                    const node = cc.instantiate(this.testPrefab);
+                    const node = cc.instantiate(this.cardPrefab);
                     node.getChildByName('Background').setPositionX(48);
                     const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${playerData.winCard.card.toString(16)}`);
