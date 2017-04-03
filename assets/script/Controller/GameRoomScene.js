@@ -13,6 +13,8 @@ cc.Class({
         countDownAnimation: cc.Animation,
 
         makeSeat: [cc.Node],        // 当前出牌的人前面的标识
+        makeSeatPanel: cc.Node,
+
         tingCardDistrict: cc.Node,  // 听牌提示
 
         // 解散房间
@@ -196,6 +198,8 @@ cc.Class({
         }
 
         this._GameRoomCache.playerList = data.playerList;
+
+        this._initLight();
     },
 
     onEnterRoomOtherMessage(data) {
@@ -375,6 +379,8 @@ cc.Class({
         this._appendCardToHandCardDistrict(3, new Array(13));
 
         this._GameRoomCache.gameing = true;
+
+        this._initLight();
     },
 
     onDrawMessage(data) {
@@ -385,8 +391,9 @@ cc.Class({
         const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
         this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
 
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this._openLight(playerIndex);
+        const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
+        const playerIndex = this._computeSeat(playerSeat);
+        this._openLight(playerSeat);
 
         if (data.card.card === 0) {
             return;
@@ -494,6 +501,8 @@ cc.Class({
 
         this._GameRoomCache.playerList = data.playerList;
 
+        this._initLight();
+
         // 当前活动玩家座位号, 打出去的牌上面的小标识
         if (data.discardSeat !== -1) {
             const discardSeatIndex = this._computeSeat(data.discardSeat);
@@ -503,7 +512,7 @@ cc.Class({
 
         // 当前出牌玩家
         if (data.activeSeat !== -1) {
-            this._openLight(this._computeSeat(data.activeSeat));
+            this._openLight(data.activeSeat);
         }
     },
 
@@ -530,7 +539,8 @@ cc.Class({
         this.countDownAnimation.play();
 
         this._GameRoomCache.lastHasAction = true;
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
+        const playerIndex = this._computeSeat(playerSeat);
 
         if (data.playerUuid === this._userInfo.playerUuid) {
             this._GameRoomCache.allowOutCard = true;
@@ -649,7 +659,7 @@ cc.Class({
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
 
-        this._openLight(playerIndex);
+        this._openLight(playerSeat);
     },
 
     onReadyHandMessage(data) {
@@ -1173,8 +1183,8 @@ cc.Class({
     },
 
     _computeSeat(playerSeat) {
-        const desplaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
-        return (desplaySeat < 0 ? desplaySeat + 4 : desplaySeat);
+        const displaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
+        return (displaySeat < 0 ? displaySeat + 4 : displaySeat);
     },
 
     _initVotePanel(data) {
@@ -1279,6 +1289,9 @@ cc.Class({
      */
     _openLight(index) {
         this._closeAllLight();
+        // index -= 2;
+        // index = index < 0 ? index + 4 : index;
+
         this.makeSeat[index].getComponent(cc.Animation).play();
     },
 
@@ -1286,6 +1299,17 @@ cc.Class({
         for (let i = 0; i < 4; i += 1) {
             this.makeSeat[i].getComponent(cc.Animation).stop();
             this.makeSeat[i].opacity = 255;
+        }
+    },
+
+    _initLight() {
+        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
+            const obj = this._GameRoomCache.playerList[i];
+            if (obj.seat === 0) {
+                const seat = this._computeSeat(obj.seat);
+                this.makeSeatPanel.rotation = seat * -90;
+                break;
+            }
         }
     },
 
