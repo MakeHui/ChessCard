@@ -2,19 +2,28 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        playerList: {
-            default: [],
-            type: cc.Node,
-        },
-
-        testPrefab: cc.Prefab,
-
+        playerList: [cc.Node],
+        winPanel: [cc.Node],
         cardPinList: cc.SpriteAtlas,
     },
 
     // use this for initialization
     onLoad() {
-        for (let i = 0; i < this.playerList.length; i += 1) {
+        if (!Global.tempCache.data.playerDataList) {
+            return;
+        }
+
+        if (Global.tempCache.data.winType === -1) {
+            this.winPanel[0].active = true;
+        }
+        else if (Global.tempCache.data.winType === 0) {
+            this.winPanel[1].active = true;
+        }
+        else if ([1, 2].indexOf(Global.tempCache.data.winType) !== -1) {
+            this.winPanel[2].active = true;
+        }
+
+        for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
             const playerData = Global.tempCache.data.playerDataList[i];
             const cardPanel = playerNode.getChildByName('CardPanel');
