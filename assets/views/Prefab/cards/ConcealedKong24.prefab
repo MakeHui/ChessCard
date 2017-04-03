@@ -452,7 +452,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 13
@@ -511,7 +511,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "d1019e3b-208f-4fdf-b43b-8f3ada95f953"
+      "__uuid__": "1bac3e4d-a07d-4e14-92d7-2effbd7f765f"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -610,6 +610,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
