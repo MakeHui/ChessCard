@@ -47,12 +47,11 @@ cc.Class({
         actionPanel: [cc.Node],
         actionSprite: [cc.Node],
         selectChi: [cc.Node],
-        actionSpriteFrame: [cc.Node],
+        actionSpriteFrame: [cc.SpriteFrame],
 
         waitPanel: cc.Node,
         fastChatPanel: cc.Node,
         menuPanel: cc.Node,
-        hupaiPrompt: cc.Node,
         bonusPoint: cc.Label,
         fastChatProgressBar: cc.ProgressBar,
         voiceProgressBar: cc.ProgressBar,
@@ -288,11 +287,11 @@ cc.Class({
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
         if (this._GameRoomCache.playerList.length === 4) {
-            if (data.status === 0) {
-                this._showWaitPanel(1);
+            if (data.status) {
+                this._hideWaitPanel();
             }
             else {
-                this._hideWaitPanel();
+                this._showWaitPanel(1);
             }
         }
     },
@@ -382,20 +381,21 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.dealCard);
         this.countDownAnimation.play();
 
-        if (data.card.card === 0) {
-            return;
-        }
-
         // 抓拍后剩余牌数减一
         const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
         this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
+
+        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this._openLight(playerIndex);
+
+        if (data.card.card === 0) {
+            return;
+        }
 
         this._GameRoomCache.allowOutCard = true;
 
         const self = this;
         this.scheduleOnce(() => {
-            const playerIndex = self._computeSeat(self._getSeatForPlayerUuid(data.playerUuid));
-
             // 如果抓拍的人是自己才对数据进行处理
             if (playerIndex === 0) {
                 const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
@@ -405,7 +405,6 @@ cc.Class({
             }
 
             self.getHandcard[playerIndex].active = true;
-            self._openLight(playerIndex);
         }, this._GameRoomCache.waitDraw ? 3 : 0);
 
         this._GameRoomCache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
