@@ -365,6 +365,8 @@ cc.Class({
         this._GameRoomCache.gameing = false;
         this._GameRoomCache.waitDraw = true;
 
+        this._initScene();
+
         // 移动三号位的玩家头像到右边, 避免被挡住
         this.playerInfoList[2].setPositionX(-134);
 
