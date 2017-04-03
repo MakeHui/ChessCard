@@ -77,15 +77,6 @@ cc.Class({
     },
 
     /**
-     * 登出
-     */
-    logoutOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Tools.setLocalData(Global.LSK.secretKey, '');
-        cc.director.loadScene('Login');
-    },
-
-    /**
      * 游戏规则
      */
     openGameRulesPanelOnClick() {
