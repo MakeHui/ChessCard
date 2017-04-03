@@ -111,7 +111,7 @@ cc.Class({
     openAddGamePanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
-        node.getComponent('InputRoomNumberPrefab').setData('GameRoom');
+        node.getComponent('InputRoomNumberPrefab').setData('Lobby');
         Global.openDialog(node, this.node, () => {
             Global.log('load success');
         });

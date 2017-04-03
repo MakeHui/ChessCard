@@ -25,11 +25,12 @@ cc.Class({
         }
 
         if (this.roomNumber.length === 6) {
-            if (this.gotoScene === 'GameRoom') {
+            if (this.fromScene === 'Lobby') {
                 this._getHttpRoomEnterData();
             }
-            else if (this.gotoScene === 'ReviewRoom') {
-
+            else if (this.fromScene === 'GameRecordList') {
+                const script = cc.director.getScene().getChildByName('Canvas').getChildByName('GameRecordList').getComponent('GameRecordListPrefab');
+                script.onGetGameRecordInfoDataCallback(this, this.roomNumber);
             }
         }
     },
@@ -66,18 +67,21 @@ cc.Class({
 
         const parameters = { roomId: this.roomNumber };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
+            Global.dialog.close();
+
             if (result.code === 1) {
                 Global.dialog.close();
                 Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
-            else {
-                Global.dialog.close();
+            else if (result.code === 1041) {
+                Global.tempCache = '房间号不存在';
+                Global.dialog.open('Dialog', this.node);
             }
         });
     },
 
     setData(data) {
-        this.gotoScene = data;
+        this.fromScene = data;
     },
 });

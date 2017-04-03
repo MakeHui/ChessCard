@@ -314,6 +314,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "详情",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -624,6 +625,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "房号：8888888888",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -709,6 +711,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "2016-07-18",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -790,7 +793,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemFace1",
+    "_name": "itemFace",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -881,7 +884,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPic1",
+    "_name": "itemPic",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -974,7 +977,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPname1",
+    "_name": "itemName",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1041,6 +1044,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1059,7 +1063,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPScore1",
+    "_name": "itemScore",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1126,6 +1130,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1218,7 +1223,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemFace2",
+    "_name": "itemFace",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1309,7 +1314,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPic2",
+    "_name": "itemPic",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1402,7 +1407,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPname2",
+    "_name": "itemName",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1469,6 +1474,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1487,7 +1493,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPScore2",
+    "_name": "itemScore",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1554,6 +1560,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1646,7 +1653,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemFace3",
+    "_name": "itemFace",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1737,7 +1744,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPic3",
+    "_name": "itemPic",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1830,7 +1837,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPname3",
+    "_name": "itemName",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1897,6 +1904,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1915,7 +1923,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPScore3",
+    "_name": "itemScore",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -1982,6 +1990,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2074,7 +2083,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemFace4",
+    "_name": "itemFace",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2165,7 +2174,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPic4",
+    "_name": "itemPic",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2258,7 +2267,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPname4",
+    "_name": "itemName",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2325,6 +2334,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2343,7 +2353,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "sa_itemPScore4",
+    "_name": "itemScore",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -2410,6 +2420,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -2438,64 +2449,33 @@
     "sync": false
   },
   {
-    "__type__": "efac47DEMNE5ptxv3At5+iT",
+    "__type__": "42e29gwi5dJ0YTQneWs5TQ1",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
+    "roomIdLabel": {
+      "__id__": 18
+    },
     "datetime": {
       "__id__": 21
     },
-    "roomNumber": {
-      "__id__": 18
-    },
-    "avatar": [
+    "playerList": [
       {
-        "__id__": 25
+        "__id__": 23
       },
       {
-        "__id__": 39
+        "__id__": 37
       },
       {
-        "__id__": 53
+        "__id__": 51
       },
       {
-        "__id__": 67
+        "__id__": 65
       }
-    ],
-    "nickname": [
-      {
-        "__id__": 31
-      },
-      {
-        "__id__": 45
-      },
-      {
-        "__id__": 59
-      },
-      {
-        "__id__": 73
-      }
-    ],
-    "point": [
-      {
-        "__id__": 34
-      },
-      {
-        "__id__": 48
-      },
-      {
-        "__id__": 62
-      },
-      {
-        "__id__": 76
-      }
-    ],
-    "gameRecord": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

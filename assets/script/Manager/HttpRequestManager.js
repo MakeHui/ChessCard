@@ -254,9 +254,10 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordInfoRequestMessage: function getRecordInfoRequestMessage(parameters) {
         var message = new proto.login.RecordInfoRequest();
-        message.setAppUuid(parameters.appUuid);
-        message.setPlayerUuid(parameters.playerUuid);
-        message.setDeviceId(parameters.deviceId);
+        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        message.setAppUuid(Global.appUuid);
+        message.setPlayerUuid(userInfo.playerUuid);
+        message.setDeviceId(Global.getDeviceId());
         message.setRoomUuid(parameters.roomUuid);
 
         return message;
