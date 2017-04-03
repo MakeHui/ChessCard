@@ -279,6 +279,10 @@ cc.Class({
     },
 
     onPlayerVoteMessage(data) {
+        if (!data.flag) {
+            this.voteDismiss.active = false;
+            return;
+        }
         for (let i = 0; i < this._votePlayers.length; i += 1) {
             const obj = this._votePlayers[i];
             if (obj.playerUuid === data.playerUuid) {
@@ -1190,6 +1194,9 @@ cc.Class({
     },
 
     _initVotePanel(data) {
+        this.voteDismissButton[0].active = true;
+        this.voteDismissButton[1].active = true;
+
         this._votePlayers = [];
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             const obj = this._GameRoomCache.playerList[i];
