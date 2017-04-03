@@ -9,155 +9,53 @@ cc.Class({
         bigAccountPrefab: cc.Prefab,
 
         cardPinList: cc.SpriteAtlas,
-
-        emojiList: {
-            default: [],
-            type: cc.Prefab,
-        },
-
+        emojiList: [cc.Prefab],
         countDownAnimation: cc.Animation,
 
-        // 当前出牌的人前面的标识
-        makeSeat: {
-            default: [],
-            type: cc.Node,
-        },
+        makeSeat: [cc.Node],        // 当前出牌的人前面的标识
+        tingCardDistrict: cc.Node,  // 听牌提示
 
-        // 听牌提示
-        tingCardDistrict: cc.Node,
-
-        /**
-         * 解散房间
-         */
+        // 解散房间
         voteDismiss: cc.Node,
         voteSponsor: cc.Label,
         voteExpireSeconds: cc.Label,
-        votePlayers: {
-            default: [],
-            type: cc.Node,
-        },
-        voteDismissButton: {
-            default: [],
-            type: cc.Node,
-        },
+        votePlayers: [cc.Node],
+        voteDismissButton: [cc.Node],
 
-        /**
-         * 摸到的牌
-         */
-        getHandcard: {
-            default: [],
-            type: cc.Node,
-        },
+        getHandcard: [cc.Node], // 摸到的牌
 
-        /**
-         * 0: 玩家1
-         * 1: 玩家24
-         * 3: 玩家3
-         */
-        handCardPrefabs: {
-            default: [],
-            type: cc.Prefab,
-        },
+        // 玩家手牌
+        handCardPrefabs: [cc.Prefab],
+        handCardDistrict: [cc.Node],
 
-        handCardDistrict: {
-            default: [],
-            type: cc.Node,
-        },
+        // 打出去的牌
+        dirtyCardPrefabs: [cc.Prefab],
+        dirtyCardDistrict: [cc.Node],
 
-        /**
-         * 0: 玩家13
-         * 1: 玩家24
-         */
-        dirtyCardPrefabs: {
-            default: [],
-            type: cc.Prefab,
-        },
+        // 吃碰杠
+        pongKongChowDistrict: [cc.Node],
+        pongAndChowPrefab: [cc.Prefab], // 碰和吃
+        exposedPrefab: [cc.Prefab],     // 明杠
+        concealedKongPrefab: [cc.Prefab],   // 暗杠
 
-        dirtyCardDistrict: {
-            default: [],
-            type: cc.Node,
-        },
+        playerInfoList: [cc.Node],
+        inviteButtonList: [cc.Node],
+        chatList: [cc.Node],
+        roomInfo: [cc.Label],
 
-        // 碰和吃
-        pongAndChowPrefab: {
-            default: [],
-            type: cc.Prefab,
-        },
-
-        // 明杠
-        exposedPrefab: {
-            default: [],
-            type: cc.Prefab,
-        },
-
-        // 暗杠
-        concealedKongPrefab: {
-            default: [],
-            type: cc.Prefab,
-        },
-
-        pongKongChowDistrict: {
-            default: [],
-            type: cc.Node,
-        },
-
-        playerInfoList: {
-            default: [],
-            type: cc.Node,
-        },
-
-        inviteButtonList: {
-            default: [],
-            type: cc.Node,
-        },
-
-        chatList: {
-            default: [],
-            type: cc.Node,
-        },
-
-        roomInfo: {
-            default: [],
-            type: cc.Label,
-        },
-
-        /**
-         * 动作相关
-         */
-        actionPanel: {
-            default: [],
-            type: cc.Node,
-        },
-
-        actionSprite: {
-            default: [],
-            type: cc.Node,
-        },
-
-        selectChi: {
-            default: [],
-            type: cc.Node,
-        },
-
-        actionSpriteFrame: {
-            type: cc.SpriteFrame,
-            default: [],
-        },
+        // 动作相关
+        actionPanel: [cc.Node],
+        actionSprite: [cc.Node],
+        selectChi: [cc.Node],
+        actionSpriteFrame: [cc.Node],
 
         waitPanel: cc.Node,
-
         fastChatPanel: cc.Node,
-
         menuPanel: cc.Node,
-
         hupaiPrompt: cc.Node,
-
         bonusPoint: cc.Label,
-
         fastChatProgressBar: cc.ProgressBar,
-
         voiceProgressBar: cc.ProgressBar,
-
         wechatInviteButton: cc.Button,
     },
 
@@ -187,8 +85,13 @@ cc.Class({
 
             WebSocketManager.onopen = (evt) => {
                 Global.log(['WebSocket.open: ', evt]);
+                self._hideWaitPanel();
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
+            };
+            WebSocketManager.onclose = (evt) => {
+                Global.log(['WebSocket.onclose: ', evt]);
+                self._showWaitPanel(2);
             };
             WebSocketManager.onmessage = (evt) => {
                 const data = WebSocketManager.ArrayBuffer.reader(evt.data);
@@ -384,6 +287,14 @@ cc.Class({
     onOnlineStatusMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
+        if (this._GameRoomCache.playerList.length === 4) {
+            if (data.status === 0) {
+                this._showWaitPanel(1);
+            }
+            else {
+                this._hideWaitPanel();
+            }
+        }
     },
 
     // todo: 需要优化, 每个表情都需要定位到玩家前面, 或者干脆就不要表情了
@@ -1532,5 +1443,19 @@ cc.Class({
         }
         this.tingCardDistrict.active = false;
     },
+
+    _showWaitPanel(messageId) {
+        if (messageId === 1) {
+            this.waitPanel.getChildByName('txt_wait').getComponent(cc.Label).string = '玩家可能离线或者离开，等待操作中...';
+        }
+        else if (messageId === 2) {
+            this.waitPanel.getChildByName('txt_wait').getComponent(cc.Label).string = '断线重连中，请稍等...';
+        }
+        this.waitPanel.active = true;
+    },
+
+    _hideWaitPanel() {
+        this.waitPanel.active = false;
+    }
 
 });

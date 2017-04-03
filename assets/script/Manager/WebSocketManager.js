@@ -259,6 +259,7 @@ window.WebSocketManager.openSocketLink = function (url) {
     WebSocketManager.ws.onclose = function(evt) {
         Global.log(['window.WebSocketManager.openSocketLink.close', evt, WebSocketManager.ws]);
         if (!window.WebSocketManager.isClose) {
+            WebSocketManager.onopen(evt);
             setTimeout(function() {
                 WebSocketManager.openSocketLink(url);
             }, 3000);
@@ -270,6 +271,7 @@ window.WebSocketManager.openSocketLink = function (url) {
 
 window.WebSocketManager.onmessage = function (evt) {};
 window.WebSocketManager.onopen = function (evt) {};
+window.WebSocketManager.onclose = function (evt) {};
 
 window.WebSocketManager.close = function () {
     window.WebSocketManager.isClose = true;
