@@ -1241,7 +1241,6 @@ cc.Class({
         this.schedule(this._expireSeconds, 1);
     },
 
-
     /**
      * 设置房间信息
      *

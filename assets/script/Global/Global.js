@@ -297,7 +297,7 @@ window.Global = {
  * @param callback      Function    回调方法
  */
 window.Global.openDialog = function (node, parentNode) {
-    const callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
+    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
 
     parentNode.addChild(node);
     callback();
@@ -317,7 +317,7 @@ window.Global.openDialog = function (node, parentNode) {
 window.Global.closeDialog = function (node, callback) {
     callback = callback || function () {};
 
-    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), () => {
+    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), function () {
         node.destroy();
         callback();
     });
@@ -334,7 +334,7 @@ window.Global.closeDialog = function (node, callback) {
  * @return   {string}
  */
 window.Global.getDeviceId = function () {
-    let deviceId = Tools.getLocalData(Global.LSK.deviceId);
+    var deviceId = Tools.getLocalData(Global.LSK.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
         Tools.setLocalData(Global.LSK.deviceId, deviceId);
@@ -356,13 +356,13 @@ window.Global.cardsSort = function (listView) {
         return;
     }
 
-    listView.sort((nodeA, nodeB) => {
-        const cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-        const cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+    listView.sort(function (nodeA, nodeB) {
+        var cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        var cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
         return parseInt(cardB, 16) - parseInt(cardA, 16);
     });
 
-    for (let i = 0; i < listView.length; i += 1) {
+    for (var i = 0; i < listView.length; i += 1) {
         listView[i].setLocalZOrder(i);
     }
 };
@@ -410,12 +410,12 @@ window.Global.dialog = {
  */
 window.Global.playEffect = function (url) {
     if (!url) {
-        Global.log(`window.Global.playEffect: url不存在, ${url}`);
+        Global.log('window.Global.playEffect: url不存在, ' + url);
         return;
     }
-    const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+    var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
     if (playMusicConfig.effect) {
-        const audioRaw = cc.url.raw(url);
+        var audioRaw = cc.url.raw(url);
         cc.audioEngine.play(audioRaw, false, 1);
     }
 };
