@@ -10,7 +10,7 @@ cc.Class({
         this.gameUuid = '100100';
         this.maxRounds = 8;
         this.playType = 0x1;
-        this.options = 0x10;
+        this.options = 0x100;
     },
 
     selectedOnClick(toggle, data) {

@@ -844,6 +844,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "8局（30金币）  ",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1268,6 +1269,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "16局（60金币）  ",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1460,6 +1462,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "局数：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1850,6 +1853,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "小胡子胡",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2356,6 +2360,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "小胡子不胡",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2559,6 +2564,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "玩法：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -2835,7 +2841,7 @@
         "__id__": 93
       }
     ],
-    "_N$isChecked": true
+    "_N$isChecked": false
   },
   {
     "__type__": "cc.Node",
@@ -2967,6 +2973,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "平胡(1番)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3044,7 +3051,7 @@
     "node": {
       "__id__": 87
     },
-    "_enabled": true,
+    "_enabled": false,
     "_spriteFrame": {
       "__uuid__": "f00002b5-7a57-4633-99f7-88285bc2ddc5"
     },
@@ -3259,7 +3266,7 @@
         "__id__": 106
       }
     ],
-    "_N$isChecked": false
+    "_N$isChecked": true
   },
   {
     "__type__": "cc.Node",
@@ -3391,6 +3398,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "普通大胡(4番)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3468,7 +3476,7 @@
     "node": {
       "__id__": 101
     },
-    "_enabled": false,
+    "_enabled": true,
     "_spriteFrame": {
       "__uuid__": "f00002b5-7a57-4633-99f7-88285bc2ddc5"
     },
@@ -3805,6 +3813,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "双和子(8番)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4219,6 +4228,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "三和子(16番)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4633,6 +4643,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "四和子(32番)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4918,6 +4929,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "封顶：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5003,6 +5015,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "注：金币在开始游戏后扣除，提前解散房间不扣除金币。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5149,6 +5162,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "创建房间",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
