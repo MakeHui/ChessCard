@@ -89,9 +89,12 @@ cc.Class({
                 self._hideWaitPanel();
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
+
+                this.schedule(this.wsHbtSchedule, Global.wsHbtTime);
             };
             WebSocketManager.onclose = (evt) => {
                 Global.log(['WebSocket.onclose: ', evt]);
+                this.unschedule(this.wsHbtSchedule);
                 self._showWaitPanel(2);
             };
             WebSocketManager.onmessage = (evt) => {
@@ -147,6 +150,10 @@ cc.Class({
         if (this.voiceProgressBar.progress <= 1.0 && this.voiceProgressBar.progress >= 0) {
             this.voiceProgressBar.progress -= dt * Global.fastChatWaitTime;
         }
+    },
+
+    wsHbtSchedule() {
+        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'HeartBeat');
     },
 
     /**
@@ -447,6 +454,10 @@ cc.Class({
 
             this.handCardDistrict[0].addChild(node);
         }
+    },
+
+    onHeartBeatMessage(data) {
+        Global.log(data);
     },
 
     /**

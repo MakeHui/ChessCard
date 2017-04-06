@@ -57,6 +57,8 @@ window.Global = {
 
     hbtTime: 15,
 
+    wsHbtTime: 10,
+
     /**
      * 本地存储对应key名
      * @type {Object}

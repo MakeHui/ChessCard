@@ -15,6 +15,7 @@ window.WebSocketManager.Command = {
     ExitRoom: 0x0003, // 3、离开房间
     DismissRoom: 0x0004, // 4、解散房间
     SponsorVote: 0x0005, // 5、发起投票解散
+    HeartBeat: 0x0006,   // 心跳
     PlayerVote: 0x0007, // 6、玩家投票
     OnlineStatus: 0x0008, // 7、玩家上线离线广播
     Speaker: 0x0009, // 8、超级广播命令
@@ -31,7 +32,8 @@ window.WebSocketManager.Command = {
     Action: 0x1002, // 3、玩家根据提示列表选择动作
     ReadyHand: 0x1003, // 4、听牌提示
     SettleForRound: 0x1005, // 5、小结算
-    SettleForRoom: 0x1006 };
+    SettleForRoom: 0x1006
+};
 
 /**
  ***********************************************************************************************************************
@@ -135,6 +137,14 @@ window.WebSocketManager.requestMessage = {
         message.setCard(cardMsg);
 
         return message;
+    },
+
+    /**
+     * wsHbt
+     * @returns {proto.game.HeartbeatRequest}
+     */
+    getHeartBeatRequestMessage: function getDismissRoomRequestMessage() {
+        return new proto.game.HeartbeatRequest();
     },
 
 
@@ -259,7 +269,7 @@ window.WebSocketManager.openSocketLink = function (url) {
     WebSocketManager.ws.onclose = function(evt) {
         Global.log(['window.WebSocketManager.openSocketLink.close', evt, WebSocketManager.ws]);
         if (!window.WebSocketManager.isClose) {
-            WebSocketManager.onopen(evt);
+            WebSocketManager.onclose(evt);
             setTimeout(function() {
                 WebSocketManager.openSocketLink(url);
             }, 3000);
