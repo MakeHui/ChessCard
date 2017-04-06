@@ -40,7 +40,7 @@ cc.Class({
                 Global.tempCache = result;
                 const userInfo = Tools.getLocalData(Global.LSK.userInfo);
                 userInfo.gold -= result.payGold;
-                Tools.setLocalData(Global.LSK.userINfo, userInfo);
+                Tools.setLocalData(Global.LSK.userInfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
             else {
