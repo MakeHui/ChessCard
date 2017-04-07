@@ -4,6 +4,7 @@ cc.Class({
     properties: {
         loading: cc.Prefab,
         dialog: cc.Prefab,
+        exitTime: 0,
     },
 
     // use this for initialization
@@ -24,6 +25,19 @@ cc.Class({
 
         Global.dialog.loadingPrefab = this.loading;
         Global.dialog.dialogPrefab = this.dialog;
+
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
+            cc.log(this.exitTime);
+            if (event.keyCode === cc.KEY.back) {
+                if ((+new Date() - this.exitTime) > 2000) {
+                    this.exitTime = +new Date();
+                }
+                else {
+                    cc.game.end();
+                }
+            }
+            cc.log(`cc.SystemEvent.EventType.KEY_UP: ${event.keyCode}`);
+        }, this);
     },
 
     hbt() {
