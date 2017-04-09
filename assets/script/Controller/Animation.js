@@ -12,17 +12,17 @@ cc.Class({
 
     closeAnimationCallback() {
         this.node.active = true;
-        Global.log('closeAnimationCallback');
+        cc.log('closeAnimationCallback');
     },
 
     hideAnimationCallback() {
         this.node.active = false;
-        Global.log('hideAnimationCallback');
+        cc.log('hideAnimationCallback');
     },
 
     closeTrojanScanCallback() {
         this.node.destroy();
-        Global.log('closeTrojanScanCallback');
+        cc.log('closeTrojanScanCallback');
     },
 
     countDownCallback(data) {

@@ -8,16 +8,15 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        Global.log('LoginScene');
+        cc.log('LoginScene');
         NativeExtensionManager.execute('startLocation', [], (data) => {
             Tools.setLocalData(Global.LSK.userInfo_location, data.data);
         });
 
         // 判断本地存储中是否有秘钥
         const secretKey = Tools.getLocalData(Global.LSK.secretKey);
-        Global.log(secretKey);
         if (!secretKey) {
-            Global.log('LoginScene.loginOnCLick: 本地没有secretKey');
+            cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
         else {
             this.httpLogin(secretKey, 'login');
@@ -32,7 +31,7 @@ cc.Class({
         // 判断剪切板中是否有秘钥
         const secretKey = NativeExtensionManager.execute('getPasteboard');
         if (!secretKey || secretKey.length !== 36) {
-            Global.log('LoginScene.loginOnCLick: 剪切板中没有数据');
+            cc.log('LoginScene.loginOnCLick: 剪切板中没有数据');
             Global.openDialog(cc.instantiate(this.secretKey), this.node);
             return;
         }
@@ -46,11 +45,11 @@ cc.Class({
     wechatLoginOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         // webSocketManager.addOnopenListener(function(evt) {
-        //     Global.log("open");
+        //     cc.log("open");
         // });
         // webSocketManager.openSocket("ws://game.7005.Global.qingwuguo.com/ws");
         // webSocketManager.addOncloseListener(function(evt) {
-        //     Global.log("close");
+        //     cc.log("close");
         // });
         // webSocketManager.closeSocket();
     },

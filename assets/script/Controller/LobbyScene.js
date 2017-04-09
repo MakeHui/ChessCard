@@ -39,7 +39,7 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.tempCache = Tools.getLocalData(Global.LSK.userInfo);
         Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -50,7 +50,7 @@ cc.Class({
     openPayPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -62,7 +62,7 @@ cc.Class({
         // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
         Global.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -72,7 +72,7 @@ cc.Class({
     openSoundPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -82,7 +82,7 @@ cc.Class({
     openGameRulesPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -92,7 +92,7 @@ cc.Class({
     openCreateRoomPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -104,7 +104,7 @@ cc.Class({
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('InputRoomNumberPrefab').setData('Lobby');
         Global.openDialog(node, this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -115,7 +115,7 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         // cc.director.loadScene('MyRoom');
         Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 

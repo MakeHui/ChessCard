@@ -22,7 +22,7 @@ cc.Class({
     openDetailsOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.gameStep), this.node, () => {
-            Global.log('downloader success');
+            cc.log('downloader success');
         });
     }
 });

@@ -25,7 +25,7 @@ cc.Class({
 
     shareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.log('shareOnClick');
+        cc.log('shareOnClick');
     },
 
     /**
@@ -42,7 +42,7 @@ cc.Class({
         if (index === 0) {
             this.gameEndPanel.active = false;
             this.gameIngPanel.active = true;
-            Global.log(this.gameIngList.getChildByName('MyRoomNoDataCell'));
+            cc.log(this.gameIngList.getChildByName('MyRoomNoDataCell'));
             if (this.gameIngList.childrenCount === 0) {
                 this._getHttpIngListForSelfData();
             }
@@ -50,7 +50,7 @@ cc.Class({
         else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            Global.log(this.gameEndList.getChildByName('MyRoomNoDataCell'));
+            cc.log(this.gameEndList.getChildByName('MyRoomNoDataCell'));
             if (this.gameEndList.childrenCount === 0) {
                 this._getHttpEndListForSelfData();
             }
@@ -66,7 +66,7 @@ cc.Class({
 
             if (result.code === 1) {
                 const roomItem = result.roomItemList;
-                Global.log(roomItem.length);
+                cc.log(roomItem.length);
                 if (roomItem.length === 0) {
                     self.gameIngList.removeAllChildren();
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
@@ -78,7 +78,7 @@ cc.Class({
                 }
             }
             else {
-                Global.log(self.gameIngList.childrenCount);
+                cc.log(self.gameIngList.childrenCount);
                 if (self.gameIngList.childrenCount === 0) {
                     self.gameIngList.addChild(cc.instantiate(self.noDataCell));
                 }

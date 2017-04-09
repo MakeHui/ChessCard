@@ -348,7 +348,7 @@ window.Global.getDeviceId = function () {
  */
 window.Global.cardsSort = function (listView) {
     if (listView.length === 0) {
-        Global.log('window.Global.cardsSort: listView 不能为空~');
+        cc.log('window.Global.cardsSort: listView 不能为空~');
         return;
     }
 
@@ -385,7 +385,7 @@ window.Global.dialog = {
         this._open(node);
 
         // this.schedule(() => {
-        //     Global.log(123);
+        //     cc.log(123);
         // }, 1);
         // cc.director.getScheduler().schedule(() => {
         //     self.close();
@@ -406,18 +406,12 @@ window.Global.dialog = {
  */
 window.Global.playEffect = function (url) {
     if (!url) {
-        Global.log('window.Global.playEffect: url不存在, ' + url);
+        cc.log('window.Global.playEffect: url不存在, ' + url);
         return;
     }
     var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
     if (playMusicConfig.effect) {
         var audioRaw = cc.url.raw(url);
         cc.audioEngine.play(audioRaw, false, 1);
-    }
-};
-
-window.Global.log = function (obj) {
-    if (Global.debug) {
-        cc.warn(obj);
     }
 };

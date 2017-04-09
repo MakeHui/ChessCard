@@ -85,7 +85,7 @@ cc.Class({
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
 
             WebSocketManager.onopen = (evt) => {
-                Global.log(['WebSocket.open: ', evt]);
+                cc.log(['WebSocket.open: ', evt]);
                 self._hideWaitPanel();
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
@@ -93,31 +93,31 @@ cc.Class({
                 this.schedule(this.wsHbtSchedule, Global.wsHbtTime);
             };
             WebSocketManager.onclose = (evt) => {
-                Global.log(['WebSocket.onclose: ', evt]);
+                cc.log(['WebSocket.onclose: ', evt]);
                 this.unschedule(this.wsHbtSchedule);
                 self._showWaitPanel(2);
             };
             WebSocketManager.onmessage = (evt) => {
                 const data = WebSocketManager.ArrayBuffer.reader(evt.data);
-                Global.log(`WebSocket onmessage: ${JSON.stringify(data)}`);
+                cc.log(`WebSocket onmessage: ${JSON.stringify(data)}`);
                 if (data === false) {
-                    Global.log('WebSocket.message: WebSocket数据解析失败');
+                    cc.log('WebSocket.message: WebSocket数据解析失败');
                     return;
                 }
 
                 const commandName = Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
                 if (commandName === false) {
-                    Global.log('WebSocket.message: Tools.findKeyForValue数据解析失败');
+                    cc.log('WebSocket.message: Tools.findKeyForValue数据解析失败');
                     return;
                 }
 
                 const result = Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
                 if (!result) {
-                    Global.log('WebSocket.message: Tools.protobufToJson数据解析失败');
+                    cc.log('WebSocket.message: Tools.protobufToJson数据解析失败');
                     return;
                 }
 
-                Global.log([`WebSocket.message ${commandName}: `, result]);
+                cc.log([`WebSocket.message ${commandName}: `, result]);
                 self[`on${commandName}Message`](result);
             };
             WebSocketManager.openSocketLink(this.wsUrl);
@@ -457,7 +457,7 @@ cc.Class({
     },
 
     onHeartBeatMessage(data) {
-        Global.log(data);
+        cc.log(data);
     },
 
     /**
@@ -747,13 +747,13 @@ cc.Class({
     wechatInviteOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Tools.captureScreen(this.node, (filePath) => {
-            Global.log(filePath);
+            cc.log(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
+        cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
                 Animation.openPanel(this.fastChatPanel);
@@ -774,13 +774,13 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.voiceProgressBar.progress <= 0) {
             this.voiceProgressBar.progress = 1.0;
-            Global.log('voiceOnClick');
+            cc.log('voiceOnClick');
         }
     },
 
     openMenuOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
+        cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
         }
@@ -932,7 +932,7 @@ cc.Class({
     openSoundPanelOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
-            Global.log('load success');
+            cc.log('load success');
         });
     },
 
@@ -1005,7 +1005,7 @@ cc.Class({
      * 删除手牌
      */
     _deleteHandCardByCode(player, data) {
-        Global.log([player, data]);
+        cc.log([player, data]);
         for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
             const obj = this.handCardDistrict[player].children[i];
             if (player === 0) {

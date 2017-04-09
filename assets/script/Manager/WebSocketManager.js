@@ -202,7 +202,7 @@ window.WebSocketManager.ArrayBuffer = {
             return false;
         }
 
-        Global.log(['没有数据包: ']);
+        cc.log(['没有数据包: ']);
         return false;
     },
     writer: function writer(cmd, message) {
@@ -229,7 +229,7 @@ window.WebSocketManager.ArrayBuffer = {
         }
 
         if (size === 0) {
-            Global.log('mergeArrayBuffer byte number is 0');
+            cc.log('mergeArrayBuffer byte number is 0');
             return false;
         }
 
@@ -267,7 +267,7 @@ window.WebSocketManager.openSocketLink = function (url) {
     };
 
     WebSocketManager.ws.onclose = function(evt) {
-        Global.log(['window.WebSocketManager.openSocketLink.close', evt, WebSocketManager.ws]);
+        cc.log(['window.WebSocketManager.openSocketLink.close', evt, WebSocketManager.ws]);
         if (!window.WebSocketManager.isClose) {
             WebSocketManager.onclose(evt);
             setTimeout(function() {
@@ -309,6 +309,6 @@ window.WebSocketManager.sendSocketMessage = function (webSocket, name) {
 
     var message = WebSocketManager.requestMessage['get' + name + 'RequestMessage'](parameters);
     var data = WebSocketManager.ArrayBuffer.writer(WebSocketManager.Command[name], message.serializeBinary());
-    Global.log(['WebSocketManager.sendMessage.' + name, parameters]);
+    cc.log(['WebSocketManager.sendMessage.' + name, parameters]);
     webSocket.send(data);
 };

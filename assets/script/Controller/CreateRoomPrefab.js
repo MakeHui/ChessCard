@@ -14,7 +14,7 @@ cc.Class({
     },
 
     selectedOnClick(toggle, data) {
-        Global.log(arguments);
+        cc.log(arguments);
 
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         data = data.split('-');

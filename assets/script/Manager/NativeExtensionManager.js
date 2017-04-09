@@ -194,6 +194,9 @@ window.NativeExtensionManager = {
         else if (cc.sys.os === cc.sys.OS_ANDROID) {
             this._nativeExtension = this._androidExtension;
         }
+        else {
+            cc.log('window.NativeExtensionManager.execute: 不是native平台');
+        }
     },
 
     execute: function execute(name) {
@@ -201,17 +204,17 @@ window.NativeExtensionManager = {
         var callback = arguments.length <= 2 || arguments[2] === undefined ? Function : arguments[2];
 
         if (!this._nativeExtension) {
-            Global.log('window.NativeExtensionManager.execute: 不是native平台');
+            cc.log('window.NativeExtensionManager.execute: 不是native平台');
             return;
         }
 
         if (!args) {
-            Global.log('window.NativeExtensionManager.execute: 没有传递参数');
+            cc.log('window.NativeExtensionManager.execute: 没有传递参数');
             return;
         }
 
         if (!this._nativeExtension[name]) {
-            Global.log('window.NativeExtensionManager.execute: 没有找到 ' + name + ' 方法');
+            cc.log('window.NativeExtensionManager.execute: 没有找到 ' + name + ' 方法');
             return;
         }
 
