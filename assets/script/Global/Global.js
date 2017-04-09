@@ -28,12 +28,6 @@ window.Global = {
     version: '0.0.1',
 
     /**
-     * 操作系统
-     * @type {[type]}
-     */
-    os: cc.sys.os === cc.sys.OS_IOS ? 1 : 0,
-
-    /**
      * 是否是debug环境
      * @type {Boolean}
      */
