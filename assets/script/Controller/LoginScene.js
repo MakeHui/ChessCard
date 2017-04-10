@@ -44,14 +44,6 @@ cc.Class({
      */
     wechatLoginOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        // webSocketManager.addOnopenListener(function(evt) {
-        //     cc.log("open");
-        // });
-        // webSocketManager.openSocket("ws://game.7005.Global.qingwuguo.com/ws");
-        // webSocketManager.addOncloseListener(function(evt) {
-        //     cc.log("close");
-        // });
-        // webSocketManager.closeSocket();
     },
 
 
@@ -59,48 +51,49 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        // jsb.reflection.callStaticMethod('com/huyaohui/cocos/extension/CocosExtensionTest', 'test');
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
     httpLogin(secretKey, requestName) {
         Global.dialog.open('Loading', this.node);
-        const parameters = { wxCode: secretKey, location: window.userLocation };
-        HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
-            Global.dialog.close();
+        this.schedule(() => {
+            const parameters = { wxCode: secretKey, location: Tools.getLocalData(Global.LSK.userInfo_location) };
+            HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
+                Global.dialog.close();
 
-            if (result.code === 1) {
-                result.location = Tools.getLocalData(Global.LSK.userInfo_location);
-                Tools.setLocalData(Global.LSK.userInfo, result);
-                Tools.setLocalData(Global.LSK.secretKey, result.loginKey);
+                if (result.code === 1) {
+                    result.location = Tools.getLocalData(Global.LSK.userInfo_location);
+                    Tools.setLocalData(Global.LSK.userInfo, result);
+                    Tools.setLocalData(Global.LSK.secretKey, result.loginKey);
 
-                if (result.playerReconnection) {
-                    Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
-                    cc.director.loadScene('GameRoom');
+                    if (result.playerReconnection) {
+                        Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
+                        cc.director.loadScene('GameRoom');
+                    }
+                    else {
+                        cc.director.loadScene('Lobby');
+                    }
+                    return;
                 }
-                else {
-                    cc.director.loadScene('Lobby');
-                }
-                return;
-            }
 
-            if (requestName !== 'login') {
-                if (result.code === 1011) {
-                    Global.tempCache = '登陆失败，验证码错误';
+                if (requestName !== 'login') {
+                    if (result.code === 1011) {
+                        Global.tempCache = '登陆失败，验证码错误';
+                    }
+                    else if (result.code === 1012) {
+                        Global.tempCache = '登陆失败，账号被封';
+                    }
+                    else if (result.code === 1013) {
+                        Global.tempCache = '登陆失败，验证码过期';
+                    }
+                    else if (result.code === 1031) {
+                        Global.tempCache = '登陆失败，请稍后重试';
+                    }
+                    Global.dialog.open('Dialog', this.node);
                 }
-                else if (result.code === 1012) {
-                    Global.tempCache = '登陆失败，账号被封';
-                }
-                else if (result.code === 1013) {
-                    Global.tempCache = '登陆失败，验证码过期';
-                }
-                else if (result.code === 1031) {
-                    Global.tempCache = '登陆失败，请稍后重试';
-                }
-                Global.dialog.open('Dialog', this.node);
-            }
-        });
+            });
+        }, 3);
     },
 
 });
