@@ -43,6 +43,9 @@ cc.Class({
     hbt() {
         this.schedule(() => {
             const scene = cc.director.getScene();
+            if (!Tools.getLocalData(Global.LSK.userInfo)) {
+                return;
+            }
             HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
                 if (result.code === 1) {
                     if (result.isLogin == 0 || result.isLogin == 2) {
