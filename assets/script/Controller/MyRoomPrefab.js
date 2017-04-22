@@ -25,6 +25,12 @@ cc.Class({
 
     shareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
+        var node = Tools.findNode(this.node, 'Dialog>Panel_Middle');
+        cc.log(this.node);
+        cc.log(node);
+        Tools.captureScreen(node, function(path) {
+            cc.log(path);
+        });
         cc.log('shareOnClick');
     },
 

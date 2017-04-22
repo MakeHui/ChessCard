@@ -232,7 +232,8 @@ window.Tools.captureScreen = function (node, callback, fileName) {
     if (CC_JSB) {
         (function () {
             // 如果待截图的场景中含有 mask，请开启下面注释的语句
-            var renderTexture = cc.RenderTexture.create(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
+            cc.log(JSON.stringify([node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES]));
+            var renderTexture = cc.RenderTexture(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
             // var renderTexture = cc.RenderTexture.create(node.width, node.height);
 
             // 把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
@@ -245,8 +246,7 @@ window.Tools.captureScreen = function (node, callback, fileName) {
             // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
             node._sgNode.visit();
             renderTexture.end();
-            // TODO: Error: js_cocos2dx_RenderTexture_saveToFile : wrong number of arguments
-            renderTexture.saveToFile(fileName, cc.IMAGE_FORMAT_JPEG, true, function () {
+            renderTexture.saveToFile(fileName, cc.ImageFormat.PNG, true, function () {
                 // 把 renderTexture 从场景中移除
                 renderTexture.removeFromParent();
                 cc.log('capture screen successfully!');

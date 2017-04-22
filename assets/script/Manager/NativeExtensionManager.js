@@ -207,7 +207,7 @@ window.NativeExtensionManager = {
         } else if (cc.sys.os === cc.sys.OS_ANDROID) {
             this._nativeExtension = this._androidExtension;
         } else {
-            cc.log('window.NativeExtensionManager.execute: 不是native平台');
+            cc.log('window.NativeExtensionManager.init: 不是native平台');
         }
     },
 

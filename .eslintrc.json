@@ -14,7 +14,8 @@
         "no-param-reassign": "off",
         "no-undefined": "off",
         "eqeqeq": "off",
-        "brace-style": "off"
+        "brace-style": "off",
+        "space-before-function-paren": "off"
     },
     "globals": {
         "window": true,
