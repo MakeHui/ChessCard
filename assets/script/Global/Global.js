@@ -53,6 +53,11 @@ window.Global = {
 
     wsHbtTime: 10,
 
+    aliyunOss: {
+        bucketName: 'collegevscollege',
+        objectPath: 'px258/client/audio/'
+    },
+
     /**
      * 本地存储对应key名
      * @type {Object}

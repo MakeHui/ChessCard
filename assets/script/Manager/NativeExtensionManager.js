@@ -21,7 +21,7 @@ window.NativeExtensionManager = {
          开始录音
          */
         startRecord: function () {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'startRecord', '()V');
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'startRecord', '()V');
         },
 
 
@@ -29,7 +29,7 @@ window.NativeExtensionManager = {
          关闭录音
          */
         stopRecord: function () {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'stopRecord', '()V');
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'stopRecord', '()V');
         },
 
 
@@ -47,7 +47,7 @@ window.NativeExtensionManager = {
          @param path 图片地址
          */
         wechatImageShare: function (path) {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'wechatImageShare:', '(Ljava/lang/String;)V', path);
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'wechatImageShare:', '(Ljava/lang/String;)V', path);
         },
 
 
@@ -58,7 +58,7 @@ window.NativeExtensionManager = {
          @param description 说明
          */
         wechatLinkShare: function (link, title, description) {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'wechatLinkShare', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', link, title, description);
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'wechatLinkShare', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', link, title, description);
         },
 
 
@@ -69,7 +69,7 @@ window.NativeExtensionManager = {
          @param secretKey 访问秘钥
          */
         ossInit: function (endpoint, accessKey, secretKey) {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'ossInit', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', endpoint, accessKey, secretKey);
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'ossInit', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', endpoint, accessKey, secretKey);
         },
 
 
@@ -80,7 +80,7 @@ window.NativeExtensionManager = {
          @param file 本地文件路径
          */
         ossUpload: function (bucketName, objectKey, file) {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'ossUpload', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', bucketName, objectKey, file);
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'ossUpload', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', bucketName, objectKey, file);
         },
 
 
@@ -88,7 +88,7 @@ window.NativeExtensionManager = {
          开始定位
          */
         startLocation: function () {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'startLocation', '()V');
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'startLocation', '()V');
         },
 
 
@@ -97,7 +97,7 @@ window.NativeExtensionManager = {
          @return bool
          */
         checkNetwork: function () {
-            jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'checkNetwork', '()V');
+            return jsb.reflection.callStaticMethod('org/cocos2dx/javascript/AppActivity', 'checkNetwork', '()V');
         }
     },
 
@@ -118,7 +118,7 @@ window.NativeExtensionManager = {
          开始录音
          */
         startRecord: function () {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'startRecord');
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'startRecord');
         },
 
 
@@ -126,7 +126,7 @@ window.NativeExtensionManager = {
          关闭录音
          */
         stopRecord: function () {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'stopRecord');
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'stopRecord');
         },
 
 
@@ -144,7 +144,7 @@ window.NativeExtensionManager = {
          @param path 图片地址
          */
         wechatImageShare: function (path) {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatImageShare:', path);
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatImageShare:', path);
         },
 
 
@@ -155,7 +155,7 @@ window.NativeExtensionManager = {
          @param description 说明
          */
         wechatLinkShare: function (link, title, description) {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLinkShare:setTitle:setDescription:', link, title, description);
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLinkShare:setTitle:setDescription:', link, title, description);
         },
 
 
@@ -166,7 +166,7 @@ window.NativeExtensionManager = {
          @param secretKey 访问秘钥
          */
         ossInit: function (endpoint, accessKey, secretKey) {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'ossInit:setAccessKeyId:setSecretKey:', endpoint, accessKey, secretKey);
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'ossInit:setAccessKeyId:setSecretKey:', endpoint, accessKey, secretKey);
         },
 
 
@@ -177,7 +177,7 @@ window.NativeExtensionManager = {
          @param file 本地文件路径
          */
         ossUpload: function (bucketName, objectKey, file) {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'ossUpload:setObjectKey:setUrl:', bucketName, objectKey, file);
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'ossUpload:setObjectKey:setUrl:', bucketName, objectKey, file);
         },
 
 
@@ -185,7 +185,7 @@ window.NativeExtensionManager = {
          开始定位
          */
         startLocation: function () {
-            jsb.reflection.callStaticMethod('MHCocosExtension', 'startLocation');
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'startLocation');
         },
 
 

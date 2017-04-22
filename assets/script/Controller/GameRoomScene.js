@@ -56,6 +56,7 @@ cc.Class({
         menuPanel: cc.Node,
         bonusPoint: cc.Label,
         fastChatProgressBar: cc.ProgressBar,
+        voiceButton: cc.Node,
         voiceProgressBar: cc.ProgressBar,
         wechatInviteButton: cc.Button,
     },
@@ -134,10 +135,39 @@ cc.Class({
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
-        // TODO: 录音长按监听
-        // this.myButton.on(cc.Node.EventType.TOUCH_START, () => {
-        //     cc.log('cc.Node.EventType.TOUCH_START');
-        // }, this);
+        // 发送语音
+        this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
+            Global.playEffect(Global.audioUrl.effect.buttonClick);
+            if (this.voiceProgressBar.progress > 0) {
+                return;
+            }
+            this.voiceProgressBar.progress = 1.0;
+            cc.log('cc.Node.EventType.TOUCH_START');
+
+            this.voiceFilePath = NativeExtensionManager.execute('startRecord', [], this.onVoiceEndCallback);
+        }, this);
+
+        this.voiceButton.on(cc.Node.EventType.TOUCH_END, () => {
+            if (this.voiceProgressBar.progress != 1) {
+                return;
+            }
+            cc.log('cc.Node.EventType.TOUCH_END');
+
+            NativeExtensionManager.execute('stopRecord');
+            this.onVoiceEndCallback();
+        }, this);
+    },
+
+    onVoiceEndCallback: function() {
+        this.schedule(function() {
+            this.voiceProgressBar.progress -= 0.0025;
+        }, 0.005, 400);
+
+        var parameters = [Global.aliyunOss.bucketName, Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.wav', this.voiceFilePath];
+        NativeExtensionManager.execute('ossUpload', parameters, function(result) {
+            cc.log(result);
+        });
+        cc.log('GameRoomScene.onVoiceEndCallback: ' + this.voiceFilePath);
     },
 
     update(dt) {
@@ -145,10 +175,6 @@ cc.Class({
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
             this.fastChatProgressBar.progress -= dt * Global.fastChatWaitTime;
-        }
-
-        if (this.voiceProgressBar.progress <= 1.0 && this.voiceProgressBar.progress >= 0) {
-            this.voiceProgressBar.progress -= dt * Global.fastChatWaitTime;
         }
     },
 
@@ -764,17 +790,6 @@ cc.Class({
                     self.fastChatPanel.setPositionX(self.fastChatPanelPosition.x);
                 });
             }
-        }
-    },
-
-    /**
-     * 发送语音
-     */
-    voiceOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
-        if (this.voiceProgressBar.progress <= 0) {
-            this.voiceProgressBar.progress = 1.0;
-            cc.log('voiceOnClick');
         }
     },
 
