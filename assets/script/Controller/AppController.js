@@ -56,7 +56,7 @@ cc.Class({
                     if (scene.name === 'Lobby') {
                         const lobbyScene = scene.getChildByName('Canvas').getComponent('LobbyScene');
                         lobbyScene.money.string = result.gold;
-                        lobbyScene.notice.getComponent(cc.Label).string = result.news;
+                        // lobbyScene.notice.getComponent(cc.Label).string = result.news;
                     }
 
                     const userInfo = Tools.getLocalData(Global.LSK.userInfo);

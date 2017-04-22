@@ -8,7 +8,12 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        cc.log('LoginScene');
+        const hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        if (!hasNetwork) {
+            cc.log('LoginScene.onLoad: 没有网络');
+            return;
+        }
+
         NativeExtensionManager.execute('startLocation', [], (data) => {
             Tools.setLocalData(Global.LSK.userInfo_location, data.data);
         });

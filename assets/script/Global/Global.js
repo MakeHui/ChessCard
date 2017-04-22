@@ -290,7 +290,7 @@ window.Global = {
  *
  * @param node          cc.Node     需要弹出的节点对象
  * @param parentNode    cc.Node     父节点对象
- * @param callback      Function    回调方法
+ // * @param callback      Function    回调方法
  */
 window.Global.openDialog = function (node, parentNode) {
     var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;

@@ -1,45 +1,39 @@
 {
-  "extends": "airbnb/base",
-  "env":{
-    "node":true,
-    "es6":true
-  },
-  "rules": {
-    "no-param-reassign": "off",
-    "no-underscore-dangle": "off",
-    "brace-style": "off",
-    "max-len": "off",
-    "indent": ["error", 4],
-    "arrow-body-style": ["error", "always"],
-    "no-restricted-syntax": "off",
-    "guard-for-in": "off",
-    "key-spacing": "off",
-    "global-require": "off",
-    "import/no-unresolved": 0,
-    "eqeqeq": "off",
-    "eol-last": "off",
-    "prefer-rest-params": "off",
-    "no-bitwise": "off",
-    "comma-dangle": "off"
-  },
-  "globals": {
-    "window": true,
-    "Math": true,
-    "WebSocket": true,
-    "Global": true,
-    "WebSocketManager": true,
-    "HttpRequestManager": true,
-    "NativeExtensionManager": true,
-    "Tools": true,
-    "Animation": true,
-    "proto": true,
-    "goog": true,
-    "ReconnectingWebSocket": true,
-    "clone": true,
-    "md5": true,
-    "cc": true,
-    "gl": true,
-    "CC_JSB": true,
-    "jsb": true
-  }
+    "extends": "eslint-config-airbnb-es5",
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "rules": {
+        "indent": ["error", 4],
+        "func-names": "off",
+        "new-cap": "off",
+        "valid-jsdoc": "off",
+        "comma-dangle": "off",
+        "eol-last": "off",
+        "no-param-reassign": "off",
+        "no-undefined": "off",
+        "eqeqeq": "off",
+        "brace-style": "off"
+    },
+    "globals": {
+        "window": true,
+        "Math": true,
+        "WebSocket": true,
+        "Global": true,
+        "WebSocketManager": true,
+        "HttpRequestManager": true,
+        "NativeExtensionManager": true,
+        "Tools": true,
+        "Animation": true,
+        "proto": true,
+        "goog": true,
+        "ReconnectingWebSocket": true,
+        "clone": true,
+        "md5": true,
+        "cc": true,
+        "gl": true,
+        "CC_JSB": true,
+        "jsb": true
+    }
 }
