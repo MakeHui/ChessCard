@@ -48,7 +48,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "AppController",
+    "_name": "AppDelegate",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -140,7 +140,8 @@
     },
     "dialog": {
       "__uuid__": "36ee03ca-07d7-4842-87e8-14aabf27fac2"
-    }
+    },
+    "exitTime": 0
   },
   {
     "__type__": "cc.Node",

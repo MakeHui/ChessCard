@@ -225,7 +225,7 @@ window.Tools.formatDatetime = function (formatString, datetime) {
  * @param    {string}                 fileName 保存的名称
  */
 window.Tools.captureScreen = function (node, callback, fileName) {
-    fileName = fileName || 'temp.jpg';
+    fileName = fileName || 'temp.png';
 
     // 注意，EditBox，VideoPlayer，Webview 等控件无法截图
 
@@ -235,7 +235,6 @@ window.Tools.captureScreen = function (node, callback, fileName) {
             cc.log(JSON.stringify([node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES]));
             var renderTexture = cc.RenderTexture(node.width, node.height, cc.Texture2D.PIXEL_FORMAT_RGBA8888, gl.DEPTH24_STENCIL8_OES);
             // var renderTexture = cc.RenderTexture.create(node.width, node.height);
-
             // 把 renderTexture 添加到场景中去，否则截屏的时候，场景中的元素会移动
             node.parent._sgNode.addChild(renderTexture);
             // 把 renderTexture 设置为不可见，可以避免截图成功后，移除 renderTexture 造成的闪烁
@@ -246,10 +245,10 @@ window.Tools.captureScreen = function (node, callback, fileName) {
             // this.richText.node 是我们要截图的节点，如果要截整个屏幕，可以把 this.richText 换成 Canvas 切点即可
             node._sgNode.visit();
             renderTexture.end();
-            renderTexture.saveToFile(fileName, cc.ImageFormat.PNG, true, function () {
+            renderTexture.saveToFile(fileName, cc.ImageFormat.JPG, true, function () {
                 // 把 renderTexture 从场景中移除
                 renderTexture.removeFromParent();
-                cc.log('capture screen successfully!');
+                cc.log('capture screen successfully! path: ' + jsb.fileUtils.getWritablePath() + fileName);
 
                 callback(jsb.fileUtils.getWritablePath() + fileName);
             });

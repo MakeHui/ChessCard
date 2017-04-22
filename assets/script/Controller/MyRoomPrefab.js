@@ -25,11 +25,18 @@ cc.Class({
 
     shareOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        var node = Tools.findNode(this.node, 'Dialog>Panel_Middle');
-        cc.log(this.node);
-        cc.log(node);
-        Tools.captureScreen(node, function(path) {
-            cc.log(path);
+
+        const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!hasWechat) {
+            cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
+            // return;
+        }
+
+        var node = cc.director.getScene().getChildByName('Canvas');
+        Tools.captureScreen(node, function(fileName) {
+            NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+
+            });
         });
         cc.log('shareOnClick');
     },

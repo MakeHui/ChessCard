@@ -9,13 +9,13 @@ cc.Class({
     // use this for initialization
     onLoad() {
         const hasNetwork = NativeExtensionManager.execute('checkNetwork');
-        if (!hasNetwork) {
+        if (!hasNetwork && cc.sys.isNative) {
             cc.log('LoginScene.onLoad: 没有网络');
             return;
         }
 
-        NativeExtensionManager.execute('startLocation', [], (data) => {
-            Tools.setLocalData(Global.LSK.userInfo_location, data.data);
+        NativeExtensionManager.execute('startLocation', [], (result) => {
+            Tools.setLocalData(Global.LSK.userInfo_location, result.data);
         });
 
         // 判断本地存储中是否有秘钥
@@ -98,7 +98,7 @@ cc.Class({
                     Global.dialog.open('Dialog', this.node);
                 }
             });
-        }, 3);
+        }, 1.5);
     },
 
 });

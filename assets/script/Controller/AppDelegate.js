@@ -1,4 +1,4 @@
-window.AppDelegate = cc.Class({
+cc.Class({
     extends: cc.Component,
 
     properties: {
@@ -38,6 +38,11 @@ window.AppDelegate = cc.Class({
             }
             cc.log(`cc.SystemEvent.EventType.KEY_UP: ${event.keyCode}`);
         }, this);
+
+        // native test
+        NativeExtensionManager.execute('test', [], (result) => {
+
+        });
     },
 
     hbt() {
