@@ -1,4 +1,4 @@
-cc.Class({
+window.AppDelegate = cc.Class({
     extends: cc.Component,
 
     properties: {

@@ -18,14 +18,14 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
-        cc.director.getScene().getChildByName('AppController').getComponent('AppController').backgroundMusic();
+        cc.director.getScene().getChildByName('AppDelegate').getComponent('AppDelegate').backgroundMusic();
     },
 
     voiceToggleOnClick(target) {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
-        cc.director.getScene().getChildByName('AppController').getComponent('AppController').backgroundMusic();
+        cc.director.getScene().getChildByName('AppDelegate').getComponent('AppDelegate').backgroundMusic();
     },
 
     /**
