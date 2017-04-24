@@ -4,13 +4,8 @@ cc.Class({
     properties: {
         gameStepCell: cc.Prefab,
         gameStepList: cc.Node,
-
         datetime: cc.Label,
-
-        username1: cc.Label,
-        username2: cc.Label,
-        username3: cc.Label,
-        username4: cc.Label,
+        username: [cc.Label],
     },
 
     /**
@@ -26,16 +21,36 @@ cc.Class({
         Global.playEffect(Global.audioUrl.effect.buttonClick);
     },
 
-    setData(data) {
-        this.datetime.string = data.datetime;
-        const recordInfoDataList = data.recordInfoDataList;
-        if (recordInfoDataList.length !== 0) {
-            this.gameRecordList.removeAllChildren();
-            for (let i = 0; i < recordInfoDataList.length; i += 1) {
-                const cell = cc.instantiate(this.gameStepCell);
-                cell.getComponent('GameRecordStepCellPrefab').setData(recordInfoDataList[i], this.roomId);
-                this.gameStepList.addChild(cell);
-            }
-        }
+    // TODO:Bug
+    init: function(roomId) {
+        Global.dialog.open('Loading', this.node);
+        const self = this;
+        HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
+            cc.log(result);
+            // if (result.code === 0 && result.recordItemList.length !== 0) {
+            //     this.gameEndList.removeAllChildren();
+            //     const roomItem = result.recordItemList;
+            //     for (let i = 0; i < roomItem.length; i += 1) {
+            //         const cell = cc.instantiate(this.gameEndCell);
+            //         cell.getComponent('GameRecordCellPrefab').init(roomItem[i]);
+            //         self.gameEndList.addChild(cell);
+            //     }
+            // }
+            // else {
+            //     self.gameEndList.addChild(cc.instantiate(self.noDataCell));
+            // }
+            Global.dialog.close();
+        });
+
+        // this.datetime.string = data.datetime;
+        // const recordInfoDataList = data.recordInfoDataList;
+        // if (recordInfoDataList.length !== 0) {
+        //     this.gameRecordList.removeAllChildren();
+        //     for (let i = 0; i < recordInfoDataList.length; i += 1) {
+        //         const cell = cc.instantiate(this.gameStepCell);
+        //         cell.getComponent('GameRecordStepCellPrefab').setData(recordInfoDataList[i], this.roomId);
+        //         this.gameStepList.addChild(cell);
+        //     }
+        // }
     }
 });

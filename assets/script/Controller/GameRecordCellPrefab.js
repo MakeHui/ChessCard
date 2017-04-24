@@ -5,11 +5,15 @@ cc.Class({
         roomIdLabel: cc.Label,
         datetime: cc.Label,
         playerList: [cc.Node],
+        gameRecordStep: cc.Prefab,
     },
 
     openDetailsOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.gameStep), this.node, () => {
+        var parentNode = cc.director.getScene().getChildByName('Canvas');
+        var node = cc.instantiate(this.gameRecordStep);
+        node.getComponent('GameRecordStepPrefab').init(this.roomId);
+        Global.openDialog(node, parentNode, () => {
             cc.log('downloader success');
         });
     },

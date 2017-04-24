@@ -2475,7 +2475,10 @@
       {
         "__id__": 65
       }
-    ]
+    ],
+    "gameRecordStep": {
+      "__uuid__": "a81cf799-5055-428b-9797-5f7490c93796"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

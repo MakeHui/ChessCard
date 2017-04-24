@@ -10,11 +10,16 @@ cc.Class({
         number4: cc.Sprite,
         number5: cc.Sprite,
         number6: cc.Sprite,
+
+        gameRecordStep: cc.Prefab,
     },
 
-    // use this for initialization
-    onLoad() {
+    onLoad: function() {
         this.roomNumber = '';
+    },
+
+    init(fromScene) {
+        this.fromScene = fromScene;
     },
 
     numberButtonOnClick(evt, data) {
@@ -29,8 +34,12 @@ cc.Class({
                 this._getHttpRoomEnterData();
             }
             else if (this.fromScene === 'GameRecordList') {
-                const script = cc.director.getScene().getChildByName('Canvas').getChildByName('GameRecordList').getComponent('GameRecordListPrefab');
-                script.onGetGameRecordInfoDataCallback(this, this.roomNumber);
+                var parentNode = cc.director.getScene().getChildByName('Canvas');
+                var node = cc.instantiate(this.gameRecordStep);
+                node.getComponent('GameRecordStepPrefab').init(this.roomId);
+                Global.openDialog(node, parentNode, () => {
+                    cc.log('downloader success');
+                });
             }
         }
     },
@@ -79,9 +88,5 @@ cc.Class({
                 Global.dialog.open('Dialog', this.node);
             }
         });
-    },
-
-    setData(data) {
-        this.fromScene = data;
     },
 });

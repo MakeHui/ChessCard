@@ -12,67 +12,80 @@ window.HttpRequestManager.requestProtocol = {
     check: {
         api: 'client/check',
         description: 'login',
-        protocol: 'CheckVersion'
+        request: 'CheckVersion',
+        response: 'CheckVersion',
     },
     login: {
         api: 'client/login',
         description: 'login',
-        protocol: 'Login'
+        request: 'Login',
+        response: 'Login',
     },
     authCodeLogin: {
         api: 'client/login/auth_code',
         description: 'login',
-        protocol: 'Login'
+        request: 'Login',
+        response: 'Login',
     },
     heartbeat: {
         api: 'client/heartbeat',
         description: 'login',
-        protocol: 'Heartbeat'
+        request: 'Heartbeat',
+        response: 'Heartbeat',
     },
     playerGold: {
         api: 'login/balance',
         description: 'login',
-        protocol: 'PlayerGold'
+        request: 'PlayerGold',
+        response: 'PlayerGold',
     },
     roomCreate: {
         api: 'room/create',
         description: 'login',
-        protocol: 'RoomCreate'
+        request: 'RoomCreate',
+        response: 'RoomCreate',
     },
     roomEnter: {
         api: 'room/enter',
         description: 'login',
-        protocol: 'RoomEnter'
+        request: 'RoomEnter',
+        response: 'RoomEnter',
     },
     roomList: {
         api: 'room/ing_list_for_self',
         description: 'login',
-        protocol: 'RoomList'
+        request: 'RoomList',
+        response: 'RoomList',
     },
     recordList: {
         api: 'room/end_list_for_self',
         description: 'login',
-        protocol: 'RecordList'
+        request: 'RecordList',
+        response: 'RecordList',
     },
     recordInfo: {
         api: 'room/record',
         description: 'login',
-        protocol: 'RecordInfo'
+        request: 'RecordInfo',
+        response: 'RecordInfo',
     },
     recordListSelf: {
         api: 'room/record_self',
         description: 'login',
-        protocol: 'RecordList'
+        request: 'RecordList',
+        response: 'RecordList',
     },
     replay: {
         api: 'room/replay',
         description: 'login',
-        protocol: 'Replay'
+        request: 'Replay',
+        response: 'Replay',
     },
     roomReplay: {
         api: 'room/record_by_room_id',
         description: 'login',
-        protocol: 'RoomReplay'
+        request: 'RoomReplay',
+        response: 'RecordInfo',
     }
 };
 
@@ -292,9 +305,10 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomReplayRequestMessage: function getRoomReplayRequestMessage(parameters) {
         var message = new proto.login.RoomReplayRequest();
-        message.setAppUuid(parameters.appUuid);
+        message.setAppUuid(Global.appUuid);
         message.setRoomId(parameters.roomId);
 
+        cc.log([Global.appUuid, parameters.roomId]);
         return message;
     }
 };
@@ -308,7 +322,7 @@ window.HttpRequestManager.requestMessage = {
  */
 window.HttpRequestManager.httpRequest = function (name, parameters, callback) {
     var protocol = HttpRequestManager.requestProtocol[name];
-    var message = HttpRequestManager.requestMessage['get' + protocol.protocol + 'RequestMessage'](parameters);
+    var message = HttpRequestManager.requestMessage['get' + protocol.request + 'RequestMessage'](parameters);
     var request = cc.loader.getXMLHttpRequest();
 
     request.open('POST', (Global.debug ? Global.apiAddress.development : Global.apiAddress.production) + protocol.api);
@@ -316,7 +330,7 @@ window.HttpRequestManager.httpRequest = function (name, parameters, callback) {
     request.send(message.serializeBinary());
     request.onload = function (event) {
         var result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
-        result = proto[protocol.description][protocol.protocol + 'Response'].deserializeBinary(result);
+        result = proto[protocol.description][protocol.response + 'Response'].deserializeBinary(result);
         result = Tools.protobufToJson(result);
 
         cc.log(['HttpRequestManager.httpRequest ' + name, result]);
