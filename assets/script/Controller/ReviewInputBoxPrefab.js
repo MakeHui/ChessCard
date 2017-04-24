@@ -2,8 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        roomNumber: 0,
-
         number1: cc.Sprite,
         number2: cc.Sprite,
         number3: cc.Sprite,
@@ -31,17 +29,7 @@ cc.Class({
         }
 
         if (this.roomNumber.length === 6) {
-            if (this.fromScene === 'Lobby') {
-                this._getHttpRoomEnterData();
-            }
-            else if (this.fromScene === 'GameRecordList') {
-                var parentNode = cc.director.getScene().getChildByName('Canvas');
-                var node = cc.instantiate(this.gameRecordStep);
-                node.getComponent('GameRecordStepPrefab').init(this.roomId);
-                Global.openDialog(node, parentNode, () => {
-                    cc.log('downloader success');
-                });
-            }
+            // TODO: 调用回放
         }
     },
 

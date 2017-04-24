@@ -656,7 +656,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "closeOnClick",
     "customEventData": ""
   },
@@ -1680,7 +1680,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "1"
   },
@@ -1940,7 +1940,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "2"
   },
@@ -2200,7 +2200,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "3"
   },
@@ -2460,7 +2460,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "4"
   },
@@ -2720,7 +2720,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "5"
   },
@@ -2980,7 +2980,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "6"
   },
@@ -3240,7 +3240,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "7"
   },
@@ -3500,7 +3500,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "8"
   },
@@ -3760,7 +3760,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "9"
   },
@@ -4020,7 +4020,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "clearNumberOnClick",
     "customEventData": "-1"
   },
@@ -4280,7 +4280,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "numberButtonOnClick",
     "customEventData": "0"
   },
@@ -4540,7 +4540,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "InputRoomNumberPrefab",
+    "component": "ReviewInputBoxPrefab",
     "handler": "deleteNumberOnClick",
     "customEventData": "-2"
   },
@@ -4758,13 +4758,24 @@
       "__id__": 1
     },
     "_enabled": true,
-    "roomNumber": 0,
-    "number1": null,
-    "number2": null,
-    "number3": null,
-    "number4": null,
-    "number5": null,
-    "number6": null
+    "number1": {
+      "__id__": 22
+    },
+    "number2": {
+      "__id__": 25
+    },
+    "number3": {
+      "__id__": 28
+    },
+    "number4": {
+      "__id__": 31
+    },
+    "number5": {
+      "__id__": 34
+    },
+    "number6": {
+      "__id__": 37
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

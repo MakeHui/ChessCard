@@ -2,8 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        roomNumber: 0,
-
         number1: cc.Sprite,
         number2: cc.Sprite,
         number3: cc.Sprite,
