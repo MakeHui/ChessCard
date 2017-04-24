@@ -15,7 +15,7 @@ cc.Class({
     seeOtherRoomOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
-        node.getComponent('InputRoomNumberPrefab').init('GameRecordList');
+        node.getComponent('RoomNumberInputBox').init('GameRecordList');
         Global.openDialog(node, this.node);
     },
 

@@ -218,6 +218,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "第几局",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -675,6 +676,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:33333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -760,6 +762,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:33333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -845,6 +848,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:33333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -930,6 +934,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分:33333",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1079,6 +1084,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "回放",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -1275,7 +1281,7 @@
     },
     "_enabled": true,
     "inputRoomNumber": {
-      "__uuid__": "6a8fce3a-61d9-4378-be9b-0731759cc8ca"
+      "__uuid__": "ff2a254f-c197-45be-94dd-8ffee1cb4a47"
     },
     "stepNumber": {
       "__id__": 4
