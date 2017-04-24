@@ -8,9 +8,6 @@ cc.Class({
         number4: cc.Sprite,
         number5: cc.Sprite,
         number6: cc.Sprite,
-
-        // TODO: Prefab相互关联后导致场景无法打开
-        // gameRecordStep: cc.Prefab,
     },
 
     onLoad: function() {
