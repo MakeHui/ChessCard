@@ -31,12 +31,12 @@ cc.Class({
 
     createRoomOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
             if (result.code === 1) {
-                Global.dialog.close();
+                Dialog.close();
                 Global.tempCache = result;
                 const userInfo = Tools.getLocalData(Global.LSK.userInfo);
                 userInfo.gold -= result.payGold;
@@ -44,7 +44,7 @@ cc.Class({
                 cc.director.loadScene('GameRoom');
             }
             else {
-                Global.dialog.close();
+                Dialog.close();
             }
         });
     },

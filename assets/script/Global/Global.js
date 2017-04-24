@@ -301,6 +301,7 @@ window.Global.openDialog = function (node, parentNode) {
     var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
 
     parentNode.addChild(node);
+
     callback();
 
     // Animation.openSceneTransitionAction(node.getChildByName('Dialog'), callback);
@@ -384,7 +385,7 @@ window.Global.dialog = {
             this.node = cc.instantiate(this.loadingPrefab);
         } else {
             this.node = cc.instantiate(this.dialogPrefab);
-            this.node.getComponent('Dialog').callback = callback;
+            this.node.getComponent('MessageBox').callback = callback;
         }
 
         this._open(node);

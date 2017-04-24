@@ -61,11 +61,11 @@ cc.Class({
     },
 
     httpLogin(secretKey, requestName) {
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
         this.scheduleOnce(function() {
             const parameters = { wxCode: secretKey, location: Tools.getLocalData(Global.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
-                Global.dialog.close();
+                Dialog.close();
 
                 if (result.code === 1) {
                     result.location = Tools.getLocalData(Global.LSK.userInfo_location);

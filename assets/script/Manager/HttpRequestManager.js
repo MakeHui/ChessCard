@@ -27,6 +27,12 @@ window.HttpRequestManager.requestProtocol = {
         request: 'Login',
         response: 'Login',
     },
+    wechatLogin: {
+        api: 'client/wechat_login',
+        description: 'login',
+        request: 'Login',
+        response: 'Login',
+    },
     heartbeat: {
         api: 'client/heartbeat',
         description: 'login',

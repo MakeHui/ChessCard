@@ -279,9 +279,9 @@ window.WebSocketManager.openSocketLink = function (url) {
     WebSocketManager.ws.onmessage = WebSocketManager.onmessage;
 };
 
-window.WebSocketManager.onmessage = function (evt) {};
-window.WebSocketManager.onopen = function (evt) {};
-window.WebSocketManager.onclose = function (evt) {};
+window.WebSocketManager.onmessage = function () {};
+window.WebSocketManager.onopen = function () {};
+window.WebSocketManager.onclose = function () {};
 
 window.WebSocketManager.close = function () {
     window.WebSocketManager.isClose = true;
@@ -302,7 +302,6 @@ window.WebSocketManager.getSocketState = function (webSocket) {
  *
  * @param webSocket WebSocket
  * @param name
- * @param parameters
  */
 window.WebSocketManager.sendSocketMessage = function (webSocket, name) {
     var parameters = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];

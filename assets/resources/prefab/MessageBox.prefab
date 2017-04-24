@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Dialog",
+    "_name": "MessageBox",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -626,6 +626,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "系统消息",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -680,18 +681,6 @@
     "sync": false
   },
   {
-    "__type__": "35789kXdd9KIq8GlT/HnKi1",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "label": {
-      "__id__": 17
-    }
-  },
-  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -716,6 +705,18 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0
+  },
+  {
+    "__type__": "1d14cdrEShC1oYHHYNyhUuh",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "label": {
+      "__id__": 17
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -29,9 +29,9 @@ cc.Class({
 
     _getHttpGameRecordInfoData(scene, roomUuid) {
         const self = this;
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
         HttpRequestManager.httpRequest('recordListSelf', { roomUuid }, (event, result) => {
-            Global.dialog.close();
+            Dialog.close();
             if (result.code == 1) {
                 Global.closeDialog(scene.node);
                 const node = cc.instantiate(self.gameRecordStep);
@@ -46,7 +46,7 @@ cc.Class({
     },
 
     _getHttpRecordListSelfData() {
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
@@ -61,7 +61,7 @@ cc.Class({
                     }
                 }
             }
-            Global.dialog.close();
+            Dialog.close();
         });
     },
 });

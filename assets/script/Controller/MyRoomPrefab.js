@@ -69,11 +69,11 @@ cc.Class({
     },
 
     _getHttpIngListForSelfData() {
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
-            Global.dialog.close();
+            Dialog.close();
             if (result.code === 1 && result.roomItemList.length !== 0) {
                 self.gameIngList.removeAllChildren();
                 const roomItem = result.roomItemList;
@@ -90,7 +90,7 @@ cc.Class({
     },
 
     _getHttpEndListForSelfData() {
-        Global.dialog.open('Loading', this.node);
+        Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
@@ -106,7 +106,7 @@ cc.Class({
             else {
                 self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             }
-            Global.dialog.close();
+            Dialog.close();
         });
     },
 });

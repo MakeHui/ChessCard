@@ -1,3 +1,5 @@
+var Dialog = require('Dialog');
+
 cc.Class({
     extends: cc.Component,
 
@@ -9,8 +11,11 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        cc.log('InitApp');
         cc.game.addPersistRootNode(this.node);
+
+        window.Dialog = new Dialog();
+        window.Dialog.loadingPrefab = this.loading;
+        window.Dialog.messagePrefab = this.dialog;
 
         if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
             Tools.setLocalData(Global.LSK.userInfo_location, '该用户未公开地理位置');
@@ -22,9 +27,6 @@ cc.Class({
 
         this.hbt();
         this.backgroundMusic();
-
-        Global.dialog.loadingPrefab = this.loading;
-        Global.dialog.dialogPrefab = this.dialog;
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
             cc.log(this.exitTime);
