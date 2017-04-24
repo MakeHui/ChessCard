@@ -29,7 +29,7 @@ cc.Class({
     onGetGameRecordInfoDataCallback(scene, roomUuid) {
         const self = this;
         Global.dialog.open('Loading', this.node);
-        HttpRequestManager.httpRequest('recordInfo', { roomUuid }, (event, result) => {
+        HttpRequestManager.httpRequest('recordListSelf', { roomUuid }, (event, result) => {
             Global.dialog.close();
             if (result.code == 1) {
                 Global.closeDialog(scene.node);
@@ -48,7 +48,7 @@ cc.Class({
         Global.dialog.open('Loading', this.node);
 
         const self = this;
-        HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
+        HttpRequestManager.httpRequest('recordInfo', {}, (event, result) => {
             if (result.code === 1) {
                 const roomItemList = result.roomItemList;
                 if (roomItemList.length !== 0) {

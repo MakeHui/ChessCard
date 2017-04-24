@@ -55,7 +55,6 @@ cc.Class({
         if (index === 0) {
             this.gameEndPanel.active = false;
             this.gameIngPanel.active = true;
-            cc.log(this.gameIngList.getChildByName('MyRoomNoDataCell'));
             if (this.gameIngList.childrenCount === 0) {
                 this._getHttpIngListForSelfData();
             }
@@ -63,7 +62,6 @@ cc.Class({
         else if (index === 1) {
             this.gameIngPanel.active = false;
             this.gameEndPanel.active = true;
-            cc.log(this.gameEndList.getChildByName('MyRoomNoDataCell'));
             if (this.gameEndList.childrenCount === 0) {
                 this._getHttpEndListForSelfData();
             }
@@ -76,14 +74,9 @@ cc.Class({
         const self = this;
         HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
             Global.dialog.close();
-
-            if (result.code === 1) {
+            if (result.code === 1 && result.roomItemList.length !== 0) {
+                self.gameIngList.removeAllChildren();
                 const roomItem = result.roomItemList;
-                cc.log(roomItem.length);
-                if (roomItem.length === 0) {
-                    self.gameIngList.removeAllChildren();
-                    self.gameIngList.addChild(cc.instantiate(self.noDataCell));
-                }
                 for (let i = 0; i < roomItem.length; i += 1) {
                     const cell = cc.instantiate(self.gameIngCell);
                     cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
@@ -91,10 +84,7 @@ cc.Class({
                 }
             }
             else {
-                cc.log(self.gameIngList.childrenCount);
-                if (self.gameIngList.childrenCount === 0) {
-                    self.gameIngList.addChild(cc.instantiate(self.noDataCell));
-                }
+                self.gameIngList.addChild(cc.instantiate(self.noDataCell));
             }
         });
     },
@@ -104,19 +94,16 @@ cc.Class({
 
         const self = this;
         HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
-            if (result.code === 1) {
-                const roomItem = result.getRoomItem();
-                if (roomItem.length > 0) {
-                    this.gameEndList.removeAllChildren();
-                    this.gameEndList.addChild(cc.instantiate(this.noDataCell));
-                }
+            if (result.code === 0 && result.recordItemList.length !== 0) {
+                this.gameEndList.removeAllChildren();
+                const roomItem = result.recordItemList;
                 for (let i = 0; i < roomItem.length; i += 1) {
                     const cell = cc.instantiate(this.gameEndCell);
-                    cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                    cell.getComponent('GameRecordCellPrefab').init(roomItem[i]);
                     self.gameEndList.addChild(cell);
                 }
             }
-            else if (self.gameEndList.childrenCount === 0) {
+            else {
                 self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             }
             Global.dialog.close();

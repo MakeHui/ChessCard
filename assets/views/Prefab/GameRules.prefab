@@ -59,14 +59,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 279
+        "__id__": 226
       },
       {
-        "__id__": 280
+        "__id__": 227
       }
     ],
     "_prefab": {
-      "__id__": 281
+      "__id__": 228
     },
     "groupIndex": 0
   },
@@ -296,11 +296,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 277
+        "__id__": 224
       }
     ],
     "_prefab": {
-      "__id__": 278
+      "__id__": 225
     },
     "groupIndex": 0
   },
@@ -753,16 +753,16 @@
         "__id__": 22
       },
       {
-        "__id__": 260
+        "__id__": 207
       },
       {
-        "__id__": 264
+        "__id__": 211
       },
       {
-        "__id__": 268
+        "__id__": 215
       },
       {
-        "__id__": 272
+        "__id__": 219
       }
     ],
     "_rotationX": 0,
@@ -784,7 +784,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 276
+      "__id__": 223
     },
     "groupIndex": 0
   },
@@ -822,13 +822,13 @@
         "__id__": 27
       },
       {
-        "__id__": 94
+        "__id__": 41
       },
       {
-        "__id__": 161
+        "__id__": 108
       },
       {
-        "__id__": 228
+        "__id__": 175
       }
     ],
     "_rotationX": 0,
@@ -850,7 +850,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 259
+      "__id__": 206
     },
     "groupIndex": 0
   },
@@ -1000,14 +1000,14 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 900,
-      "height": 380
+      "height": 330
     },
     "_children": [
       {
         "__id__": 28
       },
       {
-        "__id__": 84
+        "__id__": 31
       }
     ],
     "_rotationX": 0,
@@ -1017,7 +1017,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 49,
-      "y": 402
+      "y": 380
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1029,14 +1029,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 89
+        "__id__": 36
       },
       {
-        "__id__": 92
+        "__id__": 39
       }
     ],
     "_prefab": {
-      "__id__": 93
+      "__id__": 40
     },
     "groupIndex": 0
   },
@@ -1063,139 +1063,34 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 900,
-      "height": 1100
+      "width": 860,
+      "height": 3200
     },
-    "_children": [
+    "_children": [],
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": 5,
+      "y": -18
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_tag": -1,
+    "_opacityModifyRGB": false,
+    "_id": "",
+    "_active": true,
+    "_components": [
       {
         "__id__": 29
-      },
-      {
-        "__id__": 32
-      },
-      {
-        "__id__": 35
-      },
-      {
-        "__id__": 38
-      },
-      {
-        "__id__": 41
-      },
-      {
-        "__id__": 44
-      },
-      {
-        "__id__": 47
-      },
-      {
-        "__id__": 50
-      },
-      {
-        "__id__": 53
-      },
-      {
-        "__id__": 56
-      },
-      {
-        "__id__": 59
-      },
-      {
-        "__id__": 62
-      },
-      {
-        "__id__": 65
-      },
-      {
-        "__id__": 68
-      },
-      {
-        "__id__": 71
-      },
-      {
-        "__id__": 74
-      },
-      {
-        "__id__": 77
-      },
-      {
-        "__id__": 80
-      }
-    ],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [],
-    "_prefab": {
-      "__id__": 83
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 125,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 3.1956,
-      "y": -16.208000000000084
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 30
       }
     ],
     "_prefab": {
-      "__id__": 31
+      "__id__": 30
     },
     "groupIndex": 0
   },
@@ -1204,1476 +1099,21 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 29
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "牌型组成：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "b4a29xrvdRAg406edY/X/+/",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
       "__id__": 28
     },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 534.03,
-      "height": 18
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 15.6584,
-      "y": -44.94360000000006
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 33
-      }
-    ],
-    "_prefab": {
-      "__id__": 34
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 32
-    },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
+    "_actualFontSize": 28,
+    "_fontSize": 28,
+    "_lineHeight": 39,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
-    "_N$string": "转转麻将，共108张：简、索、万、不带东西南北风、中、发、白。",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "c888236cHhEpLgZFIo9fChZ",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 75,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0.9443,
-      "y": -80.86789999999996
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 36
-      }
-    ],
-    "_prefab": {
-      "__id__": 37
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 35
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "摸牌：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "e6e09zaM/BOQ51s+wLILJ53",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 878.05,
-      "height": 36
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 15.6584,
-      "y": -99.26300000000003
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 39
-      }
-    ],
-    "_prefab": {
-      "__id__": 40
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 38
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 18,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "游戏开始，庄家14张牌，闲家得13张牌，闲家从牌中选一张丢出。其他3家有权要哪张丢出的牌，只能胡，碰，\n杠不能吃。",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "5d645EV3hpOUKb2KGIqjyLg",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 106.95,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": -1.3071,
-      "y": -159.66600000000005
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 42
-      }
-    ],
-    "_prefab": {
-      "__id__": 43
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 41
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 25,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "胡牌规则:",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "66f866zm1ZEIIu6VxMMMfQk",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 360,
-      "height": 18
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 13.4071,
-      "y": -178.05370000000005
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 45
-      }
-    ],
-    "_prefab": {
-      "__id__": 46
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 44
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "任意将牌+4坎任意牌型（刻子+碰牌+杠牌）。",
+    "_spacingX": 0,
+    "_N$string": "特殊规则\n1 、发牌： 系统自动为每个玩家随机发13张牌。\n2、 定庄：如果房主在房间，则第一局房主坐庄，否则第一局随机庄家。之后谁胡牌谁当庄。\n3 、出牌规则和普通麻将类似，一直抓到最后一张为止，但抓最后一张牌的玩家可以不用出牌。\n5 、臭庄： 臭庄即为“抓至最后一张牌，仍未有人胡牌。\n6 、承包： 如玩家吃、碰、杠中大于等于三组由一人放的，则玩家胡牌后所有积分由承包的人扣除。\n7 、抢杠：抢杠的人算胡牌，被抢杠的算点炮。\n8 、杠牌立即算分。\n杠牌：明杠 = 基本分，直接杠谁的谁给基本分\n补杠：碰谁的谁给基本分\n暗杠 = 基本分，但是 3 家\n\n给基本分\n10 、碰牌的摆放： 碰出的牌有方向性标识摆放，三张牌，左中右，分别代表左手方 . 对家和右手方玩家。表示含义：碰了谁的，则该相应位置的牌面应该朝下。\n\n计分方法\n这里我以 a=1 为基础分数\n1 、平胡： 即为最普通的胡牌，可碰，可杠，但是在所胡的牌中，必须要有一对 2 或者 5 或者 8 为头才允许胡牌（即“有 258 将的要求”），否则不允许胡牌。\n举例：“ 23455 万， 345 索， 789 筒，西西”，听牌只能胡“西风”，而不能胡“ 5 万”。\n“ 234 万， 345 索， 234 筒，中中中， 8 索”，听牌只能胡“ 8 索”，而不能胡其他的牌。\n“ 234 万， 333 索， 2345 筒，中中中”，听牌能胡“ 2 、 5 筒 ”，其他牌不能胡。\n计分方式： 1 × a （放炮的出分，若是自摸，则三家给同样的分）\n2 、普通大胡 ( 一和子 ) ：\n清一色：不带 258 做头，俗称不带“ 真 将 ”，可吃可碰。所有牌为一种花色。\n七对子 ：无需 258 将的要求，不能杠，手牌为7个对子。\n碰碰胡 ：有 258 将的要求 举例：“ 222 万， 333 索， 444 筒，东东东， 6 万”，并无听叫，不能胡牌！必须要 是有真将 “ 222 万， 333 索， 444 筒，东东东， 8 万”，听牌只能胡“ 8 万”，其他牌不能胡。再比如：“ 22 万， 333 梭， 444 筒， 777 筒，北北”，听牌只能胡“北风”，其他牌不能胡。 『不管有没有碰或者杠，只要没有吃牌，最后牌型为 4 组刻子（其中允许存在明、暗刻子或者杠）+真将即可\n乱将 ：可碰，无吃牌，即为手上所有的牌都为 2 或者 5 或者 8 ，不论万索筒均可，而无其他任何平和牌的规则，只需全部为 258 即可）举例：“ 2258 万， 225558 索， 288 筒”，听牌能胡“所有的 258 数字的牌，不论万索筒”\n一条龙 ：有 258 将的要求，而且龙不能下水，即龙不能吃 举例：“ 12345678 万，碰了 333 筒， 88 索”，听牌能胡“ 9 万”，算一条龙！\n计分方式： 4*a （放炮的给钱，若是自摸，则三家给同样的钱）\n3 、双和子： \n清一色带真将：有 258 做头，俗称带“中将”\n龙七 ：无 258 将的要求，和普通七对子的唯一区别为：七对子中有四张同样的牌，即称为隆七）举例：“ 2233 万， 2244 索， 8888 筒，中”，听牌胡“中字”，其他牌不能胡。清一色的七对（有无真将相同）。字一色的七对。举例：“ 2233 万， 2244 索， 88 筒，中中中”，听牌胡“中字”，其他牌不能胡。\n十三烂 ：无 258 将的要求，要求非常严格，必须为五个字，万筒索中必须为 147 、 258 、 369 ，不允许重复 举例：“ 147 万， 258 索， 369 万，东南西北”，听牌胡“中发白”，其他牌不能胡。举例：“ 369 万， 14 索， 258 筒，东南西北中”，听牌只能胡“ 7 索”，其他牌不能胡。\n字一色 ：规则类似于乱将，无 258 将要求，只需手中所有牌均为字牌即可，可碰，无吃牌 举例：“东东东东，西西西，南南南，中中白”，听牌胡“任何字牌”\n清一色对对胡 ：( 不带真将 )( 规则如对对胡和清一色 , 但无将做头 )\n将一色普通七对\n将一色对对胡\n计分方式： 8*a （放炮的给钱，若是自摸，则三家给同样的钱）\n4 、三和子： \n清一色碰碰和带 真 将 ：（规则同上，只是同时符合三种规则）\n双龙七 ：（无 258 将的要求，和龙七的唯一区别为：七对子中有两个四张同样的牌，即称为双龙七）\n字一色碰碰和 ：（顾名思义）\n清一色一条龙\n计分方式： 16*a （放炮的给分，若是自摸，则三家给同样的分）\n5 、四和子： \n三龙七（顾名思义）\n天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）\n地胡 （即胡庄家打出的第一张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）\n计分方式： 32*a （放炮的给钱，若是自摸，则三家给同样的钱）\n",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 1
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "77b54VAL2lN1rJ6JBr07Gcs",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 100,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 3.0402,
-      "y": -220.55700000000002
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 48
-      }
-    ],
-    "_prefab": {
-      "__id__": 49
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 47
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "关于杠：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "15ab0rg2PRAO4LIbd+lI5ve",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 667.03,
-      "height": 126
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 17.7543,
-      "y": -238.93880000000001
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 51
-      }
-    ],
-    "_prefab": {
-      "__id__": 52
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 50
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "1.明杠\nA.手上有三张相同的牌，其他玩家打了第4张相同的牌即可开杠（放杠者出3分）\nB.碰牌后，自己摸了1张相同的牌后即可开杠。如：碰了1万，自摸一个万，即可开杠\n2.暗杠\n手中抓了4张相同的牌，即为暗杠（每人出2分）。\nA.手上有三张相同的牌，其他玩家打了第4张相同的牌即可开杠（放杠者出3分）\nB.碰牌后，自己摸了1张相同的牌后即可开杠。如：碰了1万，自摸一个万，即可开杠",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "66307Gx4KtDmru3NA+YtM2O",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 125,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": -0.1752,
-      "y": -418.6781
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 54
-      }
-    ],
-    "_prefab": {
-      "__id__": 55
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 53
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "庄家分配：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "10e5aVHjDRDWZpxHIG4wxKY",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 342,
-      "height": 72
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 17.5389,
-      "y": -434.06579999999997
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 57
-      }
-    ],
-    "_prefab": {
-      "__id__": 58
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 56
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "A.第一局系统分配庄家\nB.以后谁胡牌，下局谁做庄\nC.出现通炮情况，则由下轮放炮玩家当庄家\nD.流局，为最后抓牌的为庄家",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "31896u6ve1G/oiDTw0LnRBa",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 125,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": -0.3201,
-      "y": -553.5035
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 60
-      }
-    ],
-    "_prefab": {
-      "__id__": 61
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 59
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "特殊规则：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "7cb6bwhXr5McqFKMETkpsGU",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 863.01,
-      "height": 54
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 17.3938,
-      "y": -571.8917
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 63
-      }
-    ],
-    "_prefab": {
-      "__id__": 64
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 62
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "A.通炮：即几个玩家可胡同一张牌，此牌为通炮\nB.漏胡：如果玩家漏掉了炮胡，自己打牌后同一圈内，胡牌分数没有变化的情况下，别人打出多张自己可以胡\n  的牌，第一张不胡则后面的牌不能胡。玩家有摸，吃，碰，杠，补等操作或番数变大的情况下可胡。",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "f5991mCY7hGzr25WRAvGc8q",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 125,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0.3389,
-      "y": -647.7158999999999
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 66
-      }
-    ],
-    "_prefab": {
-      "__id__": 67
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 65
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "红中癞子：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "910d7HxmKhCMJic/5MaCPN3",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 606.03,
-      "height": 90
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 18.0527,
-      "y": -666.1068
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 69
-      }
-    ],
-    "_prefab": {
-      "__id__": 70
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 68
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "A.除了万、条、筒、多了红中（共计112张牌）\nB.红中在手里可以做万能牌使用\nC.红中不能碰，不能杠\nD.红中不能和其他牌组合碰杠。比如1万1红中，别人打1万，不能杠一万的。\nE.起手4个红中可以直接胡",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "e35ackZFWtLJLOQCo26jDuW",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 75,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": -0.1942,
-      "y": -781.6265000000001
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 72
-      }
-    ],
-    "_prefab": {
-      "__id__": 73
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 71
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "抓鸟：",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "17bd0usfOxEIqPolvUOypDD",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 856.01,
-      "height": 36
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 17.5195,
-      "y": -800.015
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 75
-      }
-    ],
-    "_prefab": {
-      "__id__": 76
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 74
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上取（默认2鸟）鸟牌张数，\n其中包含:159（勾选红中癞子玩法时，抓鸟抓出红中算1）牌的个数即为全中个数(注：全部积分-1)",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "46f4an+9WRFaKsCDoP4Fbb/",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_1_0_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 106.95,
-      "height": 25
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 1.4658,
-      "y": -867.8824
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 78
-      }
-    ],
-    "_prefab": {
-      "__id__": 79
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 77
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 25,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "积分规则:",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "003c0upejRLjZ7sIgWyuAlY",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Text_29_0_0_0_0_0_0_0_0_0",
-    "_objFlags": 0,
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 108,
-      "g": 61,
-      "b": 30,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_parent": {
-      "__id__": 28
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 1
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 876.03,
-      "height": 180
-    },
-    "_children": [],
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 19.1798,
-      "y": -886.2753
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_tag": -1,
-    "_opacityModifyRGB": false,
-    "_id": "",
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 81
-      }
-    ],
-    "_prefab": {
-      "__id__": 82
-    },
-    "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 80
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 18,
-    "_lineHeight": 0,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_N$string": "1.自摸：\n每人输2分，胡牌玩家赢6分 \n2.接炮:\n点炮方输1分，胡牌玩家赢1分，\n3.开杠\n暗杠相当于自摸，每人出2分\n碰牌后，再抓1个所碰的牌开杠，每人出1分\n手抓3个相同的牌，然后有人打出1个相同的牌，开杠的话，放杠者出3分，（立即算分，相当于跑的快炸弹），\n如果碰了不能再杠\n注：杠牌后如果流局依然算分",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
-    },
-    "fileId": "4d38aq8RSdMNaEjyhCz1Fcx",
-    "sync": false
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -2710,11 +1150,11 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 15,
-      "height": 380
+      "height": 330
     },
     "_children": [
       {
-        "__id__": 85
+        "__id__": 32
       }
     ],
     "_rotationX": 0,
@@ -2724,7 +1164,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 892.5,
-      "y": -190
+      "y": -165
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -2736,14 +1176,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 88
+        "__id__": 35
       },
       {
-        "__id__": 90
+        "__id__": 37
       }
     ],
     "_prefab": {
-      "__id__": 91
+      "__id__": 38
     },
     "groupIndex": 0
   },
@@ -2761,7 +1201,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 84
+      "__id__": 31
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2793,11 +1233,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 86
+        "__id__": 33
       }
     ],
     "_prefab": {
-      "__id__": 87
+      "__id__": 34
     },
     "groupIndex": 0
   },
@@ -2806,7 +1246,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 85
+      "__id__": 32
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -2843,18 +1283,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 84
+      "__id__": 31
     },
     "_enabled": true,
     "_scrollView": {
-      "__id__": 89
+      "__id__": 36
     },
     "_touching": false,
     "_opacity": 255,
     "enableAutoHide": true,
     "autoHideTime": 1,
     "_N$handle": {
-      "__id__": 86
+      "__id__": 33
     },
     "_N$direction": 1
   },
@@ -2878,7 +1318,7 @@
     "scrollEvents": [],
     "cancelInnerEvents": true,
     "_N$verticalScrollBar": {
-      "__id__": 88
+      "__id__": 35
     }
   },
   {
@@ -2886,7 +1326,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 84
+      "__id__": 31
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -2971,10 +1411,10 @@
     },
     "_children": [
       {
-        "__id__": 95
+        "__id__": 42
       },
       {
-        "__id__": 151
+        "__id__": 98
       }
     ],
     "_rotationX": 0,
@@ -2996,14 +1436,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 156
+        "__id__": 103
       },
       {
-        "__id__": 159
+        "__id__": 106
       }
     ],
     "_prefab": {
-      "__id__": 160
+      "__id__": 107
     },
     "groupIndex": 0
   },
@@ -3021,7 +1461,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 94
+      "__id__": 41
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3035,58 +1475,58 @@
     },
     "_children": [
       {
-        "__id__": 96
+        "__id__": 43
       },
       {
-        "__id__": 99
+        "__id__": 46
       },
       {
-        "__id__": 102
+        "__id__": 49
       },
       {
-        "__id__": 105
+        "__id__": 52
       },
       {
-        "__id__": 108
+        "__id__": 55
       },
       {
-        "__id__": 111
+        "__id__": 58
       },
       {
-        "__id__": 114
+        "__id__": 61
       },
       {
-        "__id__": 117
+        "__id__": 64
       },
       {
-        "__id__": 120
+        "__id__": 67
       },
       {
-        "__id__": 123
+        "__id__": 70
       },
       {
-        "__id__": 126
+        "__id__": 73
       },
       {
-        "__id__": 129
+        "__id__": 76
       },
       {
-        "__id__": 132
+        "__id__": 79
       },
       {
-        "__id__": 135
+        "__id__": 82
       },
       {
-        "__id__": 138
+        "__id__": 85
       },
       {
-        "__id__": 141
+        "__id__": 88
       },
       {
-        "__id__": 144
+        "__id__": 91
       },
       {
-        "__id__": 147
+        "__id__": 94
       }
     ],
     "_rotationX": 0,
@@ -3108,7 +1548,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 150
+      "__id__": 97
     },
     "groupIndex": 0
   },
@@ -3126,7 +1566,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3158,11 +1598,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 97
+        "__id__": 44
       }
     ],
     "_prefab": {
-      "__id__": 98
+      "__id__": 45
     },
     "groupIndex": 0
   },
@@ -3171,7 +1611,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 96
+      "__id__": 43
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3181,6 +1621,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "牌型组成：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3211,7 +1652,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3243,11 +1684,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 100
+        "__id__": 47
       }
     ],
     "_prefab": {
-      "__id__": 101
+      "__id__": 48
     },
     "groupIndex": 0
   },
@@ -3256,7 +1697,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 99
+      "__id__": 46
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3266,6 +1707,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "红中麻将，共112张：简、索、万、外加4张红中。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3296,7 +1738,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3328,11 +1770,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 103
+        "__id__": 50
       }
     ],
     "_prefab": {
-      "__id__": 104
+      "__id__": 51
     },
     "groupIndex": 0
   },
@@ -3341,7 +1783,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 102
+      "__id__": 49
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3351,6 +1793,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "摸牌：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3381,7 +1824,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3413,11 +1856,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 106
+        "__id__": 53
       }
     ],
     "_prefab": {
-      "__id__": 107
+      "__id__": 54
     },
     "groupIndex": 0
   },
@@ -3426,7 +1869,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 105
+      "__id__": 52
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3436,6 +1879,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "游戏开始，庄家14张牌，闲家得13张牌，闲家从牌中选一张丢出。其他3家有权要哪张丢出的牌，只能胡，碰，\n杠不能吃。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3466,7 +1910,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3498,11 +1942,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 109
+        "__id__": 56
       }
     ],
     "_prefab": {
-      "__id__": 110
+      "__id__": 57
     },
     "groupIndex": 0
   },
@@ -3511,7 +1955,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 108
+      "__id__": 55
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3521,6 +1965,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "胡牌规则:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3551,7 +1996,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3583,11 +2028,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 112
+        "__id__": 59
       }
     ],
     "_prefab": {
-      "__id__": 113
+      "__id__": 60
     },
     "groupIndex": 0
   },
@@ -3596,7 +2041,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 111
+      "__id__": 58
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3606,6 +2051,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "任意将牌+4坎任意牌型（刻子+碰牌+杠牌）。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3636,7 +2082,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3668,11 +2114,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 115
+        "__id__": 62
       }
     ],
     "_prefab": {
-      "__id__": 116
+      "__id__": 63
     },
     "groupIndex": 0
   },
@@ -3681,7 +2127,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 114
+      "__id__": 61
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3691,6 +2137,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "关于杠：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3721,7 +2168,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3753,11 +2200,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 118
+        "__id__": 65
       }
     ],
     "_prefab": {
-      "__id__": 119
+      "__id__": 66
     },
     "groupIndex": 0
   },
@@ -3766,7 +2213,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 117
+      "__id__": 64
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3776,6 +2223,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "1.明杠\nA.手上有三张相同的牌，其他玩家打了第4张相同的牌即可开杠（放杠者出3分）\nB.碰牌后，自己摸了1张相同的牌后即可开杠。如：碰了1万，自摸一个万，即可开杠\n2.暗杠\n手中抓了4张相同的牌，即为暗杠（每人出2分）。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3806,7 +2254,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3838,11 +2286,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 121
+        "__id__": 68
       }
     ],
     "_prefab": {
-      "__id__": 122
+      "__id__": 69
     },
     "groupIndex": 0
   },
@@ -3851,7 +2299,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 120
+      "__id__": 67
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3861,6 +2309,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "庄家分配：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3891,7 +2340,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3923,11 +2372,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 124
+        "__id__": 71
       }
     ],
     "_prefab": {
-      "__id__": 125
+      "__id__": 72
     },
     "groupIndex": 0
   },
@@ -3936,7 +2385,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 123
+      "__id__": 70
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -3946,6 +2395,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.第一局系统分配庄家\nB.以后谁胡牌，下局谁做庄\nC.出现通炮情况，则由下轮放炮玩家当庄家\nD.流局，为最后抓牌的为庄家",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -3976,7 +2426,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4008,11 +2458,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 127
+        "__id__": 74
       }
     ],
     "_prefab": {
-      "__id__": 128
+      "__id__": 75
     },
     "groupIndex": 0
   },
@@ -4021,7 +2471,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 126
+      "__id__": 73
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4031,6 +2481,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "特殊规则：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4061,7 +2512,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4093,11 +2544,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 130
+        "__id__": 77
       }
     ],
     "_prefab": {
-      "__id__": 131
+      "__id__": 78
     },
     "groupIndex": 0
   },
@@ -4106,7 +2557,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 129
+      "__id__": 76
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4116,6 +2567,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.通炮：即几个玩家可胡同一张牌，此牌为通炮\nB.漏胡：如果玩家漏掉了炮胡，自己打牌后同一圈内，胡牌分数没有变化的情况下，别人打出多张自己可以胡\n  的牌，第一张不胡则后面的牌不能胡。玩家有摸，吃，碰，杠，补等操作或番数变大的情况下可胡。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4146,7 +2598,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4178,11 +2630,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 133
+        "__id__": 80
       }
     ],
     "_prefab": {
-      "__id__": 134
+      "__id__": 81
     },
     "groupIndex": 0
   },
@@ -4191,7 +2643,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 132
+      "__id__": 79
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4201,6 +2653,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "红中癞子：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4231,7 +2684,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4263,11 +2716,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 136
+        "__id__": 83
       }
     ],
     "_prefab": {
-      "__id__": 137
+      "__id__": 84
     },
     "groupIndex": 0
   },
@@ -4276,7 +2729,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 135
+      "__id__": 82
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4286,6 +2739,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.除了万、条、筒、多了红中（共计112张牌）\nB.红中在手里可以做万能牌使用\nC.红中不能碰，不能杠\nD.红中不能和其他牌组合碰杠。比如1万1红中，别人打1万，不能杠一万的。\nE.起手4个红中可以直接胡",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4316,7 +2770,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4348,11 +2802,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 139
+        "__id__": 86
       }
     ],
     "_prefab": {
-      "__id__": 140
+      "__id__": 87
     },
     "groupIndex": 0
   },
@@ -4361,7 +2815,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 138
+      "__id__": 85
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4371,6 +2825,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4401,7 +2856,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4433,11 +2888,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 142
+        "__id__": 89
       }
     ],
     "_prefab": {
-      "__id__": 143
+      "__id__": 90
     },
     "groupIndex": 0
   },
@@ -4446,7 +2901,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 141
+      "__id__": 88
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4456,6 +2911,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上取（默认2鸟）鸟牌张数，\n其中包含:159（勾选红中癞子玩法时，抓鸟抓出红中算1）牌的个数即为全中个数(注：全部积分-1)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4486,7 +2942,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4518,11 +2974,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 145
+        "__id__": 92
       }
     ],
     "_prefab": {
-      "__id__": 146
+      "__id__": 93
     },
     "groupIndex": 0
   },
@@ -4531,7 +2987,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 144
+      "__id__": 91
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4541,6 +2997,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分规则:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4571,7 +3028,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 95
+      "__id__": 42
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4603,11 +3060,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 148
+        "__id__": 95
       }
     ],
     "_prefab": {
-      "__id__": 149
+      "__id__": 96
     },
     "groupIndex": 0
   },
@@ -4616,7 +3073,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 147
+      "__id__": 94
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -4626,6 +3083,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "1.自摸：\n每人输2分，胡牌玩家赢6分 \n2.接炮:\n点炮方输1分，胡牌玩家赢1分，\n3.开杠\n暗杠相当于自摸，每人出2分\n碰牌后，再抓1个所碰的牌开杠，每人出1分\n手抓3个相同的牌，然后有人打出1个相同的牌，开杠的话，放杠者出3分，（立即算分，相当于跑的快炸弹），\n如果碰了不能再杠\n注：杠牌后如果流局依然算分",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -4667,7 +3125,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 94
+      "__id__": 41
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4681,7 +3139,7 @@
     },
     "_children": [
       {
-        "__id__": 152
+        "__id__": 99
       }
     ],
     "_rotationX": 0,
@@ -4703,14 +3161,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 155
+        "__id__": 102
       },
       {
-        "__id__": 157
+        "__id__": 104
       }
     ],
     "_prefab": {
-      "__id__": 158
+      "__id__": 105
     },
     "groupIndex": 0
   },
@@ -4728,7 +3186,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 151
+      "__id__": 98
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4760,11 +3218,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 153
+        "__id__": 100
       }
     ],
     "_prefab": {
-      "__id__": 154
+      "__id__": 101
     },
     "groupIndex": 0
   },
@@ -4773,7 +3231,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 152
+      "__id__": 99
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -4810,18 +3268,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 151
+      "__id__": 98
     },
     "_enabled": true,
     "_scrollView": {
-      "__id__": 156
+      "__id__": 103
     },
     "_touching": false,
     "_opacity": 255,
     "enableAutoHide": true,
     "autoHideTime": 1,
     "_N$handle": {
-      "__id__": 153
+      "__id__": 100
     },
     "_N$direction": 1
   },
@@ -4830,11 +3288,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 94
+      "__id__": 41
     },
     "_enabled": true,
     "content": {
-      "__id__": 95
+      "__id__": 42
     },
     "horizontal": false,
     "vertical": true,
@@ -4845,7 +3303,7 @@
     "scrollEvents": [],
     "cancelInnerEvents": true,
     "_N$verticalScrollBar": {
-      "__id__": 155
+      "__id__": 102
     }
   },
   {
@@ -4853,7 +3311,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 151
+      "__id__": 98
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -4890,7 +3348,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 94
+      "__id__": 41
     },
     "_enabled": true,
     "_type": 0,
@@ -4938,10 +3396,10 @@
     },
     "_children": [
       {
-        "__id__": 162
+        "__id__": 109
       },
       {
-        "__id__": 218
+        "__id__": 165
       }
     ],
     "_rotationX": 0,
@@ -4963,14 +3421,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 223
+        "__id__": 170
       },
       {
-        "__id__": 226
+        "__id__": 173
       }
     ],
     "_prefab": {
-      "__id__": 227
+      "__id__": 174
     },
     "groupIndex": 0
   },
@@ -4988,7 +3446,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 161
+      "__id__": 108
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5002,58 +3460,58 @@
     },
     "_children": [
       {
-        "__id__": 163
+        "__id__": 110
       },
       {
-        "__id__": 166
+        "__id__": 113
       },
       {
-        "__id__": 169
+        "__id__": 116
       },
       {
-        "__id__": 172
+        "__id__": 119
       },
       {
-        "__id__": 175
+        "__id__": 122
       },
       {
-        "__id__": 178
+        "__id__": 125
       },
       {
-        "__id__": 181
+        "__id__": 128
       },
       {
-        "__id__": 184
+        "__id__": 131
       },
       {
-        "__id__": 187
+        "__id__": 134
       },
       {
-        "__id__": 190
+        "__id__": 137
       },
       {
-        "__id__": 193
+        "__id__": 140
       },
       {
-        "__id__": 196
+        "__id__": 143
       },
       {
-        "__id__": 199
+        "__id__": 146
       },
       {
-        "__id__": 202
+        "__id__": 149
       },
       {
-        "__id__": 205
+        "__id__": 152
       },
       {
-        "__id__": 208
+        "__id__": 155
       },
       {
-        "__id__": 211
+        "__id__": 158
       },
       {
-        "__id__": 214
+        "__id__": 161
       }
     ],
     "_rotationX": 0,
@@ -5075,7 +3533,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 217
+      "__id__": 164
     },
     "groupIndex": 0
   },
@@ -5093,7 +3551,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5125,11 +3583,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 164
+        "__id__": 111
       }
     ],
     "_prefab": {
-      "__id__": 165
+      "__id__": 112
     },
     "groupIndex": 0
   },
@@ -5138,7 +3596,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 163
+      "__id__": 110
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5148,6 +3606,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "牌型组成：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5178,7 +3637,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5210,11 +3669,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 167
+        "__id__": 114
       }
     ],
     "_prefab": {
-      "__id__": 168
+      "__id__": 115
     },
     "groupIndex": 0
   },
@@ -5223,7 +3682,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 166
+      "__id__": 113
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5233,6 +3692,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "转转麻将，共108张：简、索、万、不带东西南北风、中、发、白。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5263,7 +3723,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5295,11 +3755,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 170
+        "__id__": 117
       }
     ],
     "_prefab": {
-      "__id__": 171
+      "__id__": 118
     },
     "groupIndex": 0
   },
@@ -5308,7 +3768,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 169
+      "__id__": 116
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5318,6 +3778,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "摸牌：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5348,7 +3809,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5380,11 +3841,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 173
+        "__id__": 120
       }
     ],
     "_prefab": {
-      "__id__": 174
+      "__id__": 121
     },
     "groupIndex": 0
   },
@@ -5393,7 +3854,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 172
+      "__id__": 119
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5403,6 +3864,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "游戏开始，庄家14张牌，闲家得13张牌，闲家从牌中选一张丢出。其他3家有权要哪张丢出的牌，只能胡，碰，\n杠不能吃。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5433,7 +3895,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5465,11 +3927,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 176
+        "__id__": 123
       }
     ],
     "_prefab": {
-      "__id__": 177
+      "__id__": 124
     },
     "groupIndex": 0
   },
@@ -5478,7 +3940,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 175
+      "__id__": 122
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5488,6 +3950,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "胡牌规则:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5518,7 +3981,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5550,11 +4013,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 179
+        "__id__": 126
       }
     ],
     "_prefab": {
-      "__id__": 180
+      "__id__": 127
     },
     "groupIndex": 0
   },
@@ -5563,7 +4026,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 178
+      "__id__": 125
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5573,6 +4036,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "任意将牌+4坎任意牌型（刻子+碰牌+杠牌）。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5603,7 +4067,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5635,11 +4099,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 182
+        "__id__": 129
       }
     ],
     "_prefab": {
-      "__id__": 183
+      "__id__": 130
     },
     "groupIndex": 0
   },
@@ -5648,7 +4112,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 181
+      "__id__": 128
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5658,6 +4122,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "关于杠：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5688,7 +4153,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5720,11 +4185,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 185
+        "__id__": 132
       }
     ],
     "_prefab": {
-      "__id__": 186
+      "__id__": 133
     },
     "groupIndex": 0
   },
@@ -5733,7 +4198,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 184
+      "__id__": 131
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5743,6 +4208,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "1.明杠\nA.手上有三张相同的牌，其他玩家打了第4张相同的牌即可开杠（放杠者出3分）\nB.碰牌后，自己摸了1张相同的牌后即可开杠。如：碰了1万，自摸一个万，即可开杠\n2.暗杠\n手中抓了4张相同的牌，即为暗杠（每人出2分）。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5773,7 +4239,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5805,11 +4271,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 188
+        "__id__": 135
       }
     ],
     "_prefab": {
-      "__id__": 189
+      "__id__": 136
     },
     "groupIndex": 0
   },
@@ -5818,7 +4284,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 187
+      "__id__": 134
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5828,6 +4294,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "庄家分配：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5858,7 +4325,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5890,11 +4357,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 191
+        "__id__": 138
       }
     ],
     "_prefab": {
-      "__id__": 192
+      "__id__": 139
     },
     "groupIndex": 0
   },
@@ -5903,7 +4370,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 190
+      "__id__": 137
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5913,6 +4380,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.第一局系统分配庄家\nB.以后谁胡牌，下局谁做庄\nC.出现通炮情况，则由下轮放炮玩家当庄家\nD.流局，为最后抓牌的为庄家",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -5943,7 +4411,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -5975,11 +4443,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 194
+        "__id__": 141
       }
     ],
     "_prefab": {
-      "__id__": 195
+      "__id__": 142
     },
     "groupIndex": 0
   },
@@ -5988,7 +4456,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 193
+      "__id__": 140
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -5998,6 +4466,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "特殊规则：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6028,7 +4497,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6060,11 +4529,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 197
+        "__id__": 144
       }
     ],
     "_prefab": {
-      "__id__": 198
+      "__id__": 145
     },
     "groupIndex": 0
   },
@@ -6073,7 +4542,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 196
+      "__id__": 143
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6083,6 +4552,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.通炮：即几个玩家可胡同一张牌，此牌为通炮\nB.漏胡：如果玩家漏掉了炮胡，自己打牌后同一圈内，胡牌分数没有变化的情况下，别人打出多张自己可以胡\n  的牌，第一张不胡则后面的牌不能胡。玩家有摸，吃，碰，杠，补等操作或番数变大的情况下可胡。",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6113,7 +4583,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6145,11 +4615,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 200
+        "__id__": 147
       }
     ],
     "_prefab": {
-      "__id__": 201
+      "__id__": 148
     },
     "groupIndex": 0
   },
@@ -6158,7 +4628,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 199
+      "__id__": 146
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6168,6 +4638,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "红中癞子：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6198,7 +4669,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6230,11 +4701,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 203
+        "__id__": 150
       }
     ],
     "_prefab": {
-      "__id__": 204
+      "__id__": 151
     },
     "groupIndex": 0
   },
@@ -6243,7 +4714,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 202
+      "__id__": 149
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6253,6 +4724,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "A.除了万、条、筒、多了红中（共计112张牌）\nB.红中在手里可以做万能牌使用\nC.红中不能碰，不能杠\nD.红中不能和其他牌组合碰杠。比如1万1红中，别人打1万，不能杠一万的。\nE.起手4个红中可以直接胡",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6283,7 +4755,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6315,11 +4787,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 206
+        "__id__": 153
       }
     ],
     "_prefab": {
-      "__id__": 207
+      "__id__": 154
     },
     "groupIndex": 0
   },
@@ -6328,7 +4800,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 205
+      "__id__": 152
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6338,6 +4810,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟：",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6368,7 +4841,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6400,11 +4873,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 209
+        "__id__": 156
       }
     ],
     "_prefab": {
-      "__id__": 210
+      "__id__": 157
     },
     "groupIndex": 0
   },
@@ -6413,7 +4886,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 208
+      "__id__": 155
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6423,6 +4896,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上取（默认2鸟）鸟牌张数，\n其中包含:159（勾选红中癞子玩法时，抓鸟抓出红中算1）牌的个数即为全中个数(注：全部积分-1)",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6453,7 +4927,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6485,11 +4959,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 212
+        "__id__": 159
       }
     ],
     "_prefab": {
-      "__id__": 213
+      "__id__": 160
     },
     "groupIndex": 0
   },
@@ -6498,7 +4972,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 211
+      "__id__": 158
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6508,6 +4982,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "积分规则:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6538,7 +5013,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 162
+      "__id__": 109
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6570,11 +5045,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 215
+        "__id__": 162
       }
     ],
     "_prefab": {
-      "__id__": 216
+      "__id__": 163
     },
     "groupIndex": 0
   },
@@ -6583,7 +5058,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 214
+      "__id__": 161
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -6593,6 +5068,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "1.自摸：\n每人输2分，胡牌玩家赢6分 \n2.接炮:\n点炮方输1分，胡牌玩家赢1分，\n3.开杠\n暗杠相当于自摸，每人出2分\n碰牌后，再抓1个所碰的牌开杠，每人出1分\n手抓3个相同的牌，然后有人打出1个相同的牌，开杠的话，放杠者出3分，（立即算分，相当于跑的快炸弹），\n如果碰了不能再杠\n注：杠牌后如果流局依然算分",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -6634,7 +5110,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 161
+      "__id__": 108
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6648,7 +5124,7 @@
     },
     "_children": [
       {
-        "__id__": 219
+        "__id__": 166
       }
     ],
     "_rotationX": 0,
@@ -6670,14 +5146,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 222
+        "__id__": 169
       },
       {
-        "__id__": 224
+        "__id__": 171
       }
     ],
     "_prefab": {
-      "__id__": 225
+      "__id__": 172
     },
     "groupIndex": 0
   },
@@ -6695,7 +5171,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 218
+      "__id__": 165
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6727,11 +5203,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 220
+        "__id__": 167
       }
     ],
     "_prefab": {
-      "__id__": 221
+      "__id__": 168
     },
     "groupIndex": 0
   },
@@ -6740,7 +5216,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 219
+      "__id__": 166
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -6777,18 +5253,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 218
+      "__id__": 165
     },
     "_enabled": true,
     "_scrollView": {
-      "__id__": 223
+      "__id__": 170
     },
     "_touching": false,
     "_opacity": 255,
     "enableAutoHide": true,
     "autoHideTime": 1,
     "_N$handle": {
-      "__id__": 220
+      "__id__": 167
     },
     "_N$direction": 1
   },
@@ -6797,11 +5273,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 161
+      "__id__": 108
     },
     "_enabled": true,
     "content": {
-      "__id__": 162
+      "__id__": 109
     },
     "horizontal": false,
     "vertical": true,
@@ -6812,7 +5288,7 @@
     "scrollEvents": [],
     "cancelInnerEvents": true,
     "_N$verticalScrollBar": {
-      "__id__": 222
+      "__id__": 169
     }
   },
   {
@@ -6820,7 +5296,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 218
+      "__id__": 165
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -6857,7 +5333,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 161
+      "__id__": 108
     },
     "_enabled": true,
     "_type": 0,
@@ -6905,10 +5381,10 @@
     },
     "_children": [
       {
-        "__id__": 229
+        "__id__": 176
       },
       {
-        "__id__": 249
+        "__id__": 196
       }
     ],
     "_rotationX": 0,
@@ -6930,14 +5406,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 254
+        "__id__": 201
       },
       {
-        "__id__": 257
+        "__id__": 204
       }
     ],
     "_prefab": {
-      "__id__": 258
+      "__id__": 205
     },
     "groupIndex": 0
   },
@@ -6955,7 +5431,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 228
+      "__id__": 175
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6969,22 +5445,22 @@
     },
     "_children": [
       {
-        "__id__": 230
+        "__id__": 177
       },
       {
-        "__id__": 233
+        "__id__": 180
       },
       {
-        "__id__": 236
+        "__id__": 183
       },
       {
-        "__id__": 239
+        "__id__": 186
       },
       {
-        "__id__": 242
+        "__id__": 189
       },
       {
-        "__id__": 245
+        "__id__": 192
       }
     ],
     "_rotationX": 0,
@@ -7006,7 +5482,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 248
+      "__id__": 195
     },
     "groupIndex": 0
   },
@@ -7024,7 +5500,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7056,11 +5532,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 231
+        "__id__": 178
       }
     ],
     "_prefab": {
-      "__id__": 232
+      "__id__": 179
     },
     "groupIndex": 0
   },
@@ -7069,7 +5545,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 230
+      "__id__": 177
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7079,6 +5555,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "普通抓鸟（2-6鸟）:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7109,7 +5586,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7141,11 +5618,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 234
+        "__id__": 181
       }
     ],
     "_prefab": {
-      "__id__": 235
+      "__id__": 182
     },
     "groupIndex": 0
   },
@@ -7154,7 +5631,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 233
+      "__id__": 180
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7164,6 +5641,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上取（默认2鸟）鸟牌张数，\n其中包含:159（勾选红中癞子玩法时，抓鸟抓出红中算1）牌的个数即为中鸟个数，胡牌方（接炮加1分，\n自摸加三分）",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7194,7 +5672,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7226,11 +5704,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 237
+        "__id__": 184
       }
     ],
     "_prefab": {
-      "__id__": 238
+      "__id__": 185
     },
     "groupIndex": 0
   },
@@ -7239,7 +5717,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 236
+      "__id__": 183
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7249,6 +5727,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "159中鸟（2鸟）:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7279,7 +5758,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7311,11 +5790,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 240
+        "__id__": 187
       }
     ],
     "_prefab": {
-      "__id__": 241
+      "__id__": 188
     },
     "groupIndex": 0
   },
@@ -7324,7 +5803,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 239
+      "__id__": 186
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7334,6 +5813,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上抓取2张鸟牌张数，其中\n159以及红中牌即为鸟牌，抓中一张鸟牌后，在原有胡牌分数上进行翻倍，一张鸟牌为2倍，两张鸟牌为4倍！",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7364,7 +5844,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7396,11 +5876,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 243
+        "__id__": 190
       }
     ],
     "_prefab": {
-      "__id__": 244
+      "__id__": 191
     },
     "groupIndex": 0
   },
@@ -7409,7 +5889,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 242
+      "__id__": 189
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7419,6 +5899,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "一码全中（1鸟）:",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7449,7 +5930,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 229
+      "__id__": 176
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7481,11 +5962,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 246
+        "__id__": 193
       }
     ],
     "_prefab": {
-      "__id__": 247
+      "__id__": 194
     },
     "groupIndex": 0
   },
@@ -7494,7 +5975,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 245
+      "__id__": 192
     },
     "_enabled": true,
     "_useOriginalSize": false,
@@ -7504,6 +5985,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "抓鸟在胡牌后进行，由胡牌方进行（一炮多响时由点炮玩家进行），此时从牌堆上抓取1张鸟牌张数，抓到牌\n的数字为几，则胡牌方从其他三分扣除分数基础上加几，（红中为10分）如：自摸抓到5条，则胡牌方获得\n分数为：6+3x5=21分",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -7545,7 +6027,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 228
+      "__id__": 175
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7559,7 +6041,7 @@
     },
     "_children": [
       {
-        "__id__": 250
+        "__id__": 197
       }
     ],
     "_rotationX": 0,
@@ -7581,14 +6063,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 253
+        "__id__": 200
       },
       {
-        "__id__": 255
+        "__id__": 202
       }
     ],
     "_prefab": {
-      "__id__": 256
+      "__id__": 203
     },
     "groupIndex": 0
   },
@@ -7606,7 +6088,7 @@
     },
     "_cascadeOpacityEnabled": true,
     "_parent": {
-      "__id__": 249
+      "__id__": 196
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -7638,11 +6120,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 251
+        "__id__": 198
       }
     ],
     "_prefab": {
-      "__id__": 252
+      "__id__": 199
     },
     "groupIndex": 0
   },
@@ -7651,7 +6133,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 250
+      "__id__": 197
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7688,18 +6170,18 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 249
+      "__id__": 196
     },
     "_enabled": true,
     "_scrollView": {
-      "__id__": 254
+      "__id__": 201
     },
     "_touching": false,
     "_opacity": 255,
     "enableAutoHide": true,
     "autoHideTime": 1,
     "_N$handle": {
-      "__id__": 251
+      "__id__": 198
     },
     "_N$direction": 1
   },
@@ -7708,11 +6190,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 228
+      "__id__": 175
     },
     "_enabled": true,
     "content": {
-      "__id__": 229
+      "__id__": 176
     },
     "horizontal": false,
     "vertical": true,
@@ -7723,7 +6205,7 @@
     "scrollEvents": [],
     "cancelInnerEvents": true,
     "_N$verticalScrollBar": {
-      "__id__": 253
+      "__id__": 200
     }
   },
   {
@@ -7731,7 +6213,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 249
+      "__id__": 196
     },
     "_enabled": true,
     "isAlignOnce": true,
@@ -7768,7 +6250,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 228
+      "__id__": 175
     },
     "_enabled": true,
     "_type": 0,
@@ -7845,14 +6327,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 261
+        "__id__": 208
       },
       {
-        "__id__": 262
+        "__id__": 209
       }
     ],
     "_prefab": {
-      "__id__": 263
+      "__id__": 210
     },
     "groupIndex": 0
   },
@@ -7861,7 +6343,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 260
+      "__id__": 207
     },
     "_enabled": true,
     "transition": 2,
@@ -7911,7 +6393,7 @@
       "__uuid__": "e68836de-296a-46a1-992e-e99812225eac"
     },
     "_N$target": {
-      "__id__": 260
+      "__id__": 207
     }
   },
   {
@@ -7919,7 +6401,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 260
+      "__id__": 207
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -7999,14 +6481,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 265
+        "__id__": 212
       },
       {
-        "__id__": 266
+        "__id__": 213
       }
     ],
     "_prefab": {
-      "__id__": 267
+      "__id__": 214
     },
     "groupIndex": 0
   },
@@ -8015,7 +6497,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 264
+      "__id__": 211
     },
     "_enabled": true,
     "transition": 2,
@@ -8065,7 +6547,7 @@
       "__uuid__": "bfe3f5d5-ff3c-4f33-81c2-5ea9b0cc3c13"
     },
     "_N$target": {
-      "__id__": 264
+      "__id__": 211
     }
   },
   {
@@ -8073,7 +6555,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 264
+      "__id__": 211
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -8153,14 +6635,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 269
+        "__id__": 216
       },
       {
-        "__id__": 270
+        "__id__": 217
       }
     ],
     "_prefab": {
-      "__id__": 271
+      "__id__": 218
     },
     "groupIndex": 0
   },
@@ -8169,7 +6651,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 268
+      "__id__": 215
     },
     "_enabled": true,
     "transition": 2,
@@ -8219,7 +6701,7 @@
       "__uuid__": "a5b7ce5d-fcc4-41b8-a25f-612a80ecb1b7"
     },
     "_N$target": {
-      "__id__": 268
+      "__id__": 215
     }
   },
   {
@@ -8227,7 +6709,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 268
+      "__id__": 215
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -8307,14 +6789,14 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 273
+        "__id__": 220
       },
       {
-        "__id__": 274
+        "__id__": 221
       }
     ],
     "_prefab": {
-      "__id__": 275
+      "__id__": 222
     },
     "groupIndex": 0
   },
@@ -8323,7 +6805,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 272
+      "__id__": 219
     },
     "_enabled": true,
     "transition": 2,
@@ -8373,7 +6855,7 @@
       "__uuid__": "bfde1dac-11f4-470e-b7e1-7cea036f04a0"
     },
     "_N$target": {
-      "__id__": 272
+      "__id__": 219
     }
   },
   {
@@ -8381,7 +6863,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 272
+      "__id__": 219
     },
     "_enabled": true,
     "_spriteFrame": {
