@@ -142,8 +142,6 @@ cc.Class({
             }
             this.voiceProgressBar.progress = 1.0;
             cc.log('cc.Node.EventType.TOUCH_START');
-
-            this.voiceFilePath = NativeExtensionManager.execute('startRecord', [], this.onVoiceEndCallback);
         }, this);
 
         this.voiceButton.on(cc.Node.EventType.TOUCH_END, () => {
@@ -152,8 +150,8 @@ cc.Class({
             }
             cc.log('cc.Node.EventType.TOUCH_END');
 
-            NativeExtensionManager.execute('stopRecord');
-            this.onVoiceEndCallback();
+            var voiceFilePath = NativeExtensionManager.execute('stopRecord');
+            this.onVoiceEndCallback(voiceFilePath);
         }, this);
     },
 
@@ -165,13 +163,13 @@ cc.Class({
         }
     },
 
-    onVoiceEndCallback: function() {
+    onVoiceEndCallback: function(voiceFilePath) {
         this.schedule(function() {
             this.voiceProgressBar.progress -= 0.0025;
         }, 0.005, 400);
 
-        var webPath = Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.wav';
-        var parameters = [Global.aliyunOss.bucketName, webPath, this.voiceFilePath];
+        var webPath = Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.amr';
+        var parameters = [Global.aliyunOss.bucketName, webPath, voiceFilePath];
         NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
                 const content = JSON.stringify({ type: 3, data: Global.aliyunOss.domain + webPath });
@@ -344,7 +342,12 @@ cc.Class({
 
         // 语音
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
-            NativeExtensionManager.execute('playerAudio', [data.content.data]);
+            var filePath = data.content.data.replace(Global.aliyunOss.domain, '');
+            NativeExtensionManager.execute('ossDownload', [Global.aliyunOss.bucketName, filePath], (result) => {
+                if (result.result == 0) {
+                    NativeExtensionManager.execute('playerAudio', [result.data]);
+                }
+            });
             return;
         }
 

@@ -121,7 +121,6 @@ window.NativeExtensionManager = {
             return jsb.reflection.callStaticMethod('MHCocosExtension', 'startRecord');
         },
 
-
         /**
          关闭录音
          */
@@ -129,6 +128,22 @@ window.NativeExtensionManager = {
             return jsb.reflection.callStaticMethod('MHCocosExtension', 'stopRecord');
         },
 
+        /**
+         * 播放音频
+         * @param filePath
+         * @return {*}
+         */
+        playerAudio: function (filePath) {
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'playerAudio:', filePath);
+        },
+
+        /**
+         * 删除音频缓存
+         * @return {*}
+         */
+        deleteAudioCache: function() {
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'deleteAudioCache');
+        },
 
         /**
          * 微信是否安装
@@ -180,6 +195,14 @@ window.NativeExtensionManager = {
             return jsb.reflection.callStaticMethod('MHCocosExtension', 'ossUpload:setObjectKey:setUrl:', bucketName, objectKey, file);
         },
 
+        /**
+         上传文件
+         @param bucketName bucke 名称
+         @param objectKey oss上的文件名
+         */
+        ossDownload: function (bucketName, objectKey) {
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'ossDownload:setObjectKey:', bucketName, objectKey);
+        },
 
         /**
          开始定位
@@ -195,15 +218,6 @@ window.NativeExtensionManager = {
          */
         checkNetwork: function () {
             return jsb.reflection.callStaticMethod('MHCocosExtension', 'checkNetwork');
-        },
-
-        /**
-         * 检查网络是否通畅
-         * @param webUrl
-         * @return {*}
-         */
-        playerAudio: function (webUrl) {
-            return jsb.reflection.callStaticMethod('MHCocosExtension', 'playerAudio:', webUrl);
         }
     },
 

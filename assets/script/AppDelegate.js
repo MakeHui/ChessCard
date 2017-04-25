@@ -43,6 +43,8 @@ cc.Class({
             cc.log(`cc.SystemEvent.EventType.KEY_UP: ${event.keyCode}`);
         }, this);
 
+        NativeExtensionManager.execute('deleteAudioCache');
+
         // native test
         NativeExtensionManager.execute('test', [], (result) => {
             cc.log(result);
