@@ -18,8 +18,10 @@ var Dialog = cc.Class({
     },
 
     openMessageBox: function(message, callback) {
+        callback = callback || function () {};
+
         this.popuNode = cc.instantiate(this.messagePrefab);
-        this.popuNode.getComponent('MessageBox').addMessage(callback);
+        this.popuNode.getComponent('MessageBox').addMessage(message, callback);
         var node = cc.director.getScene().getChildByName('Canvas');
         node.addChild(this.popuNode);
     },

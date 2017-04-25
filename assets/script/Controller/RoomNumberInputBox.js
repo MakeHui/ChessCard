@@ -82,8 +82,9 @@ cc.Class({
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1041) {
-                Global.tempCache = '房间号不存在';
-                Global.dialog.open('Dialog', this.node);
+                // Global.tempCache = '房间号不存在';
+                // Global.dialog.open('Dialog', this.node);
+                Dialog.openMessageBox('房间号不存在');
             }
         });
     },
