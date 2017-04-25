@@ -49,7 +49,8 @@ window.Global = {
 
     aliyunOss: {
         bucketName: 'collegevscollege',
-        objectPath: 'px258/client/audio/'
+        objectPath: 'px258/client/audio/',
+        domain: 'https://collegevscollege.oss-cn-hangzhou.aliyuncs.com/'
     },
 
     /**

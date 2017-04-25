@@ -195,6 +195,15 @@ window.NativeExtensionManager = {
          */
         checkNetwork: function () {
             return jsb.reflection.callStaticMethod('MHCocosExtension', 'checkNetwork');
+        },
+
+        /**
+         * 检查网络是否通畅
+         * @param webUrl
+         * @return {*}
+         */
+        playerAudio: function (webUrl) {
+            return jsb.reflection.callStaticMethod('MHCocosExtension', 'playerAudio:', webUrl);
         }
     },
 

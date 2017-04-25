@@ -91,6 +91,7 @@ cc.Class({
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
 
+                this.unschedule(this.wsHbtSchedule);
                 this.schedule(this.wsHbtSchedule, Global.wsHbtTime);
             };
             WebSocketManager.onclose = (evt) => {
@@ -156,24 +157,28 @@ cc.Class({
         }, this);
     },
 
-    onVoiceEndCallback: function() {
-        this.schedule(function() {
-            this.voiceProgressBar.progress -= 0.0025;
-        }, 0.005, 400);
-
-        var parameters = [Global.aliyunOss.bucketName, Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.wav', this.voiceFilePath];
-        NativeExtensionManager.execute('ossUpload', parameters, function(result) {
-            cc.log(result);
-        });
-        cc.log('GameRoomScene.onVoiceEndCallback: ' + this.voiceFilePath);
-    },
-
     update(dt) {
         this.roomInfo[0].string = Tools.formatDatetime('hh:ii:ss');
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
             this.fastChatProgressBar.progress -= dt * Global.fastChatWaitTime;
         }
+    },
+
+    onVoiceEndCallback: function() {
+        this.schedule(function() {
+            this.voiceProgressBar.progress -= 0.0025;
+        }, 0.005, 400);
+
+        var webPath = Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.wav';
+        var parameters = [Global.aliyunOss.bucketName, webPath, this.voiceFilePath];
+        NativeExtensionManager.execute('ossUpload', parameters, function(result) {
+            if (result.result == 0) {
+                const content = JSON.stringify({ type: 3, data: Global.aliyunOss.domain + webPath });
+                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
+            }
+        });
+        cc.log('GameRoomScene.onVoiceEndCallback: ' + this.voiceFilePath);
     },
 
     wsHbtSchedule() {
@@ -337,6 +342,12 @@ cc.Class({
     onSpeakerMessage(data) {
         data.content = JSON.parse(data.content);
 
+        // 语音
+        if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
+            NativeExtensionManager.execute('playerAudio', [data.content.data]);
+            return;
+        }
+
         for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
             if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
                 const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
@@ -377,13 +388,6 @@ cc.Class({
                         node.destroy();
                     }, 3);
                 }
-                // 语音
-                else if (data.content.type === 3) {
-                    // Tools.setWebAudio(data.content.data, (audioRaw) => {
-                    //     self.audio.setAudioRaw(audioRaw).play();
-                    // });
-                }
-
                 break;
             }
         }

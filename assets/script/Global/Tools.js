@@ -107,27 +107,6 @@ window.Tools.setWebImage = function (sprite, url) {
 };
 
 /**
- * 获取网络音频
- * @param url
- * @param callback
- */
-window.Tools.getWebAudio = function (url, callback) {
-    callback = callback || function () {};
-
-    if (!url) {
-        cc.log(['window.Tools.setWebAudio', 'url 不存在']);
-        return;
-    }
-    cc.loader.load(url, function (err, audioRaw) {
-        if (err) {
-            cc.log(err);
-        } else {
-            callback(audioRaw);
-        }
-    });
-};
-
-/**
  * 日期格式化
  * url: http://blog.csdn.net/vbangle/article/details/5643091/
  * author: meizz
