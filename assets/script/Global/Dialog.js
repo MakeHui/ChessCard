@@ -12,9 +12,8 @@ var Dialog = cc.Class({
         var node = cc.director.getScene().getChildByName('Canvas');
         node.addChild(this.popuNode);
 
-        this.scheduleOnce(function() {
-            this.close();
-        }.bind(this), 20);
+        // this.scheduleOnce(this.close, 1);
+        cc.director.getScheduler().schedule(this.close.bind(this), this, 20, 0);
     },
 
     openMessageBox: function(message, callback) {
@@ -26,8 +25,10 @@ var Dialog = cc.Class({
         node.addChild(this.popuNode);
     },
 
-    close: function close() {
+    close: function() {
+        cc.log('Dialog.close');
         this.popuNode.destroy();
+        cc.director.getScheduler().unschedule(this.close, this);
     }
 });
 

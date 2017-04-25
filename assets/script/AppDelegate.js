@@ -28,9 +28,7 @@ cc.Class({
         window.Dialog.loadingPrefab = this.loading;
         window.Dialog.messagePrefab = this.dialog;
 
-        this.schedule(function() {
-            this.hbt();
-        }.bind(this), Global.hbtTime);
+        this.schedule(this.hbt.bind(this), Global.hbtTime);
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
             cc.log(this.exitTime);
