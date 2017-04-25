@@ -27,7 +27,6 @@
         "NativeExtensionManager": true,
         "Tools": true,
         "Animation": true,
-        "Dialog": true,
         "proto": true,
         "goog": true,
         "ReconnectingWebSocket": true,

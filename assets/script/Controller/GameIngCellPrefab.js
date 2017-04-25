@@ -18,7 +18,7 @@ cc.Class({
     },
 
     enterGameRoomOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Dialog.openLoading();
 
         const parameters = { roomId: this.roomId };
@@ -34,7 +34,7 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
     },
 
     setData(data) {

@@ -15,24 +15,24 @@ cc.Class({
     },
 
     musicToggleOnClick(target) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
-        cc.director.getScene().getChildByName('AppDelegate').getComponent('AppDelegate').backgroundMusic();
+        window.SoundEffect.backgroundMusic();
     },
 
     voiceToggleOnClick(target) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
         Tools.setLocalData(Global.LSK.playMusicConfig, this.playMusicConfig);
-        cc.director.getScene().getChildByName('AppDelegate').getComponent('AppDelegate').backgroundMusic();
+        window.SoundEffect.backgroundMusic();
     },
 
     /**
      * 关闭本窗口
      */
     closeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
         cc.log('removeSelf');
     },
@@ -41,7 +41,7 @@ cc.Class({
      * 登出
      */
     logoutOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Tools.setLocalData(Global.LSK.secretKey, '');
         cc.director.loadScene('Login');
     },

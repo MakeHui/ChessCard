@@ -137,7 +137,7 @@ cc.Class({
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
-            Global.playEffect(Global.audioUrl.effect.buttonClick);
+            window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
             if (this.voiceProgressBar.progress > 0) {
                 return;
             }
@@ -346,7 +346,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    Global.playEffect(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    window.SoundEffect.playEffect(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
@@ -421,7 +421,7 @@ cc.Class({
     },
 
     onDrawMessage(data) {
-        Global.playEffect(Global.audioUrl.effect.dealCard);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.dealCard);
         this.countDownAnimation.play();
 
         // 抓拍后剩余牌数减一
@@ -459,7 +459,7 @@ cc.Class({
         this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
 
-        Global.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+        window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
 
     // todo: 需要完善
@@ -588,7 +588,7 @@ cc.Class({
         }
 
         if (data.activeType === Global.promptType.Chow) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -607,7 +607,7 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.Pong) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -623,7 +623,7 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.kongExposed) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -639,7 +639,7 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.KongConcealed) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -657,7 +657,7 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.KongPong) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
@@ -686,14 +686,14 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.WinDraw) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === Global.promptType.WinDiscard) {
-            Global.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
+            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             // this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
@@ -769,14 +769,14 @@ cc.Class({
      * 微信邀请
      */
     wechatInviteOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Tools.captureScreen(this.node, (filePath) => {
             cc.log(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
@@ -792,7 +792,7 @@ cc.Class({
     },
 
     openMenuOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
@@ -828,7 +828,7 @@ cc.Class({
     },
 
     switchFastChatPanelOnClick(evt, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
@@ -840,7 +840,7 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -850,7 +850,7 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -860,7 +860,7 @@ cc.Class({
     },
 
     actionOnClick(event, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         this.countDownAnimation.play();
 
         this._hideActionPrompt();
@@ -931,7 +931,7 @@ cc.Class({
 
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Discard', { card: data });
 
-            Global.playEffect(Global.audioUrl.effect.cardOut);
+            window.SoundEffect.playEffect(Global.audioUrl.effect.cardOut);
         }
         else {
             this._resetHandCardPosition();
@@ -943,7 +943,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -953,12 +953,12 @@ cc.Class({
      * 解散房间
      */
     dismissOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'DismissRoom');
     },
 
     voteOnClick(evt, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
@@ -971,7 +971,7 @@ cc.Class({
      * 选择需要吃的牌
      */
     selectChiOnClick(evt, data) {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         this._hideSelectChiPanel();
 
         data = JSON.parse(data);
@@ -979,7 +979,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
             WebSocketManager.close();
@@ -1071,7 +1071,7 @@ cc.Class({
         else if (data.length > 0) {
             let i = data.length - 1;
             this.schedule(() => {
-                Global.playEffect(Global.audioUrl.effect.dealCard);
+                window.SoundEffect.playEffect(Global.audioUrl.effect.dealCard);
                 if (!data[i]) {
                     data[i] = { card: 0 };
                 }

@@ -39,12 +39,6 @@ window.Global = {
      */
     tempCache: null,
 
-    /**
-     * 背景音乐管理对象
-     * @type {object}
-     */
-    backgroundMusic: null,
-
     fastChatWaitTime: 0.5,
 
     fastChatShowTime: 1.5 * 1000,
@@ -366,58 +360,5 @@ window.Global.cardsSort = function (listView) {
 
     for (var i = 0; i < listView.length; i += 1) {
         listView[i].setLocalZOrder(i);
-    }
-};
-
-/**
- * 小部件控制
- *
- * @author Make.<makehuir@gmail.com>
- * @datetime 2017-02-27 15:04:48
- */
-window.Global.dialog = {
-    loadingPrefab: null,
-    dialogPrefab: null,
-    node: null,
-
-    open: function open(name, node, callback) {
-        if (name === 'Loading') {
-            this.node = cc.instantiate(this.loadingPrefab);
-        } else {
-            this.node = cc.instantiate(this.dialogPrefab);
-            this.node.getComponent('MessageBox').callback = callback;
-        }
-
-        this._open(node);
-
-        // this.schedule(() => {
-        //     cc.log(123);
-        // }, 1);
-        // cc.director.getScheduler().schedule(() => {
-        //     self.close();
-        // }, this, 30, 0);
-    },
-    _open: function _open(node) {
-        node.addChild(this.node);
-    },
-    close: function close() {
-        this.node.destroy();
-    }
-};
-
-/**
- * 播放音效
- *
- * @param url
- */
-window.Global.playEffect = function (url) {
-    if (!url) {
-        cc.log('window.Global.playEffect: url不存在, ' + url);
-        return;
-    }
-    var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
-    if (playMusicConfig.effect) {
-        var audioRaw = cc.url.raw(url);
-        cc.audioEngine.play(audioRaw, false, 1);
     }
 };

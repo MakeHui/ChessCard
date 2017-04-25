@@ -24,7 +24,7 @@ cc.Class({
     },
 
     shareOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
 
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
@@ -45,7 +45,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
 
         Global.closeDialog(this.node);
     },

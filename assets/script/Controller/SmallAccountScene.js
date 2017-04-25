@@ -95,12 +95,12 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     gameAgenOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.director.getScene().getChildByName('Canvas');
         node.getComponent('GameRoomScene').readyGameCallback();
         Global.closeDialog(this.node);

@@ -1,4 +1,5 @@
 var Dialog = require('Dialog');
+var SoundEffect = require('SoundEffect');
 
 cc.Class({
     extends: cc.Component,
@@ -13,10 +14,6 @@ cc.Class({
     onLoad() {
         cc.game.addPersistRootNode(this.node);
 
-        window.Dialog = new Dialog();
-        window.Dialog.loadingPrefab = this.loading;
-        window.Dialog.messagePrefab = this.dialog;
-
         if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
             Tools.setLocalData(Global.LSK.userInfo_location, '该用户未公开地理位置');
         }
@@ -24,12 +21,16 @@ cc.Class({
         if (!Tools.getLocalData(Global.LSK.playMusicConfig)) {
             Tools.setLocalData(Global.LSK.playMusicConfig, { music: true, effect: true });
         }
+        window.SoundEffect = new SoundEffect();
+        window.SoundEffect.backgroundMusic();
+
+        window.Dialog = new Dialog();
+        window.Dialog.loadingPrefab = this.loading;
+        window.Dialog.messagePrefab = this.dialog;
 
         this.schedule(function() {
             this.hbt();
         }.bind(this), Global.hbtTime);
-
-        this.backgroundMusic();
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
             cc.log(this.exitTime);

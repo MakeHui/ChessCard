@@ -12,7 +12,7 @@ cc.Class({
     },
 
     loginOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.input.string.length !== 6) {
             Dialog.openMessageBox('秘钥长度必须为6');
             return;
@@ -22,7 +22,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 });

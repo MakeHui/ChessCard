@@ -16,7 +16,7 @@ cc.Class({
     selectedOnClick(toggle, data) {
         cc.log(arguments);
 
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         data = data.split('-');
         if (data[0] == 0) {
             this.maxRounds = parseInt(data[1], 10);
@@ -30,7 +30,7 @@ cc.Class({
     },
 
     createRoomOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Dialog.openLoading();
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
@@ -50,7 +50,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        Global.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Global.closeDialog(this.node);
     },
 });
