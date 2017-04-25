@@ -18,9 +18,6 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        // this.node.setLocalZOrder(-1);
-        // cc.game.addPersistRootNode(this.node);
-
         const userInfo = Tools.getLocalData(Global.LSK.userInfo);
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);

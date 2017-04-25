@@ -12,7 +12,6 @@ var Dialog = cc.Class({
         var node = cc.director.getScene().getChildByName('Canvas');
         node.addChild(this.popuNode);
 
-        // this.scheduleOnce(this.close, 1);
         cc.director.getScheduler().schedule(this.close.bind(this), this, 20, 0);
     },
 
