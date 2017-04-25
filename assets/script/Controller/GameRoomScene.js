@@ -129,8 +129,6 @@ cc.Class({
         this.fastChatPanelPosition = this.fastChatPanel.position;
         this.menuPanelPosition = this.menuPanel.position;
 
-        this.audio = Tools.audioEngine.init();
-
         this._userInfo = Tools.getLocalData(Global.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);

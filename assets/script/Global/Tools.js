@@ -128,48 +128,6 @@ window.Tools.getWebAudio = function (url, callback) {
 };
 
 /**
- * 音频管理
- * @type {Object}
- */
-window.Tools.audioEngine = {
-    audioId: null,
-
-    init: function init(audioUrl, isLoop, volume) {
-        this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
-        this.isLoop = isLoop || false;
-        this.volume = volume || 1;
-
-        return clone(this);
-    },
-
-    play: function play() {
-        if (this.audioId === null) {
-            this.audioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
-        } else if (this.state() !== 1) {
-            cc.audioEngine.resume(this.audioId);
-        }
-    },
-
-    stop: function stop() {
-        cc.audioEngine.pause(this.audioId);
-    },
-
-    state: function state() {
-        return cc.audioEngine.getState(this.audioId);
-    },
-
-    setAudioRaw: function setAudioRaw(audio) {
-        if (typeof audio === 'string') {
-            this.audioRaw = cc.url.raw(audio);
-        } else {
-            this.audioRaw = audio;
-        }
-
-        return this;
-    }
-};
-
-/**
  * 日期格式化
  * url: http://blog.csdn.net/vbangle/article/details/5643091/
  * author: meizz
