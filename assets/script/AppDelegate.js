@@ -53,10 +53,13 @@ cc.Class({
         if (!Tools.getLocalData(Global.LSK.secretKey)) {
             return;
         }
-        const scene = cc.director.getScene();
         HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
             if (result.code === 1) {
+                const scene = cc.director.getScene();
                 if (result.isLogin == 0 || result.isLogin == 2) {
+                    if (scene.name === 'GameRoom') {
+                        WebSocketManager.close();
+                    }
                     Tools.setLocalData(Global.LSK.secretKey, '');
                     cc.director.loadScene('Login');
                 }
@@ -68,7 +71,6 @@ cc.Class({
 
                 const userInfo = Tools.getLocalData(Global.LSK.userInfo);
                 userInfo.gold = result.gold;
-                userInfo.notice = result.news;
                 Tools.setLocalData(Global.LSK.userInfo, userInfo);
             }
         });
