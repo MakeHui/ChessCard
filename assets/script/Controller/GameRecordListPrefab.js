@@ -39,8 +39,7 @@ cc.Class({
                 Global.openDialog(node, self.node);
             }
             else if (result.code === 1021) {
-                Global.tempCache = '没有可查询的数据';
-                Global.dialog.open('Dialog', this.node);
+                Dialog.openMessageBox('没有可查询的数据');
             }
         });
     },

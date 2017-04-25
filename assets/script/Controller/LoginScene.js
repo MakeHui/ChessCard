@@ -84,18 +84,17 @@ cc.Class({
 
                 if (requestName !== 'login') {
                     if (result.code === 1011) {
-                        Global.tempCache = '登陆失败，验证码错误';
+                        Dialog.openMessageBox('登陆失败，验证码错误');
                     }
                     else if (result.code === 1012) {
-                        Global.tempCache = '登陆失败，账号被封';
+                        Dialog.openMessageBox('登陆失败，账号被封');
                     }
                     else if (result.code === 1013) {
-                        Global.tempCache = '登陆失败，验证码过期';
+                        Dialog.openMessageBox('登陆失败，验证码过期');
                     }
                     else if (result.code === 1031) {
-                        Global.tempCache = '登陆失败，请稍后重试';
+                        Dialog.openMessageBox('登陆失败，请稍后重试');
                     }
-                    Global.dialog.open('Dialog', this.node);
                 }
             });
         }, 1.5);

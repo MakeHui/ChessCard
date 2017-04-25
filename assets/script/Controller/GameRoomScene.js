@@ -279,8 +279,7 @@ cc.Class({
 
     onDismissRoomMessage(data) {
         if (data.code === 5003) {
-            Global.tempCache = '您不是房主, 无法解散房间';
-            Global.dialog.open('Dialog', this.node);
+            Dialog.openMessageBox('您不是房主, 无法解散房间');
             return;
         }
 
@@ -294,8 +293,7 @@ cc.Class({
                 cc.director.loadScene('Lobby');
             }
             else {
-                Global.tempCache = '房主已解散房间';
-                Global.dialog.open('Dialog', this.node, () => {
+                Dialog.openMessageBox('房主已解散房间', function() {
                     WebSocketManager.close();
                     cc.director.loadScene('Lobby');
                 });
@@ -988,8 +986,7 @@ cc.Class({
             cc.director.loadScene('Lobby');
         }
         else {
-            Global.tempCache = '游戏中无法退出';
-            Global.dialog.open('Dialog', this.node);
+            Dialog.openMessageBox('游戏中无法退出');
         }
     },
 

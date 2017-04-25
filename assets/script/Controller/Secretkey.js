@@ -14,8 +14,7 @@ cc.Class({
     loginOnClick() {
         Global.playEffect(Global.audioUrl.effect.buttonClick);
         if (this.input.string.length !== 6) {
-            Global.tempCache = '秘钥长度必须为6';
-            Global.dialog.open('Dialog', this.node);
+            Dialog.openMessageBox('秘钥长度必须为6');
             return;
         }
 

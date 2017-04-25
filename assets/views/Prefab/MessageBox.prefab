@@ -422,7 +422,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "Dialog",
+    "component": "MessageBox",
     "handler": "closeOnClick",
     "customEventData": ""
   },
