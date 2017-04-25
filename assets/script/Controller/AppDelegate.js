@@ -25,7 +25,10 @@ cc.Class({
             Tools.setLocalData(Global.LSK.playMusicConfig, { music: true, effect: true });
         }
 
-        this.hbt();
+        this.schedule(function() {
+            this.hbt();
+        }.bind(this), Global.hbtTime);
+
         this.backgroundMusic();
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
@@ -43,36 +46,33 @@ cc.Class({
 
         // native test
         NativeExtensionManager.execute('test', [], (result) => {
-
+            cc.log(result);
         });
     },
 
-    hbt() {
-        this.schedule(() => {
-            const scene = cc.director.getScene();
-            if (!Tools.getLocalData(Global.LSK.userInfo)) {
-                return;
-            }
-            HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
-                if (result.code === 1) {
-                    if (result.isLogin == 0 || result.isLogin == 2) {
-                        Tools.setLocalData(Global.LSK.secretKey, '');
-                        cc.director.loadScene('Login');
-                    }
-
-                    if (scene.name === 'Lobby') {
-                        const lobbyScene = scene.getChildByName('Canvas').getComponent('LobbyScene');
-                        lobbyScene.money.string = result.gold;
-                        // lobbyScene.notice.getComponent(cc.Label).string = result.news;
-                    }
-
-                    const userInfo = Tools.getLocalData(Global.LSK.userInfo);
-                    userInfo.gold = result.gold;
-                    userInfo.notice = result.news;
-                    Tools.setLocalData(Global.LSK.userInfo, userInfo);
+    hbt: function() {
+        if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
+            return;
+        }
+        const scene = cc.director.getScene();
+        HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
+            if (result.code === 1) {
+                if (result.isLogin == 0 || result.isLogin == 2) {
+                    Tools.setLocalData(Global.LSK.secretKey, '');
+                    cc.director.loadScene('Login');
                 }
-            });
-        }, Global.hbtTime);
+
+                if (scene.name === 'Lobby') {
+                    const lobbyScene = scene.getChildByName('Canvas').getComponent('LobbyScene');
+                    lobbyScene.money.string = result.gold;
+                }
+
+                const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+                userInfo.gold = result.gold;
+                userInfo.notice = result.news;
+                Tools.setLocalData(Global.LSK.userInfo, userInfo);
+            }
+        });
     },
 
     backgroundMusic() {

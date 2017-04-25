@@ -26,8 +26,7 @@ cc.Class({
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.nickname.string = userInfo.nickname;
             this.money.string = userInfo.gold;
-            this.notice.getComponent(cc.Label).string = unescape(userInfo.notice.replace(/\\u/g, '%u'));
-            // Animation.openScrollWordAction(this.notice, userInfo.notice.length * 0.5);
+            this.notice.getComponent(cc.Label).string = userInfo.notice;
             Animation.openScrollWordAction(this.notice, 50);
         }
     },
