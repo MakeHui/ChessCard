@@ -26,31 +26,23 @@ cc.Class({
         window.Dialog.openLoading();
         const self = this;
         HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
-            cc.log(result);
-            // if (result.code === 0 && result.recordItemList.length !== 0) {
-            //     this.gameEndList.removeAllChildren();
-            //     const roomItem = result.recordItemList;
-            //     for (let i = 0; i < roomItem.length; i += 1) {
-            //         const cell = cc.instantiate(this.gameEndCell);
-            //         cell.getComponent('GameRecordCellPrefab').init(roomItem[i]);
-            //         self.gameEndList.addChild(cell);
-            //     }
-            // }
-            // else {
-            //     self.gameEndList.addChild(cc.instantiate(self.noDataCell));
-            // }
+            self.datetime.string = result.datetime;
+            const recordInfoDataList = result.recordInfoDataList;
+            if (recordInfoDataList.length !== 0) {
+                this.gameStepList.removeAllChildren();
+
+                for (let i = 0; i < recordInfoDataList[0].playerInfoList.length; i += 1) {
+                    var nickname = recordInfoDataList[0].playerInfoList[i].nickname;
+                    self.username[i].string = nickname;
+                }
+
+                for (let i = 0; i < recordInfoDataList.length; i += 1) {
+                    const cell = cc.instantiate(this.gameStepCell);
+                    cell.getComponent('GameRecordStepCellPrefab').init(recordInfoDataList[i], this.roomId);
+                    this.gameStepList.addChild(cell);
+                }
+            }
             window.Dialog.close();
         });
-
-        // this.datetime.string = data.datetime;
-        // const recordInfoDataList = data.recordInfoDataList;
-        // if (recordInfoDataList.length !== 0) {
-        //     this.gameRecordList.removeAllChildren();
-        //     for (let i = 0; i < recordInfoDataList.length; i += 1) {
-        //         const cell = cc.instantiate(this.gameStepCell);
-        //         cell.getComponent('GameRecordStepCellPrefab').setData(recordInfoDataList[i], this.roomId);
-        //         this.gameStepList.addChild(cell);
-        //     }
-        // }
     }
 });
