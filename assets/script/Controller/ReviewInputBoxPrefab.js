@@ -58,19 +58,19 @@ cc.Class({
     },
 
     _getHttpRoomEnterData() {
-        Dialog.openLoading();
+        window.Dialog.openLoading();
 
         const parameters = { roomId: this.roomNumber };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
-            Dialog.close();
+            window.Dialog.close();
 
             if (result.code === 1) {
-                Dialog.close();
+                window.Dialog.close();
                 Global.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1041) {
-                Dialog.openMessageBox('房间号不存在');
+                window.Dialog.openMessageBox('房间号不存在');
             }
         });
     },

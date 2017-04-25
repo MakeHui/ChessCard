@@ -61,11 +61,11 @@ cc.Class({
     },
 
     httpLogin(secretKey, requestName) {
-        Dialog.openLoading();
+        window.Dialog.openLoading();
         this.scheduleOnce(function() {
             const parameters = { wxCode: secretKey, location: Tools.getLocalData(Global.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
-                Dialog.close();
+                window.Dialog.close();
 
                 if (result.code === 1) {
                     result.location = Tools.getLocalData(Global.LSK.userInfo_location);
@@ -84,16 +84,16 @@ cc.Class({
 
                 if (requestName !== 'login') {
                     if (result.code === 1011) {
-                        Dialog.openMessageBox('登陆失败，验证码错误');
+                        window.Dialog.openMessageBox('登陆失败，验证码错误');
                     }
                     else if (result.code === 1012) {
-                        Dialog.openMessageBox('登陆失败，账号被封');
+                        window.Dialog.openMessageBox('登陆失败，账号被封');
                     }
                     else if (result.code === 1013) {
-                        Dialog.openMessageBox('登陆失败，验证码过期');
+                        window.Dialog.openMessageBox('登陆失败，验证码过期');
                     }
                     else if (result.code === 1031) {
-                        Dialog.openMessageBox('登陆失败，请稍后重试');
+                        window.Dialog.openMessageBox('登陆失败，请稍后重试');
                     }
                 }
             });

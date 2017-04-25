@@ -29,9 +29,9 @@ cc.Class({
 
     _getHttpGameRecordInfoData(scene, roomUuid) {
         const self = this;
-        Dialog.openLoading();
+        window.Dialog.openLoading();
         HttpRequestManager.httpRequest('recordListSelf', { roomUuid }, (event, result) => {
-            Dialog.close();
+            window.Dialog.close();
             if (result.code == 1) {
                 Global.closeDialog(scene.node);
                 const node = cc.instantiate(self.gameRecordStep);
@@ -39,13 +39,13 @@ cc.Class({
                 Global.openDialog(node, self.node);
             }
             else if (result.code === 1021) {
-                Dialog.openMessageBox('没有可查询的数据');
+                window.Dialog.openMessageBox('没有可查询的数据');
             }
         });
     },
 
     _getHttpRecordListSelfData() {
-        Dialog.openLoading();
+        window.Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
@@ -60,7 +60,7 @@ cc.Class({
                     }
                 }
             }
-            Dialog.close();
+            window.Dialog.close();
         });
     },
 });

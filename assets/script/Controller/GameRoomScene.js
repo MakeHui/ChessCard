@@ -279,7 +279,7 @@ cc.Class({
 
     onDismissRoomMessage(data) {
         if (data.code === 5003) {
-            Dialog.openMessageBox('您不是房主, 无法解散房间');
+            window.Dialog.openMessageBox('您不是房主, 无法解散房间');
             return;
         }
 
@@ -293,7 +293,7 @@ cc.Class({
                 cc.director.loadScene('Lobby');
             }
             else {
-                Dialog.openMessageBox('房主已解散房间', function() {
+                window.Dialog.openMessageBox('房主已解散房间', function() {
                     WebSocketManager.close();
                     cc.director.loadScene('Lobby');
                 });
@@ -986,7 +986,7 @@ cc.Class({
             cc.director.loadScene('Lobby');
         }
         else {
-            Dialog.openMessageBox('游戏中无法退出');
+            window.Dialog.openMessageBox('游戏中无法退出');
         }
     },
 

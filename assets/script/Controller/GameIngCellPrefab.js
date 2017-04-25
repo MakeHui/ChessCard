@@ -19,7 +19,7 @@ cc.Class({
 
     enterGameRoomOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Dialog.openLoading();
+        window.Dialog.openLoading();
 
         const parameters = { roomId: this.roomId };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
@@ -28,7 +28,7 @@ cc.Class({
                 cc.director.loadScene('GameRoom');
             }
             else {
-                Dialog.close();
+                window.Dialog.close();
             }
         });
     },

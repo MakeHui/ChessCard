@@ -23,7 +23,7 @@ cc.Class({
 
     // TODO:Bug
     init: function(roomId) {
-        Dialog.openLoading();
+        window.Dialog.openLoading();
         const self = this;
         HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
             cc.log(result);
@@ -39,7 +39,7 @@ cc.Class({
             // else {
             //     self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             // }
-            Dialog.close();
+            window.Dialog.close();
         });
 
         // this.datetime.string = data.datetime;

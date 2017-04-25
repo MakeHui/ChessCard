@@ -52,7 +52,7 @@ cc.Class({
     },
 
     hbt: function() {
-        if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
+        if (!Tools.getLocalData(Global.LSK.secretKey)) {
             return;
         }
         const scene = cc.director.getScene();
@@ -74,19 +74,6 @@ cc.Class({
                 Tools.setLocalData(Global.LSK.userInfo, userInfo);
             }
         });
-    },
-
-    backgroundMusic() {
-        if (!Global.backgroundMusic) {
-            Global.backgroundMusic = Tools.audioEngine.init(Global.audioUrl.background.game, true);
-        }
-        const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
-        if (playMusicConfig.music) {
-            Global.backgroundMusic.play();
-        }
-        else {
-            Global.backgroundMusic.stop();
-        }
     },
 
 });
