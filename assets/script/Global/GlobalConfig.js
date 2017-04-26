@@ -53,6 +53,10 @@ window.GlobalConfig = {
         domain: 'https://collegevscollege.oss-cn-hangzhou.aliyuncs.com/'
     },
 
+    px258: {
+        downloadPage: 'http://dashboard.px258.qingwuguo.com/player/download',
+    },
+
     /**
      * 本地存储对应key名
      * @type {Object}
@@ -271,6 +275,7 @@ window.GlobalConfig = {
     // 游戏玩法对应中文名称
     playTypes: {
         100100: {
+            name: '萍乡贰伍捌',
             playType: {
                 0x1: '小胡子胡',
                 0x0: '小胡子不可胡'

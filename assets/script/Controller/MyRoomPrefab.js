@@ -79,7 +79,7 @@ cc.Class({
                 const roomItem = result.roomItemList;
                 for (let i = 0; i < roomItem.length; i += 1) {
                     const cell = cc.instantiate(self.gameIngCell);
-                    cell.getComponent('GameIngCellPrefab').setData(roomItem[i]);
+                    cell.getComponent('GameIngCellPrefab').init(roomItem[i]);
                     self.gameIngList.addChild(cell);
                 }
             }

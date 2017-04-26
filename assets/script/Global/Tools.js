@@ -360,6 +360,18 @@ var Tools = cc.Class({
         return Object.prototype.toString.call(object) === '[object Object]';
     },
 
+    createWechatShareInfo(info, roomId) {
+        // 游戏玩法
+        const playTypes = GlobalConfig.playTypes[info.game_uuid];
+        info.options = `0x${info.options.toString(16)}`;
+        const num = info.options & 0x1;
+
+        var title = playTypes.name + ': ' + roomId;
+        var description = '局数: ' + info.max_rounds + '局' + `, 玩法: ${playTypes.playType[num]}, 封顶: ${playTypes.options[info.options ^ num]}`;
+
+        return [title, description];
+    }
+
 });
 
 module.exports = Tools;

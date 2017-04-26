@@ -35,7 +35,7 @@ cc.Class({
             if (result.code == 1) {
                 Animation.closeDialog(scene.node);
                 const node = cc.instantiate(self.gameRecordStep);
-                node.getComponent('GameRecordStepPrefab').setData(result);
+                node.getComponent('GameRecordStepPrefab').init(result);
                 Animation.openDialog(node, self.node);
             }
             else if (result.code === 1021) {

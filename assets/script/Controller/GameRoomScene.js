@@ -76,6 +76,7 @@ cc.Class({
         this._Cache.allowOutCard = false;   // 是否允许出牌
         this._Cache.lastHasAction = false;  // 上一次出牌是否有action
         this._Cache.settleForRoomData = null;    // 大结算数据
+        this._Cache.config = {};    // 房间信息
 
         // todo: 需要删除
         this._initScene();
@@ -231,6 +232,7 @@ cc.Class({
         }
 
         this._Cache.playerList = data.playerList;
+        this._Cache.config = data.kwargs;
 
         this._initLight();
     },
@@ -506,6 +508,7 @@ cc.Class({
         this._Cache.ownerUuid = data.ownerUuid;
         this._Cache.gameing = true;
         this._Cache.waitDraw = false;
+        this._Cache.config = data.kwargs;
 
         this._initScene();
 
@@ -780,9 +783,16 @@ cc.Class({
      */
     wechatInviteOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        Tools.captureScreen(this.node, (filePath) => {
-            cc.log(filePath);
-        });
+
+        const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!hasWechat) {
+            cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
+            return;
+        }
+
+        var shareInfo = window.Tools.createWechatShareInfo(this._Cache.config, this._Cache.roomId);
+        NativeExtensionManager.execute('wechatLinkShare', [GlobalConfig.px258.downloadPage, shareInfo[0], shareInfo[1]]);
+        cc.log('shareOnClick');
     },
 
     openFastChatPanelOnClick() {

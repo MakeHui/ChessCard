@@ -30,11 +30,11 @@ cc.Class({
         window.Dialog.openLoading();
 
         let node = cc.instantiate(self.gameRecord);
-        node.getComponent("GameStep").setData(this.roomId);
+        node.getComponent('GameStep').init(this.roomId);
         Animation.openDialog(node, self.node);
     },
 
-    setData: function(data) {
+    init: function(data) {
         let player = data.getPlayer();
         for (let i = 0; i < player.length; i += 1) {
             Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
