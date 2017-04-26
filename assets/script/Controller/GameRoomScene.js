@@ -265,6 +265,12 @@ cc.Class({
     },
 
     onExitRoomMessage(data) {
+        if (data.playerUuid == this._userInfo.playerUuid) {
+            WebSocketManager.close();
+            cc.director.loadScene('Lobby');
+            return;
+        }
+
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._showInviteButton([playerIndex]);
         this._hidePlayerInfoList([playerIndex]);
@@ -987,8 +993,6 @@ cc.Class({
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         if (this._GameRoomCache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
-            WebSocketManager.close();
-            cc.director.loadScene('Lobby');
         }
         else {
             window.Dialog.openMessageBox('游戏中无法退出');
