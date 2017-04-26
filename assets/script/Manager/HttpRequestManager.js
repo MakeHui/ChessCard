@@ -131,11 +131,11 @@ window.HttpRequestManager.requestMessage = {
         var message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
         message.setAppUuid(Global.appUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
         message.setVerNo(Global.version);
         message.setLocation(parameters.location);
 
-        cc.log([parameters.wxCode, Global.appUuid, Global.getDeviceId(), Global.version, parameters.location]);
+        cc.log([parameters.wxCode, Global.appUuid, Tools.getDeviceId(), Global.version, parameters.location]);
         return message;
     },
 
@@ -152,7 +152,7 @@ window.HttpRequestManager.requestMessage = {
         var userInfo = Tools.getLocalData(Global.LSK.userInfo);
 
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
         message.setAppUuid(Global.appUuid);
 
         return message;
@@ -171,9 +171,9 @@ window.HttpRequestManager.requestMessage = {
         var message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
         message.setAppUuid(Global.appUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
 
-        cc.log([parameters.playerUuid, Global.appUuid, Global.getDeviceId()]);
+        cc.log([parameters.playerUuid, Global.appUuid, Tools.getDeviceId()]);
         return message;
     },
 
@@ -193,7 +193,7 @@ window.HttpRequestManager.requestMessage = {
         message.setAppUuid(Global.appUuid);
         message.setGameUuid(parameters.gameUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
         message.setMaxRounds(parameters.maxRounds);
         message.setRoomConfig(parameters.roomConfig);
 
@@ -216,7 +216,7 @@ window.HttpRequestManager.requestMessage = {
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
         message.setRoomId(parameters.roomId);
 
         cc.log([Global.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
@@ -237,7 +237,7 @@ window.HttpRequestManager.requestMessage = {
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
 
         return message;
     },
@@ -257,7 +257,7 @@ window.HttpRequestManager.requestMessage = {
 
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
 
         return message;
     },
@@ -276,7 +276,7 @@ window.HttpRequestManager.requestMessage = {
         var userInfo = Tools.getLocalData(Global.LSK.userInfo);
         message.setAppUuid(Global.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Global.getDeviceId());
+        message.setDeviceId(Tools.getDeviceId());
         message.setRoomUuid(parameters.roomUuid);
 
         return message;

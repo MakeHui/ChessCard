@@ -1073,7 +1073,7 @@ cc.Class({
                 insert(data[i].card);
             }
             if (player === 0) {
-                Global.cardsSort(this.handCardDistrict[0].children);
+                Tools.cardsSort(this.handCardDistrict[0].children);
             }
         }
         else if (data.length > 0) {
@@ -1086,7 +1086,7 @@ cc.Class({
                 insert(data[i].card);
                 i -= 1;
                 if (i === -1 && player === 0) {
-                    Global.cardsSort(this.handCardDistrict[0].children);
+                    Tools.cardsSort(this.handCardDistrict[0].children);
                 }
             }, 0.2, (data.length - 1));
         }

@@ -11,6 +11,51 @@
 
 window.Tools = {};
 
+
+/**
+ * 获取设备id
+ * 这里只是简单的生成了一个随机的id, 并保存在了本地
+ * 当重新登录后会重新生成
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-14T18:48:54+0800
+ *
+ * @return   {string}
+ */
+window.Tools.getDeviceId = function () {
+    var deviceId = Tools.getLocalData(Global.LSK.deviceId);
+    if (deviceId === null) {
+        deviceId = md5(+new Date() + Math.random());
+        Tools.setLocalData(Global.LSK.deviceId, deviceId);
+    }
+    return deviceId;
+};
+
+/**
+ * 手牌排序
+ *
+ * @author Make.<makehuir@gmail.com>
+ * @datetime 2017-02-21 18:49:45
+ *
+ * @param {Array} listView
+ */
+window.Tools.cardsSort = function (listView) {
+    if (listView.length === 0) {
+        cc.log('window.Tools.cardsSort: listView 不能为空~');
+        return;
+    }
+
+    listView.sort(function (nodeA, nodeB) {
+        var cardA = Tools.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        var cardB = Tools.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+        return parseInt(cardB, 16) - parseInt(cardA, 16);
+    });
+
+    for (var i = 0; i < listView.length; i += 1) {
+        listView[i].setLocalZOrder(i);
+    }
+};
+
 /**
  * 删除数组中的值
  *
