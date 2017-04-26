@@ -19,7 +19,7 @@ window.GlobalConfig = {
      * app名称
      * @type {String}
      */
-    appName: '萍乡258',
+    appName: '萍乡棋牌',
 
     /**
      * 版本号
@@ -202,7 +202,7 @@ window.GlobalConfig = {
     },
 
     /**
-     * 房间状态吗
+     * 房间状态码
      */
     roomStatusCode: {
         InitState: 0, // 初始状态
@@ -214,7 +214,8 @@ window.GlobalConfig = {
         LiujuState: 6, // 流局
         RestartState: 7, // 再来
         SettleForRoundState: 8, // 小结算
-        SettleForRoomState: 9 },
+        SettleForRoomState: 9
+    },
 
     /**
      * 操作类型
@@ -226,13 +227,15 @@ window.GlobalConfig = {
         kongExposed: 4, // 明杠
         KongPong: 5, // 碰杠（转弯杠）
         WinDiscard: 6, // 放炮胡
-        WinDraw: 7 },
+        WinDraw: 7
+    },
 
     winType: {
         Pao: -1, // 放炮
         None: 0, // 平局
         Discard: 1, // 点炮胡
-        Draw: 2 },
+        Draw: 2
+    },
 
     /**
      * 胡牌类型
@@ -262,7 +265,8 @@ window.GlobalConfig = {
 
         SANLQ: '三龙七', // 四和子 三龙七（顾名思义）
         TH: '天胡', // 四和子 天胡 （即庄家起牌上手十四张牌为胡牌，平胡即可，不累计大胡或者双和子三和子）
-        DU: '地胡' },
+        DU: '地胡'
+    },
 
     // 游戏玩法对应中文名称
     playTypes: {
