@@ -23,15 +23,15 @@ cc.Class({
          // uint32 is_owner = 10;  // 是否为房主
          */
 
-        if (!Global.tempCache) {
+        if (!GlobalConfig.tempCache) {
             return;
         }
 
         let bigLosser = 0;
         let bigWinner = 0;
 
-        for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = Global.tempCache.data.playerDataList[i];
+        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
+            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
             const playerNode = this.playerList[playerData.seat];
             const userInfo = this._getUserInfoInList(playerData.playerUuid);
 
@@ -59,8 +59,8 @@ cc.Class({
             }
         }
 
-        for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = Global.tempCache.data.playerDataList[i];
+        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
+            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
             const playerNode = this.playerList[playerData.seat];
 
             if (bigLosser === playerData.paoCnt) {
@@ -74,19 +74,19 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         this.node.destroy();
         cc.director.loadScene('Lobby');
     },
 
     _getUserInfoInList(playerUuid) {
-        for (let i = 0; i < Global.tempCache.playerInfoList.length; i += 1) {
-            const obj = Global.tempCache.playerInfoList[i];
+        for (let i = 0; i < GlobalConfig.tempCache.playerInfoList.length; i += 1) {
+            const obj = GlobalConfig.tempCache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
                 return obj.info;
             }

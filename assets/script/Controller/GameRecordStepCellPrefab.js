@@ -9,7 +9,7 @@ cc.Class({
     },
 
     playbackOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 

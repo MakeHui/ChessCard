@@ -14,7 +14,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     }
 });

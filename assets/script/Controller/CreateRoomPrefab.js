@@ -16,7 +16,7 @@ cc.Class({
     selectedOnClick(toggle, data) {
         cc.log(arguments);
 
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         data = data.split('-');
         if (data[0] == 0) {
             this.maxRounds = parseInt(data[1], 10);
@@ -30,17 +30,17 @@ cc.Class({
     },
 
     createRoomOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
             if (result.code === 1) {
                 window.Dialog.close();
-                Global.tempCache = result;
-                const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+                GlobalConfig.tempCache = result;
+                const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
                 userInfo.gold -= result.payGold;
-                Tools.setLocalData(Global.LSK.userInfo, userInfo);
+                Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
             else {
@@ -50,7 +50,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 });

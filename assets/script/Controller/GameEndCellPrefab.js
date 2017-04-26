@@ -26,7 +26,7 @@ cc.Class({
     },
 
     openGameRecordOnClick: function() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         let node = cc.instantiate(self.gameRecord);

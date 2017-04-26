@@ -18,13 +18,13 @@ cc.Class({
     },
 
     enterGameRoomOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         const parameters = { roomId: this.roomId };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
             if (result.code === 1) {
-                Global.tempCache = result;
+                GlobalConfig.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
@@ -34,7 +34,7 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
     },
 
     setData(data) {

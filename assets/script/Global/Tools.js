@@ -23,10 +23,10 @@ window.Tools = {};
  * @return   {string}
  */
 window.Tools.getDeviceId = function () {
-    var deviceId = Tools.getLocalData(Global.LSK.deviceId);
+    var deviceId = Tools.getLocalData(GlobalConfig.LSK.deviceId);
     if (deviceId === null) {
         deviceId = md5(+new Date() + Math.random());
-        Tools.setLocalData(Global.LSK.deviceId, deviceId);
+        Tools.setLocalData(GlobalConfig.LSK.deviceId, deviceId);
     }
     return deviceId;
 };

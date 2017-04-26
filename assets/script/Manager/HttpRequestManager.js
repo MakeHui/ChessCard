@@ -111,9 +111,9 @@ window.HttpRequestManager.requestMessage = {
      */
     getCheckVersionRequestMessage: function getCheckVersionRequestMessage() {
         var message = new proto.login.CheckVersionRequest();
-        message.setAppUuid(Global.appUuid);
-        message.setVerNo(Global.version);
-        message.setAndroidOrIos(Global.os);
+        message.setAppUuid(GlobalConfig.appUuid);
+        message.setVerNo(GlobalConfig.version);
+        message.setAndroidOrIos(GlobalConfig.os);
 
         return message;
     },
@@ -130,12 +130,12 @@ window.HttpRequestManager.requestMessage = {
     getLoginRequestMessage: function getLoginRequestMessage(parameters) {
         var message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setDeviceId(Tools.getDeviceId());
-        message.setVerNo(Global.version);
+        message.setVerNo(GlobalConfig.version);
         message.setLocation(parameters.location);
 
-        cc.log([parameters.wxCode, Global.appUuid, Tools.getDeviceId(), Global.version, parameters.location]);
+        cc.log([parameters.wxCode, GlobalConfig.appUuid, Tools.getDeviceId(), GlobalConfig.version, parameters.location]);
         return message;
     },
 
@@ -149,11 +149,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getHeartbeatRequestMessage: function getHeartbeatRequestMessage() {
         var message = new proto.login.HeartbeatRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
 
         return message;
     },
@@ -170,10 +170,10 @@ window.HttpRequestManager.requestMessage = {
     getPlayerGoldRequestMessage: function getPlayerGoldRequestMessage(parameters) {
         var message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setDeviceId(Tools.getDeviceId());
 
-        cc.log([parameters.playerUuid, Global.appUuid, Tools.getDeviceId()]);
+        cc.log([parameters.playerUuid, GlobalConfig.appUuid, Tools.getDeviceId()]);
         return message;
     },
 
@@ -188,9 +188,9 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomCreateRequestMessage: function getRoomCreateRequestMessage(parameters) {
         var message = new proto.login.RoomCreateRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setGameUuid(parameters.gameUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
@@ -212,14 +212,14 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomEnterRequestMessage: function getRoomEnterRequestMessage(parameters) {
         var message = new proto.login.RoomEnterRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
         message.setRoomId(parameters.roomId);
 
-        cc.log([Global.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
+        cc.log([GlobalConfig.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
         return message;
     },
 
@@ -233,9 +233,9 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomListRequestMessage: function getRoomListRequestMessage() {
         var message = new proto.login.RoomListRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
 
@@ -253,9 +253,9 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordListRequestMessage: function getRecordListRequestMessage() {
         var message = new proto.login.RecordListRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
 
@@ -273,8 +273,8 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordInfoRequestMessage: function getRecordInfoRequestMessage(parameters) {
         var message = new proto.login.RecordInfoRequest();
-        var userInfo = Tools.getLocalData(Global.LSK.userInfo);
-        message.setAppUuid(Global.appUuid);
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
         message.setDeviceId(Tools.getDeviceId());
         message.setRoomUuid(parameters.roomUuid);
@@ -311,10 +311,10 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomReplayRequestMessage: function getRoomReplayRequestMessage(parameters) {
         var message = new proto.login.RoomReplayRequest();
-        message.setAppUuid(Global.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setRoomId(parameters.roomId);
 
-        cc.log([Global.appUuid, parameters.roomId]);
+        cc.log([GlobalConfig.appUuid, parameters.roomId]);
         return message;
     }
 };
@@ -331,7 +331,7 @@ window.HttpRequestManager.httpRequest = function (name, parameters, callback) {
     var message = HttpRequestManager.requestMessage['get' + protocol.request + 'RequestMessage'](parameters);
     var request = cc.loader.getXMLHttpRequest();
 
-    request.open('POST', (Global.debug ? Global.apiAddress.development : Global.apiAddress.production) + protocol.api);
+    request.open('POST', (GlobalConfig.debug ? GlobalConfig.apiAddress.development : GlobalConfig.apiAddress.production) + protocol.api);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(message.serializeBinary());
     request.onload = function (event) {

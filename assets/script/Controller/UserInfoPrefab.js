@@ -10,7 +10,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        const userInfo = Global.tempCache;
+        const userInfo = GlobalConfig.tempCache;
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.ip.string = `IP地址: ${userInfo.ip}`;
@@ -23,7 +23,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 });

@@ -21,7 +21,7 @@
         "window": true,
         "Math": true,
         "WebSocket": true,
-        "Global": true,
+        "GlobalConfig": true,
         "WebSocketManager": true,
         "HttpRequestManager": true,
         "NativeExtensionManager": true,

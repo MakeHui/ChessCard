@@ -50,9 +50,9 @@ var SoundEffect = cc.Class({
 
     backgroundMusic: function() {
         if (!this.backgroundMusicAudioId) {
-            this.backgroundMusicInit(Global.audioUrl.background.game, true);
+            this.backgroundMusicInit(GlobalConfig.audioUrl.background.game, true);
         }
-        const playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+        const playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
         if (playMusicConfig.music) {
             this.backgroundMusicPlay();
         }
@@ -66,7 +66,7 @@ var SoundEffect = cc.Class({
             cc.log('window.SoundEffect.playEffect: url不存在, ' + url);
             return;
         }
-        var playMusicConfig = Tools.getLocalData(Global.LSK.playMusicConfig);
+        var playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
         if (playMusicConfig.effect) {
             var audioRaw = cc.url.raw(url);
             cc.audioEngine.play(audioRaw, false, 1);

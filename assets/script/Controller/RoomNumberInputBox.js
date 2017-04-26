@@ -21,7 +21,7 @@ cc.Class({
     },
 
     numberButtonOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 6) {
             this.roomNumber += data;
             this[`number${this.roomNumber.length}`].spriteFrame = evt.target.children[0].getComponent(cc.Sprite).spriteFrame;
@@ -43,7 +43,7 @@ cc.Class({
     },
 
     clearNumberOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 0) {
             for (let i = 1; i <= 6; i += 1) {
                 this[`number${i}`].spriteFrame = null;
@@ -53,7 +53,7 @@ cc.Class({
     },
 
     deleteNumberOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         cc.log(this.roomNumber);
         if (this.roomNumber.length !== 0) {
             this[`number${this.roomNumber.length}`].spriteFrame = null;
@@ -65,7 +65,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 
@@ -78,7 +78,7 @@ cc.Class({
 
             if (result.code === 1) {
                 window.Dialog.close();
-                Global.tempCache = result;
+                GlobalConfig.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1041) {

@@ -80,10 +80,10 @@ cc.Class({
         // todo: 需要删除
         this._initScene();
 
-        if (Global.tempCache) {
+        if (GlobalConfig.tempCache) {
             const self = this;
-            this._Cache.roomId = Global.tempCache.roomId;
-            this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
+            this._Cache.roomId = GlobalConfig.tempCache.roomId;
+            this.wsUrl = `ws://${GlobalConfig.tempCache.serverIp}:${GlobalConfig.tempCache.serverPort}/ws`;
 
             WebSocketManager.onopen = (evt) => {
                 cc.log(['WebSocket.open: ', evt]);
@@ -92,7 +92,7 @@ cc.Class({
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
 
                 this.unschedule(this.wsHbtSchedule);
-                this.schedule(this.wsHbtSchedule, Global.wsHbtTime);
+                this.schedule(this.wsHbtSchedule, GlobalConfig.wsHbtTime);
             };
             WebSocketManager.onclose = (evt) => {
                 cc.log(['WebSocket.onclose: ', evt]);
@@ -130,13 +130,13 @@ cc.Class({
         this.fastChatPanelPosition = this.fastChatPanel.position;
         this.menuPanelPosition = this.menuPanel.position;
 
-        this._userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
-            window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
             if (this.voiceProgressBar.progress > 0) {
                 return;
             }
@@ -153,7 +153,7 @@ cc.Class({
         this.roomInfo[0].string = Tools.formatDatetime('hh:ii:ss');
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
-            this.fastChatProgressBar.progress -= dt * Global.fastChatWaitTime;
+            this.fastChatProgressBar.progress -= dt * GlobalConfig.fastChatWaitTime;
         }
     },
 
@@ -167,11 +167,11 @@ cc.Class({
         }, 0.005, 400);
 
         var voiceFilePath = NativeExtensionManager.execute('stopRecord');
-        var webPath = Global.aliyunOss.objectPath + Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
-        var parameters = [Global.aliyunOss.bucketName, webPath, voiceFilePath];
+        var webPath = GlobalConfig.aliyunOss.objectPath + Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
+        var parameters = [GlobalConfig.aliyunOss.bucketName, webPath, voiceFilePath];
         NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
-                const content = JSON.stringify({ type: 3, data: Global.aliyunOss.domain + webPath });
+                const content = JSON.stringify({ type: 3, data: GlobalConfig.aliyunOss.domain + webPath });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
             }
         });
@@ -347,8 +347,8 @@ cc.Class({
 
         // 语音
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
-            var filePath = data.content.data.replace(Global.aliyunOss.domain, '');
-            NativeExtensionManager.execute('ossDownload', [Global.aliyunOss.bucketName, filePath], (result) => {
+            var filePath = data.content.data.replace(GlobalConfig.aliyunOss.domain, '');
+            NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
                 if (result.result == 0) {
                     NativeExtensionManager.execute('playerAudio', [result.data]);
                 }
@@ -363,7 +363,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    window.SoundEffect.playEffect(Global.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    window.SoundEffect.playEffect(GlobalConfig.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
@@ -431,7 +431,7 @@ cc.Class({
     },
 
     onDrawMessage(data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.dealCard);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.dealCard);
         this.countDownAnimation.play();
 
         // 抓拍后剩余牌数减一
@@ -469,7 +469,7 @@ cc.Class({
         this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
 
-        window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
 
     // todo: 需要完善
@@ -597,8 +597,8 @@ cc.Class({
             this._Cache.allowOutCard = true;
         }
 
-        if (data.activeType === Global.promptType.Chow) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
+        if (data.activeType === GlobalConfig.promptType.Chow) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -616,8 +616,8 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[0];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.Pong) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
+        else if (data.activeType === GlobalConfig.promptType.Pong) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -632,8 +632,8 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.kongExposed) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.activeType === GlobalConfig.promptType.kongExposed) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -648,8 +648,8 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.KongConcealed) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
+        else if (data.activeType === GlobalConfig.promptType.KongConcealed) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -666,8 +666,8 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.KongPong) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.activeType === GlobalConfig.promptType.KongPong) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
@@ -695,15 +695,15 @@ cc.Class({
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.WinDraw) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
+        else if (data.activeType === GlobalConfig.promptType.WinDraw) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === Global.promptType.WinDiscard) {
-            window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
+        else if (data.activeType === GlobalConfig.promptType.WinDiscard) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             // this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
@@ -732,7 +732,7 @@ cc.Class({
 
     onSettleForRoundMessage(data) {
         const self = this;
-        Global.tempCache = { data, playerInfoList: this._Cache.playerList };
+        GlobalConfig.tempCache = { data, playerInfoList: this._Cache.playerList };
         Animation.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
             for (let i = 0; i < 4; i += 1) {
                 self.handCardDistrict[i].removeAllChildren();
@@ -750,7 +750,7 @@ cc.Class({
         if (this.voteDismiss.active || this._Cache.settleForRoomData) {
             this.voteDismiss.active = false;
             WebSocketManager.close();
-            Global.tempCache = { data, playerInfoList: this._Cache.playerList };
+            GlobalConfig.tempCache = { data, playerInfoList: this._Cache.playerList };
             Animation.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
         else {
@@ -768,7 +768,7 @@ cc.Class({
         for (let i = 0; i < this._Cache.playerList.length; i += 1) {
             const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
             if (playerIndex == data) {
-                Global.tempCache = this._Cache.playerList[i].info;
+                GlobalConfig.tempCache = this._Cache.playerList[i].info;
                 Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
                 break;
             }
@@ -779,14 +779,14 @@ cc.Class({
      * 微信邀请
      */
     wechatInviteOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Tools.captureScreen(this.node, (filePath) => {
             cc.log(filePath);
         });
     },
 
     openFastChatPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
             if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
@@ -802,7 +802,7 @@ cc.Class({
     },
 
     openMenuOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
         if (this.menuPanel.position.x === this.menuPanelPosition.x) {
             Animation.openPanel(this.menuPanel);
@@ -838,7 +838,7 @@ cc.Class({
     },
 
     switchFastChatPanelOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
@@ -850,7 +850,7 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -860,7 +860,7 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -870,7 +870,7 @@ cc.Class({
     },
 
     actionOnClick(event, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         this.countDownAnimation.play();
 
         this._hideActionPrompt();
@@ -941,7 +941,7 @@ cc.Class({
 
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Discard', { card: data });
 
-            window.SoundEffect.playEffect(Global.audioUrl.effect.cardOut);
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.cardOut);
         }
         else {
             this._resetHandCardPosition();
@@ -953,7 +953,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -963,12 +963,12 @@ cc.Class({
      * 解散房间
      */
     dismissOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'DismissRoom');
     },
 
     voteOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
@@ -981,7 +981,7 @@ cc.Class({
      * 选择需要吃的牌
      */
     selectChiOnClick(evt, data) {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         this._hideSelectChiPanel();
 
         data = JSON.parse(data);
@@ -989,7 +989,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._Cache.roomId });
         }
@@ -1079,7 +1079,7 @@ cc.Class({
         else if (data.length > 0) {
             let i = data.length - 1;
             this.schedule(() => {
-                window.SoundEffect.playEffect(Global.audioUrl.effect.dealCard);
+                window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.dealCard);
                 if (!data[i]) {
                     data[i] = { card: 0 };
                 }
@@ -1282,7 +1282,7 @@ cc.Class({
      */
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
-        const playTypes = Global.playTypes[info.game_uuid];
+        const playTypes = GlobalConfig.playTypes[info.game_uuid];
         info.options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 
@@ -1471,17 +1471,17 @@ cc.Class({
 
         for (let i = 0; i < promptType.length; i += 1) {
             let actionPanelIndex = 0;
-            if (promptType[i] === Global.promptType.Chow) {
+            if (promptType[i] === GlobalConfig.promptType.Chow) {
                 actionPanelIndex = 1;
             }
-            else if (promptType[i] === Global.promptType.Pong) {
+            else if (promptType[i] === GlobalConfig.promptType.Pong) {
                 actionPanelIndex = 2;
             }
-            else if (promptType[i] === Global.promptType.KongConcealed || promptType[i] === Global.promptType.kongExposed
-                || promptType[i] === Global.promptType.KongPong) {
+            else if (promptType[i] === GlobalConfig.promptType.KongConcealed || promptType[i] === GlobalConfig.promptType.kongExposed
+                || promptType[i] === GlobalConfig.promptType.KongPong) {
                 actionPanelIndex = 3;
             }
-            else if (promptType[i] === Global.promptType.WinDiscard || promptType[i] === Global.promptType.WinDraw) {
+            else if (promptType[i] === GlobalConfig.promptType.WinDiscard || promptType[i] === GlobalConfig.promptType.WinDraw) {
                 actionPanelIndex = 4;
             }
 

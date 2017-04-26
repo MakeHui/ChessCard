@@ -18,7 +18,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         if (userInfo) {
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.nickname.string = userInfo.nickname;
@@ -32,8 +32,8 @@ cc.Class({
      * 查看用户信息
      */
     openUserInfoPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.tempCache = Tools.getLocalData(Global.LSK.userInfo);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        GlobalConfig.tempCache = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -44,7 +44,7 @@ cc.Class({
      * 如果绑定上级代理, 则为充值
      */
     openPayPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -54,7 +54,7 @@ cc.Class({
      * 游戏记录
      */
     openGameRecordPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
         Animation.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
@@ -66,7 +66,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -76,7 +76,7 @@ cc.Class({
      * 游戏规则
      */
     openGameRulesPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -86,7 +86,7 @@ cc.Class({
      * 创建游戏房间
      */
     openCreateRoomPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -96,7 +96,7 @@ cc.Class({
      * 加入游戏房间
      */
     openAddGamePanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('RoomNumberInputBox').init('Lobby');
         Animation.openDialog(node, this.node, () => {
@@ -108,7 +108,7 @@ cc.Class({
      * 我的游戏房间
      */
     openMyRoomPanelOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // cc.director.loadScene('MyRoom');
         Animation.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
             cc.log('load success');

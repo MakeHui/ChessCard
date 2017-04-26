@@ -10,15 +10,15 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        if (!Global.tempCache.data.playerDataList) {
+        if (!GlobalConfig.tempCache.data.playerDataList) {
             return;
         }
 
-        const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+        const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
-        for (let i = 0; i < Global.tempCache.data.playerDataList.length; i += 1) {
+        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
-            const playerData = Global.tempCache.data.playerDataList[i];
+            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
             const cardPanel = playerNode.getChildByName('CardPanel');
 
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
@@ -65,7 +65,7 @@ cc.Class({
 
             if (playerData.winType !== 0) {
                 Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
-                playerNode.getChildByName('WinType').getComponent(cc.Label).string = Global.winFlag[playerData.winFlag] || '';
+                playerNode.getChildByName('WinType').getComponent(cc.Label).string = GlobalConfig.winFlag[playerData.winFlag] || '';
 
                 // 胡牌
                 if ([1, 2].indexOf(playerData.winType) !== -1) {
@@ -95,20 +95,20 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     gameAgenOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         const node = cc.director.getScene().getChildByName('Canvas');
         node.getComponent('GameRoomScene').readyGameCallback();
         Animation.closeDialog(this.node);
     },
 
     _getNicknameInList(playerUuid) {
-        for (let i = 0; i < Global.tempCache.playerInfoList.length; i += 1) {
-            const obj = Global.tempCache.playerInfoList[i];
+        for (let i = 0; i < GlobalConfig.tempCache.playerInfoList.length; i += 1) {
+            const obj = GlobalConfig.tempCache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
                 return obj.info.nickname;
             }

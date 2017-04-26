@@ -8,7 +8,7 @@
  * @datetime 2017-02-14 18:53:05
  */
 
-window.Global = {
+window.GlobalConfig = {
     /**
      * app标识
      * @type {Number}

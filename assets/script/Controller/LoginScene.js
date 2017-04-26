@@ -15,11 +15,11 @@ cc.Class({
         }
 
         NativeExtensionManager.execute('startLocation', [], (result) => {
-            Tools.setLocalData(Global.LSK.userInfo_location, result.data);
+            Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
         });
 
         // 判断本地存储中是否有秘钥
-        const secretKey = Tools.getLocalData(Global.LSK.secretKey);
+        const secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
         if (!secretKey) {
             cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
@@ -32,7 +32,7 @@ cc.Class({
      * 登录接口
      */
     loginOnCLick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // 判断剪切板中是否有秘钥
         const secretKey = NativeExtensionManager.execute('getPasteboard');
         if (!secretKey || secretKey.length !== 36) {
@@ -48,7 +48,7 @@ cc.Class({
      * 微信登录
      */
     wechatLoginOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
     },
 
 
@@ -56,24 +56,24 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
     httpLogin(secretKey, requestName) {
         window.Dialog.openLoading();
         this.scheduleOnce(function() {
-            const parameters = { wxCode: secretKey, location: Tools.getLocalData(Global.LSK.userInfo_location) };
+            const parameters = { wxCode: secretKey, location: Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
                 window.Dialog.close();
 
                 if (result.code === 1) {
-                    result.location = Tools.getLocalData(Global.LSK.userInfo_location);
-                    Tools.setLocalData(Global.LSK.userInfo, result);
-                    Tools.setLocalData(Global.LSK.secretKey, result.loginKey);
+                    result.location = Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
+                    Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
+                    Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
 
                     if (result.playerReconnection) {
-                        Global.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
+                        GlobalConfig.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
                         cc.director.loadScene('GameRoom');
                     }
                     else {

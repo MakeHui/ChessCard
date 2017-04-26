@@ -15,12 +15,12 @@ cc.Class({
     onLoad() {
         cc.game.addPersistRootNode(this.node);
 
-        if (!Tools.getLocalData(Global.LSK.userInfo_location)) {
-            Tools.setLocalData(Global.LSK.userInfo_location, '该用户未公开地理位置');
+        if (!Tools.getLocalData(GlobalConfig.LSK.userInfo_location)) {
+            Tools.setLocalData(GlobalConfig.LSK.userInfo_location, '该用户未公开地理位置');
         }
 
-        if (!Tools.getLocalData(Global.LSK.playMusicConfig)) {
-            Tools.setLocalData(Global.LSK.playMusicConfig, { music: true, effect: true });
+        if (!Tools.getLocalData(GlobalConfig.LSK.playMusicConfig)) {
+            Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, { music: true, effect: true });
         }
         window.SoundEffect = new SoundEffect();
         window.SoundEffect.backgroundMusic();
@@ -31,7 +31,7 @@ cc.Class({
 
         window.Animation = new Animation();
 
-        this.schedule(this.hbt.bind(this), Global.hbtTime);
+        this.schedule(this.hbt.bind(this), GlobalConfig.hbtTime);
 
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, (event) => {
             cc.log(this.exitTime);
@@ -53,11 +53,11 @@ cc.Class({
             cc.log(result);
         });
 
-        // Tools.setLocalData(Global.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
+        // Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
     },
 
     hbt: function() {
-        if (!Tools.getLocalData(Global.LSK.secretKey)) {
+        if (!Tools.getLocalData(GlobalConfig.LSK.secretKey)) {
             return;
         }
         HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
@@ -67,7 +67,7 @@ cc.Class({
                     if (scene.name === 'GameRoom') {
                         WebSocketManager.close();
                     }
-                    Tools.setLocalData(Global.LSK.secretKey, '');
+                    Tools.setLocalData(GlobalConfig.LSK.secretKey, '');
                     cc.director.loadScene('Login');
                 }
 
@@ -76,9 +76,9 @@ cc.Class({
                     lobbyScene.money.string = result.gold;
                 }
 
-                const userInfo = Tools.getLocalData(Global.LSK.userInfo);
+                const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
                 userInfo.gold = result.gold;
-                Tools.setLocalData(Global.LSK.userInfo, userInfo);
+                Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
             }
         });
     },
