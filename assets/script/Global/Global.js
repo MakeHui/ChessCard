@@ -283,44 +283,6 @@ window.Global = {
 };
 
 /**
- * 弹出层
- *
- * @author Make.<makehuir@gmail.com>
- * @datetime 2017-02-14T18:46:33+0800
- *
- * @param node          cc.Node     需要弹出的节点对象
- * @param parentNode    cc.Node     父节点对象
- // * @param callback      Function    回调方法
- */
-window.Global.openDialog = function (node, parentNode) {
-    var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Function;
-
-    parentNode.addChild(node);
-
-    callback();
-
-    // Animation.openSceneTransitionAction(node.getChildByName('Dialog'), callback);
-};
-
-/**
- * 关闭弹出层
- *
- * @author Make.<makehuir@gmail.com>
- * @datetime 2017-02-14T18:47:30+0800
- *
- * @param    {cc.Node}                 node     需要关闭的节点对象
- * @param    {Function}               callback 自行完毕后的回调方法
- */
-window.Global.closeDialog = function (node, callback) {
-    callback = callback || function () {};
-
-    Animation.closeSceneTransitionAction(node.getChildByName('Dialog'), function () {
-        node.destroy();
-        callback();
-    });
-};
-
-/**
  * 获取设备id
  * 这里只是简单的生成了一个随机的id, 并保存在了本地
  * 当重新登录后会重新生成

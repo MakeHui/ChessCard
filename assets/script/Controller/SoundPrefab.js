@@ -33,7 +33,7 @@ cc.Class({
      */
     closeOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.closeDialog(this.node);
+        Animation.closeDialog(this.node);
         cc.log('removeSelf');
     },
 

@@ -31,7 +31,7 @@ cc.Class({
 
         let node = cc.instantiate(self.gameRecord);
         node.getComponent("GameStep").setData(this.roomId);
-        Global.openDialog(node, self.node);
+        Animation.openDialog(node, self.node);
     },
 
     setData: function(data) {

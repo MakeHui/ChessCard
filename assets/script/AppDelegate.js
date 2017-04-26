@@ -1,5 +1,6 @@
 var Dialog = require('Dialog');
 var SoundEffect = require('SoundEffect');
+var Animation = require('Animation');
 
 cc.Class({
     extends: cc.Component,
@@ -27,6 +28,8 @@ cc.Class({
         window.Dialog = new Dialog();
         window.Dialog.loadingPrefab = this.loading;
         window.Dialog.messagePrefab = this.dialog;
+
+        window.Animation = new Animation();
 
         this.schedule(this.hbt.bind(this), Global.hbtTime);
 

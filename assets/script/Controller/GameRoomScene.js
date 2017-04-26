@@ -167,7 +167,7 @@ cc.Class({
         }, 0.005, 400);
 
         var voiceFilePath = NativeExtensionManager.execute('stopRecord');
-        var webPath = Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.amr';
+        var webPath = Global.aliyunOss.objectPath + Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
         var parameters = [Global.aliyunOss.bucketName, webPath, voiceFilePath];
         NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
@@ -733,7 +733,7 @@ cc.Class({
     onSettleForRoundMessage(data) {
         const self = this;
         Global.tempCache = { data, playerInfoList: this._Cache.playerList };
-        Global.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
             for (let i = 0; i < 4; i += 1) {
                 self.handCardDistrict[i].removeAllChildren();
                 self.dirtyCardDistrict[i].removeAllChildren();
@@ -751,7 +751,7 @@ cc.Class({
             this.voteDismiss.active = false;
             WebSocketManager.close();
             Global.tempCache = { data, playerInfoList: this._Cache.playerList };
-            Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
+            Animation.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
         else {
             this._Cache.settleForRoomData = data;
@@ -769,7 +769,7 @@ cc.Class({
             const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
             if (playerIndex == data) {
                 Global.tempCache = this._Cache.playerList[i].info;
-                Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
+                Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
                 break;
             }
         }
@@ -954,7 +954,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
     },

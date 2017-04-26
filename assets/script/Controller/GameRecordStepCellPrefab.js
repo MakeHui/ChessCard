@@ -10,7 +10,7 @@ cc.Class({
 
     playbackOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.closeDialog(this.node);
+        Animation.closeDialog(this.node);
     },
 
     init(data) {

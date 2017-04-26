@@ -16,6 +16,6 @@ cc.Class({
      */
     closeOnClick: function(event, data) {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.closeDialog(this.node);
+        Animation.closeDialog(this.node);
     }
 });

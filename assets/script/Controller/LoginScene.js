@@ -37,7 +37,7 @@ cc.Class({
         const secretKey = NativeExtensionManager.execute('getPasteboard');
         if (!secretKey || secretKey.length !== 36) {
             cc.log('LoginScene.loginOnCLick: 剪切板中没有数据');
-            Global.openDialog(cc.instantiate(this.secretKey), this.node);
+            Animation.openDialog(cc.instantiate(this.secretKey), this.node);
             return;
         }
 
@@ -57,7 +57,7 @@ cc.Class({
      */
     userAgreementOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.userAgreement), this.node);
+        Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
     httpLogin(secretKey, requestName) {

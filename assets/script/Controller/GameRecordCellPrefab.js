@@ -13,7 +13,7 @@ cc.Class({
         var parentNode = cc.director.getScene().getChildByName('Canvas');
         var node = cc.instantiate(this.gameRecordStep);
         node.getComponent('GameRecordStepPrefab').init(this.roomId);
-        Global.openDialog(node, parentNode, () => {
+        Animation.openDialog(node, parentNode, () => {
             cc.log('downloader success');
         });
     },

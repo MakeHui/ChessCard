@@ -16,7 +16,7 @@ cc.Class({
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('RoomNumberInputBox').init('GameRecordList');
-        Global.openDialog(node, this.node);
+        Animation.openDialog(node, this.node);
     },
 
     /**
@@ -24,7 +24,7 @@ cc.Class({
      */
     closeOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.closeDialog(this.node);
+        Animation.closeDialog(this.node);
     },
 
     _getHttpGameRecordInfoData(scene, roomUuid) {
@@ -33,10 +33,10 @@ cc.Class({
         HttpRequestManager.httpRequest('recordListSelf', { roomUuid }, (event, result) => {
             window.Dialog.close();
             if (result.code == 1) {
-                Global.closeDialog(scene.node);
+                Animation.closeDialog(scene.node);
                 const node = cc.instantiate(self.gameRecordStep);
                 node.getComponent('GameRecordStepPrefab').setData(result);
-                Global.openDialog(node, self.node);
+                Animation.openDialog(node, self.node);
             }
             else if (result.code === 1021) {
                 window.Dialog.openMessageBox('没有可查询的数据');

@@ -34,7 +34,7 @@ cc.Class({
     openUserInfoPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         Global.tempCache = Tools.getLocalData(Global.LSK.userInfo);
-        Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -45,7 +45,7 @@ cc.Class({
      */
     openPayPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -57,7 +57,7 @@ cc.Class({
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
-        Global.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -67,7 +67,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -77,7 +77,7 @@ cc.Class({
      */
     openGameRulesPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -87,7 +87,7 @@ cc.Class({
      */
     openCreateRoomPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        Global.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -99,7 +99,7 @@ cc.Class({
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('RoomNumberInputBox').init('Lobby');
-        Global.openDialog(node, this.node, () => {
+        Animation.openDialog(node, this.node, () => {
             cc.log('load success');
         });
     },
@@ -110,7 +110,7 @@ cc.Class({
     openMyRoomPanelOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
         // cc.director.loadScene('MyRoom');
-        Global.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
             cc.log('load success');
         });
     },
