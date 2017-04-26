@@ -29,13 +29,13 @@ cc.Class({
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
-            // return;
+            return;
         }
 
         var node = cc.director.getScene().getChildByName('Canvas');
         Tools.captureScreen(node, function(fileName) {
             NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
-
+                cc.log(result);
             });
         });
         cc.log('shareOnClick');
