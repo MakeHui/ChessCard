@@ -2,17 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
-
         manifestUrl: cc.RawAsset,
         assetsManager: null,
         _isUpdating: false,
@@ -35,7 +24,7 @@ cc.Class({
      *
      * @param    {cc.RawAsset}                 manifestUrl [description]
      */
-    init: function init(manifestUrl) {
+    init: function (manifestUrl) {
         // Hot update is only available in Native build
         if (!cc.sys.isNative) {
             return;
@@ -117,7 +106,7 @@ cc.Class({
      *
      * @param    {Function}               callback
      */
-    checkUpdateCallback: function checkUpdateCallback(callback) {
+    checkUpdateCallback: function (callback) {
         var self = this;
 
         this._checkCallback = function (event) {
@@ -162,7 +151,7 @@ cc.Class({
      * @datetime 2017-02-24T18:50:20+0800
      *
      */
-    _checkUpdate: function _checkUpdate() {
+    _checkUpdate: function () {
         if (!this._assetsManager.getLocalManifest().isLoaded()) {
             cc.log('Failed to load local manifest ...');
             return;
@@ -181,7 +170,7 @@ cc.Class({
      *
      * @param    {Function}               callback [description]
      */
-    hotUpdateCallback: function hotUpdateCallback(callback) {
+    hotUpdateCallback: function (callback) {
         var self = this;
 
         this._updateCallback = function (event) {
@@ -272,7 +261,7 @@ cc.Class({
      * @datetime 2017-02-24T18:50:53+0800
      *
      */
-    _hotUpdate: function _hotUpdate() {
+    _hotUpdate: function () {
         if (this._assetsManager && !this._isUpdating) {
             this._isUpdating = true;
             this._hotUpdateListener = new jsb.EventListenerAssetsManager(this._assetsManager, this._updateCallback.bind(this));
@@ -288,7 +277,7 @@ cc.Class({
      * @datetime 2017-02-24T18:51:03+0800
      *
      */
-    retry: function retry() {
+    retry: function () {
         if (!this._isUpdating && this._canRetry) {
             this._canRetry = false;
             cc.log('Retry failed Assets...');
@@ -303,7 +292,7 @@ cc.Class({
      * @datetime 2017-02-24T18:51:16+0800
      *
      */
-    destroy: function destroy() {
+    destroy: function () {
         if (this._hotUpdateListener) {
             cc.eventManager.removeListener(this._hotUpdateListener);
             this._hotUpdateListener = null;
