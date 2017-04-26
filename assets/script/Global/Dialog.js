@@ -25,9 +25,11 @@ var Dialog = cc.Class({
     },
 
     close: function() {
-        cc.log('Dialog.close');
-        this.popuNode.destroy();
-        cc.director.getScheduler().unschedule(this.close.bind(this), this);
+        // TODO: HBT后会莫名调用这个方法, 原因迷, 暂时简单判断下
+        if (this.popuNode._name) {
+            this.popuNode.destroy();
+            cc.director.getScheduler().unschedule(this.close.bind(this), this);
+        }
     }
 });
 
