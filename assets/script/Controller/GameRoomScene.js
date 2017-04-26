@@ -141,18 +141,12 @@ cc.Class({
                 return;
             }
             this.voiceProgressBar.progress = 1.0;
+            NativeExtensionManager.execute('startRecord');
             cc.log('cc.Node.EventType.TOUCH_START');
         }, this);
 
-        this.voiceButton.on(cc.Node.EventType.TOUCH_END, () => {
-            if (this.voiceProgressBar.progress != 1) {
-                return;
-            }
-            cc.log('cc.Node.EventType.TOUCH_END');
-
-            var voiceFilePath = NativeExtensionManager.execute('stopRecord');
-            this.onVoiceEndCallback(voiceFilePath);
-        }, this);
+        this.voiceButton.on(cc.Node.EventType.TOUCH_END, this.onVoiceEndCallback, this);
+        this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
     },
 
     update(dt) {
@@ -163,11 +157,16 @@ cc.Class({
         }
     },
 
-    onVoiceEndCallback: function(voiceFilePath) {
+    onVoiceEndCallback: function() {
+        if (this.voiceProgressBar.progress != 1) {
+            return;
+        }
+
         this.schedule(function() {
             this.voiceProgressBar.progress -= 0.0025;
         }, 0.005, 400);
 
+        var voiceFilePath = NativeExtensionManager.execute('stopRecord');
         var webPath = Global.aliyunOss.objectPath + md5(+new Date() + Math.random().toString()) + '.amr';
         var parameters = [Global.aliyunOss.bucketName, webPath, voiceFilePath];
         NativeExtensionManager.execute('ossUpload', parameters, function(result) {

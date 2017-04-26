@@ -49,6 +49,8 @@ cc.Class({
         NativeExtensionManager.execute('test', [], (result) => {
             cc.log(result);
         });
+
+        // Tools.setLocalData(Global.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
     },
 
     hbt: function() {
