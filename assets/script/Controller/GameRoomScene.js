@@ -62,33 +62,33 @@ cc.Class({
     },
 
     onLoad() {
-        this._GameRoomCache = {};
-        this._GameRoomCache.roomId = '';        // 房间号
-        this._GameRoomCache.ownerUuid = '';     // 房主uuid
-        this._GameRoomCache.cardCount = 0;     // 剩余牌数
-        this._GameRoomCache.playerList = [];    // 玩家信息列表
-        this._GameRoomCache.promptList = [];    // 提示操作信息
-        this._GameRoomCache.thisPlayerSeat = 0; // 当前玩家实际座位号
-        this._GameRoomCache.thisDealerSeat = 0; // 当前庄家相对座位号
-        this._GameRoomCache.activeCardFlag = null;  // 最后出的那张牌上面的标识
-        this._GameRoomCache.activeCard = null;      // 当前最后出的那张牌
-        this._GameRoomCache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
-        this._GameRoomCache.allowOutCard = false;   // 是否允许出牌
-        this._GameRoomCache.lastHasAction = false;  // 上一次出牌是否有action
-        this._GameRoomCache.settleForRoomData = null;    // 大结算数据
+        this._Cache = {};
+        this._Cache.roomId = '';        // 房间号
+        this._Cache.ownerUuid = '';     // 房主uuid
+        this._Cache.cardCount = 0;     // 剩余牌数
+        this._Cache.playerList = [];    // 玩家信息列表
+        this._Cache.promptList = [];    // 提示操作信息
+        this._Cache.thisPlayerSeat = 0; // 当前玩家实际座位号
+        this._Cache.thisDealerSeat = 0; // 当前庄家相对座位号
+        this._Cache.activeCardFlag = null;  // 最后出的那张牌上面的标识
+        this._Cache.activeCard = null;      // 当前最后出的那张牌
+        this._Cache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
+        this._Cache.allowOutCard = false;   // 是否允许出牌
+        this._Cache.lastHasAction = false;  // 上一次出牌是否有action
+        this._Cache.settleForRoomData = null;    // 大结算数据
 
         // todo: 需要删除
         this._initScene();
 
         if (Global.tempCache) {
             const self = this;
-            this._GameRoomCache.roomId = Global.tempCache.roomId;
+            this._Cache.roomId = Global.tempCache.roomId;
             this.wsUrl = `ws://${Global.tempCache.serverIp}:${Global.tempCache.serverPort}/ws`;
 
             WebSocketManager.onopen = (evt) => {
                 cc.log(['WebSocket.open: ', evt]);
                 self._hideWaitPanel();
-                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._GameRoomCache.roomId });
+                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._Cache.roomId });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
 
                 this.unschedule(this.wsHbtSchedule);
@@ -124,7 +124,7 @@ cc.Class({
             };
             WebSocketManager.openSocketLink(this.wsUrl);
 
-            this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
+            this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         }
 
         this.fastChatPanelPosition = this.fastChatPanel.position;
@@ -195,7 +195,7 @@ cc.Class({
         }
 
         data.kwargs = JSON.parse(data.kwargs);
-        this._GameRoomCache.ownerUuid = data.ownerUuid;
+        this._Cache.ownerUuid = data.ownerUuid;
         this._setRoomInfo(data.kwargs, 0, data.restCards);
 
         this._setThisPlayerSeat(data.playerList);
@@ -231,7 +231,7 @@ cc.Class({
             this.inviteButtonList[0].active = true;
         }
 
-        this._GameRoomCache.playerList = data.playerList;
+        this._Cache.playerList = data.playerList;
 
         this._initLight();
     },
@@ -242,7 +242,7 @@ cc.Class({
         }
 
         data.info = JSON.parse(data.info);
-        this._GameRoomCache.playerList.push(data);
+        this._Cache.playerList.push(data);
 
         const playerIndex = this._computeSeat(data.seat);
 
@@ -254,12 +254,12 @@ cc.Class({
         Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
-        if (data.playerUuid === this._GameRoomCache.ownerUuid) {
+        if (data.playerUuid === this._Cache.ownerUuid) {
             this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
         }
 
         // 如果房间人数满了, 关闭邀请按钮
-        if (this._GameRoomCache.playerList.length === 4) {
+        if (this._Cache.playerList.length === 4) {
             this.inviteButtonList[0].active = false;
         }
     },
@@ -276,9 +276,9 @@ cc.Class({
         this._hidePlayerInfoList([playerIndex]);
 
         // 从玩家列表中删除该用户
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                cc.js.array.removeAt(this._GameRoomCache.playerList, i);
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === data.playerUuid) {
+                cc.js.array.removeAt(this._Cache.playerList, i);
                 break;
             }
         }
@@ -295,7 +295,7 @@ cc.Class({
         }
 
         if (data.flag === 0) {
-            if (this._GameRoomCache.ownerUuid === this._userInfo.playerUuid) {
+            if (this._Cache.ownerUuid === this._userInfo.playerUuid) {
                 WebSocketManager.close();
                 cc.director.loadScene('Lobby');
             }
@@ -332,7 +332,7 @@ cc.Class({
     onOnlineStatusMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
-        if (this._GameRoomCache.playerList.length === 4) {
+        if (this._Cache.playerList.length === 4) {
             if (data.status) {
                 this._hideWaitPanel();
             }
@@ -357,14 +357,14 @@ cc.Class({
             return;
         }
 
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
                 const self = this;
 
                 // 评论
                 if (data.content.type === 1) {
-                    window.SoundEffect.playEffect(Global.audioUrl.fastChat[`fw_${this._GameRoomCache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    window.SoundEffect.playEffect(Global.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
@@ -408,8 +408,8 @@ cc.Class({
     },
 
     onDealMessage(data) {
-        this._GameRoomCache.gameing = false;
-        this._GameRoomCache.waitDraw = true;
+        this._Cache.gameing = false;
+        this._Cache.waitDraw = true;
 
         this._initCardDistrict();
 
@@ -417,8 +417,8 @@ cc.Class({
         this.playerInfoList[2].setPositionX(-134);
 
         // 庄家
-        this._GameRoomCache.thisDealerSeat = this._computeSeat(this._getSeatForPlayerUuid(data.dealerUuid));
-        this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
+        this._Cache.thisDealerSeat = this._computeSeat(this._getSeatForPlayerUuid(data.dealerUuid));
+        this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
         // 初始化手牌
         this._appendCardToHandCardDistrict(0, data.cardsInHandList);
@@ -426,7 +426,7 @@ cc.Class({
         this._appendCardToHandCardDistrict(2, new Array(13));
         this._appendCardToHandCardDistrict(3, new Array(13));
 
-        this._GameRoomCache.gameing = true;
+        this._Cache.gameing = true;
 
         this._initLight();
     },
@@ -447,7 +447,7 @@ cc.Class({
             return;
         }
 
-        this._GameRoomCache.allowOutCard = true;
+        this._Cache.allowOutCard = true;
 
         const self = this;
         this.scheduleOnce(() => {
@@ -460,14 +460,14 @@ cc.Class({
             }
 
             self.getHandcard[playerIndex].active = true;
-        }, this._GameRoomCache.waitDraw ? 3 : 0);
+        }, this._Cache.waitDraw ? 3 : 0);
 
-        this._GameRoomCache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
+        this._Cache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
     },
 
     onDiscardMessage(data) {
         const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this._GameRoomCache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
+        this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
 
         window.SoundEffect.playEffect(Global.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
@@ -503,10 +503,10 @@ cc.Class({
 
     onReconnectMessage(data) {
         data.kwargs = JSON.parse(data.kwargs);
-        this._GameRoomCache.roomId = data.roomId;
-        this._GameRoomCache.ownerUuid = data.ownerUuid;
-        this._GameRoomCache.gameing = true;
-        this._GameRoomCache.waitDraw = false;
+        this._Cache.roomId = data.roomId;
+        this._Cache.ownerUuid = data.ownerUuid;
+        this._Cache.gameing = true;
+        this._Cache.waitDraw = false;
 
         this._initScene();
 
@@ -548,10 +548,10 @@ cc.Class({
         }
 
         // 庄家
-        this._GameRoomCache.thisDealerSeat = this._computeSeat(data.dealer);
-        this.playerInfoList[this._GameRoomCache.thisDealerSeat].getChildByName('img_zhuang').active = true;
+        this._Cache.thisDealerSeat = this._computeSeat(data.dealer);
+        this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
-        this._GameRoomCache.playerList = data.playerList;
+        this._Cache.playerList = data.playerList;
 
         this._initLight();
 
@@ -559,7 +559,7 @@ cc.Class({
         if (data.discardSeat !== -1) {
             const discardSeatIndex = this._computeSeat(data.discardSeat);
             this._createActiveCardFlag(discardSeatIndex);
-            this._GameRoomCache.activeCard = this.dirtyCardDistrict[discardSeatIndex].children[this.dirtyCardDistrict[discardSeatIndex].childrenCount - 1];
+            this._Cache.activeCard = this.dirtyCardDistrict[discardSeatIndex].children[this.dirtyCardDistrict[discardSeatIndex].childrenCount - 1];
         }
 
         // 当前出牌玩家
@@ -574,7 +574,7 @@ cc.Class({
         }
 
         this.countDownAnimation.play();
-        this._GameRoomCache.promptList = data.promptList;
+        this._Cache.promptList = data.promptList;
 
         let promptType = [];
 
@@ -590,12 +590,12 @@ cc.Class({
         this._hideActionPrompt();
         this.countDownAnimation.play();
 
-        this._GameRoomCache.lastHasAction = true;
+        this._Cache.lastHasAction = true;
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
         const playerIndex = this._computeSeat(playerSeat);
 
         if (data.playerUuid === this._userInfo.playerUuid) {
-            this._GameRoomCache.allowOutCard = true;
+            this._Cache.allowOutCard = true;
         }
 
         if (data.activeType === Global.promptType.Chow) {
@@ -606,7 +606,7 @@ cc.Class({
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            this._GameRoomCache.activeCard.destroy();
+            this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
             data.refCardList.sort((a, b) => {
@@ -625,7 +625,7 @@ cc.Class({
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            this._GameRoomCache.activeCard.destroy();
+            this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
             this._appendPongToDistrict(playerIndex, data.refCardList);
@@ -641,7 +641,7 @@ cc.Class({
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            this._GameRoomCache.activeCard.destroy();
+            this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
             this._appendExposedToDistrict(playerIndex, data.refCardList);
@@ -733,7 +733,7 @@ cc.Class({
 
     onSettleForRoundMessage(data) {
         const self = this;
-        Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
+        Global.tempCache = { data, playerInfoList: this._Cache.playerList };
         Global.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
             for (let i = 0; i < 4; i += 1) {
                 self.handCardDistrict[i].removeAllChildren();
@@ -741,21 +741,21 @@ cc.Class({
                 self.pongKongChowDistrict[i].removeAllChildren();
             }
 
-            this.roomInfo[3].string = `剩余牌数: ${this._GameRoomCache.cardCount}`;
+            this.roomInfo[3].string = `剩余牌数: ${this._Cache.cardCount}`;
             this._initReadyHand();
             this._hideSelectChiPanel();
         });
     },
 
     onSettleForRoomMessage(data) {
-        if (this.voteDismiss.active || this._GameRoomCache.settleForRoomData) {
+        if (this.voteDismiss.active || this._Cache.settleForRoomData) {
             this.voteDismiss.active = false;
             WebSocketManager.close();
-            Global.tempCache = { data, playerInfoList: this._GameRoomCache.playerList };
+            Global.tempCache = { data, playerInfoList: this._Cache.playerList };
             Global.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
         else {
-            this._GameRoomCache.settleForRoomData = data;
+            this._Cache.settleForRoomData = data;
         }
     },
 
@@ -766,10 +766,10 @@ cc.Class({
      **/
 
     showUserInfoOnClick(evt, data) {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            const playerIndex = this._computeSeat(this._GameRoomCache.playerList[i].seat);
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
             if (playerIndex == data) {
-                Global.tempCache = this._GameRoomCache.playerList[i].info;
+                Global.tempCache = this._Cache.playerList[i].info;
                 Global.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
                 break;
             }
@@ -923,10 +923,10 @@ cc.Class({
         }
 
         if (event.target.getPositionY() !== 0) {
-            if (!this._GameRoomCache.allowOutCard) {
+            if (!this._Cache.allowOutCard) {
                 return;
             }
-            this._GameRoomCache.allowOutCard = false;
+            this._Cache.allowOutCard = false;
             if (event.target.name === 'GetHandCard') {
                 this._hideGetHandCard(0);
             }
@@ -991,8 +991,8 @@ cc.Class({
 
     closeOnClick() {
         window.SoundEffect.playEffect(Global.audioUrl.effect.buttonClick);
-        if (this._GameRoomCache.playerList.length !== 4) {
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._GameRoomCache.roomId });
+        if (this._Cache.playerList.length !== 4) {
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._Cache.roomId });
         }
         else {
             window.Dialog.openMessageBox('游戏中无法退出');
@@ -1006,8 +1006,8 @@ cc.Class({
      **/
 
     readyGameCallback() {
-        if (this._GameRoomCache.settleForRoomData) {
-            this.onSettleForRoomMessage(this._GameRoomCache.settleForRoomData);
+        if (this._Cache.settleForRoomData) {
+            this.onSettleForRoomMessage(this._Cache.settleForRoomData);
         }
         else {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
@@ -1066,7 +1066,7 @@ cc.Class({
             }
         }
 
-        if (this._GameRoomCache.gameing) {
+        if (this._Cache.gameing) {
             for (let i = data.length - 1; i >= 0; i -= 1) {
                 if (!data[i]) {
                     data[i] = { card: 0 };
@@ -1221,7 +1221,7 @@ cc.Class({
     },
 
     _computeSeat(playerSeat) {
-        const displaySeat = playerSeat - this._GameRoomCache.thisPlayerSeat;
+        const displaySeat = playerSeat - this._Cache.thisPlayerSeat;
         return (displaySeat < 0 ? displaySeat + 4 : displaySeat);
     },
 
@@ -1230,8 +1230,8 @@ cc.Class({
         this.voteDismissButton[1].active = true;
 
         this._votePlayers = [];
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            const obj = this._GameRoomCache.playerList[i];
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            const obj = this._Cache.playerList[i];
             if (obj.playerUuid === data.sponsor) {
                 this.voteSponsor.string = obj.info.nickname;
             }
@@ -1288,17 +1288,17 @@ cc.Class({
         const num = info.options & 0x1;
 
         this.roomInfo[4].string = `玩法: ${playTypes.playType[num]}\n封顶: ${playTypes.options[info.options ^ num]}`;
-        this.roomInfo[1].string = `房间号: ${this._GameRoomCache.roomId}`;
+        this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
 
-        this._GameRoomCache.cardCount = restCards;
+        this._Cache.cardCount = restCards;
     },
 
     _getActionIdFromPromptList(prompt) {
         const promptList = [];
-        for (let i = 0; i < this._GameRoomCache.promptList.length; i += 1) {
-            const obj = this._GameRoomCache.promptList[i];
+        for (let i = 0; i < this._Cache.promptList.length; i += 1) {
+            const obj = this._Cache.promptList[i];
             if (prompt.indexOf(obj.prompt) !== -1) {
                 promptList.push(obj);
             }
@@ -1312,15 +1312,15 @@ cc.Class({
     _createActiveCardFlag(index) {
         this._deleteActiveCardFlag();
         if (this.dirtyCardDistrict[index].childrenCount > 0) {
-            this._GameRoomCache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
+            this._Cache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
             const node = this.dirtyCardDistrict[index].children[this.dirtyCardDistrict[index].childrenCount - 1];
-            node.addChild(this._GameRoomCache.activeCardFlag);
+            node.addChild(this._Cache.activeCardFlag);
         }
     },
 
     _deleteActiveCardFlag() {
-        if (this._GameRoomCache.activeCardFlag) {
-            this._GameRoomCache.activeCardFlag.destroy();
+        if (this._Cache.activeCardFlag) {
+            this._Cache.activeCardFlag.destroy();
         }
     },
 
@@ -1343,8 +1343,8 @@ cc.Class({
     },
 
     _initLight() {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            const obj = this._GameRoomCache.playerList[i];
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            const obj = this._Cache.playerList[i];
             if (obj.seat === 0) {
                 const seat = this._computeSeat(obj.seat);
                 this.makeSeatPanel.rotation = seat * -90;
@@ -1435,7 +1435,7 @@ cc.Class({
         for (let i = 0; i < playerList.length; i += 1) {
             const obj = playerList[i];
             if (obj.playerUuid === this._userInfo.playerUuid) {
-                this._GameRoomCache.thisPlayerSeat = obj.seat;
+                this._Cache.thisPlayerSeat = obj.seat;
                 break;
             }
         }
@@ -1445,9 +1445,9 @@ cc.Class({
      * 获取用户座位号
      */
     _getSeatForPlayerUuid(playerUuid) {
-        for (let i = 0; i < this._GameRoomCache.playerList.length; i += 1) {
-            if (this._GameRoomCache.playerList[i].playerUuid === playerUuid) {
-                return this._GameRoomCache.playerList[i].seat;
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === playerUuid) {
+                return this._Cache.playerList[i].seat;
             }
         }
         return -1;
