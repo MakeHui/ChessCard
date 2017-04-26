@@ -1,6 +1,7 @@
 var Dialog = require('Dialog');
 var SoundEffect = require('SoundEffect');
 var Animation = require('Animation');
+var Tools = require('Tools');
 
 cc.Class({
     extends: cc.Component,
@@ -15,21 +16,23 @@ cc.Class({
     onLoad() {
         cc.game.addPersistRootNode(this.node);
 
-        if (!Tools.getLocalData(GlobalConfig.LSK.userInfo_location)) {
-            Tools.setLocalData(GlobalConfig.LSK.userInfo_location, '该用户未公开地理位置');
-        }
-
-        if (!Tools.getLocalData(GlobalConfig.LSK.playMusicConfig)) {
-            Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, { music: true, effect: true });
-        }
-        window.SoundEffect = new SoundEffect();
-        window.SoundEffect.backgroundMusic();
+        window.Animation = new Animation();
+        window.Tools = new Tools();
 
         window.Dialog = new Dialog();
         window.Dialog.loadingPrefab = this.loading;
         window.Dialog.messagePrefab = this.dialog;
 
-        window.Animation = new Animation();
+        if (!window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location)) {
+            window.Tools.setLocalData(GlobalConfig.LSK.userInfo_location, '该用户未公开地理位置');
+        }
+
+        if (!window.Tools.getLocalData(GlobalConfig.LSK.playMusicConfig)) {
+            window.Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, { music: true, effect: true });
+        }
+        window.SoundEffect = new SoundEffect();
+        window.SoundEffect.backgroundMusic();
+
 
         this.schedule(this.hbt.bind(this), GlobalConfig.hbtTime);
 
@@ -57,7 +60,7 @@ cc.Class({
     },
 
     hbt: function() {
-        if (!Tools.getLocalData(GlobalConfig.LSK.secretKey)) {
+        if (!window.Tools.getLocalData(GlobalConfig.LSK.secretKey)) {
             return;
         }
         HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
@@ -67,7 +70,7 @@ cc.Class({
                     if (scene.name === 'GameRoom') {
                         WebSocketManager.close();
                     }
-                    Tools.setLocalData(GlobalConfig.LSK.secretKey, '');
+                    window.Tools.setLocalData(GlobalConfig.LSK.secretKey, '');
                     cc.director.loadScene('Login');
                 }
 
@@ -76,9 +79,9 @@ cc.Class({
                     lobbyScene.money.string = result.gold;
                 }
 
-                const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                const userInfo = window.Tools.getLocalData(GlobalConfig.LSK.userInfo);
                 userInfo.gold = result.gold;
-                Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
+                window.Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
             }
         });
     },
