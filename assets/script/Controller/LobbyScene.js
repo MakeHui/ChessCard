@@ -9,7 +9,7 @@ cc.Class({
         userInfoPrefab: cc.Prefab,
         payOptionsPrefab: cc.Prefab,
         gameRecordPrefab: cc.Prefab,
-        soundPrefab: cc.Prefab,
+        settingPrefab: cc.Prefab,
         gameRulesPrefab: cc.Prefab,
         createRoomPrefab: cc.Prefab,
         inputRoomNumberPrefab: cc.Prefab,
@@ -67,7 +67,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+        Animation.openDialog(cc.instantiate(this.settingPrefab), this.node, () => {
             cc.log('load success');
         });
     },

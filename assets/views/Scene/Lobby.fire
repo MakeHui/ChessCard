@@ -2896,8 +2896,8 @@
     "gameRecordPrefab": {
       "__uuid__": "b53b542a-7a3f-4af9-8c7c-a4bfe81e49c3"
     },
-    "soundPrefab": {
-      "__uuid__": "eaad76a7-73ab-4110-8d57-45d0e2634e6a"
+    "settingPrefab": {
+      "__uuid__": "7b162347-5ed0-48f2-aa31-015e4f8c88cf"
     },
     "gameRulesPrefab": {
       "__uuid__": "8444a19b-3fff-4b8f-890e-5dd128ccc217"
