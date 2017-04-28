@@ -4,6 +4,7 @@ cc.Class({
     properties: {
         userAgreement: cc.Prefab,
         secretKey: cc.Prefab,
+        agreeNode: cc.Node,
     },
 
     // use this for initialization
@@ -58,6 +59,10 @@ cc.Class({
     userAgreementOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
+    },
+
+    isAgreeOnClick: function() {
+        this.agreeNode.active = !this.agreeNode.active;
     },
 
     httpLogin(secretKey, requestName) {

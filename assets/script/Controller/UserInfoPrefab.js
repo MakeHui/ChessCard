@@ -15,7 +15,7 @@ cc.Class({
             Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.ip.string = `IP地址: ${userInfo.ip}`;
             this.nickname.string = `昵称: ${userInfo.nickname}`;
-            this.location.string = `所在地: ${userInfo.location}`;
+            this.location.string = `地理位置: ${userInfo.location}`;
         }
     },
 

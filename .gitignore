@@ -48,3 +48,4 @@ node_modules
 node_modules/**
 .eslintignore
 .eslintrc.json
+assets/Test*

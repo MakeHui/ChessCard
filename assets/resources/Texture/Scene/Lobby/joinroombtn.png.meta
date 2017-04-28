@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "dd0c7c9d-422b-437c-af09-eb8d3f858051",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "joinroombtn": {
+      "ver": "1.0.3",
+      "uuid": "fec95ad4-950f-4b55-8510-79dc99ac7627",
+      "rawTextureUuid": "dd0c7c9d-422b-437c-af09-eb8d3f858051",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 378,
+      "height": 404,
+      "rawWidth": 378,
+      "rawHeight": 404,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
