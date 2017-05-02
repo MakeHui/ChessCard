@@ -247,6 +247,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "房间号:888888",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -482,6 +483,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -728,6 +730,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -974,6 +977,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -1220,6 +1224,7 @@
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "用户1",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 0,
@@ -1270,8 +1275,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 175,
-      "height": 75
+      "width": 102,
+      "height": 55
     },
     "_children": [
       {
@@ -1280,11 +1285,11 @@
     ],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 1.2,
+    "_scaleY": 1.2,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 724,
+      "x": 765,
       "y": -66
     },
     "_skewX": 0,
@@ -1331,8 +1336,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 30
+      "width": 48,
+      "height": 26
     },
     "_children": [],
     "_rotationX": 0,
@@ -1371,12 +1376,13 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 30,
-    "_lineHeight": 0,
+    "_actualFontSize": 24,
+    "_fontSize": 24,
+    "_lineHeight": 26,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "进入",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1469,10 +1475,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "8506f5e4-3277-4228-a0e3-89610722339a"
+      "__uuid__": "5d9dacc2-b0ed-4e4b-ae51-44c64370cbda"
     },
     "_type": 1,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1484,9 +1490,7 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "7aa02ad8-f5b8-4070-947e-b195f1afd2ad"
-    }
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1522,8 +1526,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 175,
-      "height": 75
+      "width": 102,
+      "height": 55
     },
     "_children": [
       {
@@ -1532,8 +1536,8 @@
     ],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 1.2,
+    "_scaleY": 1.2,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 913,
@@ -1583,8 +1587,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 30
+      "width": 48,
+      "height": 26
     },
     "_children": [],
     "_rotationX": 0,
@@ -1623,12 +1627,13 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 30,
-    "_lineHeight": 0,
+    "_actualFontSize": 24,
+    "_fontSize": 24,
+    "_lineHeight": 26,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
+    "_spacingX": 0,
     "_N$string": "邀请",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
@@ -1721,10 +1726,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "c372348b-b946-4d20-af29-938fd3f37388"
+      "__uuid__": "c05fd7d1-c8c8-4c43-bb09-59ea0122d323"
     },
     "_type": 1,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1736,9 +1741,7 @@
     "_isTrimmedMode": false,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": {
-      "__uuid__": "7aa02ad8-f5b8-4070-947e-b195f1afd2ad"
-    }
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
