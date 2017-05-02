@@ -49,3 +49,4 @@ node_modules/**
 .eslintignore
 .eslintrc.json
 assets/Test*
+assets/other_resources/
