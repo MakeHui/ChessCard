@@ -646,7 +646,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -12
+      "y": -25
     },
     "_skewX": 0,
     "_skewY": 0,
