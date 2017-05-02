@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "enderInto2",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.36666666666666664,
+  "sample": 60,
+  "speed": 0.5,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "x": [
+        {
+          "frame": 0.2,
+          "value": 696
+        },
+        {
+          "frame": 0.2833333333333333,
+          "value": -100
+        },
+        {
+          "frame": 0.36666666666666664,
+          "value": 0
+        }
+      ]
+    }
+  },
+  "events": []
+}
