@@ -2,7 +2,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        roomLabel: [cc.Label],
     },
 
     // use this for initialization
@@ -11,6 +11,13 @@ cc.Class({
         this.maxRounds = 8;
         this.playType = 0x1;
         this.options = 0x100;
+
+        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo).roomConfig;
+        var i = 0;
+        for (var key in userInfo[this.gameUuid]) {
+            this.roomLabel[i].string = key + '局(' + userInfo[this.gameUuid][key] + '金币)';
+            i += 1;
+        }
     },
 
     selectedOnClick(toggle, data) {

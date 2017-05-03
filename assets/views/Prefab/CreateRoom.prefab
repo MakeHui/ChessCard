@@ -5658,7 +5658,15 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "roomLabel": [
+      {
+        "__id__": 23
+      },
+      {
+        "__id__": 37
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",

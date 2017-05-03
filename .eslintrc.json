@@ -15,7 +15,8 @@
         "no-undefined": "off",
         "eqeqeq": "off",
         "brace-style": "off",
-        "space-before-function-paren": "off"
+        "space-before-function-paren": "off",
+        "guard-for-in": "off"
     },
     "globals": {
         "window": true,
