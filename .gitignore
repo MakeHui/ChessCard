@@ -46,7 +46,3 @@ assets/Views/Scene/Prefab.fire.meta
 .idea
 node_modules
 node_modules/**
-.eslintignore
-.eslintrc.json
-assets/Test*
-assets/other_resources/
