@@ -1237,8 +1237,10 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": null,
-    "component": "LobbyController",
+    "target": {
+      "__id__": 2
+    },
+    "component": "LobbyScene",
     "handler": "openPayPanelOnClick",
     "customEventData": ""
   },

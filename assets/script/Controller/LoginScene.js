@@ -35,14 +35,12 @@ cc.Class({
     loginOnCLick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         // 判断剪切板中是否有秘钥
-        const secretKey = NativeExtensionManager.execute('getPasteboard');
-        if (!secretKey || secretKey.length !== 36) {
-            cc.log('LoginScene.loginOnCLick: 剪切板中没有数据');
+        var isCheck = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!isCheck) {
             Animation.openDialog(cc.instantiate(this.secretKey), this.node);
-            return;
         }
 
-        this.httpLogin(secretKey, 'login');
+        // TODO: 微信登录
     },
 
     /**
@@ -74,6 +72,7 @@ cc.Class({
 
                 if (result.code === 1) {
                     result.location = Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
+                    result.roomConfig = JSON.parse(result.roomConfig);
                     Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
                     Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
 

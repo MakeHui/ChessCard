@@ -18,14 +18,12 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
-        if (userInfo) {
-            Tools.setWebImage(this.avatar, userInfo.headimgurl);
-            this.nickname.string = userInfo.nickname;
-            this.money.string = userInfo.gold;
-            this.notice.getComponent(cc.Label).string = userInfo.notice;
-            Animation.openScrollWordAction(this.notice, 50);
-        }
+        this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        Tools.setWebImage(this.avatar, this._userInfo.headimgurl);
+        this.nickname.string = this._userInfo.nickname;
+        this.money.string = this._userInfo.gold;
+        this.notice.getComponent(cc.Label).string = this._userInfo.notice;
+        Animation.openScrollWordAction(this.notice, 50);
     },
 
     /**
@@ -40,14 +38,13 @@ cc.Class({
     },
 
     /**
-     * 绑定上级代理
-     * 如果绑定上级代理, 则为充值
+     * 弹出充值信息
      */
     openPayPanelOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.payOptionsPrefab), this.node, () => {
-            cc.log('load success');
-        });
+        if (!this._userInfo.isCheck) {
+            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+            Dialog.openMessageBox('请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
+        }
     },
 
     /**

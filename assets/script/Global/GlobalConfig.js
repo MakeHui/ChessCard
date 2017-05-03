@@ -33,6 +33,8 @@ window.GlobalConfig = {
      */
     debug: true,
 
+    wxPublic: '萍乡棋牌',
+
     /**
      * 临时数据传递对象
      * @type {object}

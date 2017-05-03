@@ -27,6 +27,7 @@
         "HttpRequestManager": true,
         "NativeExtensionManager": true,
         "Tools": true,
+        "Dialog": true,
         "Animation": true,
         "proto": true,
         "goog": true,
