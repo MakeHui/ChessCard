@@ -42,6 +42,7 @@ cc.Class({
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
         HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
+            window.Dialog.close();
             if (result.code === 1) {
                 window.Dialog.close();
                 GlobalConfig.tempCache = result;
@@ -50,8 +51,8 @@ cc.Class({
                 Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
-            else {
-                window.Dialog.close();
+            else if (result.code === 1023) {
+                Dialog.openMessageBox('金币不足请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
             }
         });
     },
