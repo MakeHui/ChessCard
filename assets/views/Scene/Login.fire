@@ -1260,6 +1260,9 @@
     },
     "agreeNode": {
       "__id__": 14
+    },
+    "appUpdatePrefab": {
+      "__uuid__": "51171bdb-5eac-4232-8387-d61d0ec1d4f7"
     }
   }
 ]

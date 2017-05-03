@@ -235,6 +235,11 @@ cc.Class({
         this._Cache.config = data.kwargs;
 
         this._initLight();
+
+        // 检查是否在同一IP
+        this.scheduleOnce(function() {
+            this._checkIp();
+        }.bind(this), 2);
     },
 
     onEnterRoomOtherMessage(data) {
@@ -263,6 +268,11 @@ cc.Class({
         if (this._Cache.playerList.length === 4) {
             this.inviteButtonList[0].active = false;
         }
+
+        // 检查是否在同一IP
+        this.scheduleOnce(function() {
+            this._checkIp();
+        }.bind(this), 2);
     },
 
     onExitRoomMessage(data) {
@@ -1555,5 +1565,21 @@ cc.Class({
     _hideWaitPanel() {
         this.waitPanel.active = false;
     },
+
+    /**
+     * 检查是否有玩家在同一ip
+     * @private
+     */
+    _checkIp: function() {
+        var groupUserList = window.Tools.groupByIp(this._Cache.playerList);
+        if (groupUserList.length > 0) {
+            var text = '请注意: ';
+            for (var i = 0; i < groupUserList.length; i += 1) {
+                text += groupUserList[i].nickname + ', ';
+            }
+            text += 'IP地址相同, 请小心对待';
+            window.Dialog.openMessageBox(text);
+        }
+    }
 
 });

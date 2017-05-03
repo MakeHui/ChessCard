@@ -370,6 +370,23 @@ var Tools = cc.Class({
         var description = '局数: ' + info.max_rounds + '局' + `, 玩法: ${playTypes.playType[num]}, 封顶: ${playTypes.options[info.options ^ num]}`;
 
         return [title, description];
+    },
+
+    groupByIp: function (data) {
+        var group = {};
+        for (var i = 0; i < data.length; i++) {
+            if (!group[data[i].info.ip]) {
+                group[data[i].info.ip] = [];
+            }
+            group[data[i].info.ip].push(data[i].info);
+        }
+
+        for (var key in group) {
+            if (group[key].length > 1) {
+                return group[key];
+            }
+        }
+        return [];
     }
 
 });
