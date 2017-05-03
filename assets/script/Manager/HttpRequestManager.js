@@ -113,7 +113,7 @@ window.HttpRequestManager.requestMessage = {
         var message = new proto.login.CheckVersionRequest();
         message.setAppUuid(GlobalConfig.appUuid);
         message.setVerNo(GlobalConfig.version);
-        message.setAndroidOrIos(GlobalConfig.os);
+        message.setAndroidOrIos(cc.sys.os == 'ios' ? 1 : 2);
 
         return message;
     },

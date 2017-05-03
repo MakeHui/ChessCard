@@ -5,6 +5,7 @@ cc.Class({
         userAgreement: cc.Prefab,
         secretKey: cc.Prefab,
         agreeNode: cc.Node,
+        appUpdatePrefab: cc.Prefab,
     },
 
     // use this for initialization
@@ -15,18 +16,21 @@ cc.Class({
             return;
         }
 
+        // 检查应用更新
+        this.httpCheckUpdate(function() {
+            // 判断本地存储中是否有秘钥
+            const secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
+            if (!secretKey) {
+                cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
+            }
+            else {
+                this.httpLogin(secretKey, 'login');
+            }
+        }.bind(this));
+
         NativeExtensionManager.execute('startLocation', [], (result) => {
             Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
         });
-
-        // 判断本地存储中是否有秘钥
-        const secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
-        if (!secretKey) {
-            cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
-        }
-        else {
-            this.httpLogin(secretKey, 'login');
-        }
     },
 
     /**
@@ -102,6 +106,21 @@ cc.Class({
                 }
             });
         }, 1.5);
+    },
+
+    httpCheckUpdate(callback) {
+        HttpRequestManager.httpRequest('check', [], (event, result) => {
+            if (result.code === 1000) {
+                var node = cc.instantiate(this.appUpdatePrefab);
+                node.init(result, function() {
+                    callback();
+                });
+                Animation.openDialog(node, this.node);
+            }
+            else {
+                callback();
+            }
+        });
     },
 
 });
