@@ -56,6 +56,11 @@ cc.Class({
             cc.log(result);
         });
 
+        // 装载资源
+        cc.loader.loadResDir('Texture', function(err, assets) {
+            cc.log(['AppDelegate.onLoad: 资源装载完成', err, assets]);
+        });
+
         // Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
     },
 

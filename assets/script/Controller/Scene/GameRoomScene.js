@@ -235,11 +235,6 @@ cc.Class({
         this._Cache.config = data.kwargs;
 
         this._initLight();
-
-        // 检查是否在同一IP
-        this.scheduleOnce(function() {
-            this._checkIp();
-        }.bind(this), 2);
     },
 
     onEnterRoomOtherMessage(data) {
@@ -272,7 +267,7 @@ cc.Class({
         // 检查是否在同一IP
         this.scheduleOnce(function() {
             this._checkIp();
-        }.bind(this), 2);
+        }, 2);
     },
 
     onExitRoomMessage(data) {
@@ -458,8 +453,6 @@ cc.Class({
             return;
         }
 
-        this._Cache.allowOutCard = true;
-
         const self = this;
         this.scheduleOnce(() => {
             // 如果抓拍的人是自己才对数据进行处理
@@ -471,6 +464,7 @@ cc.Class({
             }
 
             self.getHandcard[playerIndex].active = true;
+            self._Cache.allowOutCard = true;
         }, this._Cache.waitDraw ? 3 : 0);
 
         this._Cache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
@@ -1572,6 +1566,7 @@ cc.Class({
      */
     _checkIp: function() {
         var groupUserList = window.Tools.groupByIp(this._Cache.playerList);
+        cc.log(['groupUserList', groupUserList]);
         if (groupUserList.length > 0) {
             var text = '请注意: ';
             for (var i = 0; i < groupUserList.length; i += 1) {
