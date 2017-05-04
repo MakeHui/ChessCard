@@ -707,7 +707,7 @@ cc.Class({
             for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
                 const children = this.pongKongChowDistrict[playerIndex].children[i];
                 if (children._userData) {
-                    var card = children._userData[0].card.toString();
+                    var card = children._userData[0].card.toString(16);
                     if (card == data.refCardList[0].card.toString(16)) {
                         children.destroy();
                         break;
