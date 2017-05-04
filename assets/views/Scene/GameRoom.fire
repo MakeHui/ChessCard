@@ -45461,7 +45461,7 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": -0.75,
+    "_scaleX": 0.75,
     "_scaleY": 0.75,
     "_position": {
       "__type__": "cc.Vec2",
@@ -61112,7 +61112,21 @@
         "__id__": 1401
       }
     ],
-    "pongAndChowPrefab": [
+    "pongPrefab": [
+      {
+        "__uuid__": "5dc5d28b-5c9e-4bb8-9620-ebf09acce5cb"
+      },
+      {
+        "__uuid__": "edaf6792-0320-4048-8bb3-1ffbae822ba4"
+      },
+      {
+        "__uuid__": "5dc5d28b-5c9e-4bb8-9620-ebf09acce5cb"
+      },
+      {
+        "__uuid__": "cd9d5244-60db-46cb-9e57-caa97d3b9f39"
+      }
+    ],
+    "ChowPrefab": [
       {
         "__uuid__": "dfc25a67-d25c-48c9-adaf-483b7f22e34b"
       },

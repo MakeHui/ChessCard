@@ -36,7 +36,8 @@ cc.Class({
 
         // 吃碰杠
         pongKongChowDistrict: [cc.Node],
-        pongAndChowPrefab: [cc.Prefab], // 碰和吃
+        pongPrefab: [cc.Prefab], // 碰
+        ChowPrefab: [cc.Prefab], // 吃
         exposedPrefab: [cc.Prefab],     // 明杠
         concealedKongPrefab: [cc.Prefab],   // 暗杠
 
@@ -206,7 +207,7 @@ cc.Class({
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
-            const playerIndex = this._computeSeat(obj.seat);
+            const playerIndex = this._getLocalSeatBySeat(obj.seat);
             obj.info = JSON.parse(obj.info);
 
             this.inviteButtonList[playerIndex].active = false;
@@ -249,7 +250,7 @@ cc.Class({
         data.info = JSON.parse(data.info);
         this._Cache.playerList.push(data);
 
-        const playerIndex = this._computeSeat(data.seat);
+        const playerIndex = this._getLocalSeatBySeat(data.seat);
 
         this.inviteButtonList[playerIndex].active = false;
         this.playerInfoList[playerIndex].active = true;
@@ -281,7 +282,7 @@ cc.Class({
             return;
         }
 
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const playerIndex = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._showInviteButton([playerIndex]);
         this._hidePlayerInfoList([playerIndex]);
 
@@ -340,7 +341,7 @@ cc.Class({
     },
 
     onOnlineStatusMessage(data) {
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const playerIndex = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
         if (this._Cache.playerList.length === 4) {
             if (data.status) {
@@ -369,7 +370,7 @@ cc.Class({
 
         for (let i = 0; i < this._Cache.playerList.length; i += 1) {
             if (this._Cache.playerList[i].playerUuid === data.playerUuid) {
-                const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
+                const playerIndex = this._getLocalSeatBySeat(this._Cache.playerList[i].seat);
                 const self = this;
 
                 // 评论
@@ -413,7 +414,7 @@ cc.Class({
     },
 
     onReadyMessage(data) {
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const playerIndex = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
     },
 
@@ -427,7 +428,7 @@ cc.Class({
         this.playerInfoList[2].setPositionX(-134);
 
         // 庄家
-        this._Cache.thisDealerSeat = this._computeSeat(this._getSeatForPlayerUuid(data.dealerUuid));
+        this._Cache.thisDealerSeat = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.dealerUuid));
         this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
         // 初始化手牌
@@ -450,7 +451,7 @@ cc.Class({
         this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
 
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
-        const playerIndex = this._computeSeat(playerSeat);
+        const playerIndex = this._getLocalSeatBySeat(playerSeat);
         this._openLight(playerSeat);
 
         if (data.card.card === 0) {
@@ -475,7 +476,7 @@ cc.Class({
     },
 
     onDiscardMessage(data) {
-        const playerIndex = this._computeSeat(this._getSeatForPlayerUuid(data.playerUuid));
+        const playerIndex = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
 
@@ -535,7 +536,7 @@ cc.Class({
         for (let i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
             obj.info = JSON.parse(obj.info);
-            const playerIndex = this._computeSeat(obj.seat);
+            const playerIndex = this._getLocalSeatBySeat(obj.seat);
             this._setPlayerInfoList(playerIndex, obj.info, obj.totalScore);
 
             // 设置房主
@@ -551,14 +552,30 @@ cc.Class({
             // 初始化手牌
             this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList);
             this._appendCardToDiscardDistrict(playerIndex, obj.cardsDiscardList);
-            this._appendConcealedKongToDistrict(playerIndex, obj.cardsKongConcealedList);
-            this._appendExposedToDistrict(playerIndex, obj.cardsKongExposedList);
-            this._appendPongToDistrict(playerIndex, obj.cardsPongList);
-            this._appendChowToDistrict(playerIndex, obj.cardsChowList);
+
+            for (var j = 0; j < obj.cardsGroupListList.length; j += 1) {
+                var obj1 = obj.cardsGroupListList[j];
+                var triggerIndex = this._getLocalSeatBySeat(obj1.triggerSeat);
+                if (obj1.type == 'chow') {
+                    this._appendChowToDistrict(playerIndex, obj.cardList);
+                }
+                else if (obj1.type == 'pong') {
+                    this._appendPongToDistrict(playerIndex, triggerIndex, obj1.cardList);
+                }
+                else if (obj1.type == 'discard_exposed_kong') {
+                    this._appendExposedToDistrict(playerIndex, triggerIndex, obj1.cardList);
+                }
+                else if (obj1.type == 'draw_exposed_kong') {
+
+                }
+                else if (obj1.type == 'draw_concealed_kong') {
+                    this._appendConcealedKongToDistrict(playerIndex, obj1.cardList);
+                }
+            }
         }
 
         // 庄家
-        this._Cache.thisDealerSeat = this._computeSeat(data.dealer);
+        this._Cache.thisDealerSeat = this._getLocalSeatBySeat(data.dealer);
         this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
 
         this._Cache.playerList = data.playerList;
@@ -567,7 +584,7 @@ cc.Class({
 
         // 当前活动玩家座位号, 打出去的牌上面的小标识
         if (data.discardSeat !== -1) {
-            const discardSeatIndex = this._computeSeat(data.discardSeat);
+            const discardSeatIndex = this._getLocalSeatBySeat(data.discardSeat);
             this._createActiveCardFlag(discardSeatIndex);
             this._Cache.activeCard = this.dirtyCardDistrict[discardSeatIndex].children[this.dirtyCardDistrict[discardSeatIndex].childrenCount - 1];
         }
@@ -602,7 +619,7 @@ cc.Class({
 
         this._Cache.lastHasAction = true;
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
-        const playerIndex = this._computeSeat(playerSeat);
+        const playerIndex = this._getLocalSeatBySeat(playerSeat);
 
         if (data.playerUuid === this._userInfo.playerUuid) {
             this._Cache.allowOutCard = true;
@@ -638,7 +655,8 @@ cc.Class({
             this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
-            this._appendPongToDistrict(playerIndex, data.refCardList);
+            var triggerIndex = this._getLocalSeatBySeat(data.triggerSeat);
+            this._appendPongToDistrict(playerIndex, triggerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
@@ -777,7 +795,7 @@ cc.Class({
 
     showUserInfoOnClick(evt, data) {
         for (let i = 0; i < this._Cache.playerList.length; i += 1) {
-            const playerIndex = this._computeSeat(this._Cache.playerList[i].seat);
+            const playerIndex = this._getLocalSeatBySeat(this._Cache.playerList[i].seat);
             if (playerIndex == data) {
                 GlobalConfig.tempCache = this._Cache.playerList[i].info;
                 Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node);
@@ -1113,59 +1131,75 @@ cc.Class({
     /**
      * 暗杠
      *
-     * @param player
+     * @param playerIndex
      * @param data
      * @private
      */
-    _appendConcealedKongToDistrict(player, data) {
-        for (let i = 0; i < data.length; i += 1) {
-            if (i % 4 === 0) {
-                const node = cc.instantiate(this.concealedKongPrefab[player]);
-                this.pongKongChowDistrict[player].addChild(node);
+    _appendConcealedKongToDistrict(playerIndex, data) {
+        var node = cc.instantiate(this.concealedKongPrefab[playerIndex]);
+        this.pongKongChowDistrict[playerIndex].addChild(node);
 
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
-            }
+        if (playerIndex == 0) {
+            var nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].card.toString(16)}`);
         }
     },
 
     /**
      * 明杠
      *
-     * @param player
+     * @param playerIndex
+     * @param triggerIndex
      * @param data
      * @private
      */
-    _appendExposedToDistrict(player, data) {
-        let node = cc.Node;
-        for (let j = 0; j < data.length; j += 1) {
-            if (j % 4 === 0) {
-                node = cc.instantiate(this.exposedPrefab[player]);
-                this.pongKongChowDistrict[player].addChild(node);
-            }
+    _appendExposedToDistrict(playerIndex, triggerIndex, data) {
+        var node = cc.instantiate(this.exposedPrefab[playerIndex]);
+        this.pongKongChowDistrict[playerIndex].addChild(node);
 
-            const nodeSprite = node.children[j % 4].getChildByName('value').getComponent(cc.Sprite);
-            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
+        var index = Math.abs(triggerIndex - playerIndex) - 1;
+        // TODO: 修复prefab顺序问题
+        if (playerIndex == 1 || playerIndex == 2) {
+            index = Math.abs(2 - index);
+        }
+
+        for (var i = 0; i < data.length; i += 1) {
+            if (i === index) {
+                node.children[i].getChildByName('hide').active = true;
+            }
+            else {
+                var nodeSprite = Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
+            }
         }
     },
 
     /**
      * 碰
      *
-     * @param player
+     * @param playerIndex
+     * @param triggerIndex
      * @param data
      * @private
      */
-    _appendPongToDistrict(player, data) {
-        let node = cc.Node;
-        for (let j = 0; j < data.length; j += 1) {
-            if (j % 3 === 0) {
-                node = cc.instantiate(this.pongAndChowPrefab[player]);
-                this.pongKongChowDistrict[player].addChild(node);
-            }
+    _appendPongToDistrict(playerIndex, triggerIndex, data) {
+        var node = cc.instantiate(this.pongPrefab[playerIndex]);
+        this.pongKongChowDistrict[playerIndex].addChild(node);
 
-            const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
+        var index = Math.abs(triggerIndex - playerIndex) - 1;
+        // TODO: 修复prefab顺序问题
+        if (playerIndex == 1 || playerIndex == 2) {
+            index = Math.abs(2 - index);
+        }
+
+        for (var i = 0; i < data.length; i += 1) {
+            if (i === index) {
+                node.children[i].getChildByName('hide').active = true;
+            }
+            else {
+                var nodeSprite = Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
+            }
         }
     },
 
@@ -1177,15 +1211,16 @@ cc.Class({
      * @private
      */
     _appendChowToDistrict(player, data) {
-        let node = cc.Node;
-        for (let j = 0; j < data.length; j += 1) {
-            if (j % 3 === 0) {
-                node = cc.instantiate(this.pongAndChowPrefab[player]);
-                this.pongKongChowDistrict[player].addChild(node);
-            }
+        var node = cc.instantiate(this.ChowPrefab[player]);
+        this.pongKongChowDistrict[player].addChild(node);
 
-            const nodeSprite = node.children[j % 3].getChildByName('value').getComponent(cc.Sprite);
-            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[j].card.toString(16)}`);
+        data.sort(function(a, b) {
+            return a.card - b.card;
+        });
+
+        for (var i = 0; i < data.length; i += 1) {
+            var nodeSprite = node.children[i].getChildByName('value').getComponent(cc.Sprite);
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
         }
     },
 
@@ -1237,7 +1272,7 @@ cc.Class({
         }
     },
 
-    _computeSeat(playerSeat) {
+    _getLocalSeatBySeat(playerSeat) {
         const displaySeat = playerSeat - this._Cache.thisPlayerSeat;
         return (displaySeat < 0 ? displaySeat + 4 : displaySeat);
     },
@@ -1363,7 +1398,7 @@ cc.Class({
         for (let i = 0; i < this._Cache.playerList.length; i += 1) {
             const obj = this._Cache.playerList[i];
             if (obj.seat === 0) {
-                const seat = this._computeSeat(obj.seat);
+                const seat = this._getLocalSeatBySeat(obj.seat);
                 this.makeSeatPanel.rotation = seat * -90;
                 break;
             }
