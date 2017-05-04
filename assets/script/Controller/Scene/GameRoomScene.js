@@ -180,6 +180,10 @@ cc.Class({
     },
 
     wsHbtSchedule() {
+        if (window.WebSocketManager.isClose) {
+            this.unschedule(this.wsHbtSchedule);
+            return;
+        }
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'HeartBeat');
     },
 
