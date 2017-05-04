@@ -557,16 +557,13 @@ cc.Class({
                 var obj1 = obj.cardsGroupListList[j];
                 var triggerIndex = this._getLocalSeatBySeat(obj1.triggerSeat);
                 if (obj1.type == 'chow') {
-                    this._appendChowToDistrict(playerIndex, obj.cardList);
+                    this._appendChowToDistrict(playerIndex, obj1.cardList);
                 }
                 else if (obj1.type == 'pong') {
                     this._appendPongToDistrict(playerIndex, triggerIndex, obj1.cardList);
                 }
-                else if (obj1.type == 'discard_exposed_kong') {
+                else if (obj1.type == 'discard_exposed_kong' || obj1.type == 'draw_exposed_kong') {
                     this._appendExposedToDistrict(playerIndex, triggerIndex, obj1.cardList);
-                }
-                else if (obj1.type == 'draw_exposed_kong') {
-
                 }
                 else if (obj1.type == 'draw_concealed_kong') {
                     this._appendConcealedKongToDistrict(playerIndex, obj1.cardList);
@@ -620,6 +617,7 @@ cc.Class({
         this._Cache.lastHasAction = true;
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
         const playerIndex = this._getLocalSeatBySeat(playerSeat);
+        var triggerIndex = this._getLocalSeatBySeat(data.triggerSeat);
 
         if (data.playerUuid === this._userInfo.playerUuid) {
             this._Cache.allowOutCard = true;
@@ -655,7 +653,6 @@ cc.Class({
             this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
-            var triggerIndex = this._getLocalSeatBySeat(data.triggerSeat);
             this._appendPongToDistrict(playerIndex, triggerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
@@ -672,7 +669,7 @@ cc.Class({
             this._Cache.activeCard.destroy();
 
             data.refCardList.push(data.activeCard);
-            this._appendExposedToDistrict(playerIndex, data.refCardList);
+            this._appendExposedToDistrict(playerIndex, triggerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
@@ -685,7 +682,7 @@ cc.Class({
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+            const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace('value_0x', '');
             if (card == data.activeCard.card) {
                 this._hideGetHandCard(playerIndex);
             }
@@ -709,17 +706,19 @@ cc.Class({
 
             for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
                 const children = this.pongKongChowDistrict[playerIndex].children[i];
-                const card = Tools.findNode(children, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                if (card == data.refCardList[0].card.toString(16)) {
-                    children.destroy();
-                    break;
+                if (children._userData) {
+                    var card = children._userData[0].card.toString();
+                    if (card == data.refCardList[0].card.toString(16)) {
+                        children.destroy();
+                        break;
+                    }
                 }
             }
 
             for (let i = 0; i < 3; i += 1) {
                 data.refCardList.push({ card: data.refCardList[0].card });
             }
-            this._appendExposedToDistrict(playerIndex, data.refCardList);
+            this._appendExposedToDistrict(playerIndex, triggerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
@@ -1159,7 +1158,7 @@ cc.Class({
 
         var index = Math.abs(triggerIndex - playerIndex) - 1;
         // TODO: 修复prefab顺序问题
-        if (playerIndex == 1 || playerIndex == 2) {
+        if (playerIndex == 0) {
             index = Math.abs(2 - index);
         }
 
@@ -1184,11 +1183,12 @@ cc.Class({
      */
     _appendPongToDistrict(playerIndex, triggerIndex, data) {
         var node = cc.instantiate(this.pongPrefab[playerIndex]);
+        node._userData = data;
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         var index = Math.abs(triggerIndex - playerIndex) - 1;
         // TODO: 修复prefab顺序问题
-        if (playerIndex == 1 || playerIndex == 2) {
+        if (playerIndex == 0) {
             index = Math.abs(2 - index);
         }
 
