@@ -474,12 +474,12 @@ cc.Class({
                 this._Cache.isDrawCard = true;
             }
 
+            self.getHandcard[playerIndex].active = true;
+
             if (playerIndex == 0) {
                 // 检查是否有碰杠
                 self._Cache.allowOutCard = !this._checkHasKong();
             }
-
-            self.getHandcard[playerIndex].active = true;
         }, this._Cache.waitDraw ? 3 : 0);
 
         this._Cache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
@@ -655,7 +655,7 @@ cc.Class({
                         for (var k = 0; k < node.children.length; k += 1) {
                             var obj1 = node.children[k];
                             var nodeSprite = obj1.getChildByName('value').getComponent(cc.Sprite);
-                            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[i].card.toString(16)}`);
+                            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[k].card.toString(16)}`);
                         }
 
                         const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
@@ -1043,7 +1043,9 @@ cc.Class({
                 data = null;
                 this._Cache.allowOutCard = this._Cache.isDrawCard;
             }
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { data });
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data });
+
+            this._initActionPrompt();
         }
     },
 
@@ -1619,6 +1621,20 @@ cc.Class({
         }
     },
 
+    _initActionPrompt: function() {
+        this._hideActionPrompt();
+        this.selectChiPanel.active = false;
+        this.selectKongPanel.active = false;
+
+        for (var i = 0; i < this.selectChiPanel.children.length; i += 1) {
+            this.selectChiPanel.children[i].destroy();
+        }
+
+        for (var i = 0; i < this.selectKongPanel.children.length; i += 1) {
+            this.selectKongPanel.children[i].destroy();
+        }
+    },
+
     _hideSelectChiKongPanel() {
         this.selectChiPanel.active = false;
         this.selectKongPanel.active = false;
@@ -1691,8 +1707,7 @@ cc.Class({
     },
 
     _checkHasKong: function() {
-        var i;
-        for (i = 0; i < this.pongKongChowDistrict[0].childrenCount; i += 1) {
+        for (var i = 0; i < this.pongKongChowDistrict[0].childrenCount; i += 1) {
             var children = this.pongKongChowDistrict[0].children[i];
             if (children._userData) {
                 // 检查抓到的牌
@@ -1707,7 +1722,7 @@ cc.Class({
 
         // 检查手牌中是否有暗杠
         var group = {};
-        for (i = 0; i < this.handCardDistrict[0].children.length; i += 1) {
+        for (var i = 0; i < this.handCardDistrict[0].children.length; i += 1) {
             var obj = this.handCardDistrict[0].children[i]._userData;
             if (!group[obj]) {
                 group[obj] = [];
