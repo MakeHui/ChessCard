@@ -75,6 +75,7 @@ cc.Class({
         this._Cache.activeCard = null;      // 当前最后出的那张牌
         this._Cache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
         this._Cache.allowOutCard = false;   // 是否允许出牌
+        this._Cache.isDrawCard = false;   // 是否是当前玩家抓牌后
         this._Cache.lastHasAction = false;  // 上一次出牌是否有action
         this._Cache.settleForRoomData = null;    // 大结算数据
         this._Cache.config = {};    // 房间信息
@@ -468,17 +469,12 @@ cc.Class({
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
                 self._Cache.allowOutCard = true;
+                this._Cache.isDrawCard = true;
             }
 
             if (playerIndex == 0) {
                 // 检查是否有碰杠
-                for (let i = 0; i < self.pongKongChowDistrict[0].childrenCount; i += 1) {
-                    var children = self.pongKongChowDistrict[0].children[i];
-                    if (children._userData && children._userData[0].card == data.card.card) {
-                        self._Cache.allowOutCard = false;
-                        break;
-                    }
-                }
+                self._Cache.allowOutCard = !this._checkHasKong();
             }
 
             self.getHandcard[playerIndex].active = true;
@@ -491,6 +487,10 @@ cc.Class({
         const playerIndex = this._getLocalSeatBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
+
+        if (playerIndex == 0) {
+            this._Cache.isDrawCard = false;
+        }
 
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
@@ -676,6 +676,7 @@ cc.Class({
             // 如果是当前玩家碰牌后即可再出一张牌
             if (data.playerUuid === this._userInfo.playerUuid) {
                 // TODO: #150  如果有碰杠就必须等待服务端下发杠指令
+                this._Cache.isDrawCard = true;
                 this._Cache.allowOutCard = !this._checkHasKong();
                 cc.log(['#150: this._Cache.allowOutCard', this._Cache.allowOutCard]);
             }
@@ -950,11 +951,8 @@ cc.Class({
         var actionId = null;
         var actionIdList = JSON.parse(data);
 
-        if (actionIdList.length === 1) {
-            actionId = actionIdList[0].actionId;
-        }
         // 大于1表示需要弹出吃的选择
-        else if (actionIdList.length > 1) {
+        if (actionIdList.length > 1) {
             for (let i = 0; i < actionIdList.length; i += 1) {
                 const obj = actionIdList[i];
 
@@ -976,6 +974,13 @@ cc.Class({
             }
             this.selectChi[3].active = true;
             return;
+        }
+
+        if (actionIdList.length === 1) {
+            actionId = actionIdList[0].actionId;
+        }
+        else if (actionIdList.length === 0) {
+            this._Cache.allowOutCard = this._Cache.isDrawCard;
         }
 
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId });
@@ -1051,6 +1056,7 @@ cc.Class({
 
     /**
      * 选择需要吃的牌
+     * 选择需要杠的牌
      */
     selectChiOnClick(evt, data) {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
@@ -1663,14 +1669,6 @@ cc.Class({
                 if (this.getHandcard[0].active) {
                     if (this._getHandCardValue() == children._userData[0].card) {
                         cc.log(['#150: _checkHasKong', children._userData[0].card]);
-                        return true;
-                    }
-                }
-                // 检查手牌
-                for (var j = 0; j < this.handCardDistrict[0].children.length; j += 1) {
-                    var obj1 = this.handCardDistrict[0].children[j];
-                    if (obj1.active && obj1._userData == children._userData[0].card) {
-                        cc.log(['#150: _checkHasKong', obj1.active, obj1._userData]);
                         return true;
                     }
                 }
