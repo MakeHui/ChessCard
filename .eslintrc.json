@@ -16,7 +16,8 @@
         "eqeqeq": "off",
         "brace-style": "off",
         "space-before-function-paren": "off",
-        "guard-for-in": "off"
+        "guard-for-in": "off",
+        "no-redeclare": "off"
     },
     "globals": {
         "window": true,

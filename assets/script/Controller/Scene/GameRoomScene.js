@@ -49,7 +49,9 @@ cc.Class({
         // 动作相关
         actionPanel: [cc.Node],
         actionSprite: [cc.Node],
-        selectChi: [cc.Node],
+        selectChiPanel: cc.Node,
+        selectKongPanel: cc.Node,
+        chiKongButtonPrefab: [cc.Prefab],
         actionSpriteFrame: [cc.SpriteFrame],
 
         waitPanel: cc.Node,
@@ -609,17 +611,99 @@ cc.Class({
             this._initReadyHand();
         }
 
+        this._hideActionPrompt();
         this.countDownAnimation.play();
         this._Cache.promptList = data.promptList;
 
         let promptType = [];
-
         for (let i = 0; i < data.promptList.length; i += 1) {
             promptType.push(data.promptList[i].prompt);
         }
-
         promptType = Tools.unique(promptType);
-        this._showActionPrompt(promptType);
+
+        if (promptType.length > 0) {
+            this.actionPanel[0].active = true;
+        }
+
+        for (let i = 0; i < promptType.length; i += 1) {
+            let actionPanelIndex = 0;
+            if (promptType[i] === GlobalConfig.promptType.Chow) {
+                actionPanelIndex = 1;
+            }
+            else if (promptType[i] === GlobalConfig.promptType.Pong) {
+                actionPanelIndex = 2;
+            }
+            else if ([GlobalConfig.promptType.KongConcealed, GlobalConfig.promptType.kongExposed, GlobalConfig.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+                actionPanelIndex = 3;
+            }
+            else if (promptType[i] === GlobalConfig.promptType.WinDiscard || promptType[i] === GlobalConfig.promptType.WinDraw) {
+                actionPanelIndex = 4;
+            }
+
+            var promptList = this._getActionIdFromPromptList([promptType[i]]);
+            var actionId;
+            if (promptList.length > 1) {
+                if (promptType[i] === GlobalConfig.promptType.Chow) {
+                    for (var j = 0; j < promptList.length; j += 1) {
+                        var obj = promptList[j];
+                        obj.refCardList.push(obj.opCard);
+                        obj.refCardList.sort(function(a, b) {
+                            return a.card - b.card;
+                        });
+
+                        var node = cc.instantiate(this.chiKongButtonPrefab[0]);
+                        for (var k = 0; k < node.children.length; k += 1) {
+                            var obj1 = node.children[k];
+                            var nodeSprite = obj1.getChildByName('value').getComponent(cc.Sprite);
+                            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[i].card.toString(16)}`);
+                        }
+
+                        const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
+                        node.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+
+                        this.selectChiPanel.addChild(node);
+                    }
+
+                    var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
+                    const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', 'pass');
+                    passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                    this.selectChiPanel.addChild(passButton);
+
+                    actionId = 'openSelectChi';
+                }
+                else if ([GlobalConfig.promptType.KongConcealed, GlobalConfig.promptType.kongExposed, GlobalConfig.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+                    for (var j = 0; j < promptList.length; j += 1) {
+                        var obj = promptList[j];
+
+                        var node = cc.instantiate(this.chiKongButtonPrefab[1]);
+                        for (var k = 0; k < node.children.length; k += 1) {
+                            var obj1 = node.children[k];
+                            var nodeSprite = obj1.getChildByName('value').getComponent(cc.Sprite);
+                            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[0].card.toString(16)}`);
+                        }
+
+                        var clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
+                        node.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+
+                        this.selectKongPanel.addChild(node);
+                    }
+
+                    var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
+                    var clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', 'pass');
+                    passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+                    this.selectKongPanel.addChild(passButton);
+
+                    actionId = 'openSelectKong';
+                }
+            }
+            else {
+                actionId = promptList[0].actionId;
+            }
+
+            clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', actionId);
+            this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+            this.actionPanel[actionPanelIndex].active = true;
+        }
     },
 
     onActionMessage(data) {
@@ -808,7 +892,7 @@ cc.Class({
 
             this.roomInfo[3].string = `剩余牌数: ${this._Cache.cardCount}`;
             this._initReadyHand();
-            this._hideSelectChiPanel();
+            this._hideSelectChiKongPanel();
         });
     },
 
@@ -948,42 +1032,19 @@ cc.Class({
         this.countDownAnimation.play();
         this._hideActionPrompt();
 
-        var actionId = null;
-        var actionIdList = JSON.parse(data);
-
-        // 大于1表示需要弹出吃的选择
-        if (actionIdList.length > 1) {
-            for (let i = 0; i < actionIdList.length; i += 1) {
-                const obj = actionIdList[i];
-
-                const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'selectChiOnClick', JSON.stringify(obj));
-                this.selectChi[i].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-
-                const children = this.selectChi[i].children;
-                for (let j = 0; j < children.length; j += 1) {
-                    const nodeSprite = children[j].getChildByName('value').getComponent(cc.Sprite);
-                    if (j === 0) {
-                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.opCard.card.toString(16)}`);
-                    }
-                    else {
-                        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[j - 1].card.toString(16)}`);
-                    }
-                }
-
-                this.selectChi[i].active = true;
+        if (data == 'openSelectKong') {
+            this.selectKongPanel.active = true;
+        }
+        else if (data == 'openSelectChi') {
+            this.selectChiPanel.active = true;
+        }
+        else {
+            if (data == 'pass') {
+                data = null;
+                this._Cache.allowOutCard = this._Cache.isDrawCard;
             }
-            this.selectChi[3].active = true;
-            return;
+            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { data });
         }
-
-        if (actionIdList.length === 1) {
-            actionId = actionIdList[0].actionId;
-        }
-        else if (actionIdList.length === 0) {
-            this._Cache.allowOutCard = this._Cache.isDrawCard;
-        }
-
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId });
     },
 
     /**
@@ -1058,9 +1119,9 @@ cc.Class({
      * 选择需要吃的牌
      * 选择需要杠的牌
      */
-    selectChiOnClick(evt, data) {
+    selectChiKongActionOnClick(evt, data) {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        this._hideSelectChiPanel();
+        this._hideSelectChiKongPanel();
 
         data = JSON.parse(data);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data.actionId });
@@ -1508,7 +1569,7 @@ cc.Class({
         this._closeAllLight();
         this._hideActionPrompt();
         this._initReadyHand();
-        this._hideSelectChiPanel();
+        this._hideSelectChiKongPanel();
 
         this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
     },
@@ -1554,45 +1615,13 @@ cc.Class({
      */
     _hideActionPrompt() {
         for (let i = 0; i < this.actionPanel.length; i += 1) {
-            const obj = this.actionPanel[i];
-            obj.active = false;
+            this.actionPanel[i].active = false;
         }
     },
 
-    _showActionPrompt(promptType) {
-        this._hideActionPrompt();
-
-        if (promptType.length > 0) {
-            this.actionPanel[0].active = true;
-        }
-
-        for (let i = 0; i < promptType.length; i += 1) {
-            let actionPanelIndex = 0;
-            if (promptType[i] === GlobalConfig.promptType.Chow) {
-                actionPanelIndex = 1;
-            }
-            else if (promptType[i] === GlobalConfig.promptType.Pong) {
-                actionPanelIndex = 2;
-            }
-            else if (promptType[i] === GlobalConfig.promptType.KongConcealed || promptType[i] === GlobalConfig.promptType.kongExposed
-                || promptType[i] === GlobalConfig.promptType.KongPong) {
-                actionPanelIndex = 3;
-            }
-            else if (promptType[i] === GlobalConfig.promptType.WinDiscard || promptType[i] === GlobalConfig.promptType.WinDraw) {
-                actionPanelIndex = 4;
-            }
-
-            const promptList = this._getActionIdFromPromptList([promptType[i]]);
-            const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', JSON.stringify(promptList));
-            this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-            this.actionPanel[actionPanelIndex].active = true;
-        }
-    },
-
-    _hideSelectChiPanel() {
-        for (let i = 0; i < this.selectChi.length; i += 1) {
-            this.selectChi[i].active = false;
-        }
+    _hideSelectChiKongPanel() {
+        this.selectChiPanel.active = false;
+        this.selectKongPanel.active = false;
     },
 
     _actionIsShow() {
@@ -1601,10 +1630,11 @@ cc.Class({
                 return true;
             }
         }
-        for (let i = 0; i < this.selectChi.length; i += 1) {
-            if (this.selectChi[i].active) {
-                return true;
-            }
+        if (this.selectChiPanel.active) {
+            return true;
+        }
+        else if (this.selectKongPanel.active) {
+            return true;
         }
         return false;
     },
