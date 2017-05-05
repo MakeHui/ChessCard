@@ -466,10 +466,22 @@ cc.Class({
                 self.getHandcard[playerIndex].getChildByName('GetHandCard').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                 const nodeSprite = Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
+
+                self._Cache.allowOutCard = true;
+            }
+
+            if (playerIndex == 0) {
+                // 检查是否有碰杠
+                for (let i = 0; i < self.pongKongChowDistrict[0].childrenCount; i += 1) {
+                    var children = self.pongKongChowDistrict[0].children[i];
+                    if (children._userData && children._userData[0].card == data.card.card) {
+                        self._Cache.allowOutCard = false;
+                        break;
+                    }
+                }
             }
 
             self.getHandcard[playerIndex].active = true;
-            self._Cache.allowOutCard = true;
         }, this._Cache.waitDraw ? 3 : 0);
 
         this._Cache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
@@ -618,10 +630,7 @@ cc.Class({
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
         const playerIndex = this._getLocalSeatBySeat(playerSeat);
         var triggerIndex = this._getLocalSeatBySeat(data.triggerSeat);
-
-        if (data.playerUuid === this._userInfo.playerUuid) {
-            this._Cache.allowOutCard = true;
-        }
+        var card;
 
         if (data.activeType === GlobalConfig.promptType.Chow) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
@@ -641,6 +650,12 @@ cc.Class({
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[0];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+
+            // 如果是当前玩家吃牌后即可再出一张牌
+            if (data.playerUuid === this._userInfo.playerUuid) {
+                // TODO: #150  如果有碰杠就必须等待服务端下发杠指令
+                this._Cache.allowOutCard = !this._checkHasKong();
+            }
         }
         else if (data.activeType === GlobalConfig.promptType.Pong) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
@@ -657,9 +672,21 @@ cc.Class({
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+
+            // 如果是当前玩家碰牌后即可再出一张牌
+            if (data.playerUuid === this._userInfo.playerUuid) {
+                // TODO: #150  如果有碰杠就必须等待服务端下发杠指令
+                this._Cache.allowOutCard = !this._checkHasKong();
+                cc.log(['#150: this._Cache.allowOutCard', this._Cache.allowOutCard]);
+            }
         }
         else if (data.activeType === GlobalConfig.promptType.kongExposed) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+
+            // 碰完后不能出牌
+            if (data.playerUuid === this._userInfo.playerUuid) {
+                this._Cache.allowOutCard = false;
+            }
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -677,12 +704,17 @@ cc.Class({
         else if (data.activeType === GlobalConfig.promptType.KongConcealed) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
+            // 碰完后不能出牌
+            if (data.playerUuid === this._userInfo.playerUuid) {
+                this._Cache.allowOutCard = false;
+            }
+
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
                 const obj = data.refCardList[i];
                 this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
             }
-            const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace('value_0x', '');
+            card = this._getHandCardValue();
             if (card == data.activeCard.card) {
                 this._hideGetHandCard(playerIndex);
             }
@@ -695,10 +727,15 @@ cc.Class({
         else if (data.activeType === GlobalConfig.promptType.KongPong) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
+            // 碰完后不能出牌
+            if (data.playerUuid === this._userInfo.playerUuid) {
+                this._Cache.allowOutCard = false;
+            }
+
             // 删除需要删除的手牌
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
             if (this.getHandcard[playerIndex].active) {
-                const card = Tools.findNode(this.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                card = this._getHandCardValue();
                 if (card == data.refCardList[0].card.toString(16)) {
                     this._hideGetHandCard(playerIndex);
                 }
@@ -707,7 +744,7 @@ cc.Class({
             for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
                 const children = this.pongKongChowDistrict[playerIndex].children[i];
                 if (children._userData) {
-                    var card = children._userData[0].card.toString(16);
+                    card = children._userData[0].card.toString(16);
                     if (card == data.refCardList[0].card.toString(16)) {
                         children.destroy();
                         break;
@@ -906,12 +943,12 @@ cc.Class({
 
     actionOnClick(event, data) {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        this.countDownAnimation.play();
 
+        this.countDownAnimation.play();
         this._hideActionPrompt();
 
-        let actionId = null;
-        const actionIdList = JSON.parse(data);
+        var actionId = null;
+        var actionIdList = JSON.parse(data);
 
         if (actionIdList.length === 1) {
             actionId = actionIdList[0].actionId;
@@ -969,8 +1006,8 @@ cc.Class({
             }
 
             if (this.getHandcard[0].active) {
-                const card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-                this._appendCardToHandCardDistrict(0, [{ card: parseInt(card, 16) }]);
+                var card = this._getHandCardValue();
+                this._appendCardToHandCardDistrict(0, [{ card: card }]);
                 this._hideGetHandCard(0);
             }
 
@@ -1062,7 +1099,7 @@ cc.Class({
     _deleteHandCardByCode(player, data) {
         cc.log([player, data]);
         for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
-            const obj = this.handCardDistrict[player].children[i];
+            var obj = this.handCardDistrict[player].children[i];
             if (player === 0) {
                 const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
                 if (code == data && obj.active) {
@@ -1089,7 +1126,8 @@ cc.Class({
     _appendCardToHandCardDistrict(player, data) {
         const self = this;
         function insert(card) {
-            const node = cc.instantiate(self.handCardPrefabs[player]);
+            var node = cc.instantiate(self.handCardPrefabs[player]);
+            node._userData = card;
             self.handCardDistrict[player].addChild(node);
 
             if (player === 0) {
@@ -1614,6 +1652,56 @@ cc.Class({
             text += 'IP地址相同, 请小心对待';
             window.Dialog.openMessageBox(text);
         }
+    },
+
+    _checkHasKong: function() {
+        var i;
+        for (i = 0; i < this.pongKongChowDistrict[0].childrenCount; i += 1) {
+            var children = this.pongKongChowDistrict[0].children[i];
+            if (children._userData) {
+                // 检查抓到的牌
+                if (this.getHandcard[0].active) {
+                    if (this._getHandCardValue() == children._userData[0].card) {
+                        cc.log(['#150: _checkHasKong', children._userData[0].card]);
+                        return true;
+                    }
+                }
+                // 检查手牌
+                for (var j = 0; j < this.handCardDistrict[0].children.length; j += 1) {
+                    var obj1 = this.handCardDistrict[0].children[j];
+                    if (obj1.active && obj1._userData == children._userData[0].card) {
+                        cc.log(['#150: _checkHasKong', obj1.active, obj1._userData]);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // 检查手牌中是否有暗杠
+        var group = {};
+        for (i = 0; i < this.handCardDistrict[0].children.length; i += 1) {
+            var obj = this.handCardDistrict[0].children[i]._userData;
+            if (!group[obj]) {
+                group[obj] = [];
+            }
+            group[obj].push(obj);
+
+            for (var key in group) {
+                if (group[key].length == 4) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    },
+
+    _getHandCardValue: function() {
+        if (this.getHandcard[0].active) {
+            var card = Tools.findNode(this.getHandcard[0], 'GetHandCard>value').getComponent(cc.Sprite).spriteFrame._name.replace('value_0x', '');
+            return parseInt(card, 16);
+        }
+        return false;
     }
 
 });
