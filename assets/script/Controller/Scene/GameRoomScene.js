@@ -450,8 +450,7 @@ cc.Class({
         this.countDownAnimation.play();
 
         // 抓拍后剩余牌数减一
-        const cardCount = parseInt(this.roomInfo[3].string.replace('剩余牌数: ', ''), 10);
-        this.roomInfo[3].string = `剩余牌数: ${cardCount - 1}`;
+        this.roomInfo[3].string = `剩余牌数: ${this._Cache.cardCount - 1}`;
 
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
         const playerIndex = this._getLocalSeatBySeat(playerSeat);
@@ -541,7 +540,7 @@ cc.Class({
         }
 
         // 初始化房间信息
-        this._setRoomInfo(data.kwargs, data.currentRound, data.restCards);
+        this._setRoomInfo(data.kwargs, data.currentRound, data.restCards + 1);
 
         // 设置当前玩家的座位号
         this._setThisPlayerSeat(data.playerList);
@@ -1711,9 +1710,14 @@ cc.Class({
             var children = this.pongKongChowDistrict[0].children[i];
             if (children._userData) {
                 // 检查抓到的牌
-                if (this.getHandcard[0].active) {
-                    if (this._getHandCardValue() == children._userData[0].card) {
-                        cc.log(['#150: _checkHasKong', children._userData[0].card]);
+                if (this.getHandcard[0].active && this._getHandCardValue() == children._userData[0].card) {
+                    cc.log(['#150: _checkHasKong', children._userData[0].card]);
+                    return true;
+                }
+
+                for (var j = 0; j < this.handCardDistrict[0].children.length; j += 1) {
+                    var obj1 = this.handCardDistrict[0].children[j];
+                    if (obj1.active && obj1._userData == children._userData[0].card) {
                         return true;
                     }
                 }
