@@ -77,8 +77,8 @@ window.GlobalConfig = {
      * @type {Object}
      */
     apiAddress: {
-        development: 'http://login.px258.qingwuguo.com/',
-        production: 'http://login.px258.qingwuguo.com/'
+        development: 'http://login.qingwuguo.com/',
+        production: 'http://login.qingwuguo.com/'
     },
 
     /**

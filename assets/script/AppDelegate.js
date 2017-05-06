@@ -49,7 +49,7 @@ cc.Class({
             cc.log(`cc.SystemEvent.EventType.KEY_UP: ${event.keyCode}`);
         }, this);
 
-        NativeExtensionManager.execute('deleteAudioCache');
+        // NativeExtensionManager.execute('deleteAudioCache');
 
         // native test
         NativeExtensionManager.execute('test', [], (result) => {
@@ -61,7 +61,7 @@ cc.Class({
             cc.log(['AppDelegate.onLoad: 资源装载完成', err, assets]);
         });
 
-        // Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
+        // window.Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
     },
 
     hbt: function() {

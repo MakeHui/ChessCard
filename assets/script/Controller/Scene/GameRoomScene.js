@@ -362,12 +362,17 @@ cc.Class({
 
         // 语音
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
-            var filePath = data.content.data.replace(GlobalConfig.aliyunOss.domain, '');
-            NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
-                if (result.result == 0) {
-                    NativeExtensionManager.execute('playerAudio', [result.data]);
-                }
-            });
+            if (cc.sys.os === cc.sys.OS_IOS) {
+                var filePath = data.content.data.replace(GlobalConfig.aliyunOss.domain, '');
+                NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
+                    if (result.result == 0) {
+                        NativeExtensionManager.execute('playerAudio', [result.data]);
+                    }
+                });
+            }
+            else if (cc.sys.os === cc.sys.OS_ANDROID) {
+                NativeExtensionManager.execute('playerAudio', [data.content.data]);
+            }
             return;
         }
 
@@ -1038,8 +1043,8 @@ cc.Class({
             this.selectChiPanel.active = true;
         }
         else {
-            if (data == 'pass') {
-                data = null;
+            if (data == 'pass' || data == 0) {
+                data = 0;
                 this._Cache.allowOutCard = this._Cache.isDrawCard;
             }
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data });

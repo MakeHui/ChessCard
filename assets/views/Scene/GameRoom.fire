@@ -46145,7 +46145,7 @@
     },
     "component": "GameRoomScene",
     "handler": "actionOnClick",
-    "customEventData": "[]"
+    "customEventData": "0"
   },
   {
     "__type__": "cc.Node",
