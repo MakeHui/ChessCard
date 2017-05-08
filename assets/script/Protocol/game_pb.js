@@ -40,14 +40,15 @@ goog.provide('proto.game.LoadPlusWebResponse');
 goog.provide('proto.game.OnlineStatusResponse');
 goog.provide('proto.game.PlayerVoteRequest');
 goog.provide('proto.game.PlayerVoteResponse');
+goog.provide('proto.game.Prompt');
 goog.provide('proto.game.PromptResponse');
-goog.provide('proto.game.PromptResponse.Prompt');
 goog.provide('proto.game.ReadyHandResponse');
 goog.provide('proto.game.ReadyRequest');
 goog.provide('proto.game.ReadyResponse');
 goog.provide('proto.game.ReconnectResponse');
 goog.provide('proto.game.ReconnectResponse.Player');
 goog.provide('proto.game.RefundWebResponse');
+goog.provide('proto.game.RunningWebReponse');
 goog.provide('proto.game.SettleForRoomResponse');
 goog.provide('proto.game.SettleForRoomResponse.PlayerData');
 goog.provide('proto.game.SettleForRoundResponse');
@@ -5988,6 +5989,493 @@ proto.game.LoadBalanceWebResponse.prototype.clearUnitList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
+proto.game.RunningWebReponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.game.RunningWebReponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.RunningWebReponse.displayName = 'proto.game.RunningWebReponse';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.RunningWebReponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.RunningWebReponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.RunningWebReponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.RunningWebReponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    sessions: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    players: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    tablesInitial: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    tablesPlaying: jspb.Message.getFieldWithDefault(msg, 4, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.RunningWebReponse}
+ */
+proto.game.RunningWebReponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.RunningWebReponse;
+  return proto.game.RunningWebReponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.RunningWebReponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.RunningWebReponse}
+ */
+proto.game.RunningWebReponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setSessions(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setPlayers(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTablesInitial(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setTablesPlaying(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.RunningWebReponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.game.RunningWebReponse.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.RunningWebReponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.RunningWebReponse.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getSessions();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getPlayers();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = message.getTablesInitial();
+  if (f !== 0) {
+    writer.writeUint32(
+      3,
+      f
+    );
+  }
+  f = message.getTablesPlaying();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 sessions = 1;
+ * @return {number}
+ */
+proto.game.RunningWebReponse.prototype.getSessions = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.RunningWebReponse.prototype.setSessions = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 players = 2;
+ * @return {number}
+ */
+proto.game.RunningWebReponse.prototype.getPlayers = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.game.RunningWebReponse.prototype.setPlayers = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 tables_initial = 3;
+ * @return {number}
+ */
+proto.game.RunningWebReponse.prototype.getTablesInitial = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.game.RunningWebReponse.prototype.setTablesInitial = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 tables_playing = 4;
+ * @return {number}
+ */
+proto.game.RunningWebReponse.prototype.getTablesPlaying = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.RunningWebReponse.prototype.setTablesPlaying = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.Prompt = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.Prompt.repeatedFields_, null);
+};
+goog.inherits(proto.game.Prompt, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.Prompt.displayName = 'proto.game.Prompt';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.game.Prompt.repeatedFields_ = [3];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.Prompt.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.Prompt.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.Prompt} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.Prompt.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    actionId: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    prompt: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    refCardList: jspb.Message.toObjectList(msg.getRefCardList(),
+    proto.game.Card.toObject, includeInstance),
+    opCard: (f = msg.getOpCard()) && proto.game.Card.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.Prompt}
+ */
+proto.game.Prompt.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.Prompt;
+  return proto.game.Prompt.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.Prompt} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.Prompt}
+ */
+proto.game.Prompt.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setActionId(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setPrompt(value);
+      break;
+    case 3:
+      var value = new proto.game.Card;
+      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
+      msg.addRefCard(value);
+      break;
+    case 4:
+      var value = new proto.game.Card;
+      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
+      msg.setOpCard(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.Prompt.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.game.Prompt.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.Prompt} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.Prompt.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getActionId();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getPrompt();
+  if (f !== 0) {
+    writer.writeUint32(
+      2,
+      f
+    );
+  }
+  f = message.getRefCardList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.game.Card.serializeBinaryToWriter
+    );
+  }
+  f = message.getOpCard();
+  if (f != null) {
+    writer.writeMessage(
+      4,
+      f,
+      proto.game.Card.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional uint32 action_id = 1;
+ * @return {number}
+ */
+proto.game.Prompt.prototype.getActionId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.Prompt.prototype.setActionId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 prompt = 2;
+ * @return {number}
+ */
+proto.game.Prompt.prototype.getPrompt = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.game.Prompt.prototype.setPrompt = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated Card ref_card = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Card>}
+ */
+proto.game.Prompt.prototype.getRefCardList = function() {
+  return /** @type{!Array.<!proto.game.Card>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 3));
+};
+
+
+/** @param {!Array.<!proto.game.Card>} value */
+proto.game.Prompt.prototype.setRefCardList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.Card=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Card}
+ */
+proto.game.Prompt.prototype.addRefCard = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.Card, opt_index);
+};
+
+
+proto.game.Prompt.prototype.clearRefCardList = function() {
+  this.setRefCardList([]);
+};
+
+
+/**
+ * optional Card op_card = 4;
+ * @return {?proto.game.Card}
+ */
+proto.game.Prompt.prototype.getOpCard = function() {
+  return /** @type{?proto.game.Card} */ (
+    jspb.Message.getWrapperField(this, proto.game.Card, 4));
+};
+
+
+/** @param {?proto.game.Card|undefined} value */
+proto.game.Prompt.prototype.setOpCard = function(value) {
+  jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+proto.game.Prompt.prototype.clearOpCard = function() {
+  this.setOpCard(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.game.Prompt.prototype.hasOpCard = function() {
+  return jspb.Message.getField(this, 4) != null;
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.game.DealResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, proto.game.DealResponse.repeatedFields_, null);
 };
@@ -6000,7 +6488,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.game.DealResponse.repeatedFields_ = [3];
+proto.game.DealResponse.repeatedFields_ = [3,4];
 
 
 
@@ -6033,7 +6521,9 @@ proto.game.DealResponse.toObject = function(includeInstance, msg) {
     dealerUuid: jspb.Message.getFieldWithDefault(msg, 1, ""),
     dice: (f = msg.getDice()) && proto.game.Dice.toObject(includeInstance, f),
     cardsInHandList: jspb.Message.toObjectList(msg.getCardsInHandList(),
-    proto.game.Card.toObject, includeInstance)
+    proto.game.Card.toObject, includeInstance),
+    promptList: jspb.Message.toObjectList(msg.getPromptList(),
+    proto.game.Prompt.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -6084,6 +6574,11 @@ proto.game.DealResponse.deserializeBinaryFromReader = function(msg, reader) {
       reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
       msg.addCardsInHand(value);
       break;
+    case 4:
+      var value = new proto.game.Prompt;
+      reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
+      msg.addPrompt(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6133,6 +6628,14 @@ proto.game.DealResponse.serializeBinaryToWriter = function(message, writer) {
       3,
       f,
       proto.game.Card.serializeBinaryToWriter
+    );
+  }
+  f = message.getPromptList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      4,
+      f,
+      proto.game.Prompt.serializeBinaryToWriter
     );
   }
 };
@@ -6216,6 +6719,39 @@ proto.game.DealResponse.prototype.clearCardsInHandList = function() {
 };
 
 
+/**
+ * repeated Prompt prompt = 4;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Prompt>}
+ */
+proto.game.DealResponse.prototype.getPromptList = function() {
+  return /** @type{!Array.<!proto.game.Prompt>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Prompt, 4));
+};
+
+
+/** @param {!Array.<!proto.game.Prompt>} value */
+proto.game.DealResponse.prototype.setPromptList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.game.Prompt=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Prompt}
+ */
+proto.game.DealResponse.prototype.addPrompt = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.game.Prompt, opt_index);
+};
+
+
+proto.game.DealResponse.prototype.clearPromptList = function() {
+  this.setPromptList([]);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -6228,12 +6764,19 @@ proto.game.DealResponse.prototype.clearCardsInHandList = function() {
  * @constructor
  */
 proto.game.DrawResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.DrawResponse.repeatedFields_, null);
 };
 goog.inherits(proto.game.DrawResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.game.DrawResponse.displayName = 'proto.game.DrawResponse';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.game.DrawResponse.repeatedFields_ = [3];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -6263,7 +6806,9 @@ proto.game.DrawResponse.prototype.toObject = function(opt_includeInstance) {
 proto.game.DrawResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     card: (f = msg.getCard()) && proto.game.Card.toObject(includeInstance, f),
-    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, "")
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    promptList: jspb.Message.toObjectList(msg.getPromptList(),
+    proto.game.Prompt.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -6309,6 +6854,11 @@ proto.game.DrawResponse.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setPlayerUuid(value);
       break;
+    case 3:
+      var value = new proto.game.Prompt;
+      reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
+      msg.addPrompt(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6350,6 +6900,14 @@ proto.game.DrawResponse.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       2,
       f
+    );
+  }
+  f = message.getPromptList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.game.Prompt.serializeBinaryToWriter
     );
   }
 };
@@ -6397,6 +6955,39 @@ proto.game.DrawResponse.prototype.getPlayerUuid = function() {
 /** @param {string} value */
 proto.game.DrawResponse.prototype.setPlayerUuid = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated Prompt prompt = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Prompt>}
+ */
+proto.game.DrawResponse.prototype.getPromptList = function() {
+  return /** @type{!Array.<!proto.game.Prompt>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Prompt, 3));
+};
+
+
+/** @param {!Array.<!proto.game.Prompt>} value */
+proto.game.DrawResponse.prototype.setPromptList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.Prompt=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Prompt}
+ */
+proto.game.DrawResponse.prototype.addPrompt = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.Prompt, opt_index);
+};
+
+
+proto.game.DrawResponse.prototype.clearPromptList = function() {
+  this.setPromptList([]);
 };
 
 
@@ -6569,12 +7160,19 @@ proto.game.DiscardRequest.prototype.hasCard = function() {
  * @constructor
  */
 proto.game.DiscardResponse = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.DiscardResponse.repeatedFields_, null);
 };
 goog.inherits(proto.game.DiscardResponse, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.game.DiscardResponse.displayName = 'proto.game.DiscardResponse';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.game.DiscardResponse.repeatedFields_ = [3];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -6604,7 +7202,9 @@ proto.game.DiscardResponse.prototype.toObject = function(opt_includeInstance) {
 proto.game.DiscardResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     card: (f = msg.getCard()) && proto.game.Card.toObject(includeInstance, f),
-    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, "")
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    promptList: jspb.Message.toObjectList(msg.getPromptList(),
+    proto.game.Prompt.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -6650,6 +7250,11 @@ proto.game.DiscardResponse.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setPlayerUuid(value);
       break;
+    case 3:
+      var value = new proto.game.Prompt;
+      reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
+      msg.addPrompt(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -6691,6 +7296,14 @@ proto.game.DiscardResponse.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       2,
       f
+    );
+  }
+  f = message.getPromptList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      3,
+      f,
+      proto.game.Prompt.serializeBinaryToWriter
     );
   }
 };
@@ -6738,6 +7351,39 @@ proto.game.DiscardResponse.prototype.getPlayerUuid = function() {
 /** @param {string} value */
 proto.game.DiscardResponse.prototype.setPlayerUuid = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated Prompt prompt = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Prompt>}
+ */
+proto.game.DiscardResponse.prototype.getPromptList = function() {
+  return /** @type{!Array.<!proto.game.Prompt>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Prompt, 3));
+};
+
+
+/** @param {!Array.<!proto.game.Prompt>} value */
+proto.game.DiscardResponse.prototype.setPromptList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.Prompt=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Prompt}
+ */
+proto.game.DiscardResponse.prototype.addPrompt = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.Prompt, opt_index);
+};
+
+
+proto.game.DiscardResponse.prototype.clearPromptList = function() {
+  this.setPromptList([]);
 };
 
 
@@ -8973,7 +9619,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.game.ActionResponse.repeatedFields_ = [1];
+proto.game.ActionResponse.repeatedFields_ = [1,7];
 
 
 
@@ -9009,7 +9655,9 @@ proto.game.ActionResponse.toObject = function(includeInstance, msg) {
     activeCard: (f = msg.getActiveCard()) && proto.game.Card.toObject(includeInstance, f),
     activeType: jspb.Message.getFieldWithDefault(msg, 4, 0),
     triggerSeat: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    winFlag: jspb.Message.getFieldWithDefault(msg, 6, "")
+    winFlag: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    promptList: jspb.Message.toObjectList(msg.getPromptList(),
+    proto.game.Prompt.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -9071,6 +9719,11 @@ proto.game.ActionResponse.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setWinFlag(value);
+      break;
+    case 7:
+      var value = new proto.game.Prompt;
+      reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
+      msg.addPrompt(value);
       break;
     default:
       reader.skipField();
@@ -9142,6 +9795,14 @@ proto.game.ActionResponse.serializeBinaryToWriter = function(message, writer) {
     writer.writeString(
       6,
       f
+    );
+  }
+  f = message.getPromptList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      7,
+      f,
+      proto.game.Prompt.serializeBinaryToWriter
     );
   }
 };
@@ -9267,6 +9928,39 @@ proto.game.ActionResponse.prototype.getWinFlag = function() {
 /** @param {string} value */
 proto.game.ActionResponse.prototype.setWinFlag = function(value) {
   jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * repeated Prompt prompt = 7;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Prompt>}
+ */
+proto.game.ActionResponse.prototype.getPromptList = function() {
+  return /** @type{!Array.<!proto.game.Prompt>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Prompt, 7));
+};
+
+
+/** @param {!Array.<!proto.game.Prompt>} value */
+proto.game.ActionResponse.prototype.setPromptList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 7, value);
+};
+
+
+/**
+ * @param {!proto.game.Prompt=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Prompt}
+ */
+proto.game.ActionResponse.prototype.addPrompt = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.game.Prompt, opt_index);
+};
+
+
+proto.game.ActionResponse.prototype.clearPromptList = function() {
+  this.setPromptList([]);
 };
 
 
@@ -9440,7 +10134,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.game.SettleForRoundResponse.PlayerData.repeatedFields_ = [2,3];
+proto.game.SettleForRoundResponse.PlayerData.repeatedFields_ = [2,3,10];
 
 
 
@@ -9479,7 +10173,9 @@ proto.game.SettleForRoundResponse.PlayerData.toObject = function(includeInstance
     score: jspb.Message.getFieldWithDefault(msg, 6, 0),
     total: jspb.Message.getFieldWithDefault(msg, 7, 0),
     winType: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    winFlag: jspb.Message.getFieldWithDefault(msg, 9, "")
+    winFlag: jspb.Message.getFieldWithDefault(msg, 9, ""),
+    cardsGroupListList: jspb.Message.toObjectList(msg.getCardsGroupListList(),
+    proto.game.CardGroup.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -9550,6 +10246,11 @@ proto.game.SettleForRoundResponse.PlayerData.deserializeBinaryFromReader = funct
     case 9:
       var value = /** @type {string} */ (reader.readString());
       msg.setWinFlag(value);
+      break;
+    case 10:
+      var value = new proto.game.CardGroup;
+      reader.readMessage(value,proto.game.CardGroup.deserializeBinaryFromReader);
+      msg.addCardsGroupList(value);
       break;
     default:
       reader.skipField();
@@ -9636,6 +10337,14 @@ proto.game.SettleForRoundResponse.PlayerData.serializeBinaryToWriter = function(
     writer.writeString(
       9,
       f
+    );
+  }
+  f = message.getCardsGroupListList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      10,
+      f,
+      proto.game.CardGroup.serializeBinaryToWriter
     );
   }
 };
@@ -9809,6 +10518,39 @@ proto.game.SettleForRoundResponse.PlayerData.prototype.getWinFlag = function() {
 /** @param {string} value */
 proto.game.SettleForRoundResponse.PlayerData.prototype.setWinFlag = function(value) {
   jspb.Message.setField(this, 9, value);
+};
+
+
+/**
+ * repeated CardGroup cards_group_list = 10;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.CardGroup>}
+ */
+proto.game.SettleForRoundResponse.PlayerData.prototype.getCardsGroupListList = function() {
+  return /** @type{!Array.<!proto.game.CardGroup>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.CardGroup, 10));
+};
+
+
+/** @param {!Array.<!proto.game.CardGroup>} value */
+proto.game.SettleForRoundResponse.PlayerData.prototype.setCardsGroupListList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 10, value);
+};
+
+
+/**
+ * @param {!proto.game.CardGroup=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.CardGroup}
+ */
+proto.game.SettleForRoundResponse.PlayerData.prototype.addCardsGroupList = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 10, opt_value, proto.game.CardGroup, opt_index);
+};
+
+
+proto.game.SettleForRoundResponse.PlayerData.prototype.clearCardsGroupListList = function() {
+  this.setCardsGroupListList([]);
 };
 
 
@@ -10492,7 +11234,7 @@ proto.game.PromptResponse.prototype.toObject = function(opt_includeInstance) {
 proto.game.PromptResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     promptList: jspb.Message.toObjectList(msg.getPromptList(),
-    proto.game.PromptResponse.Prompt.toObject, includeInstance)
+    proto.game.Prompt.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -10530,8 +11272,8 @@ proto.game.PromptResponse.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new proto.game.PromptResponse.Prompt;
-      reader.readMessage(value,proto.game.PromptResponse.Prompt.deserializeBinaryFromReader);
+      var value = new proto.game.Prompt;
+      reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
       msg.addPrompt(value);
       break;
     default:
@@ -10567,275 +11309,9 @@ proto.game.PromptResponse.serializeBinaryToWriter = function(message, writer) {
     writer.writeRepeatedMessage(
       1,
       f,
-      proto.game.PromptResponse.Prompt.serializeBinaryToWriter
+      proto.game.Prompt.serializeBinaryToWriter
     );
   }
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.game.PromptResponse.Prompt = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.PromptResponse.Prompt.repeatedFields_, null);
-};
-goog.inherits(proto.game.PromptResponse.Prompt, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.game.PromptResponse.Prompt.displayName = 'proto.game.PromptResponse.Prompt';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.game.PromptResponse.Prompt.repeatedFields_ = [3];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.game.PromptResponse.Prompt.prototype.toObject = function(opt_includeInstance) {
-  return proto.game.PromptResponse.Prompt.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.game.PromptResponse.Prompt} msg The msg instance to transform.
- * @return {!Object}
- */
-proto.game.PromptResponse.Prompt.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    actionId: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    prompt: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    refCardList: jspb.Message.toObjectList(msg.getRefCardList(),
-    proto.game.Card.toObject, includeInstance),
-    opCard: (f = msg.getOpCard()) && proto.game.Card.toObject(includeInstance, f)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.game.PromptResponse.Prompt}
- */
-proto.game.PromptResponse.Prompt.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.game.PromptResponse.Prompt;
-  return proto.game.PromptResponse.Prompt.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.game.PromptResponse.Prompt} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.game.PromptResponse.Prompt}
- */
-proto.game.PromptResponse.Prompt.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setActionId(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setPrompt(value);
-      break;
-    case 3:
-      var value = new proto.game.Card;
-      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
-      msg.addRefCard(value);
-      break;
-    case 4:
-      var value = new proto.game.Card;
-      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
-      msg.setOpCard(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.game.PromptResponse.Prompt.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.game.PromptResponse.Prompt.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.game.PromptResponse.Prompt} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.PromptResponse.Prompt.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getActionId();
-  if (f !== 0) {
-    writer.writeUint32(
-      1,
-      f
-    );
-  }
-  f = message.getPrompt();
-  if (f !== 0) {
-    writer.writeUint32(
-      2,
-      f
-    );
-  }
-  f = message.getRefCardList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      3,
-      f,
-      proto.game.Card.serializeBinaryToWriter
-    );
-  }
-  f = message.getOpCard();
-  if (f != null) {
-    writer.writeMessage(
-      4,
-      f,
-      proto.game.Card.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * optional uint32 action_id = 1;
- * @return {number}
- */
-proto.game.PromptResponse.Prompt.prototype.getActionId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.PromptResponse.Prompt.prototype.setActionId = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional uint32 prompt = 2;
- * @return {number}
- */
-proto.game.PromptResponse.Prompt.prototype.getPrompt = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.game.PromptResponse.Prompt.prototype.setPrompt = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * repeated Card ref_card = 3;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.Card>}
- */
-proto.game.PromptResponse.Prompt.prototype.getRefCardList = function() {
-  return /** @type{!Array.<!proto.game.Card>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 3));
-};
-
-
-/** @param {!Array.<!proto.game.Card>} value */
-proto.game.PromptResponse.Prompt.prototype.setRefCardList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
-
-/**
- * @param {!proto.game.Card=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.Card}
- */
-proto.game.PromptResponse.Prompt.prototype.addRefCard = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.Card, opt_index);
-};
-
-
-proto.game.PromptResponse.Prompt.prototype.clearRefCardList = function() {
-  this.setRefCardList([]);
-};
-
-
-/**
- * optional Card op_card = 4;
- * @return {?proto.game.Card}
- */
-proto.game.PromptResponse.Prompt.prototype.getOpCard = function() {
-  return /** @type{?proto.game.Card} */ (
-    jspb.Message.getWrapperField(this, proto.game.Card, 4));
-};
-
-
-/** @param {?proto.game.Card|undefined} value */
-proto.game.PromptResponse.Prompt.prototype.setOpCard = function(value) {
-  jspb.Message.setWrapperField(this, 4, value);
-};
-
-
-proto.game.PromptResponse.Prompt.prototype.clearOpCard = function() {
-  this.setOpCard(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.game.PromptResponse.Prompt.prototype.hasOpCard = function() {
-  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -10843,27 +11319,27 @@ proto.game.PromptResponse.Prompt.prototype.hasOpCard = function() {
  * repeated Prompt prompt = 1;
  * If you change this array by adding, removing or replacing elements, or if you
  * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.PromptResponse.Prompt>}
+ * @return {!Array.<!proto.game.Prompt>}
  */
 proto.game.PromptResponse.prototype.getPromptList = function() {
-  return /** @type{!Array.<!proto.game.PromptResponse.Prompt>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.PromptResponse.Prompt, 1));
+  return /** @type{!Array.<!proto.game.Prompt>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Prompt, 1));
 };
 
 
-/** @param {!Array.<!proto.game.PromptResponse.Prompt>} value */
+/** @param {!Array.<!proto.game.Prompt>} value */
 proto.game.PromptResponse.prototype.setPromptList = function(value) {
   jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
 
 /**
- * @param {!proto.game.PromptResponse.Prompt=} opt_value
+ * @param {!proto.game.Prompt=} opt_value
  * @param {number=} opt_index
- * @return {!proto.game.PromptResponse.Prompt}
+ * @return {!proto.game.Prompt}
  */
 proto.game.PromptResponse.prototype.addPrompt = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.PromptResponse.Prompt, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.Prompt, opt_index);
 };
 
 
