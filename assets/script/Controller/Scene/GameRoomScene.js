@@ -1705,7 +1705,6 @@ cc.Class({
      */
     _checkIp: function() {
         var groupUserList = window.Tools.groupByIp(this._Cache.playerList);
-        cc.log(['groupUserList', groupUserList]);
         if (groupUserList.length > 0) {
             var text = '请注意: ';
             for (var i = 0; i < groupUserList.length; i += 1) {
