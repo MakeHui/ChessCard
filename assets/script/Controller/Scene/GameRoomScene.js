@@ -613,6 +613,14 @@ cc.Class({
             return;
         }
 
+        var hasOutCard = 'pass';
+        if (this._Cache.allowOutCard) {
+            hasOutCard += '_true';
+        }
+        else {
+            hasOutCard += '_false';
+        }
+
         this._Cache.allowOutCard = false;
         this._initReadyHand();
         this._hideActionPrompt();
@@ -625,6 +633,8 @@ cc.Class({
         promptType = Tools.unique(promptType);
 
         if (promptType.length > 0) {
+            clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
+            this.actionPanel[0].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
             this.actionPanel[0].active = true;
         }
 
@@ -675,7 +685,7 @@ cc.Class({
                     }
 
                     var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
-                    const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', 'pass');
+                    const clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
                     passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                     this.selectChiPanel.addChild(passButton);
 
@@ -699,7 +709,7 @@ cc.Class({
                     }
 
                     var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
-                    var clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', 'pass');
+                    var clickEventHandler = Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
                     passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                     this.selectKongPanel.addChild(passButton);
 
@@ -825,25 +835,24 @@ cc.Class({
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
             if (this.getHandcard[playerIndex].active) {
                 var card = this._getHandCardValue();
-                if (card == data.refCardList[0].card.toString(16)) {
+                if (card == data.refCardList[0]) {
                     this._hideGetHandCard(playerIndex);
                 }
-            }
-
-            for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
-                const children = this.pongKongChowDistrict[playerIndex].children[i];
-                if (children._userData) {
-                    var card = children._userData[0].card.toString(16);
-                    if (card == data.refCardList[0].card.toString(16)) {
-                        children.destroy();
-                        break;
-                    }
+                else {
+                    this._appendCardToHandCardDistrict(playerIndex, [card.card]);
                 }
             }
 
-            for (let i = 0; i < 3; i += 1) {
-                data.refCardList.push({ card: data.refCardList[0].card });
+            // 删除碰
+            for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
+                const children = this.pongKongChowDistrict[playerIndex].children[i];
+                if (children._userData && children._userData[0].card == data.refCardList[0].card) {
+                    children.destroy();
+                    break;
+                }
             }
+
+            // 添加杠
             this._appendExposedToDistrict(playerIndex, triggerIndex, data.refCardList);
 
             this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
@@ -1048,9 +1057,14 @@ cc.Class({
             this.selectChiPanel.active = true;
         }
         else {
-            if (data == 'pass' || data == 0) {
+            if (data == 'pass_true') {
+                this._Cache.allowOutCard = true;
+            }
+
+            if (['pass_true', 'pass_false', 0, '0'].indexOf(data) != -1) {
                 data = 0;
             }
+
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data });
 
             this._initActionPrompt();
@@ -1178,7 +1192,7 @@ cc.Class({
         for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
             var obj = this.handCardDistrict[player].children[i];
             if (player === 0) {
-                const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
+                const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace('value_0x', '');
                 if (code == data && obj.active) {
                     obj.active = false;
                     obj.destroy();
@@ -1277,13 +1291,13 @@ cc.Class({
             index = Math.abs(2 - index);
         }
 
-        for (var i = 0; i < data.length; i += 1) {
+        for (var i = 0; i < 4; i += 1) {
             if (i === index) {
                 node.children[i].getChildByName('hide').active = true;
             }
             else {
                 var nodeSprite = Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].card.toString(16)}`);
             }
         }
     },
@@ -1667,7 +1681,7 @@ cc.Class({
      */
     _hideGetHandCard(index) {
         this.getHandcard[index].active = false;
-        this.getHandcard[0].getChildByName('GetHandCard').setPositionY(0);
+        this.getHandcard[index].getChildByName('GetHandCard').setPositionY(0);
     },
 
     /**
