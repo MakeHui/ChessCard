@@ -3,6 +3,9 @@ cc.Class({
 
     properties: {
         manifestUrl: cc.RawAsset,
+        // 热更新
+        progressLabel: cc.Label,
+        progressBar: cc.ProgressBar,
     },
 
     // use this for initialization
@@ -13,6 +16,8 @@ cc.Class({
         this._assetsManager = {};
         this._checkUpdateListener = function() {};
         this._hotUpdateListener = function() {};
+
+        this.progressBar.progress = 0;
     },
 
     /**
@@ -119,6 +124,7 @@ cc.Class({
             case jsb.EventAssetsManager.NEW_VERSION_FOUND:
                 cc.log('New version found, please try to update. 找到新版本');
                 hasUpdate = true;
+                this.progressBar.progress = 0;
                 break;
             default:
                 cc.log('error');
@@ -162,6 +168,7 @@ cc.Class({
      */
     hotUpdate: function (callback) {
         var self = this;
+        var callback = callback || function() {};
 
         this._updateCallback = function (event) {
             var needRestart = false;
@@ -183,6 +190,8 @@ cc.Class({
                     cc.log(event.getPercent().toFixed(2) + '% : ' + event.getMessage());
                 }
 
+                self.progressLabel.string = '检查资源更新 ' + parseInt(event.getDownloadedBytes() / event.getTotalBytes(), 10) + '%';
+                self.progressBar.progress = byteProgress;
                 callback(0, byteProgress, fileProgress);
                 break;
             case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:

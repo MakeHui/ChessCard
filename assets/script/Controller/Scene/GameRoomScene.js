@@ -543,7 +543,7 @@ cc.Class({
         }
 
         // 初始化房间信息
-        this._setRoomInfo(data.kwargs, data.currentRound, data.restCards + 1);
+        this._setRoomInfo(data.kwargs, data.currentRound, data.restCards);
 
         // 设置当前玩家的座位号
         this._setThisPlayerSeat(data.playerList);

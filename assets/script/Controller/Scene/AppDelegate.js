@@ -12,17 +12,11 @@ cc.Class({
         exitTime: 0,
 
         appUpdatePrefab: cc.Prefab, // app update
-
-        // 热更新
-        progressLabel: [cc.Label],
-        progressBar: cc.ProgressBar,
     },
 
     // use this for initialization
     onLoad() {
         cc.game.addPersistRootNode(this.node);
-
-        this.progressBar.progress = 0;
 
         window.Animation = new Animation();
         window.Tools = new Tools();
@@ -47,17 +41,25 @@ cc.Class({
 
         // window.Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
 
-        // 检查应用更新
+        window.Dialog.openLoading();
+
+        // 装载资源
+        cc.loader.loadResDir('Texture', function(err, assets) {
+            cc.log(['AppDelegate.onLoad: 资源装载完成', err, assets]);
+        });
+
         if (cc.sys.isNative) {
+            // 检查应用更新
             this.httpCheckUpdate(function() {
-                var _hotUpdateManager = this.node.getComponent('HotUpdateManager');
-                _hotUpdateManager.init();
-                _hotUpdateManager.hotUpdate(function(code, byteProgress) {
-                    if (code == 0) {
-                        this.progressBar.progress = byteProgress;
+                // 检查热更新
+                var hotUpdateManager = this.node.getComponent('HotUpdateManager');
+                hotUpdateManager.init();
+                hotUpdateManager.hotUpdate(function(code) {
+                    if (code == 3) {
+                        cc.director.loadScene('Login');
                     }
-                }.bind(this));
-            });
+                });
+            }.bind(this));
 
             // TODO: 删除本地音频文件
             // NativeExtensionManager.execute('deleteAudioCache');
@@ -86,11 +88,6 @@ cc.Class({
         if (cc.sys.isBrowser) {
             cc.director.loadScene('Login');
         }
-
-        // 装载资源
-        cc.loader.loadResDir('Texture', function(err, assets) {
-            cc.log(['AppDelegate.onLoad: 资源装载完成', err, assets]);
-        });
     },
 
     hbt: function() {
