@@ -25,37 +25,72 @@ cc.Class({
             playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = `总: ${playerData.total}`;
             playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.score;
 
-            let positionXOffset = 0;
-            let lastValue = playerData.cardsGroupList.length > 0 ? playerData.cardsGroupList[0].card : false;
-            let isChi = false;
+            var chowList = [];
+            var pongList = [];
+            var kongList = [];
 
-            for (let j = 0; j < playerData.cardsGroupList.length; j += 1) {
-                const obj = playerData.cardsGroupList[j];
-                if (j !== 0) {
-                    if (obj.card === lastValue + 1 && isChi === false) {
-                        isChi = 3;
-                    }
-                    else if (j % 3 === 0 && isChi === 3) {
-                        isChi = false;
-                        positionXOffset += 12;
-                    }
-                    else if (obj.card !== lastValue && isChi === false) {
-                        positionXOffset += 12;
-                    }
+            for (let j = 0; j < playerData.cardsGroupListList.length; j += 1) {
+                var obj = playerData.cardsGroupListList[j];
+                if (obj.type == 'chow') {
+                    chowList.push(obj.cardList);
                 }
-                lastValue = obj.card;
+                else if (obj.type == 'pong') {
+                    pongList.push(obj.cardList);
+                }
+                else {
+                    kongList.push(obj.cardList);
+                }
+            }
 
-                const node = cc.instantiate(this.cardPrefab);
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
-                node.getChildByName('Background').setPositionX(positionXOffset);
-                cardPanel.addChild(node);
+            var positionXOffset = 0;
+
+            for (var j = 0; j < chowList.length; j += 1) {
+                var obj = chowList[j];
+
+                for (var k = 0; k < obj.length; k += 1) {
+                    const node = cc.instantiate(this.cardPrefab);
+                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
+                    node.getChildByName('Background').setPositionX(positionXOffset);
+                    cardPanel.addChild(node);
+                }
+
+                positionXOffset += 12;
+            }
+
+            for (var j = 0; j < pongList.length; j += 1) {
+                var obj = pongList[j];
+
+                for (var k = 0; k < obj.length; k += 1) {
+                    const node = cc.instantiate(this.cardPrefab);
+                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
+                    node.getChildByName('Background').setPositionX(positionXOffset);
+                    cardPanel.addChild(node);
+                }
+
+                positionXOffset += 12;
+            }
+
+            for (var j = 0; j < kongList.length; j += 1) {
+                var obj = kongList[j];
+
+                for (var k = 0; k < obj.length; k += 1) {
+                    const node = cc.instantiate(this.cardPrefab);
+                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
+                    node.getChildByName('Background').setPositionX(positionXOffset);
+                    cardPanel.addChild(node);
+                }
+
+                positionXOffset += 12;
             }
 
             positionXOffset += 24;
-            for (let j = 0; j < playerData.cardsInHandList.length; j += 1) {
-                const obj = playerData.cardsInHandList[j];
-                const node = cc.instantiate(this.cardPrefab);
+
+            for (var j = 0; j < playerData.cardsInHandList.length; j += 1) {
+                var obj = playerData.cardsInHandList[j];
+                var node = cc.instantiate(this.cardPrefab);
                 node.getChildByName('Background').setPositionX(positionXOffset);
 
                 const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
@@ -72,9 +107,9 @@ cc.Class({
                     playerNode.getChildByName('littleHuMark').active = true;
 
                     positionXOffset += 24;
-                    const node = cc.instantiate(this.cardPrefab);
+                    var node = cc.instantiate(this.cardPrefab);
                     node.getChildByName('Background').setPositionX(positionXOffset);
-                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    var nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${playerData.winCard.card.toString(16)}`);
                     cardPanel.addChild(node);
                 }
