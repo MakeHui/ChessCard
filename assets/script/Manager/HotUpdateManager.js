@@ -3,17 +3,16 @@ cc.Class({
 
     properties: {
         manifestUrl: cc.RawAsset,
-        assetsManager: null,
-        _isUpdating: false,
-        _hasUpdate: false,
-        _canRetry: false,
-        _checkUpdateListener: Function,
-        _hotUpdateListener: Function,
     },
 
     // use this for initialization
     onLoad: function () {
-
+        this._isUpdating = false;
+        this._hasUpdate = false;
+        this._canRetry = false;
+        this._assetsManager = {};
+        this._checkUpdateListener = function() {};
+        this._hotUpdateListener = function() {};
     },
 
     /**
@@ -21,21 +20,12 @@ cc.Class({
      *
      * @author Make.<makehuir@gmail.com>
      * @datetime 2017-02-24T18:49:03+0800
-     *
-     * @param    {cc.RawAsset}                 manifestUrl [description]
      */
-    init: function (manifestUrl) {
+    init: function () {
         // Hot update is only available in Native build
         if (!cc.sys.isNative) {
             return;
         }
-
-        if (!manifestUrl) {
-            cc.log('初始化没有传递 manifest url');
-            return;
-        }
-
-        this.manifestUrl = manifestUrl;
 
         var storagePath = (jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'remote-asset';
         cc.log('Storage path for remote asset : ' + storagePath);
@@ -106,7 +96,7 @@ cc.Class({
      *
      * @param    {Function}               callback
      */
-    checkUpdateCallback: function (callback) {
+    checkUpdate: function (callback) {
         var self = this;
 
         this._checkCallback = function (event) {
@@ -170,13 +160,12 @@ cc.Class({
      *
      * @param    {Function}               callback [description]
      */
-    hotUpdateCallback: function (callback) {
+    hotUpdate: function (callback) {
         var self = this;
 
         this._updateCallback = function (event) {
             var needRestart = false;
             var failed = false;
-            var isSuccess = false;
             var byteProgress = 0.0;
             var fileProgress = 0.0;
 
@@ -193,16 +182,21 @@ cc.Class({
                     cc.log('Updated file: ' + event.getMessage());
                     cc.log(event.getPercent().toFixed(2) + '% : ' + event.getMessage());
                 }
+
+                callback(0, byteProgress, fileProgress);
                 break;
             case jsb.EventAssetsManager.ERROR_DOWNLOAD_MANIFEST:
                 cc.log('Fail to download manifest file, hot update skipped. 没有远程 manifest 文件');
+                callback(1, byteProgress, fileProgress);
                 break;
             case jsb.EventAssetsManager.ERROR_PARSE_MANIFEST:
                 cc.log('Fail to download manifest file, hot update skipped. 无法下载');
+                callback(2, byteProgress, fileProgress);
                 failed = true;
                 break;
             case jsb.EventAssetsManager.ALREADY_UP_TO_DATE:
                 cc.log('Already up to date with the latest remote version. 已经是最新版本, 无需更新');
+                callback(3, byteProgress, fileProgress);
                 failed = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_FINISHED:
@@ -213,6 +207,7 @@ cc.Class({
                 cc.log('Update failed. ' + event.getMessage());
                 self._isUpdating = false;
                 self._canRetry = true;
+                needRestart = true;
                 break;
             case jsb.EventAssetsManager.ERROR_isUpdating:
                 cc.log('Asset update error: ' + event.getAssetId() + ', ' + event.getMessage());
@@ -223,8 +218,6 @@ cc.Class({
             default:
                 break;
             }
-
-            callback(isSuccess, byteProgress, fileProgress);
 
             if (failed) {
                 cc.eventManager.removeListener(self._hotUpdateListener);

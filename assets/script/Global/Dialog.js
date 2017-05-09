@@ -12,7 +12,7 @@ var Dialog = cc.Class({
         var node = cc.director.getScene().getChildByName('Canvas');
         node.addChild(this.popuNode);
 
-        cc.director.getScheduler().schedule(this.close.bind(this), this, 20, false);
+        cc.director.getScheduler().schedule(this.close, this, 20, false);
     },
 
     openMessageBox: function(message, callback) {
@@ -28,7 +28,7 @@ var Dialog = cc.Class({
         // TODO: HBT后会莫名调用这个方法, 原因迷, 暂时简单判断下
         if (this.popuNode._name) {
             this.popuNode.destroy();
-            cc.director.getScheduler().unschedule(this.close.bind(this), this);
+            cc.director.getScheduler().unschedule(this.close, this);
         }
     }
 });

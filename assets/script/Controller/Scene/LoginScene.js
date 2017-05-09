@@ -5,28 +5,33 @@ cc.Class({
         userAgreement: cc.Prefab,
         secretKey: cc.Prefab,
         agreeNode: cc.Node,
-        appUpdatePrefab: cc.Prefab,
+        loginButton: cc.Node,
+        loginButtonBlock: cc.Node,
+        touristLoginButton: cc.Node,
     },
 
     // use this for initialization
     onLoad() {
-        const hasNetwork = NativeExtensionManager.execute('checkNetwork');
-        if (!hasNetwork && cc.sys.isNative) {
+        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        if (cc.sys.isNative && !_hasNetwork) {
             cc.log('LoginScene.onLoad: 没有网络');
             return;
         }
 
-        // 检查应用更新
-        this.httpCheckUpdate(function() {
-            // 判断本地存储中是否有秘钥
-            const secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
-            if (!secretKey) {
-                cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
-            }
-            else {
-                this.httpLogin(secretKey, 'login');
-            }
-        }.bind(this));
+        // 检查是否在审核阶段
+        var appleReview = Tools.getLocalData(GlobalConfig.LSK.appleReview);
+        if (!appleReview) {
+            this.touristLoginButton.active = false;
+        }
+
+        // 判断本地存储中是否有秘钥
+        var secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
+        if (!secretKey) {
+            cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
+        }
+        else {
+            this.httpLogin(secretKey, 'login');
+        }
 
         NativeExtensionManager.execute('startLocation', [], (result) => {
             Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
@@ -34,26 +39,39 @@ cc.Class({
     },
 
     /**
-     * 登录接口
+     * 微信登录
      */
     loginOnCLick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        // 判断剪切板中是否有秘钥
-        var isCheck = NativeExtensionManager.execute('wechatIsWxAppInstalled');
-        if (!isCheck) {
-            Animation.openDialog(cc.instantiate(this.secretKey), this.node);
+
+        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        if (cc.sys.isNative && !_hasNetwork) {
+            window.Dialog.openMessageBox('请链接网络');
+            return;
         }
 
         // TODO: 微信登录
+        // 是否安装了微信
+        var isCheck = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!isCheck) {
+
+        }
     },
 
     /**
-     * 微信登录
+     * 游客登录
      */
-    wechatLoginOnClick() {
+    touristLoginOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-    },
 
+        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        if (cc.sys.isNative && !_hasNetwork) {
+            window.Dialog.openMessageBox('请链接网络');
+            return;
+        }
+
+        Animation.openDialog(cc.instantiate(this.secretKey), this.node);
+    },
 
     /**
      * 用户协议
@@ -65,6 +83,14 @@ cc.Class({
 
     isAgreeOnClick: function() {
         this.agreeNode.active = !this.agreeNode.active;
+        if (this.agreeNode.active) {
+            this.loginButton.active = true;
+            this.loginButtonBlock.active = false;
+        }
+        else {
+            this.loginButton.active = false;
+            this.loginButtonBlock.active = true;
+        }
     },
 
     httpLogin(secretKey, requestName) {
@@ -106,21 +132,6 @@ cc.Class({
                 }
             });
         }, 1.5);
-    },
-
-    httpCheckUpdate(callback) {
-        HttpRequestManager.httpRequest('check', [], (event, result) => {
-            if (result.code === 1000) {
-                var node = cc.instantiate(this.appUpdatePrefab);
-                node.init(result, function() {
-                    callback();
-                });
-                Animation.openDialog(node, this.node);
-            }
-            else {
-                callback();
-            }
-        });
     },
 
 });

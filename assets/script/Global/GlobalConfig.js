@@ -69,7 +69,8 @@ window.GlobalConfig = {
         secretKey: 'SecretKey',
         userInfo_location: 'UserInfo_Location',
         playMusicConfig: 'PlayMusicConfig',
-        showTrojanScan: 'ShowTrojanScan'
+        showTrojanScan: 'ShowTrojanScan',
+        appleReview: 'AppleReview',
     },
 
     /**
