@@ -339,7 +339,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 273.34,
+      "width": 193.34,
       "height": 40
     },
     "_children": [],
@@ -384,7 +384,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "检查资源更新...",
+    "_N$string": "检查更新...",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
@@ -618,6 +618,9 @@
       "__id__": 4
     },
     "_enabled": true,
+    "manifestUrl": {
+      "__uuid__": "6d5fa423-83e5-40d4-b2b0-667b89a8e2ac"
+    },
     "progressLabel": {
       "__id__": 9
     },

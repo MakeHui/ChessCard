@@ -52,14 +52,14 @@ cc.Class({
             // 检查应用更新
             this.httpCheckUpdate(function() {
                 // 检查热更新
-                var hotUpdateManager = this.node.getComponent('HotUpdateManager');
+                var hotUpdateManager = cc.director.getScene().getChildByName('Canvas').getComponent('HotUpdateManager');
                 hotUpdateManager.init();
                 hotUpdateManager.hotUpdate(function(code) {
                     if (code == 3) {
                         cc.director.loadScene('Login');
                     }
                 });
-            }.bind(this));
+            });
 
             // TODO: 删除本地音频文件
             // NativeExtensionManager.execute('deleteAudioCache');

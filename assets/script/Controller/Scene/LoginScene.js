@@ -19,13 +19,13 @@ cc.Class({
         }
 
         // 检查是否在审核阶段
-        var appleReview = Tools.getLocalData(GlobalConfig.LSK.appleReview);
+        var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
         if (!appleReview) {
             this.touristLoginButton.active = false;
         }
 
         // 判断本地存储中是否有秘钥
-        var secretKey = Tools.getLocalData(GlobalConfig.LSK.secretKey);
+        var secretKey = window.Tools.getLocalData(GlobalConfig.LSK.secretKey);
         if (!secretKey) {
             cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
@@ -34,7 +34,7 @@ cc.Class({
         }
 
         NativeExtensionManager.execute('startLocation', [], (result) => {
-            Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
+            window.Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
         });
     },
 
@@ -96,15 +96,15 @@ cc.Class({
     httpLogin(secretKey, requestName) {
         window.Dialog.openLoading();
         this.scheduleOnce(function() {
-            const parameters = { wxCode: secretKey, location: Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
+            const parameters = { wxCode: secretKey, location: window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
                 window.Dialog.close();
 
                 if (result.code === 1) {
-                    result.location = Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
+                    result.location = window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
                     result.roomConfig = JSON.parse(result.roomConfig);
-                    Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
-                    Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
+                    window.Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
+                    window.Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
 
                     if (result.playerReconnection) {
                         GlobalConfig.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };

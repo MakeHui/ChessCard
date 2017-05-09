@@ -190,7 +190,7 @@ cc.Class({
                     cc.log(event.getPercent().toFixed(2) + '% : ' + event.getMessage());
                 }
 
-                self.progressLabel.string = '检查资源更新 ' + parseInt(event.getDownloadedBytes() / event.getTotalBytes(), 10) + '%';
+                self.progressLabel.string = '检查更新 ' + parseInt(event.getDownloadedBytes() / event.getTotalBytes(), 10) + '%';
                 self.progressBar.progress = byteProgress;
                 callback(0, byteProgress, fileProgress);
                 break;
