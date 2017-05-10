@@ -24,6 +24,7 @@ window.WebSocketManager.Command = {
     Draw: 0x000C, // 11、抓牌
     Discard: 0x000D, // 12、出牌
     SynchroniseCards: 0x000E, // 13、服务端主动同步手牌
+    SynchroniseScore: 0x000F, // 15、玩家分数发生改变，同步分数
 
     // PX258 麻将
     // PX258: {
@@ -53,7 +54,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.EnterRoomRequest}
      */
-    getEnterRoomRequestMessage: function getEnterRoomRequestMessage(parameters) {
+    getEnterRoomRequestMessage: function (parameters) {
         var message = new proto.game.EnterRoomRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -76,7 +77,7 @@ window.WebSocketManager.requestMessage = {
      * 3. 自己主动退出房间
      * @returns {proto.game.ExitRoomRequest}
      */
-    getExitRoomRequestMessage: function getExitRoomRequestMessage() {
+    getExitRoomRequestMessage: function () {
         return new proto.game.ExitRoomRequest();
     },
 
@@ -85,7 +86,7 @@ window.WebSocketManager.requestMessage = {
      * 4、解散房间
      * @returns {proto.game.DismissRoomRequest}
      */
-    getDismissRoomRequestMessage: function getDismissRoomRequestMessage() {
+    getDismissRoomRequestMessage: function () {
         return new proto.game.DismissRoomRequest();
     },
 
@@ -95,7 +96,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.PlayerVoteRequest}
      */
-    getPlayerVoteRequestMessage: function getPlayerVoteRequestMessage(parameters) {
+    getPlayerVoteRequestMessage: function (parameters) {
         var message = new proto.game.PlayerVoteRequest();
         message.setFlag(parameters.flag);
 
@@ -108,7 +109,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.SpeakerRequest}
      */
-    getSpeakerRequestMessage: function getSpeakerRequestMessage(parameters) {
+    getSpeakerRequestMessage: function (parameters) {
         var message = new proto.game.SpeakerRequest();
         message.setContent(parameters.content);
 
@@ -120,7 +121,7 @@ window.WebSocketManager.requestMessage = {
      * 9、准备
      * @returns {proto.game.ReadyRequest}
      */
-    getReadyRequestMessage: function getReadyRequestMessage() {
+    getReadyRequestMessage: function () {
         return new proto.game.ReadyRequest();
     },
 
@@ -130,7 +131,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.DiscardRequest}
      */
-    getDiscardRequestMessage: function getDiscardRequestMessage(parameters) {
+    getDiscardRequestMessage: function (parameters) {
         var message = new proto.game.DiscardRequest();
         var cardMsg = new proto.game.Card();
         cardMsg.setCard(parameters.card);
@@ -143,7 +144,7 @@ window.WebSocketManager.requestMessage = {
      * wsHbt
      * @returns {proto.game.HeartbeatRequest}
      */
-    getHeartBeatRequestMessage: function getDismissRoomRequestMessage() {
+    getHeartBeatRequestMessage: function () {
         return new proto.game.HeartbeatRequest();
     },
 
@@ -159,7 +160,7 @@ window.WebSocketManager.requestMessage = {
      * @param parameters
      * @returns {proto.game.ActionRequest}
      */
-    getActionRequestMessage: function getActionRequestMessage(parameters) {
+    getActionRequestMessage: function (parameters) {
         var message = new proto.game.ActionRequest();
         message.setActionId(parameters.actionId);
 
