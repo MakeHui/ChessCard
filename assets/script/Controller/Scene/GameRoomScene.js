@@ -765,7 +765,7 @@ cc.Class({
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
                 const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+                this._deleteHandCardByCode(playerIndex, obj.card);
             }
             this._Cache.activeCard.destroy();
 
@@ -789,7 +789,7 @@ cc.Class({
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
                 const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+                this._deleteHandCardByCode(playerIndex, obj.card);
             }
             this._Cache.activeCard.destroy();
 
@@ -815,7 +815,7 @@ cc.Class({
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
                 const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+                this._deleteHandCardByCode(playerIndex, obj.card);
             }
             this._Cache.activeCard.destroy();
 
@@ -836,7 +836,7 @@ cc.Class({
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
                 const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card.toString(16));
+                this._deleteHandCardByCode(playerIndex, obj.card);
             }
             var card = this.getHandcard[playerIndex]._userData;
             if (card == data.activeCard.card) {
@@ -865,7 +865,7 @@ cc.Class({
                     Tools.cardsSort(this.handCardDistrict[0].children);
                 }
             }
-            this._deleteHandCardByCode(playerIndex, data.refCardList[0].card.toString(16));
+            this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
 
             // 删除碰
             for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
@@ -1212,13 +1212,12 @@ cc.Class({
     /**
      * 删除手牌
      */
-    _deleteHandCardByCode(player, data) {
-        cc.log([player, data]);
-        for (let i = 0; i < this.handCardDistrict[player].childrenCount; i += 1) {
-            var obj = this.handCardDistrict[player].children[i];
-            if (player === 0) {
-                const code = Tools.findNode(obj, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace('value_0x', '');
-                if (code == data && obj.active) {
+    _deleteHandCardByCode(playerIndex, data) {
+        cc.log([playerIndex, data]);
+        for (let i = 0; i < this.handCardDistrict[playerIndex].childrenCount; i += 1) {
+            var obj = this.handCardDistrict[playerIndex].children[i];
+            if (playerIndex === 0) {
+                if (obj._userData == data && obj.active) {
                     obj.active = false;
                     obj.destroy();
                     break;
@@ -1249,46 +1248,6 @@ cc.Class({
             node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
             var nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
-        }
-        return;
-        const self = this;
-        function insert(card) {
-            var node = cc.instantiate(self.handCardPrefabs[player]);
-            node._userData = card;
-            self.handCardDistrict[player].addChild(node);
-
-            if (player === 0) {
-                const clickEventHandler = Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
-                node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-                nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
-            }
-        }
-
-        if (this._Cache.gameing) {
-            for (let i = data.length - 1; i >= 0; i -= 1) {
-                if (!data[i]) {
-                    data[i] = { card: 0 };
-                }
-                insert(data[i].card);
-            }
-            if (player === 0) {
-                Tools.cardsSort(this.handCardDistrict[0].children);
-            }
-        }
-        else if (data.length > 0) {
-            let i = data.length - 1;
-            this.schedule(() => {
-                window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.dealCard);
-                if (!data[i]) {
-                    data[i] = { card: 0 };
-                }
-                insert(data[i].card);
-                i -= 1;
-                if (i === -1 && player === 0) {
-                    Tools.cardsSort(this.handCardDistrict[0].children);
-                }
-            }, 0.2, (data.length - 1));
         }
     },
 
