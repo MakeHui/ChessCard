@@ -35,10 +35,8 @@ var Tools = cc.Class({
         }
 
         listView.sort(function (nodeA, nodeB) {
-            var cardA = this.findNode(nodeA, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-            var cardB = this.findNode(nodeB, 'Background>value').getComponent(cc.Sprite).spriteFrame._name.replace(/value_0x/, '');
-            return parseInt(cardB, 16) - parseInt(cardA, 16);
-        }.bind(this));
+            return nodeB._userData - nodeA._userData;
+        });
 
         for (var i = 0; i < listView.length; i += 1) {
             listView[i].setLocalZOrder(i);
