@@ -423,7 +423,6 @@ cc.Class({
     },
 
     onDealMessage(data) {
-        this._Cache.gameing = false;
         this._Cache.waitDraw = true;
 
         this._initCardDistrict();
@@ -549,7 +548,6 @@ cc.Class({
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.roomId = data.roomId;
         this._Cache.ownerUuid = data.ownerUuid;
-        this._Cache.gameing = true;
         this._Cache.waitDraw = false;
         this._Cache.config = data.kwargs;
 
@@ -834,14 +832,15 @@ cc.Class({
             }
 
             // 删除需要删除的手牌
-            for (let i = 0; i < data.refCardList.length; i += 1) {
-                const obj = data.refCardList[i];
-                this._deleteHandCardByCode(playerIndex, obj.card);
-            }
-            var card = this.getHandcard[playerIndex]._userData;
-            if (card == data.activeCard.card) {
+            if (this.getHandcard[playerIndex].active) {
+                var card = this.getHandcard[playerIndex]._userData;
                 this._hideGetHandCard(playerIndex);
+                this._appendCardToHandCardDistrict(playerIndex, card);
+                if (playerIndex == 0) {
+                    Tools.cardsSort(this.handCardDistrict[0].children);
+                }
             }
+            this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
 
             this._appendConcealedKongToDistrict(playerIndex, data.refCardList);
 
@@ -1482,12 +1481,17 @@ cc.Class({
     /**
      * 生成标识
      */
-    _createActiveCardFlag(index) {
+    _createActiveCardFlag(playerIndex) {
         this._deleteActiveCardFlag();
-        if (this.dirtyCardDistrict[index].childrenCount > 0) {
+        if (this.dirtyCardDistrict[playerIndex].childrenCount > 0) {
             this._Cache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
-            const node = this.dirtyCardDistrict[index].children[this.dirtyCardDistrict[index].childrenCount - 1];
+            var node = this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1];
             node.addChild(this._Cache.activeCardFlag);
+
+            // var point = this.node.convertToWorldSpace(this.dirtyCardDistrict[playerIndex].children[this.dirtyCardDistrict[playerIndex].childrenCount - 1].getPosition());
+            // this._Cache.activeCardFlag = cc.instantiate(this.cardMarkPrefab);
+            // this._Cache.activeCardFlag.setPosition(this.node.convertToNodeSpace(point));
+            // this.node.addChild(this._Cache.activeCardFlag);
         }
     },
 
