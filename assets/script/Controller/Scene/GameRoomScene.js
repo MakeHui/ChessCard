@@ -68,7 +68,6 @@ cc.Class({
         this._Cache = {};
         this._Cache.roomId = '';        // 房间号
         this._Cache.ownerUuid = '';     // 房主uuid
-        this._Cache.cardCount = 0;     // 剩余牌数
         this._Cache.playerList = [];    // 玩家信息列表
         this._Cache.thisPlayerSeat = 0; // 当前玩家实际座位号
         this._Cache.thisDealerSeat = 0; // 当前庄家相对座位号
@@ -455,7 +454,7 @@ cc.Class({
         this.countDownAnimation.play();
 
         // 抓拍后剩余牌数减一
-        this.roomInfo[3].string = `剩余牌数: ${this._Cache.cardCount - 1}`;
+        this.roomInfo[3].string = `剩余牌数: ${data.restCards}`;
 
         const playerSeat = this._getSeatForPlayerUuid(data.playerUuid);
         const playerIndex = this._getLocalSeatBySeat(playerSeat);
@@ -908,7 +907,6 @@ cc.Class({
                 self.pongKongChowDistrict[i].removeAllChildren();
             }
 
-            this.roomInfo[3].string = `剩余牌数: ${this._Cache.cardCount}`;
             this._initReadyHand();
             this._hideSelectChiKongPanel();
         });
@@ -1472,8 +1470,6 @@ cc.Class({
         this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
-
-        this._Cache.cardCount = restCards;
     },
 
     _getActionIdFromPromptList(promptList, prompt) {
