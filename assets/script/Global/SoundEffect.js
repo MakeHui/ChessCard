@@ -16,13 +16,13 @@ var SoundEffect = cc.Class({
         backgroundMusicAudioId: null,
     },
 
-    backgroundMusicInit: function init(audioUrl, isLoop, volume) {
+    backgroundMusicInit: function(audioUrl, isLoop, volume) {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
     },
 
-    backgroundMusicPlay: function play() {
+    backgroundMusicPlay: function() {
         if (this.backgroundMusicAudioId === null) {
             this.backgroundMusicAudioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
         } else if (this.backgroundMusicState() !== 1) {
@@ -30,11 +30,16 @@ var SoundEffect = cc.Class({
         }
     },
 
-    backgroundMusicStop: function stop() {
+    backgroundMusicStop: function() {
         cc.audioEngine.pause(this.backgroundMusicAudioId);
     },
 
-    backgroundMusicState: function state() {
+    backgroundMusicClear: function() {
+        cc.audioEngine.pause(this.backgroundMusicAudioId);
+        this.backgroundMusicAudioId = null;
+    },
+
+    backgroundMusicState: function() {
         return cc.audioEngine.getState(this.backgroundMusicAudioId);
     },
 

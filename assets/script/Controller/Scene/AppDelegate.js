@@ -58,6 +58,9 @@ cc.Class({
                     if (code == 3) {
                         cc.director.loadScene('Login');
                     }
+                    else if (code == 4) {
+                        window.SoundEffect.backgroundMusicClear();
+                    }
                 });
             });
 
