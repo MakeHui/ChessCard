@@ -20,7 +20,7 @@ cc.Class({
     shareOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
 
-        const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        var hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
@@ -35,13 +35,13 @@ cc.Class({
         cc.log('shareOnClick');
     },
 
-    // TODO:Bug
     init: function(roomId) {
         window.Dialog.openLoading();
-        const self = this;
+        var self = this;
         HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
+            window.Dialog.close();
             self.datetime.string = result.datetime;
-            const recordInfoDataList = result.recordInfoDataList;
+            var recordInfoDataList = result.recordInfoDataList;
             if (recordInfoDataList.length !== 0) {
                 this.gameStepList.removeAllChildren();
 
@@ -51,12 +51,12 @@ cc.Class({
                 }
 
                 for (let i = 0; i < recordInfoDataList.length; i += 1) {
-                    const cell = cc.instantiate(this.gameStepCell);
-                    cell.getComponent('GameRecordStepCellPrefab').init(recordInfoDataList[i], this.roomId);
+                    recordInfoDataList[i].roomUuid = result.roomUuid;
+                    var cell = cc.instantiate(this.gameStepCell);
+                    cell.getComponent('GameRecordStepCellPrefab').init(recordInfoDataList[i]);
                     this.gameStepList.addChild(cell);
                 }
             }
-            window.Dialog.close();
         });
     }
 });

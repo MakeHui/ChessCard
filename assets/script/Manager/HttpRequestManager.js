@@ -109,7 +109,7 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getCheckVersionRequestMessage: function getCheckVersionRequestMessage() {
+    getCheckVersionRequestMessage: function () {
         var message = new proto.login.CheckVersionRequest();
         message.setAppUuid(GlobalConfig.appUuid);
         message.setVerNo(GlobalConfig.version);
@@ -127,7 +127,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getLoginRequestMessage: function getLoginRequestMessage(parameters) {
+    getLoginRequestMessage: function (parameters) {
         var message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
         message.setAppUuid(GlobalConfig.appUuid);
@@ -147,7 +147,7 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getHeartbeatRequestMessage: function getHeartbeatRequestMessage() {
+    getHeartbeatRequestMessage: function () {
         var message = new proto.login.HeartbeatRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -167,7 +167,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getPlayerGoldRequestMessage: function getPlayerGoldRequestMessage(parameters) {
+    getPlayerGoldRequestMessage: function (parameters) {
         var message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
         message.setAppUuid(GlobalConfig.appUuid);
@@ -186,7 +186,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomCreateRequestMessage: function getRoomCreateRequestMessage(parameters) {
+    getRoomCreateRequestMessage: function (parameters) {
         var message = new proto.login.RoomCreateRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -210,7 +210,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomEnterRequestMessage: function getRoomEnterRequestMessage(parameters) {
+    getRoomEnterRequestMessage: function (parameters) {
         var message = new proto.login.RoomEnterRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -231,7 +231,7 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getRoomListRequestMessage: function getRoomListRequestMessage() {
+    getRoomListRequestMessage: function () {
         var message = new proto.login.RoomListRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -251,7 +251,7 @@ window.HttpRequestManager.requestMessage = {
      * @datetime 2017-03-01T11:10:07+0800
      *
      */
-    getRecordListRequestMessage: function getRecordListRequestMessage() {
+    getRecordListRequestMessage: function () {
         var message = new proto.login.RecordListRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
 
@@ -271,7 +271,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRecordInfoRequestMessage: function getRecordInfoRequestMessage(parameters) {
+    getRecordInfoRequestMessage: function (parameters) {
         var message = new proto.login.RecordInfoRequest();
         var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         message.setAppUuid(GlobalConfig.appUuid);
@@ -291,9 +291,9 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    geReplayRequestMessage: function geReplayRequestMessage(parameters) {
+    getReplayRequestMessage: function (parameters) {
         var message = new proto.login.ReplayRequest();
-        message.setAppUuid(parameters.appUuid);
+        message.setAppUuid(GlobalConfig.appUuid);
         message.setRoomUuid(parameters.roomUuid);
         message.setTheRound(parameters.theRound);
 
@@ -309,7 +309,7 @@ window.HttpRequestManager.requestMessage = {
      *
      * @param    {Array}                 parameters
      */
-    getRoomReplayRequestMessage: function getRoomReplayRequestMessage(parameters) {
+    getRoomReplayRequestMessage: function (parameters) {
         var message = new proto.login.RoomReplayRequest();
         message.setAppUuid(GlobalConfig.appUuid);
         message.setRoomId(parameters.roomId);
