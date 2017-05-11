@@ -75,7 +75,8 @@ cc.Class({
         this._Cache.activeCard = null;      // 当前最后出的那张牌
         this._Cache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
         this._Cache.allowOutCard = false;   // 是否允许出牌
-        this._Cache.settleForRoomData = null;    // 大结算数据
+        this._Cache.settleForRoomData = null;   // 大结算数据
+        this._Cache.currentRound = 0;           // 局数
         this._Cache.config = {};    // 房间信息
 
         // todo: 需要删除
@@ -200,7 +201,8 @@ cc.Class({
 
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.ownerUuid = data.ownerUuid;
-        this._setRoomInfo(data.kwargs, 0, data.restCards);
+        this._Cache.currentRound = 1;
+        this._setRoomInfo(data.kwargs, 1, data.restCards);
 
         this._setThisPlayerSeat(data.playerList);
 
@@ -548,6 +550,7 @@ cc.Class({
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.roomId = data.roomId;
         this._Cache.ownerUuid = data.ownerUuid;
+        this._Cache.currentRound = data.currentRound;
         this._Cache.waitDraw = false;
         this._Cache.config = data.kwargs;
 
@@ -840,7 +843,9 @@ cc.Class({
                     Tools.cardsSort(this.handCardDistrict[0].children);
                 }
             }
-            this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
+            for (var i = 0; i < 4; i += 1) {
+                this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
+            }
 
             this._appendConcealedKongToDistrict(playerIndex, data.refCardList);
 
@@ -867,7 +872,7 @@ cc.Class({
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
 
             // 删除碰
-            for (let i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
+            for (var i = 0; i < this.pongKongChowDistrict[playerIndex].childrenCount; i += 1) {
                 const children = this.pongKongChowDistrict[playerIndex].children[i];
                 if (children._userData && children._userData[0].card == data.refCardList[0].card) {
                     children.destroy();
@@ -1197,8 +1202,7 @@ cc.Class({
         }
         else {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
-            const currentRound = this.roomInfo[2].string.match(/: ([0-9]?)\//);
-            this.roomInfo[2].string = this.roomInfo[2].string.replace(/: [0-9]?\//, `: ${parseInt(currentRound[1], 10) + 1}/`);
+            this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
     },
 
