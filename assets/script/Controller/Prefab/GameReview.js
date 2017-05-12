@@ -34,6 +34,7 @@ cc.Class({
 
     init: function(data) {
         this._Cache = data;
+        this._Cache.isPause = false;
         this._userInfo = window.Tools.getLocalData(GlobalConfig.LSK.userInfo);
         this._setRoomInfo(data.conf, data.round, 84);
         this.playerInfoList[data.dealer].getChildByName('img_zhuang').active = true;
@@ -195,6 +196,27 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
+    },
+
+    onPauseAndResumeGameClick: function(event) {
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        this._Cache.isPause = !this._Cache.isPause;
+        if (this._Cache.isPause) {
+            event.target.getChildByName('pause').active = false;
+            event.target.getChildByName('resume').active = true;
+            cc.director.pause();
+        }
+        else {
+            event.target.getChildByName('pause').active = true;
+            event.target.getChildByName('resume').active = false;
+            cc.director.resume();
+        }
+    },
+
+    onCloseClick: function () {
+        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+
+        window.Animation.closeDialog(this.node);
     },
 
     /**
