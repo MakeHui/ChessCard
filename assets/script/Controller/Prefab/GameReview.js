@@ -32,22 +32,21 @@ cc.Class({
         actionSprite: [cc.Node],
     },
 
-    onLoad() {
-        this._Cache = {};
-        this._Cache.roomId = '';        // 房间号
-        this._Cache.ownerUuid = '';     // 房主uuid
-        this._Cache.playerList = [];    // 玩家信息列表
-        this._Cache.thisPlayerSeat = 0; // 当前玩家实际座位号
-        this._Cache.thisDealerSeat = 0; // 当前庄家相对座位号
-        this._Cache.activeCardFlag = null;  // 最后出的那张牌上面的标识
-        this._Cache.activeCard = null;      // 当前最后出的那张牌
-        this._Cache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
-        this._Cache.allowOutCard = false;   // 是否允许出牌
-        this._Cache.settleForRoomData = null;   // 大结算数据
-        this._Cache.currentRound = 0;           // 局数
-        this._Cache.config = {};    // 房间信息
+    init: function(data) {
+        this._Cache = data;
+        this._setRoomInfo(data.conf, data.round, 84);
+        this.playerInfoList[data.dealer].getChildByName('img_zhuang').active = true;
 
-        this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        for (var key in data.user) {
+            var userInfo = JSON.parse(data.user[key]);
+            this.playerInfoList[key].getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
+            this.playerInfoList[key].getChildByName('text_result').getComponent(cc.Label).string = 0;
+            Tools.setWebImage(this.playerInfoList[key].getChildByName('img_handNode').getComponent(cc.Sprite), userInfo.headimgurl);
+
+            for (var i = 0; i < data.deal[key].length; i += 1) {
+                this._appendCardToHandCardDistrict(key, data.deal[key][i]);
+            }
+        }
     },
 
     update() {

@@ -6,7 +6,7 @@ cc.Class({
         stepNumber: cc.Label,
         winTag: [cc.Sprite],
         point: [cc.Label],
-        reviewGamePrefab: cc.Prefab,
+        gameReviewPrefab: cc.Prefab,
     },
 
     playbackOnClick() {
@@ -17,8 +17,11 @@ cc.Class({
         HttpRequestManager.httpRequest('replay', parameters, (event, result) => {
             window.Dialog.close();
             if (result.code === 1) {
-                window.GlobalConfig.tempCache = JSON.parse(result.replay);
-                // cc.director.loadScene('ReviewGame');
+                var data = JSON.parse(result.replay);
+                data.roomId = this._Cache.roomId;
+                var node =  cc.instantiate(this.gameReviewPrefab);
+                node.init(data);
+                window.Animation.openDialog(node, this.node);
             }
             else {
                 window.Dialog.openMessageBox('请求失败');
