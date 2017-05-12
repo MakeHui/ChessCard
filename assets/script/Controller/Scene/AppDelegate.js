@@ -94,7 +94,8 @@ cc.Class({
     },
 
     hbt: function() {
-        if (!window.Tools.getLocalData(GlobalConfig.LSK.secretKey)) {
+        if (!window.Tools.getLocalData(GlobalConfig.LSK.secretKey) ||
+            !window.Tools.getLocalData(GlobalConfig.LSK.userInfo)) {
             return;
         }
         HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {

@@ -261,7 +261,7 @@
     "__type__": "cc.Node",
     "_name": "back",
     "_objFlags": 0,
-    "_opacity": 150,
+    "_opacity": 100,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
