@@ -130,7 +130,6 @@ cc.Class({
         }
 
         this.fastChatPanelPosition = this.fastChatPanel.position;
-        this.menuPanelPosition = this.menuPanel.position;
 
         this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
@@ -1006,16 +1005,9 @@ cc.Class({
 
     openMenuOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        cc.log([parseInt(this.menuPanel.position.x.toFixed(0), 10), this.menuPanelPosition.x]);
-        if (this.menuPanel.position.x === this.menuPanelPosition.x) {
-            Animation.openPanel(this.menuPanel);
-        }
-        else {
-            const self = this;
-            Animation.closePanel(this.menuPanel, () => {
-                self.menuPanel.setPositionX(self.menuPanelPosition.x);
-            });
-        }
+        cc.log(this.menuPanel.getPositionY());
+        var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
+        this.menuPanel.getComponent(cc.Animation).play(animationName);
     },
 
     closeDialogOnClick() {
@@ -1025,8 +1017,8 @@ cc.Class({
         }
 
         // 检查是否关闭菜单面板
-        if (this.menuPanel.position.x !== this.menuPanelPosition.x) {
-            Animation.closePanel(this.menuPanel);
+        if (this.menuPanel.getPositionY() <= 222) {
+            this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
         }
 
         // 手牌复位
@@ -1145,6 +1137,10 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        // 检查是否关闭菜单面板
+        if (this.menuPanel.getPositionY() <= 222) {
+            this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
+        }
         Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -1155,6 +1151,10 @@ cc.Class({
      */
     dismissOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        // 检查是否关闭菜单面板
+        if (this.menuPanel.getPositionY() <= 222) {
+            this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
+        }
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'DismissRoom');
     },
 
