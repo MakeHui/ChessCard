@@ -18,10 +18,10 @@ cc.Class({
             window.Dialog.close();
             if (result.code === 1) {
                 var data = JSON.parse(result.replay);
-                data.roomId = this._Cache.roomId;
                 var node =  cc.instantiate(this.gameReviewPrefab);
-                node.init(data);
-                window.Animation.openDialog(node, this.node);
+                var parentNode = cc.director.getScene().getChildByName('Canvas');
+                node.getComponent('GameReview').init(data);
+                window.Animation.openDialog(node, parentNode);
             }
             else {
                 window.Dialog.openMessageBox('请求失败');

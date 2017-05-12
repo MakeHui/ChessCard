@@ -3,7 +3,7 @@
   "_name": "Action",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.15,
+  "_duration": 0.25,
   "sample": 60,
   "speed": 0.6,
   "wrapMode": 1,
@@ -21,10 +21,6 @@
         {
           "frame": 0.13333333333333333,
           "value": 1
-        },
-        {
-          "frame": 0.15,
-          "value": 0.5
         }
       ],
       "scaleY": [
@@ -39,10 +35,6 @@
         {
           "frame": 0.13333333333333333,
           "value": 1
-        },
-        {
-          "frame": 0.15,
-          "value": 0.5
         }
       ]
     }
@@ -50,12 +42,12 @@
   "events": [
     {
       "frame": 0,
-      "func": "closeAnimationCallback",
+      "func": "showNodeCallback",
       "params": []
     },
     {
-      "frame": 0.13333333333333333,
-      "func": "hideAnimationCallback",
+      "frame": 0.25,
+      "func": "hideNodeCallback",
       "params": []
     }
   ]

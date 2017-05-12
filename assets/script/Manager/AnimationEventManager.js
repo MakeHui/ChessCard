@@ -29,9 +29,14 @@ cc.Class({
         cc.log('closeAnimationCallback');
     },
 
-    hideAnimationCallback() {
+    hideNodeCallback() {
         this.node.active = false;
-        cc.log('hideAnimationCallback');
+        cc.log('AnimationEventManager.hideNodeCallback');
+    },
+
+    showNodeCallback() {
+        this.node.active = true;
+        cc.log('AnimationEventManager.showNodeCallback');
     },
 
     closeTrojanScanCallback() {

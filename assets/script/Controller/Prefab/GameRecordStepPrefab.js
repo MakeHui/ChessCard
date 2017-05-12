@@ -52,7 +52,6 @@ cc.Class({
 
                 for (let i = 0; i < recordInfoDataList.length; i += 1) {
                     recordInfoDataList[i].roomUuid = result.roomUuid;
-                    recordInfoDataList[i].roomId = roomId;
                     var cell = cc.instantiate(this.gameStepCell);
                     cell.getComponent('GameRecordStepCellPrefab').init(recordInfoDataList[i]);
                     this.gameStepList.addChild(cell);

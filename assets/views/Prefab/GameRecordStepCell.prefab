@@ -1268,7 +1268,10 @@
       {
         "__id__": 28
       }
-    ]
+    ],
+    "gameReviewPrefab": {
+      "__uuid__": "a355ce41-2ed0-4e5a-a1dd-16971160ca62"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
