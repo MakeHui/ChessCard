@@ -129,8 +129,6 @@ cc.Class({
             this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         }
 
-        this.fastChatPanelPosition = this.fastChatPanel.position;
-
         this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
         Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
@@ -989,31 +987,23 @@ cc.Class({
 
     openFastChatPanelOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        cc.log([this.fastChatProgressBar.progress, this.fastChatPanel.position.x, this.fastChatPanelPosition.x]);
         if (this.fastChatProgressBar.progress <= 0) {
-            if (this.fastChatPanel.position.x === this.fastChatPanelPosition.x) {
-                Animation.openPanel(this.fastChatPanel);
-            }
-            else {
-                const self = this;
-                Animation.closePanel(this.fastChatPanel, () => {
-                    self.fastChatPanel.setPositionX(self.fastChatPanelPosition.x);
-                });
-            }
+            var animationName = (this.fastChatPanel.getPositionX() > 114) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
+            this.fastChatPanel.getComponent(cc.Animation).play(animationName);
         }
     },
 
     openMenuOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
-        cc.log(this.menuPanel.getPositionY());
+
         var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
         this.menuPanel.getComponent(cc.Animation).play(animationName);
     },
 
     closeDialogOnClick() {
         // 检查是否关闭聊天面板
-        if (this.fastChatPanel.position.x !== this.fastChatPanelPosition.x) {
-            Animation.closePanel(this.fastChatPanel);
+        if (this.fastChatPanel.getPositionX() <= 114) {
+            this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
         }
 
         // 检查是否关闭菜单面板
@@ -1051,7 +1041,7 @@ cc.Class({
 
         this.fastChatProgressBar.progress = 1.0;
 
-        Animation.closePanel(this.fastChatPanel);
+        this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
     },
 
     emojiChatOnClick(evt, data) {
@@ -1061,7 +1051,7 @@ cc.Class({
 
         this.fastChatProgressBar.progress = 1.0;
 
-        Animation.closePanel(this.fastChatPanel);
+        this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
     },
 
     actionOnClick(event, data) {
