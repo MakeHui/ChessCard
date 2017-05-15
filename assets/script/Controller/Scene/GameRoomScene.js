@@ -924,6 +924,7 @@ cc.Class({
     },
 
     onSettleForRoundMessage(data) {
+        this._initCardDistrict();
         const self = this;
         GlobalConfig.tempCache = { data, playerInfoList: this._Cache.playerList };
         Animation.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
@@ -1190,7 +1191,7 @@ cc.Class({
         if (this._Cache.settleForRoomData) {
             this.onSettleForRoomMessage(this._Cache.settleForRoomData);
         }
-        else {
+        else if (this.handCardDistrict[0].length == 0) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
             this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
@@ -1571,10 +1572,10 @@ cc.Class({
      * 初始化场景
      */
     _initScene() {
-        const smallAccountNode = Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
-        if (smallAccountNode) {
-            smallAccountNode.destroy();
-        }
+        // const smallAccountNode = Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
+        // if (smallAccountNode) {
+        //     smallAccountNode.destroy();
+        // }
 
         this._initCardDistrict();
 
