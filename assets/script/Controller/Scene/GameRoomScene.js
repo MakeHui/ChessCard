@@ -775,7 +775,7 @@ cc.Class({
             });
             this._appendChowToDistrict(playerIndex, data.refCardList);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[0];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[0];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
 
             // 如果是当前玩家吃牌后即可再出一张牌
@@ -796,7 +796,7 @@ cc.Class({
             data.refCardList.push(data.activeCard);
             this._appendPongToDistrict(playerIndex, triggerIndex, data.refCardList);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[1];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[1];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
 
             // 如果是当前玩家碰牌后即可再出一张牌
@@ -822,7 +822,7 @@ cc.Class({
             data.refCardList.push(data.activeCard);
             this._appendExposedToDistrict(playerIndex, triggerIndex, data.refCardList);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === GlobalConfig.promptType.KongConcealed) {
@@ -848,7 +848,7 @@ cc.Class({
 
             this._appendConcealedKongToDistrict(playerIndex, data.refCardList);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === GlobalConfig.promptType.KongPong) {
@@ -882,22 +882,22 @@ cc.Class({
             // 添加杠
             this._appendExposedToDistrict(playerIndex, triggerIndex, data.refCardList);
 
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[2];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === GlobalConfig.promptType.WinDraw) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
-            this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
         else if (data.activeType === GlobalConfig.promptType.WinDiscard) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
-            // this.actionSprite[playerIndex].spriteFrame = this.actionSpriteFrame[3];
-            // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
+            this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
+            this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
 
         // 是否有操作提示
