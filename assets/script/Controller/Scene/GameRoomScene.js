@@ -62,6 +62,8 @@ cc.Class({
         voiceButton: cc.Node,
         voiceProgressBar: cc.ProgressBar,
         wechatInviteButton: cc.Button,
+
+        dicePrefab: cc.Prefab,
     },
 
     onLoad() {
@@ -427,7 +429,7 @@ cc.Class({
         this._initCardDistrict();
 
         // 筛子动画
-        // data.dice;
+        this.showDice(data.dice);
 
         // 移动三号位的玩家头像到右边, 避免被挡住
         this.playerInfoList[2].setPositionX(-134);
@@ -1720,5 +1722,14 @@ cc.Class({
             window.Dialog.openMessageBox(text);
         }
     },
+
+    /**
+     * 显示筛子点数
+     */
+    showDice: function (diceList) {
+        var node = cc.instantiate(this.dicePrefab);
+        node.getComponent('Dice').init(diceList);
+        this.node.addChild(node);
+    }
 
 });

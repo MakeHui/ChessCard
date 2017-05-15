@@ -46845,8 +46845,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 1,
-      "y": -100.19999999999999
+      "x": 0,
+      "y": -96
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -46942,13 +46942,14 @@
     "playOnLoad": false
   },
   {
-    "__type__": "1a87dlqWhlOVYBU3UDb3y+X",
+    "__type__": "40a42xXvE5NRo9ffftYKNQW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1432
     },
-    "_enabled": true
+    "_enabled": true,
+    "countDownLabel": null
   },
   {
     "__type__": "cc.Node",
@@ -46983,8 +46984,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 100.3,
-      "y": -4.8
+      "x": 96,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -47080,13 +47081,14 @@
     "playOnLoad": false
   },
   {
-    "__type__": "1a87dlqWhlOVYBU3UDb3y+X",
+    "__type__": "40a42xXvE5NRo9ffftYKNQW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1437
     },
-    "_enabled": true
+    "_enabled": true,
+    "countDownLabel": null
   },
   {
     "__type__": "cc.Node",
@@ -47121,8 +47123,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 1.4,
-      "y": 89.9
+      "x": 0,
+      "y": 96
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -47218,13 +47220,14 @@
     "playOnLoad": false
   },
   {
-    "__type__": "1a87dlqWhlOVYBU3UDb3y+X",
+    "__type__": "40a42xXvE5NRo9ffftYKNQW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1442
     },
-    "_enabled": true
+    "_enabled": true,
+    "countDownLabel": null
   },
   {
     "__type__": "cc.Node",
@@ -47259,8 +47262,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -97.6,
-      "y": -8
+      "x": -98,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -47356,13 +47359,14 @@
     "playOnLoad": false
   },
   {
-    "__type__": "1a87dlqWhlOVYBU3UDb3y+X",
+    "__type__": "40a42xXvE5NRo9ffftYKNQW",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1447
     },
-    "_enabled": true
+    "_enabled": true,
+    "countDownLabel": null
   },
   {
     "__type__": "cc.Widget",
@@ -58919,6 +58923,9 @@
     },
     "wechatInviteButton": {
       "__id__": 135
+    },
+    "dicePrefab": {
+      "__uuid__": "636d24e8-1683-4ce1-b6c3-d4e24007ecba"
     }
   }
 ]

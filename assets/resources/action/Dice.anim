@@ -1,0 +1,206 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "Dice",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.2,
+  "sample": 20,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "f1ec4aa8-1ffc-4093-b282-19b5deb689f8"
+            }
+          },
+          {
+            "frame": 0.05,
+            "value": {
+              "__uuid__": "c1b14191-2a66-4f3c-a39e-93617dd703fb"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "fb8ea9f2-e98e-4d3e-83ea-9fea41190c46"
+            }
+          },
+          {
+            "frame": 0.15,
+            "value": {
+              "__uuid__": "578b0d90-f039-4469-ad62-bd947d80d6ac"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "5f76af75-9a7f-48b8-8457-1a031bfc6523"
+            }
+          },
+          {
+            "frame": 0.25,
+            "value": {
+              "__uuid__": "0b95cad4-3c95-4d38-bdcc-8ea4a6bdcfab"
+            }
+          },
+          {
+            "frame": 0.3,
+            "value": {
+              "__uuid__": "91ba8671-8b3b-4f36-ac18-83091ddeb662"
+            }
+          },
+          {
+            "frame": 0.35,
+            "value": {
+              "__uuid__": "0c3aac53-8b3b-4ea7-b988-e951511ab19e"
+            }
+          },
+          {
+            "frame": 0.4,
+            "value": {
+              "__uuid__": "e5f00e27-9d30-448d-8d4b-812d6fc6f8aa"
+            }
+          },
+          {
+            "frame": 0.45,
+            "value": {
+              "__uuid__": "af2926cf-eaa3-474a-9ac7-8c1d0db1ad52"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "28dcfa51-ac50-4af6-9fe4-e1e8aa60ce41"
+            }
+          },
+          {
+            "frame": 0.55,
+            "value": {
+              "__uuid__": "a0cac848-4569-4496-a587-ce7b1df34692"
+            }
+          },
+          {
+            "frame": 0.6,
+            "value": {
+              "__uuid__": "0234c284-9475-4626-8e61-e3db8770bdf7"
+            }
+          },
+          {
+            "frame": 0.65,
+            "value": {
+              "__uuid__": "77664fe4-e1cd-479e-907b-407f7d1b1c90"
+            }
+          },
+          {
+            "frame": 0.7,
+            "value": {
+              "__uuid__": "bb3d29bf-e1da-4212-8b63-135e0fb5caa3"
+            }
+          },
+          {
+            "frame": 0.75,
+            "value": {
+              "__uuid__": "cf6efabd-65fe-4fd2-b84f-28164040762f"
+            }
+          },
+          {
+            "frame": 0.8,
+            "value": {
+              "__uuid__": "0faa05cd-815e-4d42-8496-7cb52484bfda"
+            }
+          },
+          {
+            "frame": 0.85,
+            "value": {
+              "__uuid__": "6503f301-68cf-4452-89de-7d94146ffc4d"
+            }
+          },
+          {
+            "frame": 0.9,
+            "value": {
+              "__uuid__": "962733b9-b58a-4903-a6ac-ee987303f64b"
+            }
+          },
+          {
+            "frame": 0.95,
+            "value": {
+              "__uuid__": "98d45b21-d910-4ceb-864d-34e23403e52d"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "e9505679-251f-4ede-ba44-23497107f2c7"
+            }
+          },
+          {
+            "frame": 1.05,
+            "value": {
+              "__uuid__": "e5341caa-7433-48e8-b852-3b2baf30af44"
+            }
+          },
+          {
+            "frame": 1.1,
+            "value": {
+              "__uuid__": "7a57dbac-dcec-4ba8-99c7-31570a866a08"
+            }
+          },
+          {
+            "frame": 1.15,
+            "value": {
+              "__uuid__": "5a8251c3-104e-494b-ab7a-774d70d904e8"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": [
+    {
+      "frame": 0,
+      "func": "diceCallback",
+      "params": [
+        "2"
+      ]
+    },
+    {
+      "frame": 0.2,
+      "func": "diceCallback",
+      "params": [
+        "3"
+      ]
+    },
+    {
+      "frame": 0.4,
+      "func": "diceCallback",
+      "params": [
+        "1"
+      ]
+    },
+    {
+      "frame": 0.6,
+      "func": "diceCallback",
+      "params": [
+        "4"
+      ]
+    },
+    {
+      "frame": 0.8,
+      "func": "diceCallback",
+      "params": [
+        "5"
+      ]
+    },
+    {
+      "frame": 1,
+      "func": "diceCallback",
+      "params": [
+        "6"
+      ]
+    }
+  ]
+}
