@@ -81,9 +81,6 @@ cc.Class({
         this._Cache.currentRound = 0;           // 局数
         this._Cache.config = {};    // 房间信息
 
-        // todo: 需要删除
-        this._initScene();
-
         if (GlobalConfig.tempCache) {
             const self = this;
             this._Cache.roomId = GlobalConfig.tempCache.roomId;
@@ -1190,10 +1187,12 @@ cc.Class({
      **/
 
     readyGameCallback() {
+        cc.log('readyGameCallback');
         if (this._Cache.settleForRoomData) {
             this.onSettleForRoomMessage(this._Cache.settleForRoomData);
         }
-        else if (this.handCardDistrict[0].length == 0) {
+        else if (this.handCardDistrict[0].children.length == 0) {
+            cc.log('readyGameCallback.Ready');
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
             this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
@@ -1574,10 +1573,10 @@ cc.Class({
      * 初始化场景
      */
     _initScene() {
-        // const smallAccountNode = Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
-        // if (smallAccountNode) {
-        //     smallAccountNode.destroy();
-        // }
+        const smallAccountNode = Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
+        if (smallAccountNode) {
+            smallAccountNode.destroy();
+        }
 
         this._initCardDistrict();
 
@@ -1596,6 +1595,7 @@ cc.Class({
             this.handCardDistrict[i].removeAllChildren();
             this.dirtyCardDistrict[i].removeAllChildren();
             this.pongKongChowDistrict[i].removeAllChildren();
+            this._hideGetHandCard(i);
 
             this.playerInfoList[i].getChildByName('img_zhuang').active = false;
             this.playerInfoList[i].getChildByName('img_hostmark').active = false;
