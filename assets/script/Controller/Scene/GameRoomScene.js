@@ -447,6 +447,7 @@ cc.Class({
             i -= 1;
             if (i === -1) {
                 Tools.cardsSort(this.handCardDistrict[0].children);
+                this._Cache.waitDraw = false;
             }
         }, 0.2, data.cardsInHandList.length - 1);
 
@@ -488,8 +489,6 @@ cc.Class({
                 self.onPromptMessage({promptList: data.promptList});
             }
         }, this._Cache.waitDraw ? 3 : 0);
-
-        this._Cache.waitDraw = false;   // 不是起手抓拍, 不需要再等待
     },
 
     onDiscardMessage(data) {
@@ -544,6 +543,10 @@ cc.Class({
      **/
 
     onReconnectMessage(data) {
+        // 起手抓拍还没有结束, 不允许重连
+        if (this._Cache.waitDraw) {
+            return;
+        }
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.roomId = data.roomId;
         this._Cache.ownerUuid = data.ownerUuid;
