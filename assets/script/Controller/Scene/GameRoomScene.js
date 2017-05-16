@@ -355,6 +355,7 @@ cc.Class({
         data.content = JSON.parse(data.content);
 
         // 语音
+        // TODO: 正式上线需要更改为除了自己其他人都播放
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
             if (cc.sys.os === cc.sys.OS_IOS) {
                 var filePath = data.content.data.replace(GlobalConfig.aliyunOss.domain, '');

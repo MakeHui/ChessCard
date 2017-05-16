@@ -8,6 +8,8 @@ cc.Class({
         loginButton: cc.Node,
         loginButtonBlock: cc.Node,
         touristLoginButton: cc.Node,
+        touristLoginButtonBlock: cc.Node,
+        touristLoginpanel: cc.Node,
     },
 
     // use this for initialization
@@ -21,7 +23,7 @@ cc.Class({
         // 检查是否在审核阶段
         var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
         if (!appleReview) {
-            this.touristLoginButton.active = false;
+            this.touristLoginpanel.active = false;
         }
 
         // 判断本地存储中是否有秘钥
@@ -86,10 +88,16 @@ cc.Class({
         if (this.agreeNode.active) {
             this.loginButton.active = true;
             this.loginButtonBlock.active = false;
+
+            this.touristLoginButton.active = true;
+            this.touristLoginButtonBlock.active = false;
         }
         else {
             this.loginButton.active = false;
             this.loginButtonBlock.active = true;
+
+            this.touristLoginButton.active = false;
+            this.touristLoginButtonBlock.active = true;
         }
     },
 

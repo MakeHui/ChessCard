@@ -25,7 +25,7 @@ window.GlobalConfig = {
      * 版本号
      * @type {String}
      */
-    version: '0.0.1',
+    version: '1.0.0',
 
     /**
      * 是否是debug环境
@@ -50,9 +50,9 @@ window.GlobalConfig = {
     wsHbtTime: 10,
 
     aliyunOss: {
-        bucketName: 'collegevscollege',
+        bucketName: 'pxqp',
         objectPath: 'px258/client/audio/',
-        domain: 'https://collegevscollege.oss-cn-hangzhou.aliyuncs.com/'
+        domain: 'https://pxqp.oss-cn-hangzhou.aliyuncs.com/'
     },
 
     px258: {

@@ -339,7 +339,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 193.34,
+      "width": 233.34,
       "height": 40
     },
     "_children": [],
@@ -384,7 +384,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "检查更新...",
+    "_N$string": "请求数据中...",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
