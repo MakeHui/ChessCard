@@ -41,7 +41,8 @@ cc.Class({
      * 弹出充值信息
      */
     openPayPanelOnClick() {
-        if (!this._userInfo.isCheck) {
+        var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
+        if (!appleReview) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
             Dialog.openMessageBox('请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
         }

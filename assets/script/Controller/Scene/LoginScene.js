@@ -7,6 +7,7 @@ cc.Class({
         agreeNode: cc.Node,
         loginButton: cc.Node,
         loginButtonBlock: cc.Node,
+        loginButtonPanel: cc.Node,
         touristLoginButton: cc.Node,
         touristLoginButtonBlock: cc.Node,
         touristLoginpanel: cc.Node,
@@ -24,6 +25,9 @@ cc.Class({
         var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
         if (!appleReview) {
             this.touristLoginpanel.active = false;
+        }
+        else {
+            this.loginButtonPanel.active = false;
         }
 
         // 判断本地存储中是否有秘钥

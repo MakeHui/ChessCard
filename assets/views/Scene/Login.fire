@@ -1615,6 +1615,9 @@
     "loginButtonBlock": {
       "__id__": 36
     },
+    "loginButtonPanel": {
+      "__id__": 31
+    },
     "touristLoginButton": {
       "__id__": 25
     },
