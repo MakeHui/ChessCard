@@ -61,6 +61,12 @@ cc.Class({
                         window.SoundEffect.backgroundMusicClear();
                     }
                 });
+
+                if (!window.Tools.getLocalData(GlobalConfig.LSK.appleReview)) {
+                    NativeExtensionManager.execute('startLocation', [], (result) => {
+                        window.Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.result == 0 ? result.data : '该用户未公开地理位置');
+                    });
+                }
             });
 
             // TODO: 删除本地音频文件

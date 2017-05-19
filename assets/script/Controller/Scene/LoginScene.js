@@ -38,10 +38,6 @@ cc.Class({
         else {
             this.httpLogin(secretKey, 'login');
         }
-
-        NativeExtensionManager.execute('startLocation', [], (result) => {
-            window.Tools.setLocalData(GlobalConfig.LSK.userInfo_location, result.data);
-        });
     },
 
     /**
