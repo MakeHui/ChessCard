@@ -15,7 +15,7 @@ cc.Class({
         window.Animation = this.node.getComponent('Animation');
         window.Tools = this.node.getComponent('Tools');
         window.Dialog = this.node.getComponent('Dialog');
-        window.SoundEffect = this.node.getComponent('SoundEffect');
+        window.SoundEffect = this.node.getComponent('SoundEffect').init();
         window.NativeExtensionManager = require('NativeExtensionManager').init();
 
         // 初始化本地数据
@@ -28,7 +28,6 @@ cc.Class({
         window.Tools.setLocalData(window.GlobalConfig.LSK.appleReview, true);
 
         // 初始化背景音效
-        window.SoundEffect.backgroundMusic();
         const playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
         if (playMusicConfig.music) {
             window.SoundEffect.backgroundMusicPlay();

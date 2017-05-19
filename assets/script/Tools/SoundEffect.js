@@ -21,7 +21,7 @@ var SoundEffect = cc.Class({
         },
     },
 
-    backgroundMusicInit (audioUrl, isLoop, volume) {
+    backgroundMusic (audioUrl, isLoop, volume) {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
@@ -58,10 +58,11 @@ var SoundEffect = cc.Class({
         return this;
     },
 
-    backgroundMusic () {
+    init () {
         if (!this.backgroundMusicAudioId) {
-            this.backgroundMusicInit(this.backgroundMusicUrl, true);
+            this.backgroundMusic(this.backgroundMusicUrl, true);
         }
+        return this;
     },
 
     playEffect (url) {
