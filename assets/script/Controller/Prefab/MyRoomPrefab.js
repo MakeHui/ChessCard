@@ -37,7 +37,7 @@ cc.Class({
         }
 
         var node = cc.director.getScene().getChildByName('Canvas');
-        Tools.captureScreen(node, function(fileName) {
+       window.Global.Tools.captureScreen(node, function(fileName) {
             window.Global.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
@@ -51,7 +51,7 @@ cc.Class({
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     radioButtonClicked(toggle) {

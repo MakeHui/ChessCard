@@ -13,7 +13,7 @@ cc.Class({
         var parentNode = cc.director.getScene().getChildByName('Canvas');
         var node = cc.instantiate(this.gameRecordStep);
         node.getComponent('GameRecordStepPrefab').init(this.roomId);
-        Animation.openDialog(node, parentNode, () => {
+        window.Global.Animation.openDialog(node, parentNode, () => {
             cc.log('downloader success');
         });
     },
@@ -25,7 +25,7 @@ cc.Class({
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             var obj = data.playerList[i];
-            Tools.setWebImage(this.playerList[i].getChildByName('itemFace').getComponent(cc.Sprite), obj.headimgurl);
+           window.Global.Tools.setWebImage(this.playerList[i].getChildByName('itemFace').getComponent(cc.Sprite), obj.headimgurl);
             this.playerList[i].getChildByName('itemName').getComponent(cc.Label).string = obj.playerName;
             this.playerList[i].getChildByName('itemScore').getComponent(cc.Label).string = `积分: ${obj.score}`;
         }

@@ -13,7 +13,7 @@ cc.Class({
      */
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     // TODO: 微信分享

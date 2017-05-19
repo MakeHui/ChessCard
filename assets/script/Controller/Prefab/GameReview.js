@@ -35,7 +35,7 @@ cc.Class({
     init: function(data) {
         this._Cache = data;
         this._Cache.isPause = false;
-        this._userInfo = window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         this._setRoomInfo(data.conf, data.round, 84);
         this.playerInfoList[data.dealer].getChildByName('img_zhuang').active = true;
 
@@ -43,7 +43,7 @@ cc.Class({
             var userInfo = JSON.parse(data.user[key][1]);
             this.playerInfoList[key].getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
             this.playerInfoList[key].getChildByName('text_result').getComponent(cc.Label).string = 0;
-            Tools.setWebImage(this.playerInfoList[key].getChildByName('img_handNode').getComponent(cc.Sprite), userInfo.headimgurl);
+           window.Global.Tools.setWebImage(this.playerInfoList[key].getChildByName('img_handNode').getComponent(cc.Sprite), userInfo.headimgurl);
 
             for (var i = 0; i < data.deal[key].length; i += 1) {
                 this._appendCardToHandCardDistrict(key, data.deal[key][i]);
@@ -83,7 +83,7 @@ cc.Class({
     },
 
     update() {
-        this.roomInfo[0].string = Tools.formatDatetime('hh:ii:ss');
+        this.roomInfo[0].string =window.Global.Tools.formatDatetime('hh:ii:ss');
     },
 
     onAction: function(playerIndex, data) {
@@ -255,7 +255,7 @@ cc.Class({
         node._userData = card;
         var findPath = [0, 3].indexOf(parseInt(playerIndex, 10)) != -1 ? 'Background>value' : 'Mask>Background>value';
 
-        var nodeSprite = Tools.findNode(node, findPath).getComponent(cc.Sprite);
+        var nodeSprite =window.Global.Tools.findNode(node, findPath).getComponent(cc.Sprite);
         nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
     },
 
@@ -271,7 +271,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         if (playerIndex == 0) {
-            var nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            var nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].toString(16)}`);
         }
     },
@@ -288,7 +288,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         for (var i = 0; i < 4; i += 1) {
-            var nodeSprite = Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+            var nodeSprite =window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].toString(16)}`);
         }
     },
@@ -306,7 +306,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         for (var i = 0; i < data.length; i += 1) {
-            var nodeSprite = Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+            var nodeSprite =window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].toString(16)}`);
         }
     },
@@ -343,7 +343,7 @@ cc.Class({
     _appendCardToDiscardDistrict(playerIndex, data) {
         var node = cc.instantiate(this.dirtyCardPrefabs[playerIndex]);
         var findPath = [0, 3].indexOf(playerIndex) != -1 ? 'Background>value' : 'Mask>Background>value';
-        var nodeSprite = Tools.findNode(node, findPath).getComponent(cc.Sprite);
+        var nodeSprite =window.Global.Tools.findNode(node, findPath).getComponent(cc.Sprite);
 
         // TODO: 处理特殊排列问题
         if (playerIndex === 1) {

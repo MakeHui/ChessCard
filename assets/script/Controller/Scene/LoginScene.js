@@ -22,7 +22,7 @@ cc.Class({
         }
 
         // 检查是否在审核阶段
-        var appleReview = window.Global.Tools.getLocalData(GlobalConfig.LSK.appleReview);
+        var appleReview = window.Global.Tools.getLocalData(window.Global.Config.LSK.appleReview);
         if (!appleReview) {
             this.touristLoginpanel.active = false;
         }
@@ -31,7 +31,7 @@ cc.Class({
         }
 
         // 判断本地存储中是否有秘钥
-        var secretKey = window.Global.Tools.getLocalData(GlobalConfig.LSK.secretKey);
+        var secretKey = window.Global.Tools.getLocalData(window.Global.Config.LSK.secretKey);
         if (!secretKey) {
             cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
@@ -72,7 +72,7 @@ cc.Class({
             return;
         }
 
-        Animation.openDialog(cc.instantiate(this.secretKey), this.node);
+        window.Global.Animation.openDialog(cc.instantiate(this.secretKey), this.node);
     },
 
     /**
@@ -80,7 +80,7 @@ cc.Class({
      */
     userAgreementOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
+        window.Global.Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
     isAgreeOnClick: function() {
@@ -104,18 +104,18 @@ cc.Class({
     httpLogin(secretKey, requestName) {
         window.Global.Dialog.openLoading();
         this.scheduleOnce(function() {
-            const parameters = { wxCode: secretKey, location: window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
+            const parameters = { wxCode: secretKey, location: window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
                 window.Global.Dialog.close();
 
                 if (result.code === 1) {
-                    result.location = window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
+                    result.location = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location);
                     result.roomConfig = JSON.parse(result.roomConfig);
-                    window.Global.Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
-                    window.Global.Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
+                    window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo, result);
+                    window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, result.loginKey);
 
                     if (result.playerReconnection) {
-                        GlobalConfig.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
+                        window.Global.Config.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
                         cc.director.loadScene('GameRoom');
                     }
                     else {

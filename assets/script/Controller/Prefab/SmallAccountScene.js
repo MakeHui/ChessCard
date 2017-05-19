@@ -14,11 +14,11 @@ cc.Class({
             return;
         }
 
-        const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        const userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
+        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
-            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
+            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
             const cardPanel = playerNode.getChildByName('CardPanel');
 
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
@@ -49,7 +49,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -63,7 +63,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -77,7 +77,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -93,13 +93,13 @@ cc.Class({
                 var node = cc.instantiate(this.cardPrefab);
                 node.getChildByName('Background').setPositionX(positionXOffset);
 
-                const nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
                 cardPanel.addChild(node);
             }
 
             if (playerData.winType !== window.PX258.Config.winType.None) {
-                Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
+               window.Global.Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
                 playerNode.getChildByName('WinType').getComponent(cc.Label).string = window.PX258.Config.winFlag[playerData.winFlag] || '';
 
                 // 胡牌
@@ -109,7 +109,7 @@ cc.Class({
                     positionXOffset += 24;
                     var node = cc.instantiate(this.cardPrefab);
                     node.getChildByName('Background').setPositionX(positionXOffset);
-                    var nodeSprite = Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    var nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${playerData.winCard.card.toString(16)}`);
                     cardPanel.addChild(node);
                 }
@@ -138,12 +138,12 @@ cc.Class({
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         const node = cc.director.getScene().getChildByName('Canvas');
         node.getComponent('GameRoomScene').readyGameCallback();
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     _getNicknameInList(playerUuid) {
-        for (let i = 0; i < GlobalConfig.tempCache.playerInfoList.length; i += 1) {
-            const obj = GlobalConfig.tempCache.playerInfoList[i];
+        for (let i = 0; i < window.Global.Config.tempCache.playerInfoList.length; i += 1) {
+            const obj = window.Global.Config.tempCache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
                 return obj.info.nickname;
             }

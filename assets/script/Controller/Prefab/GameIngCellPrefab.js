@@ -22,7 +22,7 @@ cc.Class({
         const parameters = { roomId: this._Cache.roomId };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
             if (result.code === 1) {
-                GlobalConfig.tempCache = result;
+                window.Global.Config.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else {
@@ -49,7 +49,7 @@ cc.Class({
         this._Cache = data;
         const player = data.playerList;
         for (let i = 0; i < player.length; i += 1) {
-            Tools.setWebImage(this.avatar[i], player[i].headimgurl);
+           window.Global.Tools.setWebImage(this.avatar[i], player[i].headimgurl);
             this.nickname[i].string = player[i].playerName;
             this.playerPanel[i].active = true;
         }

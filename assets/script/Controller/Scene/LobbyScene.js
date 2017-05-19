@@ -23,15 +23,15 @@ cc.Class({
         window.PX258 = {};
         window.PX258.Config = require('PX258Config');
         window.PX258.Network = require('PX258Network');
-        this._userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
-        Tools.setWebImage(this.avatar, this._userInfo.headimgurl);
+        this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        window.Global.Tools.setWebImage(this.avatar, this._userInfo.headimgurl);
         this.nickname.string = this._userInfo.nickname;
         this.money.string = this._userInfo.gold;
         this.notice.getComponent(cc.Label).string = this._userInfo.notice;
-        Animation.openScrollWordAction(this.notice, 50);
+        window.Global.Animation.openScrollWordAction(this.notice, 50);
 
         // 如果是上线期间不显示充值按钮
-        if (window.Global.Tools.getLocalData(GlobalConfig.LSK.appleReview)) {
+        if (window.Global.Tools.getLocalData(window.Global.Config.LSK.appleReview)) {
             this.addMoneyButton.active = false;
         }
     },
@@ -45,8 +45,8 @@ cc.Class({
      */
     openUserInfoPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        GlobalConfig.tempCache = Tools.getLocalData(GlobalConfig.LSK.userInfo);
-        Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
+        window.Global.Config.tempCache =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        window.Global.Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -57,7 +57,7 @@ cc.Class({
     openPayPanelOnClick() {
         if (this.addMoneyButton.active) {
             window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-            Dialog.openMessageBox('请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
+            window.Global.openMessageBox('请到 ' + window.Global.Config.wxPublic + ' 公众号进行充值');
         }
     },
 
@@ -68,7 +68,7 @@ cc.Class({
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         // var gameRecordPrefab = this.gameRecordPrefab.getComponent('GameRecordPrefab');
         // gameRecordPrefab.init();
-        Animation.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
+        window.Global.Animation.openDialog(cc.instantiate(this.gameRecordPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -78,7 +78,7 @@ cc.Class({
      */
     openSoundPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.settingPrefab), this.node, () => {
+        window.Global.Animation.openDialog(cc.instantiate(this.settingPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -88,7 +88,7 @@ cc.Class({
      */
     openGameRulesPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
+        window.Global.Animation.openDialog(cc.instantiate(this.gameRulesPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -98,7 +98,7 @@ cc.Class({
      */
     openCreateRoomPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
+        window.Global.Animation.openDialog(cc.instantiate(this.createRoomPrefab), this.node, () => {
             cc.log('load success');
         });
     },
@@ -110,7 +110,7 @@ cc.Class({
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         const node = cc.instantiate(this.inputRoomNumberPrefab);
         node.getComponent('RoomNumberInputBox').init('Lobby');
-        Animation.openDialog(node, this.node, () => {
+        window.Global.Animation.openDialog(node, this.node, () => {
             cc.log('load success');
         });
     },
@@ -121,7 +121,7 @@ cc.Class({
     openMyRoomPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         // cc.director.loadScene('MyRoom');
-        Animation.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
+        window.Global.Animation.openDialog(cc.instantiate(this.myRoomPrefab), this.node, () => {
             cc.log('load success');
         });
     },

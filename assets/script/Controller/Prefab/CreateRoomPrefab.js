@@ -12,7 +12,7 @@ cc.Class({
         this.playType = 0x1;
         this.options = 0x100;
 
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo).roomConfig;
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo).roomConfig;
         var i = 0;
         for (var key in userInfo[this.gameUuid]) {
             this.roomLabel[i].string = key + '局(' + userInfo[this.gameUuid][key] + '金币)';
@@ -45,20 +45,20 @@ cc.Class({
             window.Global.Dialog.close();
             if (result.code === 1) {
                 window.Global.Dialog.close();
-                GlobalConfig.tempCache = result;
-                const userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                window.Global.Config.tempCache = result;
+                const userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
                 userInfo.gold -= result.payGold;
-                Tools.setLocalData(GlobalConfig.LSK.userInfo, userInfo);
+               window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1023) {
-                Dialog.openMessageBox('金币不足请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
+                window.Global.openMessageBox('金币不足请到 ' + window.Global.Config.wxPublic + ' 公众号进行充值');
             }
         });
     },
 
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 });

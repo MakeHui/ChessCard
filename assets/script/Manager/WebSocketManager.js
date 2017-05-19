@@ -56,7 +56,7 @@ window.WebSocketManager.requestMessage = {
      */
     getEnterRoomRequestMessage: function (parameters) {
         var message = new proto.game.EnterRoomRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
         message.setRoomId(parameters.roomId);
         message.setPlayerUuid(userInfo.playerUuid);

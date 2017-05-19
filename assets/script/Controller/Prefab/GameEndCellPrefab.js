@@ -31,13 +31,13 @@ cc.Class({
 
         let node = cc.instantiate(self.gameRecord);
         node.getComponent('GameStep').init(this.roomId);
-        Animation.openDialog(node, self.node);
+        window.Global.Animation.openDialog(node, self.node);
     },
 
     init: function(data) {
         let player = data.getPlayer();
         for (let i = 0; i < player.length; i += 1) {
-            Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
+           window.Global.Tools.setWebImage(this.avatar[i], player[i].getHeadimgurl());
             this.nickname[i].string = player[i].getPlayerName();
             this.point[i].string = '积分:' + player[i].getPoint();
         }

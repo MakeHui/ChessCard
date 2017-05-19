@@ -10,9 +10,9 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        const userInfo = GlobalConfig.tempCache;
+        const userInfo = window.Global.Config.tempCache;
         if (userInfo) {
-            Tools.setWebImage(this.avatar, userInfo.headimgurl);
+           window.Global.Tools.setWebImage(this.avatar, userInfo.headimgurl);
             this.ip.string = `IP地址: ${userInfo.ip}`;
             this.nickname.string = `昵称: ${userInfo.nickname}`;
             this.location.string = `地理位置: ${userInfo.location}`;
@@ -24,6 +24,6 @@ cc.Class({
      */
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 });

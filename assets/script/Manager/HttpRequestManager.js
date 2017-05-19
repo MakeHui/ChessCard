@@ -111,8 +111,8 @@ window.HttpRequestManager.requestMessage = {
      */
     getCheckVersionRequestMessage: function () {
         var message = new proto.login.CheckVersionRequest();
-        message.setAppUuid(GlobalConfig.appUuid);
-        message.setVerNo(GlobalConfig.version);
+        message.setAppUuid(window.Global.Config.appUuid);
+        message.setVerNo(window.Global.Config.version);
         message.setAndroidOrIos(cc.sys.os == 'ios' ? 1 : 2);
 
         return message;
@@ -130,12 +130,12 @@ window.HttpRequestManager.requestMessage = {
     getLoginRequestMessage: function (parameters) {
         var message = new proto.login.LoginRequest();
         message.setWxCode(parameters.wxCode);
-        message.setAppUuid(GlobalConfig.appUuid);
-        message.setDeviceId(Tools.getDeviceId());
-        message.setVerNo(GlobalConfig.version);
+        message.setAppUuid(window.Global.Config.appUuid);
+        message.setDeviceId(window.Global.Tools.getDeviceId());
+        message.setVerNo(window.Global.Config.version);
         message.setLocation(parameters.location);
 
-        cc.log([parameters.wxCode, GlobalConfig.appUuid, Tools.getDeviceId(), GlobalConfig.version, parameters.location]);
+        cc.log([parameters.wxCode, window.Global.Config.appUuid,window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
         return message;
     },
 
@@ -149,11 +149,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getHeartbeatRequestMessage: function () {
         var message = new proto.login.HeartbeatRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setDeviceId(window.Global.Tools.getDeviceId());
+        message.setAppUuid(window.Global.Config.appUuid);
 
         return message;
     },
@@ -170,10 +170,10 @@ window.HttpRequestManager.requestMessage = {
     getPlayerGoldRequestMessage: function (parameters) {
         var message = new proto.login.PlayerGoldRequest();
         message.setPlayerUuid(parameters.playerUuid);
-        message.setAppUuid(GlobalConfig.appUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setAppUuid(window.Global.Config.appUuid);
+        message.setDeviceId(window.Global.Tools.getDeviceId());
 
-        cc.log([parameters.playerUuid, GlobalConfig.appUuid, Tools.getDeviceId()]);
+        cc.log([parameters.playerUuid, window.Global.Config.appUuid,window.Global.Tools.getDeviceId()]);
         return message;
     },
 
@@ -188,12 +188,12 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomCreateRequestMessage: function (parameters) {
         var message = new proto.login.RoomCreateRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setGameUuid(parameters.gameUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setDeviceId(window.Global.Tools.getDeviceId());
         message.setMaxRounds(parameters.maxRounds);
         message.setRoomConfig(parameters.roomConfig);
 
@@ -212,11 +212,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomEnterRequestMessage: function (parameters) {
         var message = new proto.login.RoomEnterRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setDeviceId(window.Global.Tools.getDeviceId());
         message.setRoomId(parameters.roomId);
 
         cc.log([GlobalConfig.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
@@ -233,11 +233,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomListRequestMessage: function () {
         var message = new proto.login.RoomListRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setDeviceId(window.Global.Tools.getDeviceId());
 
         return message;
     },
@@ -253,11 +253,11 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordListRequestMessage: function () {
         var message = new proto.login.RecordListRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setDeviceId(window.Global.Tools.getDeviceId());
 
         return message;
     },
@@ -273,10 +273,10 @@ window.HttpRequestManager.requestMessage = {
      */
     getRecordInfoRequestMessage: function (parameters) {
         var message = new proto.login.RecordInfoRequest();
-        var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
-        message.setAppUuid(GlobalConfig.appUuid);
+        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setPlayerUuid(userInfo.playerUuid);
-        message.setDeviceId(Tools.getDeviceId());
+        message.setDeviceId(window.Global.Tools.getDeviceId());
         message.setRoomUuid(parameters.roomUuid);
 
         return message;
@@ -293,7 +293,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getReplayRequestMessage: function (parameters) {
         var message = new proto.login.ReplayRequest();
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setRoomUuid(parameters.roomUuid);
         message.setTheRound(parameters.theRound);
 
@@ -311,7 +311,7 @@ window.HttpRequestManager.requestMessage = {
      */
     getRoomReplayRequestMessage: function (parameters) {
         var message = new proto.login.RoomReplayRequest();
-        message.setAppUuid(GlobalConfig.appUuid);
+        message.setAppUuid(window.Global.Config.appUuid);
         message.setRoomId(parameters.roomId);
 
         cc.log([GlobalConfig.appUuid, parameters.roomId]);
@@ -331,13 +331,13 @@ window.HttpRequestManager.httpRequest = function (name, parameters, callback) {
     var message = HttpRequestManager.requestMessage['get' + protocol.request + 'RequestMessage'](parameters);
     var request = cc.loader.getXMLHttpRequest();
 
-    request.open('POST', (GlobalConfig.debug ? GlobalConfig.apiAddress.development : GlobalConfig.apiAddress.production) + protocol.api);
+    request.open('POST', (window.Global.Config.debug ? window.Global.Config.apiAddress.development : window.Global.Config.apiAddress.production) + protocol.api);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     request.send(message.serializeBinary());
     request.onload = function (event) {
         var result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
         result = proto[protocol.description][protocol.response + 'Response'].deserializeBinary(result);
-        result = Tools.protobufToJson(result);
+        result =window.Global.Tools.protobufToJson(result);
 
         cc.log(['HttpRequestManager.httpRequest ' + name, result]);
         callback(event, result);

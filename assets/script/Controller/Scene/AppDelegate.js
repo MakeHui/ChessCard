@@ -29,7 +29,7 @@ cc.Class({
         window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, true);
 
         // 初始化背景音效
-        const playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
+        const playMusicConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
         if (playMusicConfig.music) {
             window.Global.SoundEffect.backgroundMusicPlay();
         }
@@ -39,7 +39,7 @@ cc.Class({
 
         this.schedule(this.hbt.bind(this), window.Global.Config.hbtTime);
 
-        // window.Global.Tools.setLocalData(GlobalConfig.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
+        // window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
 
         window.Global.Dialog.openLoading();
 

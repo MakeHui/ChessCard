@@ -30,12 +30,12 @@ cc.Class({
         let bigLosser = 0;
         let bigWinner = 0;
 
-        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
+        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
+            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
             const playerNode = this.playerList[playerData.seat];
             const userInfo = this._getUserInfoInList(playerData.playerUuid);
 
-            Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
+           window.Global.Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
 
             if (playerData.isOwner === 1) {
@@ -43,12 +43,12 @@ cc.Class({
             }
 
             const detailList = playerNode.getChildByName('detailPanel');
-            Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
-            Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
-            Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
-            Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
-            Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
-            Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
+           window.Global.Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
+           window.Global.Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
+           window.Global.Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
+           window.Global.Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
+           window.Global.Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
+           window.Global.Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
 
             if (bigLosser < playerData.paoCnt) {
                 bigLosser = playerData.paoCnt;
@@ -59,8 +59,8 @@ cc.Class({
             }
         }
 
-        for (let i = 0; i < GlobalConfig.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = GlobalConfig.tempCache.data.playerDataList[i];
+        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
+            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
             const playerNode = this.playerList[playerData.seat];
 
             if (bigLosser === playerData.paoCnt) {
@@ -85,8 +85,8 @@ cc.Class({
     },
 
     _getUserInfoInList(playerUuid) {
-        for (let i = 0; i < GlobalConfig.tempCache.playerInfoList.length; i += 1) {
-            const obj = GlobalConfig.tempCache.playerInfoList[i];
+        for (let i = 0; i < window.Global.Config.tempCache.playerInfoList.length; i += 1) {
+            const obj = window.Global.Config.tempCache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
                 return obj.info;
             }

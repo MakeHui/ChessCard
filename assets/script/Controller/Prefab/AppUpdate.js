@@ -20,7 +20,7 @@ cc.Class({
     },
 
     onCloseClick: function() {
-        Animation.closeDialog(this.node, function() {
+        window.Global.Animation.closeDialog(this.node, function() {
             this.callback();
         }.bind(this));
     }

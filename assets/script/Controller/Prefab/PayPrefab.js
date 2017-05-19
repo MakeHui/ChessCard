@@ -15,12 +15,12 @@ cc.Class({
      */
     closeOnClick: function(event, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     payOnClick: function(evt, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.openDialog(cc.instantiate(this.shopStore), this.node, function () {
+        window.Global.Animation.openDialog(cc.instantiate(this.shopStore), this.node, function () {
             cc.log("load success");
         });
     }

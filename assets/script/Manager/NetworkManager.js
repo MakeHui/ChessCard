@@ -5,22 +5,21 @@ const HttpRequestManager = cc.Class({
         /**
          * http请求方法
          *
-         * @param name
+         * @param protocol
          * @param parameters
          * @param callback
          */
-        httpRequest (name, parameters, callback) {
-            var protocol = HttpRequestManager.requestProtocol[name];
-            var message = HttpRequestManager.requestMessage['get' + protocol.request + 'RequestMessage'](parameters);
+        httpRequest (protocol, parameters, callback) {
+            var message = protocol.message(parameters);
             var request = cc.loader.getXMLHttpRequest();
 
-            request.open('POST', (GlobalConfig.debug ? GlobalConfig.apiAddress.development : GlobalConfig.apiAddress.production) + protocol.api);
+            request.open('POST', (window.Global.Config.debug ? window.Global.Config.apiAddress.development : window.Global.Config.apiAddress.production) + protocol.api);
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             request.send(message.serializeBinary());
             request.onload = function (event) {
                 var result = goog.crypt.base64.decodeStringToUint8Array(request.responseText);
                 result = proto[protocol.description][protocol.response + 'Response'].deserializeBinary(result);
-                result = Tools.protobufToJson(result);
+                result = window.Global.Tools.protobufToJson(result);
 
                 cc.log(['HttpRequestManager.httpRequest ' + name, result]);
                 callback(event, result);

@@ -28,7 +28,7 @@ cc.Class({
                 var parentNode = cc.director.getScene().getChildByName('Canvas');
                 var node = cc.instantiate(this.gameRecordStep);
                 node.getComponent('GameRecordStepPrefab').init(this.roomId);
-                Animation.openDialog(node, parentNode, () => {
+                window.Global.Animation.openDialog(node, parentNode, () => {
                     cc.log('downloader success');
                 });
             }
@@ -59,7 +59,7 @@ cc.Class({
      */
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     _getHttpRoomEnterData() {
@@ -71,7 +71,7 @@ cc.Class({
 
             if (result.code === 1) {
                 window.Global.Dialog.close();
-                GlobalConfig.tempCache = result;
+                window.Global.Config.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1041) {

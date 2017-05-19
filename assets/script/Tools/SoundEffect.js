@@ -70,7 +70,7 @@ var SoundEffect = cc.Class({
             cc.log('window.Global.SoundEffect.playEffect: url不存在, ' + url);
             return;
         }
-        var playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
+        var playMusicConfig =window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
         if (playMusicConfig.effect) {
             var audioRaw = cc.url.raw(url);
             cc.audioEngine.play(audioRaw, false, 1);

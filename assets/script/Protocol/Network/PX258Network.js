@@ -64,12 +64,12 @@ const PX258Network = cc.Class({
                  */
                 getRoomCreateRequestMessage: function (parameters) {
                     var message = new proto.login.RoomCreateRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setGameUuid(parameters.gameUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
-                    message.setDeviceId(Tools.getDeviceId());
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
                     message.setMaxRounds(parameters.maxRounds);
                     message.setRoomConfig(parameters.roomConfig);
 
@@ -87,11 +87,11 @@ const PX258Network = cc.Class({
                  */
                 getRoomEnterRequestMessage: function (parameters) {
                     var message = new proto.login.RoomEnterRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
-                    message.setDeviceId(Tools.getDeviceId());
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
                     message.setRoomId(parameters.roomId);
 
                     cc.log([GlobalConfig.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
@@ -107,11 +107,11 @@ const PX258Network = cc.Class({
                  */
                 getRoomListRequestMessage: function () {
                     var message = new proto.login.RoomListRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
-                    message.setDeviceId(Tools.getDeviceId());
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
 
                     return message;
                 },
@@ -126,11 +126,11 @@ const PX258Network = cc.Class({
                  */
                 getRecordListRequestMessage: function () {
                     var message = new proto.login.RecordListRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
-                    message.setDeviceId(Tools.getDeviceId());
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
 
                     return message;
                 },
@@ -145,10 +145,10 @@ const PX258Network = cc.Class({
                  */
                 getRecordInfoRequestMessage: function (parameters) {
                     var message = new proto.login.RecordInfoRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
-                    message.setDeviceId(Tools.getDeviceId());
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
                     message.setRoomUuid(parameters.roomUuid);
 
                     return message;
@@ -164,7 +164,7 @@ const PX258Network = cc.Class({
                  */
                 getReplayRequestMessage: function (parameters) {
                     var message = new proto.login.ReplayRequest();
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setRoomUuid(parameters.roomUuid);
                     message.setTheRound(parameters.theRound);
 
@@ -181,7 +181,7 @@ const PX258Network = cc.Class({
                  */
                 getRoomReplayRequestMessage: function (parameters) {
                     var message = new proto.login.RoomReplayRequest();
-                    message.setAppUuid(GlobalConfig.appUuid);
+                    message.setAppUuid(window.Global.Config.appUuid);
                     message.setRoomId(parameters.roomId);
 
                     cc.log([GlobalConfig.appUuid, parameters.roomId]);
@@ -229,7 +229,7 @@ const PX258Network = cc.Class({
                  */
                 getEnterRoomRequestMessage: function (parameters) {
                     var message = new proto.game.EnterRoomRequest();
-                    var userInfo = Tools.getLocalData(GlobalConfig.LSK.userInfo);
+                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setRoomId(parameters.roomId);
                     message.setPlayerUuid(userInfo.playerUuid);

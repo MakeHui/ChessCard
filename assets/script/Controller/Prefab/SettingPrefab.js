@@ -8,7 +8,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        this.playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
+        this.playMusicConfig =window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
 
         this.musicToggle.isChecked = this.playMusicConfig.music;
         this.voiceToggle.isChecked = this.playMusicConfig.effect;
@@ -17,7 +17,7 @@ cc.Class({
     musicToggleOnClick(target) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
-        Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
+       window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
 
         if (this.playMusicConfig.music) {
             window.Global.SoundEffect.backgroundMusicPlay();
@@ -30,7 +30,7 @@ cc.Class({
     voiceToggleOnClick(target) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
-        Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
+       window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
     },
 
     /**
@@ -38,7 +38,7 @@ cc.Class({
      */
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
         cc.log('removeSelf');
     },
 
@@ -47,7 +47,7 @@ cc.Class({
      */
     logoutOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        Tools.setLocalData(GlobalConfig.LSK.secretKey, '');
+       window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '');
         cc.director.loadScene('Login');
     },
 

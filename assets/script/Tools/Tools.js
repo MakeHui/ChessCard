@@ -12,10 +12,10 @@ var Tools = cc.Class({
      * @return   {string}
      */
     getDeviceId: function () {
-        var deviceId = this.getLocalData(GlobalConfig.LSK.deviceId);
+        var deviceId = this.getLocalData(window.Global.Config.LSK.deviceId);
         if (deviceId === null) {
             deviceId = md5(+new Date() + Math.random());
-            this.setLocalData(GlobalConfig.LSK.deviceId, deviceId);
+            this.setLocalData(window.Global.Config.LSK.deviceId, deviceId);
         }
         return deviceId;
     },
