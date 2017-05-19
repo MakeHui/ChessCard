@@ -12,23 +12,23 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 
     // TODO: 微信分享
     shareOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        var hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        var hasWechat = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
         }
 
         var node = cc.director.getScene().getChildByName('Canvas');
-        window.Tools.captureScreen(node, function(fileName) {
-            window.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+        window.Global.Tools.captureScreen(node, function(fileName) {
+            window.Global.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
         });
@@ -36,10 +36,10 @@ cc.Class({
     },
 
     init: function(roomId) {
-        window.Dialog.openLoading();
+        window.Global.Dialog.openLoading();
         var self = this;
         HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
-            window.Dialog.close();
+            window.Global.Dialog.close();
             self.datetime.string = result.datetime;
             var recordInfoDataList = result.recordInfoDataList;
             if (recordInfoDataList.length !== 0) {

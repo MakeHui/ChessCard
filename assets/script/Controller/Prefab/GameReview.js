@@ -35,7 +35,7 @@ cc.Class({
     init: function(data) {
         this._Cache = data;
         this._Cache.isPause = false;
-        this._userInfo = window.Tools.getLocalData(GlobalConfig.LSK.userInfo);
+        this._userInfo = window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo);
         this._setRoomInfo(data.conf, data.round, 84);
         this.playerInfoList[data.dealer].getChildByName('img_zhuang').active = true;
 
@@ -48,7 +48,7 @@ cc.Class({
             for (var i = 0; i < data.deal[key].length; i += 1) {
                 this._appendCardToHandCardDistrict(key, data.deal[key][i]);
             }
-            window.Tools.cardsSort(this.handCardDistrict[key].children);
+            window.Global.Tools.cardsSort(this.handCardDistrict[key].children);
         }
 
         var i = 0;
@@ -57,7 +57,7 @@ cc.Class({
             var keys = Object.keys(obj);
             if (keys[0] == 'draw') {
                 this.getHandcard[obj.draw[0]]._userData = obj.draw[1];
-                var nodeSprite = window.Tools.findNode(this.getHandcard[obj.draw[0]], 'GetHandCard>value').getComponent(cc.Sprite);
+                var nodeSprite = window.Global.Tools.findNode(this.getHandcard[obj.draw[0]], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.draw[1].toString(16)}`);
                 this.getHandcard[obj.draw[0]].active = true;
                 this.roomInfo[3].string = '剩余牌数: ' + (this._Cache.restCards -= 1);
@@ -66,12 +66,12 @@ cc.Class({
                 if (this.getHandcard[obj.discard[0]].active) {
                     this.getHandcard[obj.discard[0]].active = false;
                     this._appendCardToHandCardDistrict(obj.discard[0], this.getHandcard[obj.discard[0]]._userData);
-                    window.Tools.cardsSort(this.handCardDistrict[obj.discard[0]].children);
+                    window.Global.Tools.cardsSort(this.handCardDistrict[obj.discard[0]].children);
                 }
                 this._deleteHandCardByCode(obj.discard[0], obj.discard[1]);
                 this._Cache.activeCard = this._appendCardToDiscardDistrict(obj.discard[0], obj.discard[1]);
                 this._createActiveCardFlag(obj.discard[0]);
-                window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][obj.discard[1]]);
+                window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][obj.discard[1]]);
             }
             else {
                 for (var j = 0; j < obj.length; j += 1) {
@@ -87,8 +87,8 @@ cc.Class({
     },
 
     onAction: function(playerIndex, data) {
-        if (data.prompt === window.PX258Config.promptType.Chow) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
+        if (data.prompt === window.PX258.Config.promptType.Chow) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.ref_cards.length; i += 1) {
@@ -106,8 +106,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[0];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.Pong) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
+        else if (data.prompt === window.PX258.Config.promptType.Pong) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.ref_cards.length; i += 1) {
@@ -122,8 +122,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[1];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.kongExposed) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.prompt === window.PX258.Config.promptType.kongExposed) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.ref_cards.length; i += 1) {
@@ -138,8 +138,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.KongConcealed) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
+        else if (data.prompt === window.PX258.Config.promptType.KongConcealed) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 删除需要删除的手牌
             if (this.getHandcard[playerIndex].active) {
@@ -156,8 +156,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.KongPong) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.prompt === window.PX258.Config.promptType.KongPong) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 删除需要删除的手牌
             if (this.getHandcard[playerIndex].active) {
@@ -182,15 +182,15 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.WinDraw) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
+        else if (data.prompt === window.PX258.Config.promptType.WinDraw) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.prompt === window.PX258Config.promptType.WinDiscard) {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
+        else if (data.prompt === window.PX258.Config.promptType.WinDiscard) {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
@@ -199,7 +199,7 @@ cc.Class({
     },
 
     onPauseAndResumeGameClick: function(event) {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this._Cache.isPause = !this._Cache.isPause;
         if (this._Cache.isPause) {
             event.target.getChildByName('pause').active = false;
@@ -214,9 +214,9 @@ cc.Class({
     },
 
     onCloseClick: function () {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        window.Animation.closeDialog(this.node);
+        window.Global.Animation.closeDialog(this.node);
     },
 
     /**
@@ -373,7 +373,7 @@ cc.Class({
      */
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
-        const playTypes = window.PX258Config.playTypes[info.game_uuid];
+        const playTypes = window.PX258.Config.playTypes[info.game_uuid];
         info.options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 

@@ -7,7 +7,7 @@ cc.Class({
     },
 
     init: function(data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.shaizi);
+        window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.shaizi);
         this.scheduleOnce(function () {
             for (var i = 0; i < 2; i += 1) {
                 this.diceList[i].getComponent(cc.Animation).stop();

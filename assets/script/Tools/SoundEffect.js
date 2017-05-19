@@ -67,7 +67,7 @@ var SoundEffect = cc.Class({
 
     playEffect (url) {
         if (!url) {
-            cc.log('window.SoundEffect.playEffect: url不存在, ' + url);
+            cc.log('window.Global.SoundEffect.playEffect: url不存在, ' + url);
             return;
         }
         var playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);

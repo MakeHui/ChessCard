@@ -26,8 +26,8 @@ cc.Class({
     },
 
     openGameRecordOnClick: function() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
-        window.Dialog.openLoading();
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.Dialog.openLoading();
 
         let node = cc.instantiate(self.gameRecord);
         node.getComponent('GameStep').init(this.roomId);

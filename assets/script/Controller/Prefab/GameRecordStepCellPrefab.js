@@ -10,21 +10,21 @@ cc.Class({
     },
 
     playbackOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
-        window.Dialog.openLoading();
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.Dialog.openLoading();
 
         var parameters = {roomUuid: this._Cache.roomUuid, theRound: this._Cache.theRound};
         HttpRequestManager.httpRequest('replay', parameters, (event, result) => {
-            window.Dialog.close();
+            window.Global.Dialog.close();
             if (result.code === 1) {
                 var data = JSON.parse(result.replay);
                 var node =  cc.instantiate(this.gameReviewPrefab);
                 var parentNode = cc.director.getScene().getChildByName('Canvas');
                 node.getComponent('GameReview').init(data);
-                window.Animation.openDialog(node, parentNode);
+                window.Global.Animation.openDialog(node, parentNode);
             }
             else {
-                window.Dialog.openMessageBox('请求失败');
+                window.Global.Dialog.openMessageBox('请求失败');
             }
         });
     },

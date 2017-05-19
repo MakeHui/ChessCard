@@ -15,14 +15,14 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.Global.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             cc.log('LoginScene.onLoad: 没有网络');
             return;
         }
 
         // 检查是否在审核阶段
-        var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
+        var appleReview = window.Global.Tools.getLocalData(GlobalConfig.LSK.appleReview);
         if (!appleReview) {
             this.touristLoginpanel.active = false;
         }
@@ -31,7 +31,7 @@ cc.Class({
         }
 
         // 判断本地存储中是否有秘钥
-        var secretKey = window.Tools.getLocalData(GlobalConfig.LSK.secretKey);
+        var secretKey = window.Global.Tools.getLocalData(GlobalConfig.LSK.secretKey);
         if (!secretKey) {
             cc.log('LoginScene.loginOnCLick: 本地没有secretKey');
         }
@@ -44,17 +44,17 @@ cc.Class({
      * 微信登录
      */
     loginOnCLick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.Global.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
-            window.Dialog.openMessageBox('请链接网络');
+            window.Global.Dialog.openMessageBox('请链接网络');
             return;
         }
 
         // TODO: 微信登录
         // 是否安装了微信
-        var isCheck = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        var isCheck = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!isCheck) {
 
         }
@@ -64,11 +64,11 @@ cc.Class({
      * 游客登录
      */
     touristLoginOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.Global.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
-            window.Dialog.openMessageBox('请链接网络');
+            window.Global.Dialog.openMessageBox('请链接网络');
             return;
         }
 
@@ -79,7 +79,7 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 
@@ -102,17 +102,17 @@ cc.Class({
     },
 
     httpLogin(secretKey, requestName) {
-        window.Dialog.openLoading();
+        window.Global.Dialog.openLoading();
         this.scheduleOnce(function() {
-            const parameters = { wxCode: secretKey, location: window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
+            const parameters = { wxCode: secretKey, location: window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo_location) };
             HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
-                window.Dialog.close();
+                window.Global.Dialog.close();
 
                 if (result.code === 1) {
-                    result.location = window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
+                    result.location = window.Global.Tools.getLocalData(GlobalConfig.LSK.userInfo_location);
                     result.roomConfig = JSON.parse(result.roomConfig);
-                    window.Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
-                    window.Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
+                    window.Global.Tools.setLocalData(GlobalConfig.LSK.userInfo, result);
+                    window.Global.Tools.setLocalData(GlobalConfig.LSK.secretKey, result.loginKey);
 
                     if (result.playerReconnection) {
                         GlobalConfig.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
@@ -126,16 +126,16 @@ cc.Class({
 
                 if (requestName !== 'login') {
                     if (result.code === 1011) {
-                        window.Dialog.openMessageBox('登陆失败，验证码错误');
+                        window.Global.Dialog.openMessageBox('登陆失败，验证码错误');
                     }
                     else if (result.code === 1012) {
-                        window.Dialog.openMessageBox('登陆失败，账号被封');
+                        window.Global.Dialog.openMessageBox('登陆失败，账号被封');
                     }
                     else if (result.code === 1013) {
-                        window.Dialog.openMessageBox('登陆失败，验证码过期');
+                        window.Global.Dialog.openMessageBox('登陆失败，验证码过期');
                     }
                     else if (result.code === 1031) {
-                        window.Dialog.openMessageBox('登陆失败，请稍后重试');
+                        window.Global.Dialog.openMessageBox('登陆失败，请稍后重试');
                     }
                 }
             });

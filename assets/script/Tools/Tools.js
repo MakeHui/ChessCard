@@ -360,7 +360,7 @@ var Tools = cc.Class({
 
     createWechatShareInfo(info, roomId) {
         // 游戏玩法
-        const playTypes = window.PX258Config.playTypes[info.game_uuid];
+        const playTypes = window.PX258.Config.playTypes[info.game_uuid];
         info.options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 

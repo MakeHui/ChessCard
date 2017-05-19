@@ -15,20 +15,20 @@ cc.Class({
     },
 
     musicToggleOnClick(target) {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
 
         if (this.playMusicConfig.music) {
-            window.SoundEffect.backgroundMusicPlay();
+            window.Global.SoundEffect.backgroundMusicPlay();
         }
         else {
-            window.SoundEffect.backgroundMusicStop();
+            window.Global.SoundEffect.backgroundMusicStop();
         }
     },
 
     voiceToggleOnClick(target) {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
         Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
     },
@@ -37,7 +37,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
         cc.log('removeSelf');
     },
@@ -46,7 +46,7 @@ cc.Class({
      * 登出
      */
     logoutOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Tools.setLocalData(GlobalConfig.LSK.secretKey, '');
         cc.director.loadScene('Login');
     },

@@ -12,9 +12,9 @@ cc.Class({
     },
 
     loginOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this.input.string.length !== 6) {
-            window.Dialog.openMessageBox('秘钥长度必须为6');
+            window.Global.Dialog.openMessageBox('秘钥长度必须为6');
             return;
         }
 
@@ -22,7 +22,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 });

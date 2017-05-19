@@ -9,7 +9,7 @@ cc.Class({
     },
 
     openDetailsOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         var parentNode = cc.director.getScene().getChildByName('Canvas');
         var node = cc.instantiate(this.gameRecordStep);
         node.getComponent('GameRecordStepPrefab').init(this.roomId);

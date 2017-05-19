@@ -10,14 +10,14 @@ cc.Class({
 
     onLoad () {
         // 没有安装微信, 不显示分享按钮
-        if (!window.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
-            window.Tools.findNode(this.node, 'btn_share').active = false;
+        if (!window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            window.Global.Tools.findNode(this.node, 'btn_share').active = false;
         }
     },
 
     enterGameRoomOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
-        window.Dialog.openLoading();
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.Dialog.openLoading();
 
         const parameters = { roomId: this._Cache.roomId };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
@@ -26,22 +26,22 @@ cc.Class({
                 cc.director.loadScene('GameRoom');
             }
             else {
-                window.Dialog.close();
+                window.Global.Dialog.close();
             }
         });
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        const hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        const hasWechat = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
         }
 
-        var shareInfo = window.Tools.createWechatShareInfo(JSON.parse(this._Cache.config), this._Cache.roomId);
-        window.NativeExtensionManager.execute('wechatLinkShare', [window.GlobalConfig.downloadPage, shareInfo[0], shareInfo[1]]);
+        var shareInfo = window.Global.Tools.createWechatShareInfo(JSON.parse(this._Cache.config), this._Cache.roomId);
+        window.Global.NativeExtensionManager.execute('wechatLinkShare', [window.Global.Config.downloadPage, shareInfo[0], shareInfo[1]]);
         cc.log('shareOnClick');
     },
 

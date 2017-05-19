@@ -16,7 +16,7 @@ cc.Class({
     },
 
     numberButtonOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 6) {
             this.roomNumber += data;
             this.number[this.roomNumber.length - 1].string = data;
@@ -38,7 +38,7 @@ cc.Class({
     },
 
     clearNumberOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 0) {
             for (let i = 0; i < this.number.length; i += 1) {
                 this.number[i].string = '';
@@ -48,7 +48,7 @@ cc.Class({
     },
 
     deleteNumberOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         cc.log(this.roomNumber);
         if (this.roomNumber.length !== 0) {
             this.number[this.roomNumber.length - 1].string = '';
@@ -60,25 +60,25 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 
     _getHttpRoomEnterData() {
-        window.Dialog.openLoading();
+        window.Global.Dialog.openLoading();
 
         const parameters = { roomId: this.roomNumber };
         HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
-            window.Dialog.close();
+            window.Global.Dialog.close();
 
             if (result.code === 1) {
-                window.Dialog.close();
+                window.Global.Dialog.close();
                 GlobalConfig.tempCache = result;
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1041) {
-                window.Dialog.openMessageBox('房间号不存在', function() {
-                    cc.log('window.Dialog.openMessageBox.callback');
+                window.Global.Dialog.openMessageBox('房间号不存在', function() {
+                    cc.log('window.Global.Dialog.openMessageBox.callback');
                 });
             }
         });

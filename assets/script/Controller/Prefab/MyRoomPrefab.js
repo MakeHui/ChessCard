@@ -21,16 +21,16 @@ cc.Class({
     // use this for initialization
     onLoad() {
         // 没有安装微信, 不显示分享按钮
-        if (!window.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
-            window.Tools.findNode(this.node, 'Dialog>btn_share').active = false;
+        if (!window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            window.Global.Tools.findNode(this.node, 'Dialog>btn_share').active = false;
         }
         this._getHttpIngListForSelfData();
     },
 
     shareOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
-        const hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        const hasWechat = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
@@ -38,7 +38,7 @@ cc.Class({
 
         var node = cc.director.getScene().getChildByName('Canvas');
         Tools.captureScreen(node, function(fileName) {
-            window.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+            window.Global.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
         });
@@ -49,7 +49,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
 
         Animation.closeDialog(this.node);
     },
@@ -73,11 +73,11 @@ cc.Class({
     },
 
     _getHttpIngListForSelfData() {
-        window.Dialog.openLoading();
+        window.Global.Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
-            window.Dialog.close();
+            window.Global.Dialog.close();
             if (result.code === 1 && result.roomItemList.length !== 0) {
                 self.gameIngList.removeAllChildren();
                 const roomItem = result.roomItemList;
@@ -94,7 +94,7 @@ cc.Class({
     },
 
     _getHttpEndListForSelfData() {
-        window.Dialog.openLoading();
+        window.Global.Dialog.openLoading();
 
         const self = this;
         HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
@@ -110,7 +110,7 @@ cc.Class({
             else {
                 self.gameEndList.addChild(cc.instantiate(self.noDataCell));
             }
-            window.Dialog.close();
+            window.Global.Dialog.close();
         });
     },
 });
