@@ -145,6 +145,13 @@ cc.Class({
 
         this.voiceButton.on(cc.Node.EventType.TOUCH_END, this.onVoiceEndCallback, this);
         this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
+
+        // 没有安装微信, 不显示分享按钮
+        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            for (var i = 0; i < this.inviteButtonList.length; i += 1) {
+                this.inviteButtonList[i].active = false;
+            }
+        }
     },
 
     update(dt) {

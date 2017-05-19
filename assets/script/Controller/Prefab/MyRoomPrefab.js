@@ -20,6 +20,10 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
+        // 没有安装微信, 不显示分享按钮
+        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            window.Tools.findNode(this.node, 'Dialog>btn_share').active = false;
+        }
         this._getHttpIngListForSelfData();
     },
 

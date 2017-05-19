@@ -8,6 +8,13 @@ cc.Class({
         playerPanel: [cc.Node],
     },
 
+    onLoad () {
+        // 没有安装微信, 不显示分享按钮
+        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            window.Tools.findNode(this.node, 'btn_share').active = false;
+        }
+    },
+
     enterGameRoomOnClick() {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
