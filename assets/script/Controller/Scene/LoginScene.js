@@ -49,15 +49,15 @@ cc.Class({
         var _hasNetwork = window.Global.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             window.Global.Dialog.openMessageBox('请链接网络');
-            return;
+            // return;
         }
 
         // TODO: 微信登录
         // 是否安装了微信
-        var isCheck = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
-        if (!isCheck) {
-
-        }
+        // var isCheck = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        // if (!isCheck) {
+        //
+        // }
     },
 
     /**
@@ -105,7 +105,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
         this.scheduleOnce(function() {
             const parameters = { wxCode: secretKey, location: window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location) };
-            HttpRequestManager.httpRequest(requestName, parameters, (event, result) => {
+            window.Global.NetworkManager.httpRequest(window.Global.NetworkConfig.HttpRequest[requestName], parameters, (event, result) => {
                 window.Global.Dialog.close();
 
                 if (result.code === 1) {

@@ -108,15 +108,15 @@ cc.Class({
                     return;
                 }
 
-                const commandName =window.Global.Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
+                const commandName = window.Global.Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
                 if (commandName === false) {
                     cc.log('WebSocket.message:window.Global.Tools.findKeyForValue数据解析失败');
                     return;
                 }
 
-                const result =window.Global.Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
+                const result = window.Global.Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
                 if (!result) {
-                    cc.log('WebSocket.message:window.Global.Tools.protobufToJson数据解析失败');
+                    cc.log('WebSocket.message: window.Global.Tools.protobufToJson数据解析失败');
                     return;
                 }
 
@@ -128,9 +128,9 @@ cc.Class({
             this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         }
 
-        this._userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
-       window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
@@ -155,7 +155,7 @@ cc.Class({
     },
 
     update(dt) {
-        this.roomInfo[0].string =window.Global.Tools.formatDatetime('hh:ii:ss');
+        this.roomInfo[0].string = window.Global.Tools.formatDatetime('hh:ii:ss');
 
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
             this.fastChatProgressBar.progress -= dt * window.Global.Config.fastChatWaitTime;
@@ -172,7 +172,7 @@ cc.Class({
         }, 0.005, 400);
 
         var voiceFilePath = window.Global.NativeExtensionManager.execute('stopRecord');
-        var webPath = window.Global.Config.aliyunOss.objectPath +window.Global.Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
+        var webPath = window.Global.Config.aliyunOss.objectPath + window.Global.Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
         var parameters = [GlobalConfig.aliyunOss.bucketName, webPath, voiceFilePath];
         window.Global.NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
@@ -218,7 +218,7 @@ cc.Class({
             this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
             this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
-           window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
+            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
@@ -261,7 +261,7 @@ cc.Class({
 
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
         this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore || 0;
-       window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
         if (data.playerUuid === this._Cache.ownerUuid) {
@@ -386,7 +386,7 @@ cc.Class({
                 // 评论
                 if (data.content.type === 1) {
                     window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
-                    const text =window.Global.Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
+                    const text = window.Global.Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
                     this.scheduleOnce(() => {
@@ -453,7 +453,7 @@ cc.Class({
             this._appendCardToHandCardDistrict(3, 0);
             i -= 1;
             if (i === -1) {
-               window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
                 this._Cache.waitDraw = false;
             }
         }, 0.2, data.cardsInHandList.length - 1);
@@ -480,10 +480,10 @@ cc.Class({
         this.scheduleOnce(() => {
             // 如果抓拍的人是自己才对数据进行处理
             if (playerIndex === 0) {
-                var clickEventHandler =window.Global.Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
+                var clickEventHandler = window.Global.Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
                 self.getHandcard[playerIndex].getChildByName('GetHandCard').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                 self.getHandcard[playerIndex]._userData = data.card.card;
-                var nodeSprite =window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
+                var nodeSprite = window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
                 self._Cache.allowOutCard = true;
@@ -520,7 +520,7 @@ cc.Class({
         for (let i = 0; i < data.card.length; i += 1) {
             const obj = data.card[i];
             const node = cc.instantiate(this.handCardPrefabs[0]);
-            const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
 
             this.handCardDistrict[0].addChild(node);
@@ -598,7 +598,7 @@ cc.Class({
                 this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList[j].card);
             }
             if (playerIndex == 0) {
-               window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
             }
 
             // 初始化打出去的牌
@@ -665,10 +665,10 @@ cc.Class({
         for (let i = 0; i < data.promptList.length; i += 1) {
             promptType.push(data.promptList[i].prompt);
         }
-        promptType =window.Global.Tools.unique(promptType);
+        promptType = window.Global.Tools.unique(promptType);
 
         if (promptType.length > 0) {
-            clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
+            clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
             this.actionPanel[0].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
             this.actionPanel[0].active = true;
         }
@@ -713,14 +713,14 @@ cc.Class({
                             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[k].card.toString(16)}`);
                         }
 
-                        const clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
+                        const clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
                         node.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
                         this.selectChiPanel.addChild(node);
                     }
 
                     var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
-                    const clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
+                    const clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
                     passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                     this.selectChiPanel.addChild(passButton);
 
@@ -737,14 +737,14 @@ cc.Class({
                             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.refCardList[0].card.toString(16)}`);
                         }
 
-                        var clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
+                        var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', promptList[i].actionId);
                         node.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
                         this.selectKongPanel.addChild(node);
                     }
 
                     var passButton = cc.instantiate(this.chiKongButtonPrefab[2]);
-                    var clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
+                    var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', hasOutCard);
                     passButton.getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                     this.selectKongPanel.addChild(passButton);
 
@@ -755,7 +755,7 @@ cc.Class({
                 actionId = promptList[0].actionId;
             }
 
-            clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', actionId);
+            clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'actionOnClick', actionId);
             this.actionPanel[actionPanelIndex].getComponent(cc.Button).clickEvents[0] = clickEventHandler;
             this.actionPanel[actionPanelIndex].active = true;
         }
@@ -849,7 +849,7 @@ cc.Class({
                 this._hideGetHandCard(playerIndex);
                 this._appendCardToHandCardDistrict(playerIndex, card);
                 if (playerIndex == 0) {
-                   window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                    window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
                 }
             }
             for (var i = 0; i < 4; i += 1) {
@@ -875,7 +875,7 @@ cc.Class({
                 this._hideGetHandCard(playerIndex);
                 this._appendCardToHandCardDistrict(playerIndex, card);
                 if (playerIndex == 0) {
-                   window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                    window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
                 }
             }
             this._deleteHandCardByCode(playerIndex, data.refCardList[0].card);
@@ -927,7 +927,7 @@ cc.Class({
 
         for (let i = 0; i < data.cardList.length; i += 1) {
             const node = cc.instantiate(this.dirtyCardPrefabs[0]);
-            const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data.cardList[i].card.toString(16)}`);
             this.tingCardDistrict.addChild(node);
         }
@@ -1121,7 +1121,7 @@ cc.Class({
             if (this.getHandcard[0].active) {
                 var card = this.getHandcard[0]._userData;
                 this._appendCardToHandCardDistrict(0, card);
-               window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
                 this._hideGetHandCard(0);
             }
 
@@ -1252,9 +1252,9 @@ cc.Class({
 
         if (playerIndex === 0) {
             node._userData = card;
-            var clickEventHandler =window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
+            var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'GameRoomScene', 'selectedHandCardOnClick', card);
             node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
-            var nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
         }
     },
@@ -1271,7 +1271,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         if (playerIndex == 0) {
-            var nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].card.toString(16)}`);
         }
     },
@@ -1299,7 +1299,7 @@ cc.Class({
                 node.children[i].getChildByName('hide').active = true;
             }
             else {
-                var nodeSprite =window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+                var nodeSprite = window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].card.toString(16)}`);
             }
         }
@@ -1329,7 +1329,7 @@ cc.Class({
                 node.children[i].getChildByName('hide').active = true;
             }
             else {
-                var nodeSprite =window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
+                var nodeSprite = window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
             }
         }
@@ -1370,10 +1370,10 @@ cc.Class({
             node = cc.instantiate(this.dirtyCardPrefabs[player]);
             let nodeSprite = {};
             if (player === 0 || player === 3) {
-                nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             }
             else {
-                nodeSprite =window.Global.Tools.findNode(node, 'Mask>Background>value').getComponent(cc.Sprite);
+                nodeSprite = window.Global.Tools.findNode(node, 'Mask>Background>value').getComponent(cc.Sprite);
                 // TODO: 处理特殊排列问题
                 if (player === 1) {
                     if (this.dirtyCardDistrict[player].childrenCount % 10 !== 0) {
@@ -1576,14 +1576,14 @@ cc.Class({
 
         this.playerInfoList[index].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
         this.playerInfoList[index].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
-       window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
     },
 
     /**
      * 初始化场景
      */
     _initScene() {
-        const smallAccountNode =window.Global.Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
+        const smallAccountNode = window.Global.Tools.findNode(cc.director.getScene(), 'Canvas>SmallAccount');
         if (smallAccountNode) {
             smallAccountNode.destroy();
         }

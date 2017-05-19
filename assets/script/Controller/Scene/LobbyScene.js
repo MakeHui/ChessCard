@@ -23,6 +23,7 @@ cc.Class({
         window.PX258 = {};
         window.PX258.Config = require('PX258Config');
         window.PX258.Network = require('PX258Network');
+
         this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         window.Global.Tools.setWebImage(this.avatar, this._userInfo.headimgurl);
         this.nickname.string = this._userInfo.nickname;
@@ -45,7 +46,7 @@ cc.Class({
      */
     openUserInfoPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        window.Global.Config.tempCache =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        window.Global.Config.tempCache = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         window.Global.Animation.openDialog(cc.instantiate(this.userInfoPrefab), this.node, () => {
             cc.log('load success');
         });

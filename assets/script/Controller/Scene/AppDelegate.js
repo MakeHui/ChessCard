@@ -18,6 +18,8 @@ cc.Class({
         window.Global.Dialog = this.node.getComponent('Dialog');
         window.Global.SoundEffect = this.node.getComponent('SoundEffect').init();
         window.Global.NativeExtensionManager = require('NativeExtensionManager').init();
+        window.Global.NetworkManager = require('NetworkManager');
+        window.Global.NetworkConfig = require('GlobalNetwork');
 
         // 初始化本地数据
         if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location)) {

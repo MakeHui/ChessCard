@@ -3,68 +3,15 @@ const PX258Network = cc.Class({
 
     statics: {
         HttpRequest: {
-            config: {
-                roomCreate: {
-                    api: 'room/create',
-                    description: 'login',
-                    request: 'RoomCreate',
-                    response: 'RoomCreate',
-                },
-                roomEnter: {
-                    api: 'room/enter',
-                    description: 'login',
-                    request: 'RoomEnter',
-                    response: 'RoomEnter',
-                },
-                roomList: {
-                    api: 'room/ing_list_for_self',
-                    description: 'login',
-                    request: 'RoomList',
-                    response: 'RoomList',
-                },
-                recordList: {
-                    api: 'room/end_list_for_self',
-                    description: 'login',
-                    request: 'RecordList',
-                    response: 'RecordList',
-                },
-                recordInfo: {
-                    api: 'room/record',
-                    description: 'login',
-                    request: 'RecordInfo',
-                    response: 'RecordInfo',
-                },
-                recordListSelf: {
-                    api: 'room/record_self',
-                    description: 'login',
-                    request: 'RecordList',
-                    response: 'RecordList',
-                },
-                replay: {
-                    api: 'room/replay',
-                    description: 'login',
-                    request: 'Replay',
-                    response: 'Replay',
-                },
-                roomReplay: {
-                    api: 'room/record_by_room_id',
-                    description: 'login',
-                    request: 'RoomReplay',
-                    response: 'RecordInfo',
-                },
-            },
-            message: {
-                /**
-                 * 6、创建房间
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 * @param    {Array}                 parameters
-                 */
-                getRoomCreateRequestMessage: function (parameters) {
+            // 6、创建房间
+            roomCreate: {
+                api: 'room/create',
+                description: 'login',
+                request: 'RoomCreate',
+                response: 'RoomCreate',
+                message: function (parameters) {
                     var message = new proto.login.RoomCreateRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setGameUuid(parameters.gameUuid);
@@ -75,39 +22,36 @@ const PX258Network = cc.Class({
 
                     cc.log(parameters);
                     return message;
-                },
-
-                /**
-                 * 7、进入房间
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 * @param    {Array}                 parameters
-                 */
-                getRoomEnterRequestMessage: function (parameters) {
+                }
+            },
+            // 7、进入房间
+            roomEnter: {
+                api: 'room/enter',
+                description: 'login',
+                request: 'RoomEnter',
+                response: 'RoomEnter',
+                message: function (parameters) {
                     var message = new proto.login.RoomEnterRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
                     message.setRoomId(parameters.roomId);
 
-                    cc.log([GlobalConfig.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
+                    cc.log([window.Global.Config.appUuid, userInfo.playerUuid, userInfo.deviceId, parameters.roomId]);
                     return message;
                 },
-
-                /**
-                 * 8、获取玩家进行中房间列表
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 */
-                getRoomListRequestMessage: function () {
+            },
+            // 8、获取玩家进行中房间列表
+            roomList: {
+                api: 'room/ing_list_for_self',
+                description: 'login',
+                request: 'RoomList',
+                response: 'RoomList',
+                message: function () {
                     var message = new proto.login.RoomListRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
@@ -115,18 +59,16 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
-
-                /**
-                 * 9、获取玩家已结束房间列表
-                 * 11、获取玩家战绩
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 */
-                getRecordListRequestMessage: function () {
+            },
+            //  9、获取玩家已结束房间列表
+            recordList: {
+                api: 'room/end_list_for_self',
+                description: 'login',
+                request: 'RecordList',
+                response: 'RecordList',
+                message: function () {
                     var message = new proto.login.RecordListRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
@@ -134,18 +76,16 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
-
-                /**
-                 * 10、获取玩家战绩详情
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 * @param    {Array}                 parameters
-                 */
-                getRecordInfoRequestMessage: function (parameters) {
+            },
+            // 10、获取玩家战绩详情
+            recordInfo: {
+                api: 'room/record',
+                description: 'login',
+                request: 'RecordInfo',
+                response: 'RecordInfo',
+                message: function (parameters) {
                     var message = new proto.login.RecordInfoRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
@@ -153,16 +93,31 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
+            },
+            // 11、获取玩家战绩
+            recordListSelf: {
+                api: 'room/record_self',
+                description: 'login',
+                request: 'RecordList',
+                response: 'RecordList',
+                message: function () {
+                    var message = new proto.login.RecordListRequest();
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
-                /**
-                 * 12、获取回放数据
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 * @param    {Array}                 parameters
-                 */
-                getReplayRequestMessage: function (parameters) {
+                    message.setAppUuid(window.Global.Config.appUuid);
+                    message.setPlayerUuid(userInfo.playerUuid);
+                    message.setDeviceId(window.Global.Tools.getDeviceId());
+
+                    return message;
+                },
+            },
+            // 12、获取回放数据
+            replay: {
+                api: 'room/replay',
+                description: 'login',
+                request: 'Replay',
+                response: 'Replay',
+                message: function (parameters) {
                     var message = new proto.login.ReplayRequest();
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setRoomUuid(parameters.roomUuid);
@@ -170,24 +125,22 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
-
-                /**
-                 * 13、根据6位房间id获取数据
-                 *
-                 * @author Make.<makehuir@gmail.com>
-                 * @datetime 2017-03-01T11:10:07+0800
-                 *
-                 * @param    {Array}                 parameters
-                 */
-                getRoomReplayRequestMessage: function (parameters) {
+            },
+            // 13、根据6位房间id获取数据
+            roomReplay: {
+                api: 'room/record_by_room_id',
+                description: 'login',
+                request: 'RoomReplay',
+                response: 'RecordInfo',
+                message: function (parameters) {
                     var message = new proto.login.RoomReplayRequest();
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setRoomId(parameters.roomId);
 
-                    cc.log([GlobalConfig.appUuid, parameters.roomId]);
+                    cc.log([window.Global.Config.appUuid, parameters.roomId]);
                     return message;
                 }
-            }
+            },
         },
         WebSocket: {
             config: {
@@ -229,7 +182,7 @@ const PX258Network = cc.Class({
                  */
                 getEnterRoomRequestMessage: function (parameters) {
                     var message = new proto.game.EnterRoomRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setRoomId(parameters.roomId);
                     message.setPlayerUuid(userInfo.playerUuid);
