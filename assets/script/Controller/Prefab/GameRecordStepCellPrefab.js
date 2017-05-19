@@ -10,7 +10,7 @@ cc.Class({
     },
 
     playbackOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         var parameters = {roomUuid: this._Cache.roomUuid, theRound: this._Cache.theRound};

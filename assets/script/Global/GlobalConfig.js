@@ -82,6 +82,16 @@ const GlobalConfig = cc.Class({
             development: 'http://login.qingwuguo.com/',
             production: 'http://login.qingwuguo.com/'
         },
+
+        audioUrl: {
+            background: {
+                game: 'resources/audio/background/bgm1.mp3',
+                menu: 'resources/audio/background/bg_menu.mp3'
+            },
+            effect: {
+                buttonClick: 'resources/audio/effect/sound_button_click.mp3',
+            },
+        }
     }
 });
 

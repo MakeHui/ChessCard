@@ -24,12 +24,12 @@ cc.Class({
     },
 
     payOnClick: function() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
     },
 
     closeOnClick: function() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     }
 });

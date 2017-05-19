@@ -199,7 +199,7 @@ cc.Class({
     },
 
     onPauseAndResumeGameClick: function(event) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         this._Cache.isPause = !this._Cache.isPause;
         if (this._Cache.isPause) {
             event.target.getChildByName('pause').active = false;
@@ -214,7 +214,7 @@ cc.Class({
     },
 
     onCloseClick: function () {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         window.Animation.closeDialog(this.node);
     },

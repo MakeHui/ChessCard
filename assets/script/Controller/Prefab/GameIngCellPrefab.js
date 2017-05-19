@@ -16,7 +16,7 @@ cc.Class({
     },
 
     enterGameRoomOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         const parameters = { roomId: this._Cache.roomId };
@@ -32,7 +32,7 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {

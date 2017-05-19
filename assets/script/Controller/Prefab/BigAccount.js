@@ -74,12 +74,12 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         this.node.destroy();
         cc.director.loadScene('Lobby');
     },

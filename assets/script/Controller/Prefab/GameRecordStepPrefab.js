@@ -12,13 +12,13 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 
     // TODO: 微信分享
     shareOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         var hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {

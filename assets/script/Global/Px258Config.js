@@ -7,12 +7,7 @@ const PX258Config = cc.Class({
          * @type {Object}
          */
         audioUrl: {
-            background: {
-                game: 'resources/audio/background/bgm1.mp3',
-                menu: 'resources/audio/background/bg_menu.mp3'
-            },
             effect: {
-                buttonClick: 'resources/audio/effect/sound_button_click.mp3',
                 cardOut: 'resources/audio/effect/sound_card_out.mp3',
                 dealCard: 'resources/audio/effect/sound_deal_card.mp3',
                 ready: 'resources/audio/effect/sound_ready.mp3',

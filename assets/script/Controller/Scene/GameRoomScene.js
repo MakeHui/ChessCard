@@ -134,7 +134,7 @@ cc.Class({
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
-            window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+            window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
             if (this.voiceProgressBar.progress > 0) {
                 return;
             }
@@ -985,7 +985,7 @@ cc.Class({
      * 微信邀请
      */
     wechatInviteOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
@@ -999,7 +999,7 @@ cc.Class({
     },
 
     openFastChatPanelOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         if (this.fastChatProgressBar.progress <= 0) {
             var animationName = (this.fastChatPanel.getPositionX() > 114) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
             this.fastChatPanel.getComponent(cc.Animation).play(animationName);
@@ -1007,7 +1007,7 @@ cc.Class({
     },
 
     openMenuOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
         this.menuPanel.getComponent(cc.Animation).play(animationName);
@@ -1036,7 +1036,7 @@ cc.Class({
     },
 
     switchFastChatPanelOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
@@ -1048,7 +1048,7 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -1058,7 +1058,7 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -1068,7 +1068,7 @@ cc.Class({
     },
 
     actionOnClick(event, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
         this.countDownAnimation.play();
         this._hideActionPrompt();
@@ -1139,7 +1139,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         // 检查是否关闭菜单面板
         if (this.menuPanel.getPositionY() <= 222) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
@@ -1153,7 +1153,7 @@ cc.Class({
      * 解散房间
      */
     dismissOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         // 检查是否关闭菜单面板
         if (this.menuPanel.getPositionY() <= 222) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
@@ -1162,7 +1162,7 @@ cc.Class({
     },
 
     voteOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
@@ -1176,7 +1176,7 @@ cc.Class({
      * 选择需要杠的牌
      */
     selectChiKongActionOnClick(evt, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         this._hideSelectChiKongPanel();
 
         data = JSON.parse(data);
@@ -1184,7 +1184,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._Cache.roomId });
         }

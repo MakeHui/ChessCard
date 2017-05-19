@@ -14,7 +14,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick: function(event, data) {
-        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     }
 });
