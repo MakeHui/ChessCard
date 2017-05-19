@@ -4,7 +4,10 @@ var Dialog = cc.Class({
     properties: {
         loadingPrefab: cc.Prefab,
         messagePrefab: cc.Prefab,
-        popuNode: cc.Node,
+        popuNode: {
+            visible: false,
+            default: null
+        },
     },
 
     openLoading: function() {

@@ -1,15 +1,8 @@
-var Dialog = require('Dialog');
-var Animation = require('Animation');
-var Tools = require('Tools');
-
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        loading: cc.Prefab,
-        dialog: cc.Prefab,
         exitTime: 0,
-
         appUpdatePrefab: cc.Prefab, // app update
     },
 
@@ -17,23 +10,22 @@ cc.Class({
     onLoad() {
         cc.game.addPersistRootNode(this.node);
 
-        window.Animation = new Animation();
-        window.Tools = new Tools();
+        // 初始化全局类
+        window.Animation = this.node.getComponent('Animation');
+        window.Tools = this.node.getComponent('Tools');
+        window.Dialog = this.node.getComponent('Dialog');
+        window.SoundEffect = this.node.getComponent('SoundEffect');
 
-        window.Dialog = new Dialog();
-        window.Dialog.loadingPrefab = this.loading;
-        window.Dialog.messagePrefab = this.dialog;
-
+        // 初始化本地数据
         if (!window.Tools.getLocalData(GlobalConfig.LSK.userInfo_location)) {
             window.Tools.setLocalData(GlobalConfig.LSK.userInfo_location, '该用户未公开地理位置');
         }
-
-        window.Tools.setLocalData(GlobalConfig.LSK.appleReview, true);
-
         if (!window.Tools.getLocalData(GlobalConfig.LSK.playMusicConfig)) {
             window.Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, { music: true, effect: true });
         }
-        window.SoundEffect = this.node.getComponent('SoundEffect');
+        window.Tools.setLocalData(GlobalConfig.LSK.appleReview, true);
+
+        // 初始化背景音效
         window.SoundEffect.backgroundMusic();
 
         this.schedule(this.hbt.bind(this), GlobalConfig.hbtTime);
@@ -98,7 +90,7 @@ cc.Class({
         }
     },
 
-    hbt: function() {
+    hbt () {
         if (!window.Tools.getLocalData(GlobalConfig.LSK.secretKey) ||
             !window.Tools.getLocalData(GlobalConfig.LSK.userInfo)) {
             return;
@@ -134,7 +126,7 @@ cc.Class({
                 node.init(result, function() {
                     callback();
                 });
-                Animation.openDialog(node, this.node);
+                window.Animation.openDialog(node, this.node);
             }
             else {
                 callback();
