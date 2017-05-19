@@ -20,7 +20,7 @@ cc.Class({
     shareOnClick() {
         window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
-        var hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        var hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
@@ -28,7 +28,7 @@ cc.Class({
 
         var node = cc.director.getScene().getChildByName('Canvas');
         window.Tools.captureScreen(node, function(fileName) {
-            NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+            window.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
         });

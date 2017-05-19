@@ -21,7 +21,7 @@ cc.Class({
     // use this for initialization
     onLoad() {
         // 没有安装微信, 不显示分享按钮
-        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+        if (!window.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
             window.Tools.findNode(this.node, 'Dialog>btn_share').active = false;
         }
         this._getHttpIngListForSelfData();
@@ -30,7 +30,7 @@ cc.Class({
     shareOnClick() {
         window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
-        const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        const hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
@@ -38,7 +38,7 @@ cc.Class({
 
         var node = cc.director.getScene().getChildByName('Canvas');
         Tools.captureScreen(node, function(fileName) {
-            NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+            window.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
         });

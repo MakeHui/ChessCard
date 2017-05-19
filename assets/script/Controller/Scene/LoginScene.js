@@ -15,7 +15,7 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             cc.log('LoginScene.onLoad: 没有网络');
             return;
@@ -46,7 +46,7 @@ cc.Class({
     loginOnCLick() {
         window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
-        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             window.Dialog.openMessageBox('请链接网络');
             return;
@@ -54,7 +54,7 @@ cc.Class({
 
         // TODO: 微信登录
         // 是否安装了微信
-        var isCheck = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        var isCheck = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!isCheck) {
 
         }
@@ -66,7 +66,7 @@ cc.Class({
     touristLoginOnClick() {
         window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
-        var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
+        var _hasNetwork = window.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             window.Dialog.openMessageBox('请链接网络');
             return;

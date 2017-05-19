@@ -139,7 +139,7 @@ cc.Class({
                 return;
             }
             this.voiceProgressBar.progress = 1.0;
-            NativeExtensionManager.execute('startRecord');
+            window.NativeExtensionManager.execute('startRecord');
             cc.log('cc.Node.EventType.TOUCH_START');
         }, this);
 
@@ -147,7 +147,7 @@ cc.Class({
         this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
 
         // 没有安装微信, 不显示分享按钮
-        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+        if (!window.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
             for (var i = 0; i < this.inviteButtonList.length; i += 1) {
                 this.inviteButtonList[i].active = false;
             }
@@ -171,10 +171,10 @@ cc.Class({
             this.voiceProgressBar.progress -= 0.0025;
         }, 0.005, 400);
 
-        var voiceFilePath = NativeExtensionManager.execute('stopRecord');
+        var voiceFilePath = window.NativeExtensionManager.execute('stopRecord');
         var webPath = GlobalConfig.aliyunOss.objectPath + Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
         var parameters = [GlobalConfig.aliyunOss.bucketName, webPath, voiceFilePath];
-        NativeExtensionManager.execute('ossUpload', parameters, function(result) {
+        window.NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
                 const content = JSON.stringify({ type: 3, data: GlobalConfig.aliyunOss.domain + webPath });
                 WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
@@ -366,14 +366,14 @@ cc.Class({
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
             if (cc.sys.os === cc.sys.OS_IOS) {
                 var filePath = data.content.data.replace(GlobalConfig.aliyunOss.domain, '');
-                NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
+                window.NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
                     if (result.result == 0) {
-                        NativeExtensionManager.execute('playerAudio', [result.data]);
+                        window.NativeExtensionManager.execute('playerAudio', [result.data]);
                     }
                 });
             }
             else if (cc.sys.os === cc.sys.OS_ANDROID) {
-                NativeExtensionManager.execute('playerAudio', [data.content.data]);
+                window.NativeExtensionManager.execute('playerAudio', [data.content.data]);
             }
             return;
         }
@@ -987,14 +987,14 @@ cc.Class({
     wechatInviteOnClick() {
         window.SoundEffect.playEffect(window.GlobalConfig.audioUrl.effect.buttonClick);
 
-        const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        const hasWechat = window.NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
             cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
             return;
         }
 
         var shareInfo = window.Tools.createWechatShareInfo(this._Cache.config, this._Cache.roomId);
-        NativeExtensionManager.execute('wechatLinkShare', [window.GlobalConfig.downloadPage, shareInfo[0], shareInfo[1]]);
+        window.NativeExtensionManager.execute('wechatLinkShare', [window.GlobalConfig.downloadPage, shareInfo[0], shareInfo[1]]);
         cc.log('shareOnClick');
     },
 
@@ -1547,7 +1547,7 @@ cc.Class({
     },
 
     _showInviteButton(playerIndex) {
-        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+        if (!window.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
             return;
         }
         this.inviteButtonList[playerIndex].active = true;

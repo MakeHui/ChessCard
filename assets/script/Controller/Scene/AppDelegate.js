@@ -16,6 +16,7 @@ cc.Class({
         window.Tools = this.node.getComponent('Tools');
         window.Dialog = this.node.getComponent('Dialog');
         window.SoundEffect = this.node.getComponent('SoundEffect');
+        window.NativeExtensionManager = require('NativeExtensionManager').init();
 
         // 初始化本地数据
         if (!window.Tools.getLocalData(window.GlobalConfig.LSK.userInfo_location)) {
@@ -63,17 +64,17 @@ cc.Class({
                 });
 
                 if (!window.Tools.getLocalData(window.GlobalConfig.LSK.appleReview)) {
-                    NativeExtensionManager.execute('startLocation', [], (result) => {
+                    window.NativeExtensionManager.execute('startLocation', [], (result) => {
                         window.Tools.setLocalData(window.GlobalConfig.LSK.userInfo_location, result.result == 0 ? result.data : '该用户未公开地理位置');
                     });
                 }
             });
 
             // TODO: 删除本地音频文件
-            // NativeExtensionManager.execute('deleteAudioCache');
+            // window.NativeExtensionManager.execute('deleteAudioCache');
 
             // native test
-            NativeExtensionManager.execute('test', [], (result) => {
+            window.NativeExtensionManager.execute('test', [], (result) => {
                 cc.log(result);
             });
 
