@@ -13,19 +13,21 @@ var SoundEffect = cc.Class({
         // },
         // ...
 
+        backgroundMusicUrl: '',
+
         backgroundMusicAudioId: {
             default: null,
             visible: false,
         },
     },
 
-    backgroundMusicInit: function(audioUrl, isLoop, volume) {
+    backgroundMusicInit (audioUrl, isLoop, volume) {
         this.audioRaw = audioUrl ? cc.url.raw(audioUrl) : null;
         this.isLoop = isLoop || false;
         this.volume = volume || 1;
     },
 
-    backgroundMusicPlay: function() {
+    backgroundMusicPlay () {
         if (this.backgroundMusicAudioId === null) {
             this.backgroundMusicAudioId = cc.audioEngine.play(this.audioRaw, this.isLoop, this.volume);
         } else if (this.backgroundMusicState() !== 1) {
@@ -33,20 +35,20 @@ var SoundEffect = cc.Class({
         }
     },
 
-    backgroundMusicStop: function() {
+    backgroundMusicStop () {
         cc.audioEngine.pause(this.backgroundMusicAudioId);
     },
 
-    backgroundMusicClear: function() {
+    backgroundMusicClear () {
         cc.audioEngine.pause(this.backgroundMusicAudioId);
         this.backgroundMusicAudioId = null;
     },
 
-    backgroundMusicState: function() {
+    backgroundMusicState () {
         return cc.audioEngine.getState(this.backgroundMusicAudioId);
     },
 
-    backgroundMusicSetAudioRaw: function setAudioRaw(audio) {
+    backgroundMusicSetAudioRaw (audio) {
         if (typeof audio === 'string') {
             this.audioRaw = cc.url.raw(audio);
         } else {
@@ -56,20 +58,13 @@ var SoundEffect = cc.Class({
         return this;
     },
 
-    backgroundMusic: function() {
+    backgroundMusic () {
         if (!this.backgroundMusicAudioId) {
-            this.backgroundMusicInit(GlobalConfig.audioUrl.background.game, true);
-        }
-        const playMusicConfig = Tools.getLocalData(GlobalConfig.LSK.playMusicConfig);
-        if (playMusicConfig.music) {
-            this.backgroundMusicPlay();
-        }
-        else {
-            this.backgroundMusicStop();
+            this.backgroundMusicInit(this.backgroundMusicUrl, true);
         }
     },
 
-    playEffect: function (url) {
+    playEffect (url) {
         if (!url) {
             cc.log('window.SoundEffect.playEffect: url不存在, ' + url);
             return;

@@ -18,14 +18,19 @@ cc.Class({
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
         Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
-        window.SoundEffect.backgroundMusic();
+
+        if (this.playMusicConfig.music) {
+            window.SoundEffect.backgroundMusicPlay();
+        }
+        else {
+            window.SoundEffect.backgroundMusicStop();
+        }
     },
 
     voiceToggleOnClick(target) {
         window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
         Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, this.playMusicConfig);
-        window.SoundEffect.backgroundMusic();
     },
 
     /**
