@@ -98,9 +98,9 @@ cc.Class({
                 cardPanel.addChild(node);
             }
 
-            if (playerData.winType !== 0) {
+            if (playerData.winType !== window.PX258Config.winType.None) {
                 Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
-                playerNode.getChildByName('WinType').getComponent(cc.Label).string = GlobalConfig.winFlag[playerData.winFlag] || '';
+                playerNode.getChildByName('WinType').getComponent(cc.Label).string = window.PX258Config.winFlag[playerData.winFlag] || '';
 
                 // 胡牌
                 if ([1, 2].indexOf(playerData.winType) !== -1) {
@@ -116,13 +116,13 @@ cc.Class({
             }
 
             if (userInfo.playerUuid === playerData.playerUuid) {
-                if (playerData.winType === -1) {
+                if (playerData.winType === window.PX258Config.winType.Pao) {
                     this.winPanel[0].active = true;
                 }
-                else if (playerData.winType === 0) {
+                else if (playerData.winType === window.PX258Config.winType.None) {
                     this.winPanel[2].active = true;
                 }
-                else if ([1, 2].indexOf(playerData.winType) !== -1) {
+                else if ([window.PX258Config.winType.Discard, window.PX258Config.winType.Draw].indexOf(playerData.winType) !== -1) {
                     this.winPanel[1].active = true;
                 }
             }
@@ -130,12 +130,12 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         // todo: 微信分享
     },
 
     gameAgenOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         const node = cc.director.getScene().getChildByName('Canvas');
         node.getComponent('GameRoomScene').readyGameCallback();
         Animation.closeDialog(this.node);

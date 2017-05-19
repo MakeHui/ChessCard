@@ -16,7 +16,7 @@ cc.Class({
     },
 
     enterGameRoomOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         const parameters = { roomId: this._Cache.roomId };
@@ -32,7 +32,7 @@ cc.Class({
     },
 
     wechatShareOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
@@ -41,7 +41,7 @@ cc.Class({
         }
 
         var shareInfo = window.Tools.createWechatShareInfo(JSON.parse(this._Cache.config), this._Cache.roomId);
-        NativeExtensionManager.execute('wechatLinkShare', [GlobalConfig.px258.downloadPage, shareInfo[0], shareInfo[1]]);
+        NativeExtensionManager.execute('wechatLinkShare', [window.GlobalConfig.downloadPage, shareInfo[0], shareInfo[1]]);
         cc.log('shareOnClick');
     },
 

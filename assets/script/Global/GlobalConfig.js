@@ -52,6 +52,8 @@ const GlobalConfig = cc.Class({
 
         wsHbtTime: 10,
 
+        downloadPage: 'http://dashboard.px258.qingwuguo.com/player/download',
+
         aliyunOss: {
             bucketName: 'pxqp',
             objectPath: 'px258/client/audio/',

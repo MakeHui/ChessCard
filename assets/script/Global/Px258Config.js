@@ -1,11 +1,7 @@
-const Px258Config = cc.Class({
+const PX258Config = cc.Class({
     extends: cc.Component,
 
     statics: {
-        px258: {
-            downloadPage: 'http://dashboard.px258.qingwuguo.com/player/download',
-        },
-
         /**
          * 音频本地地址
          * @type {Object}
@@ -219,4 +215,4 @@ const Px258Config = cc.Class({
     }
 });
 
-module.exports = Px258Config;
+module.exports = PX258Config;

@@ -16,7 +16,7 @@ cc.Class({
     },
 
     numberButtonOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 6) {
             this.roomNumber += data;
             this.number[this.roomNumber.length - 1].string = data;
@@ -38,7 +38,7 @@ cc.Class({
     },
 
     clearNumberOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         if (this.roomNumber.length !== 0) {
             for (let i = 0; i < this.number.length; i += 1) {
                 this.number[i].string = '';
@@ -48,7 +48,7 @@ cc.Class({
     },
 
     deleteNumberOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         cc.log(this.roomNumber);
         if (this.roomNumber.length !== 0) {
             this.number[this.roomNumber.length - 1].string = '';
@@ -60,7 +60,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 

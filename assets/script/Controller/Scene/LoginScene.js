@@ -44,7 +44,7 @@ cc.Class({
      * 微信登录
      */
     loginOnCLick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
@@ -64,7 +64,7 @@ cc.Class({
      * 游客登录
      */
     touristLoginOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         var _hasNetwork = NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
@@ -79,7 +79,7 @@ cc.Class({
      * 用户协议
      */
     userAgreementOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         Animation.openDialog(cc.instantiate(this.userAgreement), this.node);
     },
 

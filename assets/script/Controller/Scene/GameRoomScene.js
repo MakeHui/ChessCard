@@ -134,7 +134,7 @@ cc.Class({
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
             if (this.voiceProgressBar.progress > 0) {
                 return;
             }
@@ -385,7 +385,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    window.SoundEffect.playEffect(GlobalConfig.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    window.SoundEffect.playEffect(window.PX258Config.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
@@ -446,7 +446,7 @@ cc.Class({
         // 初始化手牌
         var i = data.cardsInHandList.length - 1;
         this.schedule(() => {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.dealCard);
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.dealCard);
             this._appendCardToHandCardDistrict(0, data.cardsInHandList[i].card);
             this._appendCardToHandCardDistrict(1, 0);
             this._appendCardToHandCardDistrict(2, 0);
@@ -462,7 +462,7 @@ cc.Class({
     },
 
     onDrawMessage(data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.dealCard);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.dealCard);
         this.countDownAnimation.play();
 
         // 抓拍后剩余牌数减一
@@ -506,7 +506,7 @@ cc.Class({
         // 是否有操作提示
         this.onPromptMessage({promptList: data.promptList});
 
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
 
     // todo: 需要完善
@@ -675,16 +675,16 @@ cc.Class({
 
         for (let i = 0; i < promptType.length; i += 1) {
             let actionPanelIndex = 0;
-            if (promptType[i] === GlobalConfig.promptType.Chow) {
+            if (promptType[i] === window.PX258Config.promptType.Chow) {
                 actionPanelIndex = 1;
             }
-            else if (promptType[i] === GlobalConfig.promptType.Pong) {
+            else if (promptType[i] === window.PX258Config.promptType.Pong) {
                 actionPanelIndex = 2;
             }
-            else if ([GlobalConfig.promptType.KongConcealed, GlobalConfig.promptType.kongExposed, GlobalConfig.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+            else if ([window.PX258Config.promptType.KongConcealed, window.PX258Config.promptType.kongExposed, window.PX258Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
                 actionPanelIndex = 3;
             }
-            else if (promptType[i] === GlobalConfig.promptType.WinDiscard || promptType[i] === GlobalConfig.promptType.WinDraw) {
+            else if (promptType[i] === window.PX258Config.promptType.WinDiscard || promptType[i] === window.PX258Config.promptType.WinDraw) {
                 actionPanelIndex = 4;
             }
 
@@ -698,7 +698,7 @@ cc.Class({
 
             var actionId;
             if (promptList.length > 1) {
-                if (promptType[i] === GlobalConfig.promptType.Chow) {
+                if (promptType[i] === window.PX258Config.promptType.Chow) {
                     for (var j = 0; j < promptList.length; j += 1) {
                         var obj = promptList[j];
                         obj.refCardList.push(obj.opCard);
@@ -726,7 +726,7 @@ cc.Class({
 
                     actionId = 'openSelectChi';
                 }
-                else if ([GlobalConfig.promptType.KongConcealed, GlobalConfig.promptType.kongExposed, GlobalConfig.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+                else if ([window.PX258Config.promptType.KongConcealed, window.PX258Config.promptType.kongExposed, window.PX258Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
                     for (var j = 0; j < promptList.length; j += 1) {
                         var obj = promptList[j];
 
@@ -769,8 +769,8 @@ cc.Class({
         const playerIndex = this._getPlayerIndexBySeat(playerSeat);
         var triggerIndex = this._getPlayerIndexBySeat(data.triggerSeat);
 
-        if (data.activeType === GlobalConfig.promptType.Chow) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
+        if (data.activeType === window.PX258Config.promptType.Chow) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].chow);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -793,8 +793,8 @@ cc.Class({
                 this._Cache.allowOutCard = true;
             }
         }
-        else if (data.activeType === GlobalConfig.promptType.Pong) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
+        else if (data.activeType === window.PX258Config.promptType.Pong) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
 
             // 删除需要删除的手牌
             for (let i = 0; i < data.refCardList.length; i += 1) {
@@ -814,8 +814,8 @@ cc.Class({
                 this._Cache.allowOutCard = true;
             }
         }
-        else if (data.activeType === GlobalConfig.promptType.kongExposed) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.activeType === window.PX258Config.promptType.kongExposed) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 杠完后不能出牌
             if (data.playerUuid === this._userInfo.playerUuid) {
@@ -835,8 +835,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === GlobalConfig.promptType.KongConcealed) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
+        else if (data.activeType === window.PX258Config.promptType.KongConcealed) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 杠完后不能出牌
             if (data.playerUuid === this._userInfo.playerUuid) {
@@ -861,8 +861,8 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === GlobalConfig.promptType.KongPong) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
+        else if (data.activeType === window.PX258Config.promptType.KongPong) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 杠完后不能出牌
             if (data.playerUuid === this._userInfo.playerUuid) {
@@ -895,15 +895,15 @@ cc.Class({
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === GlobalConfig.promptType.WinDraw) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
+        else if (data.activeType === window.PX258Config.promptType.WinDraw) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
         }
-        else if (data.activeType === GlobalConfig.promptType.WinDiscard) {
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
+        else if (data.activeType === window.PX258Config.promptType.WinDiscard) {
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
@@ -985,7 +985,7 @@ cc.Class({
      * 微信邀请
      */
     wechatInviteOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         const hasWechat = NativeExtensionManager.execute('wechatIsWxAppInstalled');
         if (!hasWechat) {
@@ -994,12 +994,12 @@ cc.Class({
         }
 
         var shareInfo = window.Tools.createWechatShareInfo(this._Cache.config, this._Cache.roomId);
-        NativeExtensionManager.execute('wechatLinkShare', [GlobalConfig.px258.downloadPage, shareInfo[0], shareInfo[1]]);
+        NativeExtensionManager.execute('wechatLinkShare', [window.GlobalConfig.downloadPage, shareInfo[0], shareInfo[1]]);
         cc.log('shareOnClick');
     },
 
     openFastChatPanelOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         if (this.fastChatProgressBar.progress <= 0) {
             var animationName = (this.fastChatPanel.getPositionX() > 114) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
             this.fastChatPanel.getComponent(cc.Animation).play(animationName);
@@ -1007,7 +1007,7 @@ cc.Class({
     },
 
     openMenuOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
         this.menuPanel.getComponent(cc.Animation).play(animationName);
@@ -1036,7 +1036,7 @@ cc.Class({
     },
 
     switchFastChatPanelOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
@@ -1048,7 +1048,7 @@ cc.Class({
     },
 
     wordChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -1058,7 +1058,7 @@ cc.Class({
     },
 
     emojiChatOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
 
@@ -1068,7 +1068,7 @@ cc.Class({
     },
 
     actionOnClick(event, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
 
         this.countDownAnimation.play();
         this._hideActionPrompt();
@@ -1127,7 +1127,7 @@ cc.Class({
 
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Discard', { card: data });
 
-            window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.cardOut);
+            window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.cardOut);
         }
         else {
             this._resetHandCardPosition();
@@ -1139,7 +1139,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         // 检查是否关闭菜单面板
         if (this.menuPanel.getPositionY() <= 222) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
@@ -1153,7 +1153,7 @@ cc.Class({
      * 解散房间
      */
     dismissOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         // 检查是否关闭菜单面板
         if (this.menuPanel.getPositionY() <= 222) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
@@ -1162,7 +1162,7 @@ cc.Class({
     },
 
     voteOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
@@ -1176,7 +1176,7 @@ cc.Class({
      * 选择需要杠的牌
      */
     selectChiKongActionOnClick(evt, data) {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         this._hideSelectChiKongPanel();
 
         data = JSON.parse(data);
@@ -1184,7 +1184,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 4) {
             WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._Cache.roomId });
         }
@@ -1467,7 +1467,7 @@ cc.Class({
      */
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
-        const playTypes = GlobalConfig.playTypes[info.game_uuid];
+        const playTypes = window.PX258Config.playTypes[info.game_uuid];
         info.options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 

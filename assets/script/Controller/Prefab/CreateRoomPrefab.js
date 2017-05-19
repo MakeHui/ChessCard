@@ -23,7 +23,7 @@ cc.Class({
     selectedOnClick(toggle, data) {
         cc.log(arguments);
 
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         data = data.split('-');
         if (data[0] == 0) {
             this.maxRounds = parseInt(data[1], 10);
@@ -37,7 +37,7 @@ cc.Class({
     },
 
     createRoomOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         window.Dialog.openLoading();
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
@@ -58,7 +58,7 @@ cc.Class({
     },
 
     closeOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 });

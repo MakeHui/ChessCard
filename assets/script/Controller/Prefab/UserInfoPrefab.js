@@ -23,7 +23,7 @@ cc.Class({
      * 关闭本窗口
      */
     closeOnClick() {
-        window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
+        window.SoundEffect.playEffect(window.PX258Config.audioUrl.effect.buttonClick);
         Animation.closeDialog(this.node);
     },
 });
