@@ -287,7 +287,7 @@ cc.Class({
         }
 
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this._showInviteButton([playerIndex]);
+        this._showInviteButton(playerIndex);
         this._hidePlayerInfoList([playerIndex]);
 
         // 从玩家列表中删除该用户
@@ -564,7 +564,9 @@ cc.Class({
         this._initScene();
 
         if (data.playerList.length === 4) {
-            this._hideInviteButton();
+            for (var i = 0; i < 4; i += 1) {
+                this._hideInviteButton(i);
+            }
             this.playerInfoList[2].setPositionX(-134);  // 移动三号位的玩家头像到右边, 避免被挡住
         }
 
@@ -575,7 +577,7 @@ cc.Class({
         this._setThisPlayerSeat(data.playerList);
 
         // 初始化玩家信息
-        for (let i = 0; i < data.playerList.length; i += 1) {
+        for (var i = 0; i < data.playerList.length; i += 1) {
             const obj = data.playerList[i];
             obj.info = JSON.parse(obj.info);
             const playerIndex = this._getPlayerIndexBySeat(obj.seat);
@@ -1540,18 +1542,15 @@ cc.Class({
     /**
      * 邀请按钮
      */
-    _hideInviteButton(indexs) {
-        indexs = indexs || [0, 1, 2, 3];
-        for (let i = 0; i < indexs.length; i += 1) {
-            this.inviteButtonList[indexs[i]].active = false;
-        }
+    _hideInviteButton(playerIndex) {
+        this.inviteButtonList[playerIndex].active = false;
     },
 
-    _showInviteButton(indexs) {
-        indexs = indexs || [0, 1, 2, 3];
-        for (let i = 0; i < indexs.length; i += 1) {
-            this.inviteButtonList[indexs[i]].active = true;
+    _showInviteButton(playerIndex) {
+        if (!NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            return;
         }
+        this.inviteButtonList[playerIndex].active = true;
     },
 
     /**
@@ -1572,7 +1571,7 @@ cc.Class({
     },
 
     _setPlayerInfoList(index, data, totalScore) {
-        this._hideInviteButton([index]);
+        this._hideInviteButton(index);
         this._showPlayerInfoList([index]);
 
         this.playerInfoList[index].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
@@ -1591,7 +1590,10 @@ cc.Class({
 
         this._initCardDistrict();
 
-        this._showInviteButton([0, 1, 2, 3]);
+        for (var i = 0; i < 4; i += 1) {
+            this._showInviteButton(i);
+        }
+
         this._hidePlayerInfoList([0, 1, 2, 3]);
         this._closeAllLight();
         this._hideActionPrompt();
