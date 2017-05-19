@@ -1,5 +1,4 @@
 var Dialog = require('Dialog');
-var SoundEffect = require('SoundEffect');
 var Animation = require('Animation');
 var Tools = require('Tools');
 
@@ -34,7 +33,7 @@ cc.Class({
         if (!window.Tools.getLocalData(GlobalConfig.LSK.playMusicConfig)) {
             window.Tools.setLocalData(GlobalConfig.LSK.playMusicConfig, { music: true, effect: true });
         }
-        window.SoundEffect = new SoundEffect();
+        window.SoundEffect = this.node.getComponent('SoundEffect');
         window.SoundEffect.backgroundMusic();
 
         this.schedule(this.hbt.bind(this), GlobalConfig.hbtTime);

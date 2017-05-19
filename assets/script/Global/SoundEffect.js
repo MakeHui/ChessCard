@@ -13,7 +13,10 @@ var SoundEffect = cc.Class({
         // },
         // ...
 
-        backgroundMusicAudioId: null,
+        backgroundMusicAudioId: {
+            default: null,
+            visible: false,
+        },
     },
 
     backgroundMusicInit: function(audioUrl, isLoop, volume) {
