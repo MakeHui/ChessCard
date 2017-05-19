@@ -14,6 +14,8 @@ cc.Class({
         createRoomPrefab: cc.Prefab,
         inputRoomNumberPrefab: cc.Prefab,
         myRoomPrefab: cc.Prefab,
+
+        addMoneyButton: cc.Node,
     },
 
     // use this for initialization
@@ -24,6 +26,11 @@ cc.Class({
         this.money.string = this._userInfo.gold;
         this.notice.getComponent(cc.Label).string = this._userInfo.notice;
         Animation.openScrollWordAction(this.notice, 50);
+
+        // 如果是上线期间不显示充值按钮
+        if (window.Tools.getLocalData(GlobalConfig.LSK.appleReview)) {
+            this.addMoneyButton.active = false;
+        }
     },
 
     /**
@@ -41,8 +48,7 @@ cc.Class({
      * 弹出充值信息
      */
     openPayPanelOnClick() {
-        var appleReview = window.Tools.getLocalData(GlobalConfig.LSK.appleReview);
-        if (!appleReview) {
+        if (this.addMoneyButton.active) {
             window.SoundEffect.playEffect(GlobalConfig.audioUrl.effect.buttonClick);
             Dialog.openMessageBox('请到 ' + GlobalConfig.wxPublic + ' 公众号进行充值');
         }
