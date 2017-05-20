@@ -21,6 +21,11 @@ cc.Class({
         window.Global.NetworkManager = require('NetworkManager');
         window.Global.NetworkConfig = require('GlobalNetwork');
 
+        // 初始化萍乡258游戏
+        window.PX258 = {};
+        window.PX258.Config = require('PX258Config');
+        window.PX258.NetworkConfig = require('PX258Network');
+
         // 初始化本地数据
         if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location)) {
             window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo_location, '该用户未公开地理位置');
@@ -110,7 +115,7 @@ cc.Class({
             !window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo)) {
             return;
         }
-        HttpRequestManager.httpRequest('heartbeat', {}, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.Global.NetworkConfig.HttpRequest.heartbeat, {}, (event, result) => {
             if (result.code === 1) {
                 const scene = cc.director.getScene();
                 if (result.isLogin == 0 || result.isLogin == 2) {
@@ -134,7 +139,7 @@ cc.Class({
     },
 
     httpCheckUpdate(callback) {
-        HttpRequestManager.httpRequest('check', [], (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.Global.NetworkConfig.HttpRequest.check, {}, (event, result) => {
             window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, result.isCheck);
             if (result.code === 1000) {
                 var node = cc.instantiate(this.appUpdatePrefab);

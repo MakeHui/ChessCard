@@ -21,7 +21,7 @@ const HttpRequestManager = cc.Class({
                 result = proto[protocol.description][protocol.response + 'Response'].deserializeBinary(result);
                 result = window.Global.Tools.protobufToJson(result);
 
-                cc.log(['HttpRequestManager.httpRequest ' + name, result]);
+                cc.log(['window.Global.NetworkManager.httpRequest ' + name, result]);
                 callback(event, result);
             };
         },

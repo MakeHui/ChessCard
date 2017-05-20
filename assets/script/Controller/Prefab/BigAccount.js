@@ -23,7 +23,7 @@ cc.Class({
          // uint32 is_owner = 10;  // 是否为房主
          */
 
-        if (!GlobalConfig.tempCache) {
+        if (!window.Global.Config.tempCache) {
             return;
         }
 
@@ -35,7 +35,7 @@ cc.Class({
             const playerNode = this.playerList[playerData.seat];
             const userInfo = this._getUserInfoInList(playerData.playerUuid);
 
-           window.Global.Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
+            window.Global.Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
 
             if (playerData.isOwner === 1) {
@@ -43,12 +43,12 @@ cc.Class({
             }
 
             const detailList = playerNode.getChildByName('detailPanel');
-           window.Global.Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
-           window.Global.Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
-           window.Global.Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
-           window.Global.Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
-           window.Global.Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
-           window.Global.Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
+            window.Global.Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
+            window.Global.Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
+            window.Global.Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
+            window.Global.Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
+            window.Global.Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
+            window.Global.Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
 
             if (bigLosser < playerData.paoCnt) {
                 bigLosser = playerData.paoCnt;

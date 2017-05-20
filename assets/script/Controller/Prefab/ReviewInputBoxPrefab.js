@@ -66,7 +66,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const parameters = { roomId: this.roomNumber };
-        HttpRequestManager.httpRequest('roomEnter', parameters, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomEnter, parameters, (event, result) => {
             window.Global.Dialog.close();
 
             if (result.code === 1) {

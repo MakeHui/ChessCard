@@ -10,11 +10,11 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        if (!GlobalConfig.tempCache.data.playerDataList) {
+        if (!window.Global.Config.tempCache.data.playerDataList) {
             return;
         }
 
-        const userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
         for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
@@ -49,7 +49,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -63,7 +63,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -77,7 +77,7 @@ cc.Class({
 
                 for (var k = 0; k < obj.length; k += 1) {
                     const node = cc.instantiate(this.cardPrefab);
-                    const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj[k].card.toString(16)}`);
                     node.getChildByName('Background').setPositionX(positionXOffset);
                     cardPanel.addChild(node);
@@ -93,13 +93,13 @@ cc.Class({
                 var node = cc.instantiate(this.cardPrefab);
                 node.getChildByName('Background').setPositionX(positionXOffset);
 
-                const nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                const nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
                 cardPanel.addChild(node);
             }
 
             if (playerData.winType !== window.PX258.Config.winType.None) {
-               window.Global.Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
+                window.Global.Tools.findNode(playerNode, `_Little>littleTxt_${playerData.winType}`).active = true;
                 playerNode.getChildByName('WinType').getComponent(cc.Label).string = window.PX258.Config.winFlag[playerData.winFlag] || '';
 
                 // 胡牌
@@ -109,7 +109,7 @@ cc.Class({
                     positionXOffset += 24;
                     var node = cc.instantiate(this.cardPrefab);
                     node.getChildByName('Background').setPositionX(positionXOffset);
-                    var nodeSprite =window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                    var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                     nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${playerData.winCard.card.toString(16)}`);
                     cardPanel.addChild(node);
                 }

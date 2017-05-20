@@ -38,7 +38,7 @@ cc.Class({
     init: function(roomId) {
         window.Global.Dialog.openLoading();
         var self = this;
-        HttpRequestManager.httpRequest('roomReplay', {roomId: roomId}, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomReplay, {roomId: roomId}, (event, result) => {
             window.Global.Dialog.close();
             self.datetime.string = result.datetime;
             var recordInfoDataList = result.recordInfoDataList;

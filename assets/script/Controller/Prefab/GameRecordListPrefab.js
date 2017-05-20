@@ -30,7 +30,7 @@ cc.Class({
     _getHttpGameRecordInfoData(scene, roomUuid) {
         const self = this;
         window.Global.Dialog.openLoading();
-        HttpRequestManager.httpRequest('recordListSelf', { roomUuid }, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, { roomUuid }, (event, result) => {
             window.Global.Dialog.close();
             if (result.code == 1) {
                 window.Global.Animation.closeDialog(scene.node);
@@ -48,7 +48,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        HttpRequestManager.httpRequest('recordListSelf', {}, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, {}, (event, result) => {
             if (result.code === 0) {
                 const recordItemList = result.recordItemList;
                 if (recordItemList.length !== 0) {

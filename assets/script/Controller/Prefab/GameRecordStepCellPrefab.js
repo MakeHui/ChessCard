@@ -14,7 +14,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         var parameters = {roomUuid: this._Cache.roomUuid, theRound: this._Cache.theRound};
-        HttpRequestManager.httpRequest('replay', parameters, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.replay, parameters, (event, result) => {
             window.Global.Dialog.close();
             if (result.code === 1) {
                 var data = JSON.parse(result.replay);

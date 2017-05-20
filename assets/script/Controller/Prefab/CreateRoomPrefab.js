@@ -12,7 +12,7 @@ cc.Class({
         this.playType = 0x1;
         this.options = 0x100;
 
-        var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo).roomConfig;
+        var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo).roomConfig;
         var i = 0;
         for (var key in userInfo[this.gameUuid]) {
             this.roomLabel[i].string = key + '局(' + userInfo[this.gameUuid][key] + '金币)';
@@ -41,14 +41,14 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const parameters = { gameUuid: this.gameUuid, maxRounds: this.maxRounds, roomConfig: this.playType | this.options };
-        HttpRequestManager.httpRequest('roomCreate', parameters, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomCreate, parameters, (event, result) => {
             window.Global.Dialog.close();
             if (result.code === 1) {
                 window.Global.Dialog.close();
                 window.Global.Config.tempCache = result;
-                const userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
                 userInfo.gold -= result.payGold;
-               window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo, userInfo);
+                window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo, userInfo);
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1023) {

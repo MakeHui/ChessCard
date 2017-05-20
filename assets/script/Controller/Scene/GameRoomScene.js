@@ -84,7 +84,7 @@ cc.Class({
         if (window.Global.Config.tempCache) {
             const self = this;
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
-            this.wsUrl = `ws://${GlobalConfig.tempCache.serverIp}:${GlobalConfig.tempCache.serverPort}/ws`;
+            this.wsUrl = `ws://${window.Global.Config.tempCache.serverIp}:${window.Global.Config.tempCache.serverPort}/ws`;
 
             WebSocketManager.onopen = (evt) => {
                 cc.log(['WebSocket.open: ', evt]);
@@ -173,7 +173,7 @@ cc.Class({
 
         var voiceFilePath = window.Global.NativeExtensionManager.execute('stopRecord');
         var webPath = window.Global.Config.aliyunOss.objectPath + window.Global.Tools.formatDatetime('yyyy/MM/dd/') + md5(+new Date() + Math.random().toString()) + '.amr';
-        var parameters = [GlobalConfig.aliyunOss.bucketName, webPath, voiceFilePath];
+        var parameters = [window.Global.Config.aliyunOss.bucketName, webPath, voiceFilePath];
         window.Global.NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
                 const content = JSON.stringify({ type: 3, data: window.Global.Config.aliyunOss.domain + webPath });
@@ -366,7 +366,7 @@ cc.Class({
         if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
             if (cc.sys.os === cc.sys.OS_IOS) {
                 var filePath = data.content.data.replace(window.Global.Config.aliyunOss.domain, '');
-                window.Global.NativeExtensionManager.execute('ossDownload', [GlobalConfig.aliyunOss.bucketName, filePath], (result) => {
+                window.Global.NativeExtensionManager.execute('ossDownload', [window.Global.Config.aliyunOss.bucketName, filePath], (result) => {
                     if (result.result == 0) {
                         window.Global.NativeExtensionManager.execute('playerAudio', [result.data]);
                     }

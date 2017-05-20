@@ -37,7 +37,7 @@ cc.Class({
         }
 
         var node = cc.director.getScene().getChildByName('Canvas');
-       window.Global.Tools.captureScreen(node, function(fileName) {
+        window.Global.Tools.captureScreen(node, function(fileName) {
             window.Global.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
                 cc.log(result);
             });
@@ -76,7 +76,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        HttpRequestManager.httpRequest('roomList', {}, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomList, {}, (event, result) => {
             window.Global.Dialog.close();
             if (result.code === 1 && result.roomItemList.length !== 0) {
                 self.gameIngList.removeAllChildren();
@@ -97,7 +97,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        HttpRequestManager.httpRequest('recordList', {}, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordList, {}, (event, result) => {
             if (result.code === 0 && result.recordItemList.length !== 0) {
                 this.gameEndList.removeAllChildren();
                 const roomItem = result.recordItemList;

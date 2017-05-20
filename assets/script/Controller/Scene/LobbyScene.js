@@ -20,10 +20,6 @@ cc.Class({
 
     // use this for initialization
     onLoad() {
-        window.PX258 = {};
-        window.PX258.Config = require('PX258Config');
-        window.PX258.Network = require('PX258Network');
-
         this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         window.Global.Tools.setWebImage(this.avatar, this._userInfo.headimgurl);
         this.nickname.string = this._userInfo.nickname;
@@ -35,10 +31,6 @@ cc.Class({
         if (window.Global.Tools.getLocalData(window.Global.Config.LSK.appleReview)) {
             this.addMoneyButton.active = false;
         }
-    },
-
-    onDestroy() {
-        delete window.PX258;
     },
 
     /**
