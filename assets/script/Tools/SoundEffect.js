@@ -2,17 +2,6 @@ var SoundEffect = cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
-
         backgroundMusicUrl: '',
 
         backgroundMusicAudioId: {
@@ -70,7 +59,7 @@ var SoundEffect = cc.Class({
             cc.log('window.Global.SoundEffect.playEffect: url不存在, ' + url);
             return;
         }
-        var playMusicConfig =window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
+        var playMusicConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
         if (playMusicConfig.effect) {
             var audioRaw = cc.url.raw(url);
             cc.audioEngine.play(audioRaw, false, 1);

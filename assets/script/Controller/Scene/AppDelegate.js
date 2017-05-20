@@ -2,6 +2,17 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        // foo: {
+        //    default: null,      // The default value will be used only when the component attaching
+        //                           to a node for the first time
+        //    url: cc.Texture2D,  // optional, default is typeof default
+        //    serializable: true, // optional, default is true
+        //    visible: true,      // optional, default is true
+        //    displayName: 'Foo', // optional
+        //    readonly: false,    // optional, default is false
+        // },
+        // ...
+
         exitTime: 0,
         appUpdatePrefab: cc.Prefab, // app update
     },
@@ -13,13 +24,13 @@ cc.Class({
         // 初始化全局类
         window.Global = {};
         window.Global.Config = require('GlobalConfig');
+        window.Global.NetworkManager = require('NetworkManager');
+        window.Global.NetworkConfig = require('GlobalNetwork');
+        window.Global.NativeExtensionManager = require('NativeExtensionManager').init();
         window.Global.Animation = this.node.getComponent('Animation');
         window.Global.Tools = this.node.getComponent('Tools');
         window.Global.Dialog = this.node.getComponent('Dialog');
         window.Global.SoundEffect = this.node.getComponent('SoundEffect').init();
-        window.Global.NativeExtensionManager = require('NativeExtensionManager').init();
-        window.Global.NetworkManager = require('NetworkManager');
-        window.Global.NetworkConfig = require('GlobalNetwork');
 
         // 初始化萍乡258游戏
         window.PX258 = {};

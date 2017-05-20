@@ -8,6 +8,13 @@ cc.Class({
         username: [cc.Label],
     },
 
+    onLoad() {
+        // 没有安装微信, 不显示分享按钮
+        if (!window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
+            window.Global.Tools.findNode(this.node, 'Dialog>btn_share').active = false;
+        }
+    },
+
     /**
      * 关闭本窗口
      */

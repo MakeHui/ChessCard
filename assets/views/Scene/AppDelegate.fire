@@ -159,7 +159,7 @@
       "__id__": 2
     },
     "_enabled": true,
-    "backgroundMusicUrl": "",
+    "backgroundMusicUrl": "resources/audio/background/bgm1.mp3",
     "backgroundMusicAudioId": null
   },
   {
