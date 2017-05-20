@@ -143,44 +143,11 @@ const PX258Network = cc.Class({
             },
         },
         WebSocket: {
-            config: {
-                // 公共命令
-                EnterRoom: 0x0001, // 1、进入房间
-                EnterRoomOther: 0x0002, // 2、其他玩家进入房间
-                ExitRoom: 0x0003, // 3、离开房间
-                DismissRoom: 0x0004, // 4、解散房间
-                SponsorVote: 0x0005, // 5、发起投票解散
-                HeartBeat: 0x0006,   // 心跳
-                PlayerVote: 0x0007, // 6、玩家投票
-                OnlineStatus: 0x0008, // 7、玩家上线离线广播
-                Speaker: 0x0009, // 8、超级广播命令
-                Ready: 0x000A, // 9、准备
-                Deal: 0x000B, // 10、起手发牌
-                Draw: 0x000C, // 11、抓牌
-                Discard: 0x000D, // 12、出牌
-                SynchroniseCards: 0x000E, // 13、服务端主动同步手牌
-                SynchroniseScore: 0x000F, // 15、玩家分数发生改变，同步分数
-
-                Reconnect: 0x1000, // 1、玩家断线重连
-                Prompt: 0x1001, // 2、操作提示
-                Action: 0x1002, // 3、玩家根据提示列表选择动作
-                ReadyHand: 0x1003, // 4、听牌提示
-                SettleForRound: 0x1005, // 5、小结算
-                SettleForRoom: 0x1006
-            },
-            message: {
-                /**
-                 *******************************************************************************************************************
-                 *                                      公共请求 message
-                 *******************************************************************************************************************
-                 **/
-
-                /**
-                 * 1. 自己主动进入房间
-                 * @param parameters
-                 * @returns {proto.game.EnterRoomRequest}
-                 */
-                getEnterRoomRequestMessage: function (parameters) {
+            // 公共命令
+            EnterRoom: {
+                cmd: 0x0001, // 1、进入房间
+                response: 'EnterRoom',
+                message: function (parameters) {
                     var message = new proto.game.EnterRoomRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
@@ -197,67 +164,79 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
-
-
-                /**
-                 * 3. 自己主动退出房间
-                 * @returns {proto.game.ExitRoomRequest}
-                 */
-                getExitRoomRequestMessage: function () {
+            },
+            EnterRoomOther: {
+                cmd: 0x0002, // 2、其他玩家进入房间
+                response: 'EnterRoomOther',
+            },
+            ExitRoom: {
+                cmd: 0x0003, // 3、离开房间
+                response: 'ExitRoom',
+                message: function () {
                     return new proto.game.ExitRoomRequest();
-                },
-
-
-                /**
-                 * 4、解散房间
-                 * @returns {proto.game.DismissRoomRequest}
-                 */
-                getDismissRoomRequestMessage: function () {
+                }
+            },
+            DismissRoom: {
+                cmd: 0x0004, // 4、解散房间
+                response: 'DismissRoom',
+                message: function () {
                     return new proto.game.DismissRoomRequest();
+                }
+            },
+            SponsorVote: {
+                cmd: 0x0005, // 5、发起投票解散
+                response: 'SponsorVote',
+            },
+            HeartBeat: {
+                cmd: 0x0006,   // 心跳
+                response: 'HeartBeat',
+                message: function () {
+                    return new proto.game.HeartbeatRequest();
                 },
-
-
-                /**
-                 * 6、玩家投票
-                 * @param parameters
-                 * @returns {proto.game.PlayerVoteRequest}
-                 */
-                getPlayerVoteRequestMessage: function (parameters) {
+            },
+            PlayerVote: {
+                cmd: 0x0007, // 6、玩家投票
+                response: 'PlayerVote',
+                message: function (parameters) {
                     var message = new proto.game.PlayerVoteRequest();
                     message.setFlag(parameters.flag);
 
                     return message;
                 },
-
-
-                /**
-                 * 8、超级广播命令
-                 * @param parameters
-                 * @returns {proto.game.SpeakerRequest}
-                 */
-                getSpeakerRequestMessage: function (parameters) {
+            },
+            OnlineStatus: {
+                cmd: 0x0008, // 7、玩家上线离线广播
+                response: 'OnlineStatus',
+            },
+            Speaker: {
+                cmd: 0x0009, // 8、超级广播命令
+                response: 'Speaker',
+                message: function (parameters) {
                     var message = new proto.game.SpeakerRequest();
                     message.setContent(parameters.content);
 
                     return message;
                 },
-
-
-                /**
-                 * 9、准备
-                 * @returns {proto.game.ReadyRequest}
-                 */
-                getReadyRequestMessage: function () {
+            },
+            Ready: {
+                cmd: 0x000A, // 9、准备
+                response: 'Ready',
+                message: function () {
                     return new proto.game.ReadyRequest();
                 },
-
-
-                /**
-                 * 12、出牌
-                 * @param parameters
-                 * @returns {proto.game.DiscardRequest}
-                 */
-                getDiscardRequestMessage: function (parameters) {
+            },
+            Deal: {
+                cmd: 0x000B, // 10、起手发牌
+                response: 'Deal',
+            },
+            Draw: {
+                cmd: 0x000C, // 11、抓牌
+                response: 'Draw',
+            },
+            Discard: {
+                cmd: 0x000D, // 12、出牌
+                response: 'Discard',
+                message: function (parameters) {
                     var message = new proto.game.DiscardRequest();
                     var cardMsg = new proto.game.Card();
                     cardMsg.setCard(parameters.card);
@@ -265,34 +244,46 @@ const PX258Network = cc.Class({
 
                     return message;
                 },
+            },
+            SynchroniseCards: {
+                cmd: 0x000E, // 13、服务端主动同步手牌
+                response: 'SynchroniseCards',
+            },
+            SynchroniseScore: {
+                cmd: 0x000F, // 15、玩家分数发生改变，同步分数
+                response: 'SynchroniseScore',
+            },
 
-                /**
-                 * wsHbt
-                 * @returns {proto.game.HeartbeatRequest}
-                 */
-                getHeartBeatRequestMessage: function () {
-                    return new proto.game.HeartbeatRequest();
-                },
-
-
-                /**
-                 *******************************************************************************************************************
-                 *                                      px258 message
-                 *******************************************************************************************************************
-                 **/
-
-                /**
-                 * 3、玩家根据提示列表选择动作
-                 * @param parameters
-                 * @returns {proto.game.ActionRequest}
-                 */
-                getActionRequestMessage: function (parameters) {
+            Reconnect: {
+                cmd: 0x1000, // 1、玩家断线重连
+                response: 'Reconnect',
+            },
+            Prompt: {
+                cmd: 0x1001, // 2、操作提示
+                response: 'Prompt',
+            },
+            Action: {
+                cmd: 0x1002, // 3、玩家根据提示列表选择动作
+                response: 'Action',
+                message: function (parameters) {
                     var message = new proto.game.ActionRequest();
                     message.setActionId(parameters.actionId);
 
                     return message;
                 }
-            }
+            },
+            ReadyHand: {
+                cmd: 0x1003, // 4、听牌提示
+                response: 'ReadyHand',
+            },
+            SettleForRound: {
+                cmd: 0x1005, // 5、小结算
+                response: 'SettleForRound',
+            },
+            SettleForRoom: {
+                cmd: 0x1006,
+                response: 'SettleForRoom',
+            },
         }
     }
 });

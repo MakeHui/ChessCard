@@ -301,51 +301,6 @@ var Tools = cc.Class({
         });
     },
 
-    /**
-     * protobuf 转 json
-     *
-     * @author Make.<makehuir@gmail.com>
-     * @datetime 2017-02-27 17:19:37
-     *
-     * @param    {Object} protobuf
-     */
-    protobufToJson: function (protobuf) {
-        var result = {};
-        for (var _name in protobuf) {
-            if (_name.substring(0, 3) === 'get') {
-                var data = protobuf[_name]();
-                if (this.isArray(data)) {
-                    var array = [];
-                    for (var i = 0; i < data.length; i += 1) {
-                        array.push(this.protobufToJson(data[i]));
-                    }
-                    result[this.firstLowerCase(_name.substring(3))] = array;
-                } else if (this.isObject(data)) {
-                    result[this.firstLowerCase(_name.substring(3))] = this.protobufToJson(data);
-                } else {
-                    result[this.firstLowerCase(_name.substring(3))] = data;
-                }
-            }
-        }
-
-        return result;
-    },
-
-    /**
-     * 通过值查找key
-     * @param {Object} obj
-     * @param value
-     * @returns {string}
-     */
-    findKeyForValue: function (obj, value) {
-        for (var key in obj) {
-            if (value === obj[key]) {
-                return key;
-            }
-        }
-        return false;
-    },
-
     unique: function (array) {
         return Array.from(new Set(array));
     },

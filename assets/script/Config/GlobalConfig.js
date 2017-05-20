@@ -70,7 +70,6 @@ const GlobalConfig = cc.Class({
             secretKey: 'SecretKey',
             userInfo_location: 'UserInfo_Location',
             playMusicConfig: 'PlayMusicConfig',
-            showTrojanScan: 'ShowTrojanScan',
             appleReview: 'AppleReview',
         },
 

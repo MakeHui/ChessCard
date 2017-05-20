@@ -86,44 +86,22 @@ cc.Class({
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
             this.wsUrl = `ws://${window.Global.Config.tempCache.serverIp}:${window.Global.Config.tempCache.serverPort}/ws`;
 
-            WebSocketManager.onopen = (evt) => {
-                cc.log(['WebSocket.open: ', evt]);
+            window.Global.NetworkManager.onopen = (evt) => {
                 self._hideWaitPanel();
-                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'EnterRoom', { roomId: self._Cache.roomId });
-                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
+                window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.EnterRoom, { roomId: self._Cache.roomId });
+                window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
 
                 this.unschedule(this.wsHbtSchedule);
                 this.schedule(this.wsHbtSchedule, window.Global.Config.wsHbtTime);
             };
-            WebSocketManager.onclose = (evt) => {
-                cc.log(['WebSocket.onclose: ', evt]);
+            window.Global.NetworkManager.onclose = (evt) => {
                 this.unschedule(this.wsHbtSchedule);
                 self._showWaitPanel(2);
             };
-            WebSocketManager.onmessage = (evt) => {
-                const data = WebSocketManager.ArrayBuffer.reader(evt.data);
-                cc.log(`WebSocket onmessage: ${JSON.stringify(data)}`);
-                if (data === false) {
-                    cc.log('WebSocket.message: WebSocket数据解析失败');
-                    return;
-                }
-
-                const commandName = window.Global.Tools.findKeyForValue(WebSocketManager.Command, data.cmd);
-                if (commandName === false) {
-                    cc.log('WebSocket.message:window.Global.Tools.findKeyForValue数据解析失败');
-                    return;
-                }
-
-                const result = window.Global.Tools.protobufToJson(proto.game[`${commandName}Response`].deserializeBinary(data.data));
-                if (!result) {
-                    cc.log('WebSocket.message: window.Global.Tools.protobufToJson数据解析失败');
-                    return;
-                }
-
-                cc.log([`WebSocket.message ${commandName}: `, result]);
+            window.Global.NetworkManager.onmessage = (commandName, result) => {
                 self[`on${commandName}Message`](result);
             };
-            WebSocketManager.openSocketLink(this.wsUrl);
+            window.Global.NetworkManager.openSocketLink(this.wsUrl);
 
             this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         }
@@ -177,18 +155,18 @@ cc.Class({
         window.Global.NativeExtensionManager.execute('ossUpload', parameters, function(result) {
             if (result.result == 0) {
                 const content = JSON.stringify({ type: 3, data: window.Global.Config.aliyunOss.domain + webPath });
-                WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
+                window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Speaker, { content });
             }
         });
         cc.log('GameRoomScene.onVoiceEndCallback: ' + this.voiceFilePath);
     },
 
     wsHbtSchedule() {
-        if (window.WebSocketManager.isClose) {
+        if (window.window.Global.NetworkManager.isClose) {
             this.unschedule(this.wsHbtSchedule);
             return;
         }
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'HeartBeat');
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.HeartBeat);
     },
 
     /**
@@ -281,7 +259,7 @@ cc.Class({
 
     onExitRoomMessage(data) {
         if (data.playerUuid == this._userInfo.playerUuid) {
-            WebSocketManager.close();
+            window.Global.NetworkManager.close();
             cc.director.loadScene('Lobby');
             return;
         }
@@ -311,18 +289,18 @@ cc.Class({
 
         if (data.flag === 0) {
             if (this._Cache.ownerUuid === this._userInfo.playerUuid) {
-                WebSocketManager.close();
+                window.Global.NetworkManager.close();
                 cc.director.loadScene('Lobby');
             }
             else {
                 window.Global.Dialog.openMessageBox('房主已解散房间', function() {
-                    WebSocketManager.close();
+                    window.Global.NetworkManager.close();
                     cc.director.loadScene('Lobby');
                 });
             }
         }
         else if (data.flag === 1) {
-            WebSocketManager.close();
+            window.Global.NetworkManager.close();
             cc.director.loadScene('Lobby');
         }
     },
@@ -954,7 +932,7 @@ cc.Class({
     onSettleForRoomMessage(data) {
         if (this.voteDismiss.active || this._Cache.settleForRoomData) {
             this.voteDismiss.active = false;
-            WebSocketManager.close();
+            window.Global.NetworkManager.close();
             window.Global.Config.tempCache = { data, playerInfoList: this._Cache.playerList };
             window.Global.Animation.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
         }
@@ -1050,7 +1028,7 @@ cc.Class({
     wordChatOnClick(evt, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 1, data });
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Speaker, { content });
 
         this.fastChatProgressBar.progress = 1.0;
 
@@ -1060,7 +1038,7 @@ cc.Class({
     emojiChatOnClick(evt, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         const content = JSON.stringify({ type: 2, data });
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Speaker', { content });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Speaker, { content });
 
         this.fastChatProgressBar.progress = 1.0;
 
@@ -1088,7 +1066,7 @@ cc.Class({
                 data = 0;
             }
 
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data });
+            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Action, { actionId: data });
 
             this._initActionPrompt();
         }
@@ -1125,7 +1103,7 @@ cc.Class({
                 this._hideGetHandCard(0);
             }
 
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Discard', { card: data });
+            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
 
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
         }
@@ -1158,12 +1136,12 @@ cc.Class({
         if (this.menuPanel.getPositionY() <= 222) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
         }
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'DismissRoom');
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.DismissRoom);
     },
 
     voteOnClick(evt, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'PlayerVote', { flag: data == 1 });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.PlayerVote, { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
         this.voteDismissButton[1].active = false;
@@ -1180,13 +1158,13 @@ cc.Class({
         this._hideSelectChiKongPanel();
 
         data = JSON.parse(data);
-        WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Action', { actionId: data.actionId });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Action, { actionId: data.actionId });
     },
 
     closeOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 4) {
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'ExitRoom', { roomId: this._Cache.roomId });
+            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.ExitRoom, { roomId: this._Cache.roomId });
         }
         else {
             window.Global.Dialog.openMessageBox('游戏中无法退出');
@@ -1206,7 +1184,7 @@ cc.Class({
         }
         else if (this.handCardDistrict[0].children.length == 0) {
             cc.log('readyGameCallback.Ready');
-            WebSocketManager.sendSocketMessage(WebSocketManager.ws, 'Ready');
+            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
             this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
     },

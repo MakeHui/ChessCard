@@ -131,7 +131,7 @@ cc.Class({
                 const scene = cc.director.getScene();
                 if (result.isLogin == 0 || result.isLogin == 2) {
                     if (scene.name === 'GameRoom') {
-                        WebSocketManager.close();
+                        window.Global.NetworkManager.close();
                     }
                     window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '');
                     cc.director.loadScene('Login');
