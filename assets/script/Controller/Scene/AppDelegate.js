@@ -73,12 +73,12 @@ cc.Class({
                 var hotUpdateManager = cc.director.getScene().getChildByName('Canvas').getComponent('HotUpdateManager');
                 hotUpdateManager.init();
                 hotUpdateManager.hotUpdate(function(code) {
-                    if (code == 3) {
+                    if (code == 3 || code == 4) {
                         cc.director.loadScene('Login');
                     }
-                    else if (code == 4) {
-                        window.Global.SoundEffect.backgroundMusicClear();
-                    }
+                    // else if (code == 4) {
+                    //     // window.Global.SoundEffect.backgroundMusicClear();
+                    // }
                 });
 
                 if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.appleReview)) {
