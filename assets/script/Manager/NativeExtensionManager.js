@@ -40,33 +40,37 @@ const NativeExtensionManager = cc.Class({
                 return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'playerAudio', '(Ljava/lang/String;)V', url);
             },
 
-            // /**
-            //  * 微信是否安装
-            //  * @returns bool
-            //  */
-            // wechatIsWxAppInstalled: function () {
-            //     return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatIsWxAppInstalled', '()V');
-            // },
-            //
-            //
-            // /**
-            //  微信分享土图片
-            //  @param path 图片地址
-            //  */
-            // wechatImageShare: function (path) {
-            //     return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatImageShare:', '(Ljava/lang/String;)V', path);
-            // },
-            //
-            //
-            // /**
-            //  微信链接分享
-            //  @param link 链接
-            //  @param title 标题
-            //  @param description 说明
-            //  */
-            // wechatLinkShare: function (link, title, description) {
-            //     return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatLinkShare', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', link, title, description);
-            // },
+            /**
+             * 微信是否安装
+             * @returns bool
+             */
+            wechatIsWxAppInstalled: function () {
+                return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatIsWxAppInstalled', '()Z');
+            },
+
+
+            /**
+             微信分享土图片
+             @param path 图片地址
+             */
+            wechatImageShare: function (path) {wechatImageShare
+                return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatImageShare', '(Ljava/lang/String;)V', path);
+            },
+
+
+            /**
+             微信链接分享
+             @param link 链接
+             @param title 标题
+             @param description 说明
+             */
+            wechatLinkShare: function (link, title, description) {
+                return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatLinkShare', '(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V', link, title, description);
+            },
+
+            wechatLogin: function () {
+                return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatLogin', '()V');
+            },
 
             /**
              初始化oss client
@@ -165,13 +169,6 @@ const NativeExtensionManager = cc.Class({
                 return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatImageShare:', path);
             },
 
-            /**
-             微信登录
-             */
-            wechatLogin: function () {
-                return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLogin');
-            },
-
 
             /**
              微信链接分享
@@ -181,6 +178,13 @@ const NativeExtensionManager = cc.Class({
              */
             wechatLinkShare: function (link, title, description) {
                 return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLinkShare:setTitle:setDescription:', link, title, description);
+            },
+
+            /**
+             微信登录
+             */
+            wechatLogin: function () {
+                return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLogin');
             },
 
 
@@ -271,8 +275,10 @@ const NativeExtensionManager = cc.Class({
 
         callback (name, result) {
             cc.log('NativeExtensionManager.callback.' + name + ': ' + JSON.stringify(result));
-            this._listener[name](result);
-            delete this._listener[name];
+            if (this._listener[name]) {
+                this._listener[name](result);
+                delete this._listener[name];
+            }
         }
     }
 });
