@@ -49,15 +49,24 @@ cc.Class({
         var _hasNetwork = window.Global.NativeExtensionManager.execute('checkNetwork');
         if (cc.sys.isNative && !_hasNetwork) {
             window.Global.Dialog.openMessageBox('请链接网络');
-            // return;
+            return;
         }
 
-        // TODO: 微信登录
         // 是否安装了微信
-        // var isCheck = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
-        // if (!isCheck) {
-        //
-        // }
+        var isCheck = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!isCheck) {
+            window.Global.Dialog.openMessageBox('请先安装微信');
+        }
+
+        const self = this;
+        window.Global.NativeExtensionManager.execute('wechatLogin', [], (result) => {
+            if (result.result == 0) {
+                self.httpLogin(result.data, 'wechatLogin');
+            }
+            else {
+                window.Global.Dialog.openMessageBox('微信登录失败');
+            }
+        });
     },
 
     /**

@@ -165,6 +165,13 @@ const NativeExtensionManager = cc.Class({
                 return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatImageShare:', path);
             },
 
+            /**
+             微信登录
+             */
+            wechatLogin: function () {
+                return jsb.reflection.callStaticMethod('MHCocosExtension', 'wechatLogin');
+            },
+
 
             /**
              微信链接分享

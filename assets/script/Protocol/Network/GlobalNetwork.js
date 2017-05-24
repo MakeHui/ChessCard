@@ -32,7 +32,7 @@ const GlobalNetwork = cc.Class({
                     message.setWxCode(parameters.wxCode);
                     message.setLocation(parameters.location);
 
-                    cc.log([parameters.wxCode, window.Global.Config.appUuid,window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
+                    cc.log([parameters.wxCode, window.Global.Config.appUuid, window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
                     return message;
                 }
             },
@@ -49,7 +49,7 @@ const GlobalNetwork = cc.Class({
                     message.setWxCode(parameters.wxCode);
                     message.setLocation(parameters.location);
 
-                    cc.log([parameters.wxCode, window.Global.Config.appUuid,window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
+                    cc.log([parameters.wxCode, window.Global.Config.appUuid, window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
                     return message;
                 }
             },
@@ -66,7 +66,7 @@ const GlobalNetwork = cc.Class({
                     message.setWxCode(parameters.wxCode);
                     message.setLocation(parameters.location);
 
-                    cc.log([parameters.wxCode, window.Global.Config.appUuid,window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
+                    cc.log([parameters.wxCode, window.Global.Config.appUuid, window.Global.Tools.getDeviceId(), window.Global.Config.version, parameters.location]);
                     return message;
                 }
             },
@@ -78,7 +78,7 @@ const GlobalNetwork = cc.Class({
                 response: 'Heartbeat',
                 message () {
                     var message = new proto.login.HeartbeatRequest();
-                    var userInfo =window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+                    var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
                     message.setAppUuid(window.Global.Config.appUuid);
@@ -98,7 +98,7 @@ const GlobalNetwork = cc.Class({
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
-                    cc.log([parameters.playerUuid, window.Global.Config.appUuid,window.Global.Tools.getDeviceId()]);
+                    cc.log([parameters.playerUuid, window.Global.Config.appUuid, window.Global.Tools.getDeviceId()]);
                     return message;
                 },
             }
