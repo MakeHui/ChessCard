@@ -53,7 +53,7 @@ const NativeExtensionManager = cc.Class({
              微信分享土图片
              @param path 图片地址
              */
-            wechatImageShare: function (path) {wechatImageShare
+            wechatImageShare: function (path) {
                 return jsb.reflection.callStaticMethod('com/huyaohui/cocosextension/CocosExtension', 'wechatImageShare', '(Ljava/lang/String;)V', path);
             },
 
