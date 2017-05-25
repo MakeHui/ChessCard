@@ -73,7 +73,7 @@ cc.Class({
                 var hotUpdateManager = cc.director.getScene().getChildByName('Canvas').getComponent('HotUpdateManager');
                 hotUpdateManager.init();
                 hotUpdateManager.hotUpdate(function(code) {
-                    if (code == 3 || code == 4) {
+                    if (code !== 0) {
                         cc.director.loadScene('Login');
                     }
                     // else if (code == 4) {
