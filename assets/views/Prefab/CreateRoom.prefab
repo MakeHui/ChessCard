@@ -1745,7 +1745,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
+      "width": 194,
       "height": 47
     },
     "_children": [],
@@ -1755,7 +1755,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 17,
+      "x": -21,
       "y": 3
     },
     "_skewX": 0,
