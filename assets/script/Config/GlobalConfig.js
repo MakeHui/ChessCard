@@ -52,7 +52,7 @@ const GlobalConfig = cc.Class({
 
         wsHbtTime: 10,
 
-        downloadPage: 'http://dashboard.px258.qingwuguo.com/player/download',
+        downloadPage: 'http://m.zhongchendev.com',
 
         aliyunOss: {
             bucketName: 'pxqp',
@@ -78,8 +78,8 @@ const GlobalConfig = cc.Class({
          * @type {Object}
          */
         apiAddress: {
-            development: 'http://login.zhongchendev.com/',
-            production: 'http://login.zhongchendev.com/'
+            development: 'https://login.zhongchendev.com/',
+            production: 'https://login.zhongchendev.com/'
         },
 
         audioUrl: {
