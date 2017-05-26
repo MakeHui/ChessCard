@@ -1444,10 +1444,10 @@ cc.Class({
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
         const playTypes = window.PX258.Config.playTypes[info.game_uuid];
-        info.options = `0x${info.options.toString(16)}`;
+        const options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 
-        this.roomInfo[4].string = `玩法: ${playTypes.playType[num]}\n封顶: ${playTypes.options[info.options ^ num]}`;
+        this.roomInfo[4].string = `玩法: ${playTypes.playType[num]}\n封顶: ${playTypes.options[options ^ num]}`;
         this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
