@@ -78,8 +78,8 @@ const GlobalConfig = cc.Class({
          * @type {Object}
          */
         apiAddress: {
-            development: 'http://login.qingwuguo.com/',
-            production: 'http://login.qingwuguo.com/'
+            development: 'http://login.zhongchendev.com/',
+            production: 'http://login.zhongchendev.com/'
         },
 
         audioUrl: {

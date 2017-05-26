@@ -335,13 +335,11 @@ cc.Class({
         }
     },
 
-    // todo: 需要优化, 每个表情都需要定位到玩家前面, 或者干脆就不要表情了
     onSpeakerMessage(data) {
         data.content = JSON.parse(data.content);
 
         // 语音
-        // TODO: 正式上线需要更改为除了自己其他人都播放
-        if (data.content.type === 3 && this._userInfo.playerUuid === data.playerUuid) {
+        if (data.content.type === 3 && this._userInfo.playerUuid !== data.playerUuid) {
             if (cc.sys.os === cc.sys.OS_IOS) {
                 var filePath = data.content.data.replace(window.Global.Config.aliyunOss.domain, '');
                 window.Global.NativeExtensionManager.execute('ossDownload', [window.Global.Config.aliyunOss.bucketName, filePath], (result) => {
@@ -1267,7 +1265,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         var index = Math.abs(triggerIndex - playerIndex) - 1;
-        // TODO: 修复prefab顺序问题
+        // 修复prefab顺序问题
         if (playerIndex == 0) {
             index = Math.abs(2 - index);
         }
@@ -1297,7 +1295,7 @@ cc.Class({
         this.pongKongChowDistrict[playerIndex].addChild(node);
 
         var index = Math.abs(triggerIndex - playerIndex) - 1;
-        // TODO: 修复prefab顺序问题
+        // 修复prefab顺序问题
         if (playerIndex == 0) {
             index = Math.abs(2 - index);
         }
@@ -1352,7 +1350,7 @@ cc.Class({
             }
             else {
                 nodeSprite = window.Global.Tools.findNode(node, 'Mask>Background>value').getComponent(cc.Sprite);
-                // TODO: 处理特殊排列问题
+                // 处理特殊排列问题
                 if (player === 1) {
                     if (this.dirtyCardDistrict[player].childrenCount % 10 !== 0) {
                         node.getChildByName('Mask').height = 60;
