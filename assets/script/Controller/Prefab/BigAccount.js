@@ -76,6 +76,18 @@ cc.Class({
     wechatShareOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         // todo: 微信分享
+        var hasWechat = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!hasWechat) {
+            cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
+            return;
+        }
+
+        var node = cc.director.getScene().getChildByName('Canvas');
+        window.Global.Tools.captureScreen(node, function(fileName) {
+            window.Global.NativeExtensionManager.execute('wechatImageShare', [fileName], function(result) {
+                cc.log(result);
+            });
+        });
     },
 
     closeOnClick() {
