@@ -2497,7 +2497,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 72,
-      "height": 18
+      "height": 20
     },
     "_children": [],
     "_rotationX": 0,
@@ -2536,7 +2536,7 @@
     "_useOriginalSize": false,
     "_actualFontSize": 18,
     "_fontSize": 18,
-    "_lineHeight": 0,
+    "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
