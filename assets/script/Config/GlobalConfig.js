@@ -48,9 +48,9 @@ const GlobalConfig = cc.Class({
 
         fastChatShowTime: 1.5 * 1000,
 
-        hbtTime: 15,
+        hbtTime: 30,
 
-        wsHbtTime: 10,
+        wsHbtTime: 15,
 
         downloadPage: 'http://m.zhongchendev.com',
 
