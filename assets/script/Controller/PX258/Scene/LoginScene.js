@@ -81,7 +81,8 @@ cc.Class({
             return;
         }
 
-        window.Global.Animation.openDialog(cc.instantiate(this.secretKey), this.node);
+        this.httpLogin('888888', 'authCodeLogin');
+        // window.Global.Animation.openDialog(cc.instantiate(this.secretKey), this.node);
     },
 
     /**
