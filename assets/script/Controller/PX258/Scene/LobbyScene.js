@@ -7,7 +7,6 @@ cc.Class({
         money: cc.Label,
         notice: cc.Node,
         userInfoPrefab: cc.Prefab,
-        payOptionsPrefab: cc.Prefab,
         gameRecordPrefab: cc.Prefab,
         settingPrefab: cc.Prefab,
         gameRulesPrefab: cc.Prefab,
@@ -45,12 +44,12 @@ cc.Class({
     },
 
     /**
-     * 弹出充值信息
+     * 弹出信息
      */
-    openPayPanelOnClick() {
+    openPanelOnClick() {
         if (this.addMoneyButton.active) {
             window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-            window.Global.openMessageBox('请到 ' + window.Global.Config.wxPublic + ' 公众号进行充值');
+            window.Global.openMessageBox('微信公众号: 【' + window.Global.Config.wxPublic + '】');
         }
     },
 

@@ -1241,7 +1241,7 @@
       "__id__": 2
     },
     "component": "LobbyScene",
-    "handler": "openPayPanelOnClick",
+    "handler": "openPanelOnClick",
     "customEventData": ""
   },
   {
@@ -2882,9 +2882,6 @@
     },
     "userInfoPrefab": {
       "__uuid__": "94d11148-6cd1-41e8-bd5b-11299525efbc"
-    },
-    "payOptionsPrefab": {
-      "__uuid__": "126a594d-8ab3-4677-8f6e-d3d9ccd02580"
     },
     "gameRecordPrefab": {
       "__uuid__": "b53b542a-7a3f-4af9-8c7c-a4bfe81e49c3"

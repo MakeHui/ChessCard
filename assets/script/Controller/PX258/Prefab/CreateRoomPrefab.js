@@ -52,7 +52,7 @@ cc.Class({
                 cc.director.loadScene('GameRoom');
             }
             else if (result.code === 1023) {
-                window.Global.openMessageBox('金币不足请到 ' + window.Global.Config.wxPublic + ' 公众号进行充值');
+                window.Global.openMessageBox('微信公众号: 【' + window.Global.Config.wxPublic + '】');
             }
         });
     },
