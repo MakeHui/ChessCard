@@ -36,7 +36,7 @@ const GlobalConfig = cc.Class({
          */
         debug: true,
 
-        wxPublic: '萍乡棋牌',
+        wxPublic: '盛宸萍乡棋牌',
 
         /**
          * 临时数据传递对象
@@ -78,7 +78,7 @@ const GlobalConfig = cc.Class({
          * @type {Object}
          */
         apiAddress: {
-            development: 'https://login.zhongchendev.com/',
+            development: 'http://login.zhongchendev.com/',
             production: 'https://login.zhongchendev.com/'
         },
 

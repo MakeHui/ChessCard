@@ -49,7 +49,7 @@ cc.Class({
     openPanelOnClick() {
         if (this.addMoneyButton.active) {
             window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-            window.Global.openMessageBox('微信公众号: 【' + window.Global.Config.wxPublic + '】');
+            window.Global.Dialog.openMessageBox('充值请加微信公众号:【' + window.Global.Config.wxPublic + '】');
         }
     },
 

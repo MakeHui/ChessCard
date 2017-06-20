@@ -2,6 +2,11 @@ const PX258Config = cc.Class({
     extends: cc.Component,
 
     statics: {
+        gameUuid: [
+            '100100',
+            '100300'
+        ],
+
         /**
          * 音频本地地址
          * @type {Object}
@@ -204,6 +209,13 @@ const PX258Config = cc.Class({
                     0x1000: '双和子(8番)',
                     0x10000: '三和子(16番)',
                     0x100000: '四和子(32番)'
+                }
+            },
+            100300: {
+                name: '萍乡贰伍捌',
+                playType: {
+                    0x1: '小胡子胡',
+                    0x0: '小胡子不可胡'
                 }
             }
         }

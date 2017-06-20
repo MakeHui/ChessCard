@@ -44,7 +44,7 @@ cc.Class({
         if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig)) {
             window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, { music: true, effect: true });
         }
-        window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, true);
+        window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, false);
 
         // 初始化背景音效
         const playMusicConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
