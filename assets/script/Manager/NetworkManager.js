@@ -14,7 +14,7 @@ const HttpRequestManager = cc.Class({
             var request = cc.loader.getXMLHttpRequest();
             var self = this;
 
-            request.open('POST', (window.Global.Config.debug ? window.Global.Config.apiAddress.development : window.Global.Config.apiAddress.production) + protocol.api);
+            request.open('POST', (window.Global.Config.debug ? window.Global.Config.development.apiAddress : window.Global.Config.production.apiAddress) + protocol.api);
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             request.send(message.serializeBinary());
             request.onload = function (event) {

@@ -212,7 +212,7 @@ const PX258Config = cc.Class({
                 }
             },
             100300: {
-                name: '萍乡贰伍捌',
+                name: '转转麻将',
                 playType: {
                     0x1: '小胡子胡',
                     0x0: '小胡子不可胡'

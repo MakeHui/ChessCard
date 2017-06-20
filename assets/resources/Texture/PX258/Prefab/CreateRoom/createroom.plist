@@ -20,72 +20,72 @@
             <key>CreateRoomButtonSubmit.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{133,570},{160,65}}</string>
+                <string>{{136,570},{154,67}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{160,65}}</string>
+                <string>{{0,0},{154,67}}</string>
                 <key>sourceSize</key>
-                <string>{160,65}</string>
+                <string>{154,67}</string>
             </dict>
             <key>CreateRoomSelectPX258.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,766},{194,64}}</string>
+                <string>{{69,765},{193,65}}</string>
                 <key>offset</key>
-                <string>{0,1}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{194,64}}</string>
+                <string>{{0,0},{193,65}}</string>
                 <key>sourceSize</key>
-                <string>{194,66}</string>
+                <string>{193,65}</string>
             </dict>
             <key>CreateRoomSelectPX258_Active.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,570},{194,64}}</string>
+                <string>{{69,570},{193,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{194,64}}</string>
+                <string>{{0,0},{193,65}}</string>
                 <key>sourceSize</key>
-                <string>{194,66}</string>
+                <string>{193,65}</string>
             </dict>
             <key>CreateRoomSelectZZMJ.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{68,765},{193,63}}</string>
+                <string>{{2,765},{193,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{193,63}}</string>
+                <string>{{0,0},{193,65}}</string>
                 <key>sourceSize</key>
-                <string>{193,63}</string>
+                <string>{193,65}</string>
             </dict>
             <key>CreateRoomSelectZZMJ_Active.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{68,570},{193,63}}</string>
+                <string>{{2,570},{193,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{193,63}}</string>
+                <string>{{0,0},{193,65}}</string>
                 <key>sourceSize</key>
-                <string>{193,63}</string>
+                <string>{193,65}</string>
             </dict>
             <key>charge_btn_close.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{133,732},{102,102}}</string>
+                <string>{{136,726},{102,102}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>newCheck4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{51,962},{47,47}}</string>
+                <string>{{51,960},{47,47}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>newUncheck3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,962},{47,47}}</string>
+                <string>{{2,960},{47,47}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -131,7 +131,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c6a5bf465be2c323d269f2726a68aad0:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:31ecbe313b094ae499ad61af8bef2de0:1/1$</string>
             <key>textureFileName</key>
             <string>createroom.png</string>
         </dict>

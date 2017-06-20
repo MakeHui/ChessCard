@@ -27,28 +27,31 @@ cc.Class({
         window.Global.Animation.closeDialog(this.node);
     },
 
-    _getHttpGameRecordInfoData(scene, roomUuid) {
-        const self = this;
-        window.Global.Dialog.openLoading();
-        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, { roomUuid }, (event, result) => {
-            window.Global.Dialog.close();
-            if (result.code == 1) {
-                window.Global.Animation.closeDialog(scene.node);
-                const node = cc.instantiate(self.gameRecordStep);
-                node.getComponent('GameRecordStepPrefab').init(result);
-                window.Global.Animation.openDialog(node, self.node);
-            }
-            else if (result.code === 1021) {
-                window.Global.Dialog.openMessageBox('没有可查询的数据');
-            }
-        });
-    },
+    // _getHttpGameRecordInfoData(scene) {
+    //     window.Global.Dialog.openLoading();
+    //
+    //     const self = this;
+    //     const parameters = { gameUuid: window.PX258.Config.gameUuid.toString() };
+    //     window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, parameters, (event, result) => {
+    //         window.Global.Dialog.close();
+    //         if (result.code == 1) {
+    //             window.Global.Animation.closeDialog(scene.node);
+    //             const node = cc.instantiate(self.gameRecordStep);
+    //             node.getComponent('GameRecordStepPrefab').init(result);
+    //             window.Global.Animation.openDialog(node, self.node);
+    //         }
+    //         else if (result.code === 1021) {
+    //             window.Global.Dialog.openMessageBox('没有可查询的数据');
+    //         }
+    //     });
+    // },
 
     _getHttpRecordListSelfData() {
         window.Global.Dialog.openLoading();
 
         const self = this;
-        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, {}, (event, result) => {
+        const parameters = { gameUuid: window.PX258.Config.gameUuid.toString() };
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, parameters, (event, result) => {
             if (result.code === 0) {
                 const recordItemList = result.recordItemList;
                 if (recordItemList.length !== 0) {

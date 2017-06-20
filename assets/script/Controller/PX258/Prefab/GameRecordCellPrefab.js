@@ -25,7 +25,7 @@ cc.Class({
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             var obj = data.playerList[i];
-           window.Global.Tools.setWebImage(this.playerList[i].getChildByName('itemFace').getComponent(cc.Sprite), obj.headimgurl);
+            window.Global.Tools.setWebImage(this.playerList[i].getChildByName('itemFace').getComponent(cc.Sprite), obj.headimgurl);
             this.playerList[i].getChildByName('itemName').getComponent(cc.Label).string = obj.playerName;
             this.playerList[i].getChildByName('itemScore').getComponent(cc.Label).string = `积分: ${obj.score}`;
         }

@@ -12,10 +12,10 @@ cc.Class({
         emojiList: [cc.Prefab],
         countDownAnimation: cc.Animation,
 
-        makeSeat: [cc.Node],        // 当前出牌的人前面的标识
+        makeSeat: [cc.Node], // 当前出牌的人前面的标识
         makeSeatPanel: cc.Node,
 
-        tingCardDistrict: cc.Node,  // 听牌提示
+        tingCardDistrict: cc.Node, // 听牌提示
 
         // 解散房间
         voteDismiss: cc.Node,
@@ -38,8 +38,8 @@ cc.Class({
         pongKongChowDistrict: [cc.Node],
         pongPrefab: [cc.Prefab], // 碰
         ChowPrefab: [cc.Prefab], // 吃
-        exposedPrefab: [cc.Prefab],     // 明杠
-        concealedKongPrefab: [cc.Prefab],   // 暗杠
+        exposedPrefab: [cc.Prefab], // 明杠
+        concealedKongPrefab: [cc.Prefab], // 暗杠
 
         playerInfoList: [cc.Node],
         inviteButtonList: [cc.Node],
@@ -68,33 +68,34 @@ cc.Class({
 
     onLoad() {
         this._Cache = {};
-        this._Cache.roomId = '';        // 房间号
-        this._Cache.ownerUuid = '';     // 房主uuid
-        this._Cache.playerList = [];    // 玩家信息列表
+        this._Cache.gameUuid = ''; // 游戏uuid
+        this._Cache.roomId = ''; // 房间号
+        this._Cache.ownerUuid = ''; // 房主uuid
+        this._Cache.playerList = []; // 玩家信息列表
         this._Cache.thisPlayerSeat = 0; // 当前玩家实际座位号
         this._Cache.thisDealerSeat = 0; // 当前庄家相对座位号
-        this._Cache.activeCardFlag = null;  // 最后出的那张牌上面的标识
-        this._Cache.activeCard = null;      // 当前最后出的那张牌
-        this._Cache.waitDraw = false;       // 是否等待抓拍, 客户端逻辑
-        this._Cache.allowOutCard = false;   // 是否允许出牌
-        this._Cache.settleForRoomData = null;   // 大结算数据
-        this._Cache.currentRound = 0;           // 局数
-        this._Cache.config = {};    // 房间信息
+        this._Cache.activeCardFlag = null; // 最后出的那张牌上面的标识
+        this._Cache.activeCard = null; // 当前最后出的那张牌
+        this._Cache.waitDraw = false; // 是否等待抓拍, 客户端逻辑
+        this._Cache.allowOutCard = false; // 是否允许出牌
+        this._Cache.settleForRoomData = null; // 大结算数据
+        this._Cache.currentRound = 0; // 局数
+        this._Cache.config = {}; // 房间信息
 
         if (window.Global.Config.tempCache) {
             const self = this;
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
             this.wsUrl = `ws://${window.Global.Config.tempCache.serverIp}:${window.Global.Config.tempCache.serverPort}/ws`;
 
-            window.Global.NetworkManager.onopen = (evt) => {
+            window.Global.NetworkManager.onopen = () => {
                 self._hideWaitPanel();
                 window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.EnterRoom, { roomId: self._Cache.roomId });
                 window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
 
                 this.unschedule(this.wsHbtSchedule);
-                this.schedule(this.wsHbtSchedule, window.Global.Config.wsHbtTime);
+                this.schedule(this.wsHbtSchedule, window.Global.Config.debug ? window.Global.Config.development.wsHbtTime : window.Global.Config.production.wsHbtTime);
             };
-            window.Global.NetworkManager.onclose = (evt) => {
+            window.Global.NetworkManager.onclose = () => {
                 this.unschedule(this.wsHbtSchedule);
                 self._showWaitPanel(2);
             };
@@ -176,11 +177,8 @@ cc.Class({
      **/
 
     onEnterRoomMessage(data) {
-        if (data.code !== 1) {
-            return;
-        }
-
         data.kwargs = JSON.parse(data.kwargs);
+        this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.ownerUuid = data.ownerUuid;
         this._Cache.currentRound = 1;
         this._setRoomInfo(data.kwargs, 1, data.restCards);
@@ -291,15 +289,13 @@ cc.Class({
             if (this._Cache.ownerUuid === this._userInfo.playerUuid) {
                 window.Global.NetworkManager.close();
                 cc.director.loadScene('Lobby');
-            }
-            else {
+            } else {
                 window.Global.Dialog.openMessageBox('房主已解散房间', function() {
                     window.Global.NetworkManager.close();
                     cc.director.loadScene('Lobby');
                 });
             }
-        }
-        else if (data.flag === 1) {
+        } else if (data.flag === 1) {
             window.Global.NetworkManager.close();
             cc.director.loadScene('Lobby');
         }
@@ -328,8 +324,7 @@ cc.Class({
         if (this._Cache.playerList.length === 4) {
             if (data.status) {
                 this._hideWaitPanel();
-            }
-            else {
+            } else {
                 this._showWaitPanel(1);
             }
         }
@@ -347,8 +342,7 @@ cc.Class({
                         window.Global.NativeExtensionManager.execute('playerAudio', [result.data]);
                     }
                 });
-            }
-            else if (cc.sys.os === cc.sys.OS_ANDROID) {
+            } else if (cc.sys.os === cc.sys.OS_ANDROID) {
                 window.Global.NativeExtensionManager.execute('playerAudio', [data.content.data]);
             }
             return;
@@ -375,16 +369,13 @@ cc.Class({
                     node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
                     if (playerIndex === 0) {
                         node.setPosition(0, -126);
-                    }
-                    else if (playerIndex === 1) {
+                    } else if (playerIndex === 1) {
                         node.setPosition(162, 0);
                         node.rotation = 270;
-                    }
-                    else if (playerIndex === 2) {
+                    } else if (playerIndex === 2) {
                         node.setPosition(0, 126);
                         node.rotation = 180;
-                    }
-                    else if (playerIndex === 3) {
+                    } else if (playerIndex === 3) {
                         node.setPosition(-162, 0);
                         node.rotation = 90;
                     }
@@ -469,7 +460,7 @@ cc.Class({
 
             // 是否有操作提示
             if (playerIndex == 0) {
-                self.onPromptMessage({promptList: data.promptList});
+                self.onPromptMessage({ promptList: data.promptList });
             }
         }, this._Cache.waitDraw ? 3 : 0);
     },
@@ -480,7 +471,7 @@ cc.Class({
         this._createActiveCardFlag(playerIndex);
 
         // 是否有操作提示
-        this.onPromptMessage({promptList: data.promptList});
+        this.onPromptMessage({ promptList: data.promptList });
 
         window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
     },
@@ -531,6 +522,7 @@ cc.Class({
             return;
         }
         data.kwargs = JSON.parse(data.kwargs);
+        this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.roomId = data.roomId;
         this._Cache.ownerUuid = data.ownerUuid;
         this._Cache.currentRound = data.currentRound;
@@ -543,7 +535,7 @@ cc.Class({
             for (var i = 0; i < 4; i += 1) {
                 this._hideInviteButton(i);
             }
-            this.playerInfoList[2].setPositionX(-134);  // 移动三号位的玩家头像到右边, 避免被挡住
+            this.playerInfoList[2].setPositionX(-134); // 移动三号位的玩家头像到右边, 避免被挡住
         }
 
         // 初始化房间信息
@@ -585,14 +577,11 @@ cc.Class({
                 var triggerIndex = this._getPlayerIndexBySeat(obj1.triggerSeat);
                 if (obj1.type == 'chow') {
                     this._appendChowToDistrict(playerIndex, obj1.cardList);
-                }
-                else if (obj1.type == 'pong') {
+                } else if (obj1.type == 'pong') {
                     this._appendPongToDistrict(playerIndex, triggerIndex, obj1.cardList);
-                }
-                else if (obj1.type == 'discard_exposed_kong' || obj1.type == 'draw_exposed_kong') {
+                } else if (obj1.type == 'discard_exposed_kong' || obj1.type == 'draw_exposed_kong') {
                     this._appendExposedToDistrict(playerIndex, triggerIndex, obj1.cardList);
-                }
-                else if (obj1.type == 'draw_concealed_kong') {
+                } else if (obj1.type == 'draw_concealed_kong') {
                     this._appendConcealedKongToDistrict(playerIndex, obj1.cardList);
                 }
             }
@@ -627,8 +616,7 @@ cc.Class({
         var hasOutCard = 'pass';
         if (this._Cache.allowOutCard) {
             hasOutCard += '_true';
-        }
-        else {
+        } else {
             hasOutCard += '_false';
         }
 
@@ -653,14 +641,11 @@ cc.Class({
             let actionPanelIndex = 0;
             if (promptType[i] === window.PX258.Config.promptType.Chow) {
                 actionPanelIndex = 1;
-            }
-            else if (promptType[i] === window.PX258.Config.promptType.Pong) {
+            } else if (promptType[i] === window.PX258.Config.promptType.Pong) {
                 actionPanelIndex = 2;
-            }
-            else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+            } else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
                 actionPanelIndex = 3;
-            }
-            else if (promptType[i] === window.PX258.Config.promptType.WinDiscard || promptType[i] === window.PX258.Config.promptType.WinDraw) {
+            } else if (promptType[i] === window.PX258.Config.promptType.WinDiscard || promptType[i] === window.PX258.Config.promptType.WinDraw) {
                 actionPanelIndex = 4;
             }
 
@@ -701,8 +686,7 @@ cc.Class({
                     this.selectChiPanel.addChild(passButton);
 
                     actionId = 'openSelectChi';
-                }
-                else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+                } else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
                     for (var j = 0; j < promptList.length; j += 1) {
                         var obj = promptList[j];
 
@@ -726,8 +710,7 @@ cc.Class({
 
                     actionId = 'openSelectKong';
                 }
-            }
-            else {
+            } else {
                 actionId = promptList[0].actionId;
             }
 
@@ -768,8 +751,7 @@ cc.Class({
             if (data.playerUuid === this._userInfo.playerUuid) {
                 this._Cache.allowOutCard = true;
             }
-        }
-        else if (data.activeType === window.PX258.Config.promptType.Pong) {
+        } else if (data.activeType === window.PX258.Config.promptType.Pong) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].pong);
 
             // 删除需要删除的手牌
@@ -789,8 +771,7 @@ cc.Class({
             if (data.playerUuid === this._userInfo.playerUuid) {
                 this._Cache.allowOutCard = true;
             }
-        }
-        else if (data.activeType === window.PX258.Config.promptType.kongExposed) {
+        } else if (data.activeType === window.PX258.Config.promptType.kongExposed) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 杠完后不能出牌
@@ -810,8 +791,7 @@ cc.Class({
 
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
-        }
-        else if (data.activeType === window.PX258.Config.promptType.KongConcealed) {
+        } else if (data.activeType === window.PX258.Config.promptType.KongConcealed) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].ankong);
 
             // 杠完后不能出牌
@@ -836,8 +816,7 @@ cc.Class({
 
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
-        }
-        else if (data.activeType === window.PX258.Config.promptType.KongPong) {
+        } else if (data.activeType === window.PX258.Config.promptType.KongPong) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].kong);
 
             // 杠完后不能出牌
@@ -870,15 +849,13 @@ cc.Class({
 
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[2];
             this.actionSprite[playerIndex].getComponent(cc.Animation).play();
-        }
-        else if (data.activeType === window.PX258.Config.promptType.WinDraw) {
+        } else if (data.activeType === window.PX258.Config.promptType.WinDraw) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].zimo);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
             this.actionSprite[playerIndex].getComponent(cc.Sprite).spriteFrame = this.actionSpriteFrame[3];
             // this.actionSprite[playerIndex].getComponent(cc.Animation).play();
-        }
-        else if (data.activeType === window.PX258.Config.promptType.WinDiscard) {
+        } else if (data.activeType === window.PX258.Config.promptType.WinDiscard) {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.common[this._userInfo.sex == 1 ? 'man' : 'woman'].win);
 
             // todo: 胡牌动画, 更改为胡了之后显示该张牌
@@ -888,7 +865,7 @@ cc.Class({
 
         // 是否有操作提示
         if (playerIndex == 0) {
-            this.onPromptMessage({promptList: data.promptList});
+            this.onPromptMessage({ promptList: data.promptList });
         }
 
         this._openLight(playerSeat);
@@ -933,8 +910,7 @@ cc.Class({
             window.Global.NetworkManager.close();
             window.Global.Config.tempCache = { data, playerInfoList: this._Cache.playerList };
             window.Global.Animation.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
-        }
-        else {
+        } else {
             this._Cache.settleForRoomData = data;
         }
     },
@@ -1016,8 +992,7 @@ cc.Class({
         if (data == 1) {
             this.fastChatPanel.getChildByName('fastChatView1').active = true;
             this.fastChatPanel.getChildByName('fastChatView2').active = false;
-        }
-        else {
+        } else {
             this.fastChatPanel.getChildByName('fastChatView1').active = false;
             this.fastChatPanel.getChildByName('fastChatView2').active = true;
         }
@@ -1051,11 +1026,9 @@ cc.Class({
 
         if (data == 'openSelectKong') {
             this.selectKongPanel.active = true;
-        }
-        else if (data == 'openSelectChi') {
+        } else if (data == 'openSelectChi') {
             this.selectChiPanel.active = true;
-        }
-        else {
+        } else {
             if (data == 'pass_true') {
                 this._Cache.allowOutCard = true;
             }
@@ -1089,8 +1062,7 @@ cc.Class({
             this._Cache.allowOutCard = false;
             if (event.target.name === 'GetHandCard') {
                 this._hideGetHandCard(0);
-            }
-            else {
+            } else {
                 event.target.parent.destroy();
             }
 
@@ -1104,8 +1076,7 @@ cc.Class({
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
 
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
-        }
-        else {
+        } else {
             this._resetHandCardPosition();
             event.target.setPositionY(24);
         }
@@ -1163,8 +1134,7 @@ cc.Class({
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 4) {
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.ExitRoom, { roomId: this._Cache.roomId });
-        }
-        else {
+        } else {
             window.Global.Dialog.openMessageBox('游戏中无法退出');
         }
     },
@@ -1179,8 +1149,7 @@ cc.Class({
         cc.log('readyGameCallback');
         if (this._Cache.settleForRoomData) {
             this.onSettleForRoomMessage(this._Cache.settleForRoomData);
-        }
-        else if (this.handCardDistrict[0].children.length == 0) {
+        } else if (this.handCardDistrict[0].children.length == 0) {
             cc.log('readyGameCallback.Ready');
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
             this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
@@ -1206,8 +1175,7 @@ cc.Class({
                     obj.destroy();
                     break;
                 }
-            }
-            else if (obj.active) {
+            } else if (obj.active) {
                 obj.active = false;
                 obj.destroy();
                 break;
@@ -1273,8 +1241,7 @@ cc.Class({
         for (var i = 0; i < 4; i += 1) {
             if (i === index) {
                 node.children[i].getChildByName('hide').active = true;
-            }
-            else {
+            } else {
                 var nodeSprite = window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[0].card.toString(16)}`);
             }
@@ -1303,8 +1270,7 @@ cc.Class({
         for (var i = 0; i < data.length; i += 1) {
             if (i === index) {
                 node.children[i].getChildByName('hide').active = true;
-            }
-            else {
+            } else {
                 var nodeSprite = window.Global.Tools.findNode(node.children[i], 'show>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${data[i].card.toString(16)}`);
             }
@@ -1347,16 +1313,14 @@ cc.Class({
             let nodeSprite = {};
             if (player === 0 || player === 3) {
                 nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-            }
-            else {
+            } else {
                 nodeSprite = window.Global.Tools.findNode(node, 'Mask>Background>value').getComponent(cc.Sprite);
                 // 处理特殊排列问题
                 if (player === 1) {
                     if (this.dirtyCardDistrict[player].childrenCount % 10 !== 0) {
                         node.getChildByName('Mask').height = 60;
                     }
-                }
-                else if (player === 2) {
+                } else if (player === 2) {
                     if (this.dirtyCardDistrict[player].childrenCount >= 10) {
                         node.getChildByName('Mask').height = 81;
                     }
@@ -1394,8 +1358,7 @@ cc.Class({
             const obj = this._Cache.playerList[i];
             if (obj.playerUuid === data.sponsor) {
                 this.voteSponsor.string = obj.info.nickname;
-            }
-            else {
+            } else {
                 this._votePlayers.push(obj);
             }
         }
@@ -1415,8 +1378,7 @@ cc.Class({
             this.voteDismissButton[1].active = false;
 
             this.voteExpireSeconds.string = '等待倒计时：0秒';
-        }
-        else {
+        } else {
             this.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
         }
 
@@ -1425,8 +1387,7 @@ cc.Class({
             if (data.expireSeconds > 0) {
                 data.expireSeconds -= 1;
                 self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
-            }
-            else if (data.expireSeconds === 0) {
+            } else if (data.expireSeconds === 0) {
                 self.unschedule(this._expireSeconds);
             }
         };
@@ -1447,7 +1408,11 @@ cc.Class({
         const options = `0x${info.options.toString(16)}`;
         const num = info.options & 0x1;
 
-        this.roomInfo[4].string = `玩法: ${playTypes.playType[num]}\n封顶: ${playTypes.options[options ^ num]}`;
+        this.roomInfo[4].string = '玩法: ' + playTypes.playType[num];
+        if (this._Cache.gameUuid == window.PX258.Config.gameUuid[0]) {
+            this.roomInfo[4].string += '\n封顶: ' + playTypes.options[options ^ num];
+        }
+
         this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
         this.roomInfo[2].string = `局数: ${currentRound}/${info.max_rounds}`;
         this.roomInfo[3].string = `剩余牌数: ${restCards}`;
@@ -1576,7 +1541,7 @@ cc.Class({
         this._initReadyHand();
         this._hideSelectChiKongPanel();
 
-        this.playerInfoList[2].setPositionX(-554);  // 移动三号位的玩家头像到中间
+        this.playerInfoList[2].setPositionX(-554); // 移动三号位的玩家头像到中间
     },
 
     _initCardDistrict() {
@@ -1652,8 +1617,7 @@ cc.Class({
         }
         if (this.selectChiPanel.active) {
             return true;
-        }
-        else if (this.selectKongPanel.active) {
+        } else if (this.selectKongPanel.active) {
             return true;
         }
         return false;
@@ -1685,8 +1649,7 @@ cc.Class({
     _showWaitPanel(messageId) {
         if (messageId === 1) {
             this.waitPanel.getChildByName('txt_wait').getComponent(cc.Label).string = '玩家可能离线或者离开，等待操作中...';
-        }
-        else if (messageId === 2) {
+        } else if (messageId === 2) {
             this.waitPanel.getChildByName('txt_wait').getComponent(cc.Label).string = '断线重连中，请稍等...';
         }
         this.waitPanel.active = true;
@@ -1715,7 +1678,7 @@ cc.Class({
     /**
      * 显示筛子点数
      */
-    showDice: function (diceList) {
+    showDice: function(diceList) {
         var node = cc.instantiate(this.dicePrefab);
         node.getComponent('Dice').init(diceList);
         this.node.addChild(node);

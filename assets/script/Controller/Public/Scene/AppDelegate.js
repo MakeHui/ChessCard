@@ -55,7 +55,7 @@ cc.Class({
             window.Global.SoundEffect.backgroundMusicStop();
         }
 
-        this.schedule(this.hbt.bind(this), window.Global.Config.hbtTime);
+        this.schedule(this.hbt.bind(this), window.Global.Config.debug ? window.Global.Config.development.hbtTime : window.Global.Config.production.hbtTime);
 
         // window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '91d3e19c-1762-11e7-a41e-00163e10f210');
 

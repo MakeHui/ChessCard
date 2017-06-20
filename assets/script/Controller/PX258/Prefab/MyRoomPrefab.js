@@ -76,7 +76,8 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomList, {}, (event, result) => {
+        const parameters = { gameUuid: window.PX258.Config.gameUuid.toString() };
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomList, parameters, (event, result) => {
             window.Global.Dialog.close();
             if (result.code === 1 && result.roomItemList.length !== 0) {
                 self.gameIngList.removeAllChildren();
@@ -97,7 +98,8 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordList, {}, (event, result) => {
+        const parameters = { gameUuid: window.PX258.Config.gameUuid.toString() };
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordList, parameters, (event, result) => {
             if (result.code === 0 && result.recordItemList.length !== 0) {
                 this.gameEndList.removeAllChildren();
                 const roomItem = result.recordItemList;

@@ -3,16 +3,10 @@ cc.Class({
 
     properties: {
         roomNumber: cc.Label,
+        gameName: cc.Label,
         avatar: [cc.Sprite],
         nickname: [cc.Label],
         playerPanel: [cc.Node],
-    },
-
-    onLoad () {
-        // 没有安装微信, 不显示分享按钮
-        if (!window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled')) {
-            window.Global.Tools.findNode(this.node, 'btn_share').active = false;
-        }
     },
 
     enterGameRoomOnClick() {
@@ -54,5 +48,6 @@ cc.Class({
             this.playerPanel[i].active = true;
         }
         this.roomNumber.string = `房间号: ${data.roomId}`;
+        this.gameName.string = window.PX258.Config.playTypes[data.gameUuid].name;
     },
 });

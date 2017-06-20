@@ -49,11 +49,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RoomList',
                 response: 'RoomList',
-                message: function () {
+                message: function (parameters) {
                     var message = new proto.login.RoomListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
+                    message.setGameUuid(parameters.gameUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -66,11 +67,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function () {
+                message: function (parameters) {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
+                    message.setGameUuid(parameters.gameUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -100,11 +102,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function () {
+                message: function (parameters) {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
+                    message.setGameUuid(parameters.gameUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 

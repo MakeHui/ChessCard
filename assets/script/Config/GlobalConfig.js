@@ -12,6 +12,26 @@ const GlobalConfig = cc.Class({
     extends: cc.Component,
 
     statics: {
+
+        /**
+         * 是否是debug环境
+         * @type {Boolean}
+         */
+        debug: true,
+
+        development: {
+            apiAddress: 'http://login.zhongchendev.com/',
+            hbtTime: 3000000,
+            wsHbtTime: 15000000,
+
+        },
+
+        production: {
+            apiAddress: 'https://login.zhongchendev.com/',
+            hbtTime: 30,
+            wsHbtTime: 15,
+        },
+
         /**
          * app标识
          * @type {Number}
@@ -30,12 +50,6 @@ const GlobalConfig = cc.Class({
          */
         version: '1.0.0',
 
-        /**
-         * 是否是debug环境
-         * @type {Boolean}
-         */
-        debug: true,
-
         wxPublic: '盛宸萍乡棋牌',
 
         /**
@@ -47,10 +61,6 @@ const GlobalConfig = cc.Class({
         fastChatWaitTime: 0.5,
 
         fastChatShowTime: 1.5 * 1000,
-
-        hbtTime: 30,
-
-        wsHbtTime: 15,
 
         downloadPage: 'http://m.zhongchendev.com',
 
@@ -71,15 +81,6 @@ const GlobalConfig = cc.Class({
             userInfo_location: 'UserInfo_Location',
             playMusicConfig: 'PlayMusicConfig',
             appleReview: 'AppleReview',
-        },
-
-        /**
-         * api接口地址
-         * @type {Object}
-         */
-        apiAddress: {
-            development: 'http://login.zhongchendev.com/',
-            production: 'https://login.zhongchendev.com/'
         },
 
         audioUrl: {
