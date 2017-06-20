@@ -870,7 +870,8 @@ proto.login.LoginResponse.toObject = function(includeInstance, msg) {
     playerReconnection: jspb.Message.getFieldWithDefault(msg, 23, false),
     playerRoomId: jspb.Message.getFieldWithDefault(msg, 24, 0),
     playerServerIp: jspb.Message.getFieldWithDefault(msg, 25, ""),
-    playerServerPort: jspb.Message.getFieldWithDefault(msg, 26, 0)
+    playerServerPort: jspb.Message.getFieldWithDefault(msg, 26, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 27, "")
   };
 
   if (includeInstance) {
@@ -990,6 +991,10 @@ proto.login.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
     case 26:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setPlayerServerPort(value);
+      break;
+    case 27:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
       break;
     default:
       reader.skipField();
@@ -1173,6 +1178,13 @@ proto.login.LoginResponse.prototype.serializeBinaryToWriter = function (writer) 
   if (f !== 0) {
     writer.writeInt32(
       26,
+      f
+    );
+  }
+  f = this.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      27,
       f
     );
   }
@@ -1497,6 +1509,21 @@ proto.login.LoginResponse.prototype.getPlayerServerPort = function() {
 /** @param {number} value */
 proto.login.LoginResponse.prototype.setPlayerServerPort = function(value) {
   jspb.Message.setField(this, 26, value);
+};
+
+
+/**
+ * optional string game_uuid = 27;
+ * @return {string}
+ */
+proto.login.LoginResponse.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 27, ""));
+};
+
+
+/** @param {string} value */
+proto.login.LoginResponse.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 27, value);
 };
 
 
@@ -3929,7 +3956,8 @@ proto.login.PlayerInGameW2WResponse.toObject = function(includeInstance, msg) {
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
     serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    serverId: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    serverId: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -3985,6 +4013,10 @@ proto.login.PlayerInGameW2WResponse.deserializeBinaryFromReader = function(msg, 
     case 5:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setServerId(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
       break;
     default:
       reader.skipField();
@@ -4056,6 +4088,13 @@ proto.login.PlayerInGameW2WResponse.prototype.serializeBinaryToWriter = function
   if (f !== 0) {
     writer.writeUint32(
       5,
+      f
+    );
+  }
+  f = this.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
       f
     );
   }
@@ -4134,6 +4173,21 @@ proto.login.PlayerInGameW2WResponse.prototype.getServerId = function() {
 /** @param {number} value */
 proto.login.PlayerInGameW2WResponse.prototype.setServerId = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string game_uuid = 6;
+ * @return {string}
+ */
+proto.login.PlayerInGameW2WResponse.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.login.PlayerInGameW2WResponse.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

@@ -125,8 +125,10 @@ cc.Class({
                     window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, result.loginKey);
 
                     if (result.playerReconnection) {
-                        window.Global.Config.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true };
-                        cc.director.loadScene('GameRoom');
+                        window.Global.Config.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true, gameUuid: result.gameUuid };
+                        if (window.PX258.Config.gameUuid.indexOf(result.gameUuid) !== -1) {
+                            cc.director.loadScene('GameRoom');
+                        }
                     }
                     else {
                         cc.director.loadScene('Lobby');
