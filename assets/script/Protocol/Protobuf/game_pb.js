@@ -68,6 +68,8 @@ goog.provide('proto.game.SpeakerRequest');
 goog.provide('proto.game.SpeakerResponse');
 goog.provide('proto.game.SponsorVoteResponse');
 goog.provide('proto.game.SynchroniseCardsResponse');
+goog.provide('proto.game.SynchroniseScoreResponse');
+goog.provide('proto.game.SynchroniseScoreResponse.ScoreData');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -6558,6 +6560,361 @@ proto.game.HeartbeatResponse.prototype.serializeBinaryToWriter = function (write
  * @extends {jspb.Message}
  * @constructor
  */
+proto.game.SynchroniseScoreResponse = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.SynchroniseScoreResponse.repeatedFields_, null);
+};
+goog.inherits(proto.game.SynchroniseScoreResponse, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.SynchroniseScoreResponse.displayName = 'proto.game.SynchroniseScoreResponse';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.game.SynchroniseScoreResponse.repeatedFields_ = [1];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.SynchroniseScoreResponse.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.SynchroniseScoreResponse.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.SynchroniseScoreResponse} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.SynchroniseScoreResponse.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    scoreDataList: jspb.Message.toObjectList(msg.getScoreDataList(),
+    proto.game.SynchroniseScoreResponse.ScoreData.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.SynchroniseScoreResponse}
+ */
+proto.game.SynchroniseScoreResponse.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.SynchroniseScoreResponse;
+  return proto.game.SynchroniseScoreResponse.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.SynchroniseScoreResponse} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.SynchroniseScoreResponse}
+ */
+proto.game.SynchroniseScoreResponse.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.game.SynchroniseScoreResponse.ScoreData;
+      reader.readMessage(value,proto.game.SynchroniseScoreResponse.ScoreData.deserializeBinaryFromReader);
+      msg.addScoreData(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.game.SynchroniseScoreResponse} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.SynchroniseScoreResponse.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.SynchroniseScoreResponse.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.SynchroniseScoreResponse.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getScoreDataList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      1,
+      f,
+      proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * repeated ScoreData score_data = 1;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>}
+ */
+proto.game.SynchroniseScoreResponse.prototype.getScoreDataList = function() {
+  return /** @type{!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SynchroniseScoreResponse.ScoreData, 1));
+};
+
+
+/** @param {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} value */
+proto.game.SynchroniseScoreResponse.prototype.setScoreDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SynchroniseScoreResponse.ScoreData}
+ */
+proto.game.SynchroniseScoreResponse.prototype.addScoreData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.SynchroniseScoreResponse.ScoreData, opt_index);
+};
+
+
+proto.game.SynchroniseScoreResponse.prototype.clearScoreDataList = function() {
+  this.setScoreDataList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.SynchroniseScoreResponse.ScoreData = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.game.SynchroniseScoreResponse.ScoreData, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.SynchroniseScoreResponse.ScoreData.displayName = 'proto.game.SynchroniseScoreResponse.ScoreData';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.SynchroniseScoreResponse.ScoreData.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    seat: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    score: jspb.Message.getFieldWithDefault(msg, 2, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.SynchroniseScoreResponse.ScoreData}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.SynchroniseScoreResponse.ScoreData;
+  return proto.game.SynchroniseScoreResponse.ScoreData.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.SynchroniseScoreResponse.ScoreData}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setSeat(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setScore(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getSeat();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = this.getScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional int32 seat = 1;
+ * @return {number}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.getSeat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.setSeat = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional int32 score = 2;
+ * @return {number}
+ */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.getScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SynchroniseScoreResponse.ScoreData.prototype.setScore = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
 proto.game.Card = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -7735,7 +8092,8 @@ proto.game.DrawResponse.toObject = function(includeInstance, msg) {
     card: (f = msg.getCard()) && proto.game.Card.toObject(includeInstance, f),
     playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
     promptList: jspb.Message.toObjectList(msg.getPromptList(),
-    proto.game.Prompt.toObject, includeInstance)
+    proto.game.Prompt.toObject, includeInstance),
+    restCards: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -7785,6 +8143,10 @@ proto.game.DrawResponse.deserializeBinaryFromReader = function(msg, reader) {
       var value = new proto.game.Prompt;
       reader.readMessage(value,proto.game.Prompt.deserializeBinaryFromReader);
       msg.addPrompt(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setRestCards(value);
       break;
     default:
       reader.skipField();
@@ -7845,6 +8207,13 @@ proto.game.DrawResponse.prototype.serializeBinaryToWriter = function (writer) {
       3,
       f,
       proto.game.Prompt.serializeBinaryToWriter
+    );
+  }
+  f = this.getRestCards();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
     );
   }
 };
@@ -7925,6 +8294,21 @@ proto.game.DrawResponse.prototype.addPrompt = function(opt_value, opt_index) {
 
 proto.game.DrawResponse.prototype.clearPromptList = function() {
   this.setPromptList([]);
+};
+
+
+/**
+ * optional uint32 rest_cards = 4;
+ * @return {number}
+ */
+proto.game.DrawResponse.prototype.getRestCards = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.DrawResponse.prototype.setRestCards = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 
