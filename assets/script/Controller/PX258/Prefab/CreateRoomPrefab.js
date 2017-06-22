@@ -20,6 +20,7 @@ cc.Class({
             100300: {
                 maxRounds: 8,
                 playType: 0x1,
+                options: 0x0
             }
         };
 
@@ -41,9 +42,7 @@ cc.Class({
         }
     },
 
-    selectedOnClick(toggle, data) {
-        cc.log(arguments);
-
+    selectedOnClick(event, data) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         data = data.split('-');
         if (data[0] == 0) {
@@ -53,18 +52,16 @@ cc.Class({
             this.roomConfig[this.gameUuid].playType = data[1];
         }
         else if (data[0] == 2) {
-            this.roomConfig[this.gameUuid].options = data[1];
+            this.roomConfig[this.gameUuid].options = event.isChecked ? data[1] : 0x0;
         }
+        cc.log([data, this.roomConfig]);
     },
 
     createRoomOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.Dialog.openLoading();
 
-        var roomConfig = this.roomConfig[this.gameUuid].playType;
-        if (this.gameUuid == window.PX258.Config.gameUuid[0]) {
-            roomConfig = roomConfig | this.roomConfig[this.gameUuid].options;
-        }
+        var roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
         var parameters = { gameUuid: this.gameUuid, maxRounds: this.roomConfig[this.gameUuid].maxRounds, roomConfig: roomConfig };
         window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomCreate, parameters, (event, result) => {
             window.Global.Dialog.close();

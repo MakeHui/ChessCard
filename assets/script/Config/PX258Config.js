@@ -215,7 +215,8 @@ const PX258Config = cc.Class({
                 name: '转转麻将',
                 playType: {
                     0x1: '小胡子胡',
-                    0x0: '小胡子不可胡'
+                    0x0: '小胡子不可胡',
+                    0x10: '红中癞子'
                 }
             }
         }
