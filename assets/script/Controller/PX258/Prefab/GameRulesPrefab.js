@@ -2,18 +2,19 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+        rules: [cc.Node]
     },
 
-    // use this for initialization
-    onLoad: function () {
-
+    radioButtonClicked(toggle, data) {
+        this.rules[0].active = false;
+        this.rules[1].active = false;
+        this.rules[data].active = true;
     },
 
     /**
      * 关闭本窗口
      */
-    closeOnClick: function(event, data) {
+    closeOnClick: function() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.Animation.closeDialog(this.node);
     }
