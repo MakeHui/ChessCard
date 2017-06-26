@@ -891,8 +891,9 @@ cc.Class({
     onSettleForRoundMessage(data) {
         this._initCardDistrict();
         const self = this;
-        window.Global.Config.tempCache = { data, playerInfoList: this._Cache.playerList };
-        window.Global.Animation.openDialog(cc.instantiate(this.smallAccountPrefab), this.node, () => {
+        const node = cc.instantiate(this.smallAccountPrefab);
+        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, roomId: this._Cache.roomId, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds });
+        window.Global.Animation.openDialog(node, this.node, () => {
             for (let i = 0; i < 4; i += 1) {
                 self.handCardDistrict[i].removeAllChildren();
                 self.dirtyCardDistrict[i].removeAllChildren();
@@ -1366,6 +1367,7 @@ cc.Class({
         for (let i = 0; i < this._votePlayers.length; i += 1) {
             const obj = this._votePlayers[i];
             this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = obj.info.nickname;
+            this.votePlayers[i].active = true;
         }
 
         this.voteDismiss.active = true;

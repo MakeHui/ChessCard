@@ -6,24 +6,28 @@ cc.Class({
         winPanel: [cc.Node],
         cardPinList: cc.SpriteAtlas,
         cardPrefab: cc.Prefab,
+        zhuaniaoNode: cc.Node,
+        titleLabel: cc.Label,
     },
 
-    // use this for initialization
-    onLoad() {
-        if (!window.Global.Config.tempCache.data.playerDataList) {
-            return;
-        }
+    init(data) {
+        this._Cache = data;
+        cc.log(this._Cache);
 
-        const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+        this.titleLabel.string = `房间号:${this._Cache.roomId} 局数:${this._Cache.currentRound}/${this._Cache.maxRounds}`;
 
-        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
+        // const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+
+        for (let i = 0; i < this._Cache.data.playerDataList.length; i += 1) {
             const playerNode = this.playerList[i];
-            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
+            const playerData = this._Cache.data.playerDataList[i];
             const cardPanel = playerNode.getChildByName('CardPanel');
+            const playerUserInfo = this._getUserInfoInList(playerData.playerUuid);
 
-            playerNode.getChildByName('text_nick').getComponent(cc.Label).string = this._getNicknameInList(playerData.playerUuid);
-            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = `总: ${playerData.total}`;
+            playerNode.getChildByName('text_nick').getComponent(cc.Label).string = playerUserInfo.nickname;
+            playerNode.getChildByName('txt_fanshu').getComponent(cc.Label).string = `积分:${playerData.total}`;
             playerNode.getChildByName('txt_score').getComponent(cc.Label).string = playerData.score;
+            window.Global.Tools.setWebImage(playerNode.getChildByName('avatar').getComponent(cc.Sprite), playerUserInfo.headimgurl);
 
             var chowList = [];
             var pongList = [];
@@ -104,8 +108,6 @@ cc.Class({
 
                 // 胡牌
                 if ([1, 2].indexOf(playerData.winType) !== -1) {
-                    playerNode.getChildByName('littleHuMark').active = true;
-
                     positionXOffset += 24;
                     var node = cc.instantiate(this.cardPrefab);
                     node.getChildByName('Background').setPositionX(positionXOffset);
@@ -115,17 +117,21 @@ cc.Class({
                 }
             }
 
-            if (userInfo.playerUuid === playerData.playerUuid) {
-                if (playerData.winType === window.PX258.Config.winType.Pao) {
-                    this.winPanel[0].active = true;
-                }
-                else if (playerData.winType === window.PX258.Config.winType.None) {
-                    this.winPanel[2].active = true;
-                }
-                else if ([window.PX258.Config.winType.Discard, window.PX258.Config.winType.Draw].indexOf(playerData.winType) !== -1) {
-                    this.winPanel[1].active = true;
-                }
-            }
+            // if (userInfo.playerUuid === playerData.playerUuid) {
+            //     if (playerData.winType === window.PX258.Config.winType.Pao) {
+            //         this.winPanel[0].active = true;
+            //     }
+            //     else if (playerData.winType === window.PX258.Config.winType.None) {
+            //         this.winPanel[2].active = true;
+            //     }
+            //     else if ([window.PX258.Config.winType.Discard, window.PX258.Config.winType.Draw].indexOf(playerData.winType) !== -1) {
+            //         this.winPanel[1].active = true;
+            //     }
+            // }
+        }
+
+        if (this._Cache.data.zhuaniao && this._Cache.data.zhuaniao.length > 0) {
+            this.zhuaniaoNode.active = true;
         }
     },
 
@@ -153,11 +159,11 @@ cc.Class({
         window.Global.Animation.closeDialog(this.node);
     },
 
-    _getNicknameInList(playerUuid) {
-        for (let i = 0; i < window.Global.Config.tempCache.playerInfoList.length; i += 1) {
-            const obj = window.Global.Config.tempCache.playerInfoList[i];
+    _getUserInfoInList(playerUuid) {
+        for (let i = 0; i < this._Cache.playerInfoList.length; i += 1) {
+            const obj = this._Cache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
-                return obj.info.nickname;
+                return obj.info;
             }
         }
         return false;

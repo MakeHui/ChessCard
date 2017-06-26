@@ -5624,7 +5624,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "",
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 182
@@ -5817,9 +5817,15 @@
       {
         "__id__": 28
       },
-      null,
-      null,
-      null
+      {
+        "__id__": 63
+      },
+      {
+        "__id__": 98
+      },
+      {
+        "__id__": 133
+      }
     ],
     "winPanel": [
       {
@@ -5837,6 +5843,12 @@
     },
     "cardPrefab": {
       "__uuid__": "19cbe916-155d-4b23-8703-f79da45fdfd6"
+    },
+    "zhuaniaoNode": {
+      "__id__": 178
+    },
+    "titleLabel": {
+      "__id__": 9
     }
   },
   {
