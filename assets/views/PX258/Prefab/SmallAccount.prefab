@@ -319,8 +319,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 449,
-      "height": 63
+      "width": 374,
+      "height": 65
     },
     "_children": [
       {
@@ -377,8 +377,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 280.15,
-      "height": 26
+      "width": 152.97,
+      "height": 34
     },
     "_children": [],
     "_rotationX": 0,
@@ -417,14 +417,14 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 24,
-    "_fontSize": 24,
-    "_lineHeight": 26,
+    "_actualFontSize": 32,
+    "_fontSize": 32,
+    "_lineHeight": 34,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "房间号:888888 局数:16/16",
+    "_N$string": "局数 16/16",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$overflow": 0
@@ -449,7 +449,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "82a4f02e-49a5-4588-955f-f6da752368ea"
+      "__uuid__": "3ec9d0f5-6837-457a-8f19-dfaae230c290"
     },
     "_type": 0,
     "_sizeMode": 1,

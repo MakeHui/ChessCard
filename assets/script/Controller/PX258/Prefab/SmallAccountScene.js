@@ -14,7 +14,7 @@ cc.Class({
         this._Cache = data;
         cc.log(this._Cache);
 
-        this.titleLabel.string = `房间号:${this._Cache.roomId} 局数:${this._Cache.currentRound}/${this._Cache.maxRounds}`;
+        this.titleLabel.string = `局数 ${this._Cache.currentRound}/${this._Cache.maxRounds}`;
 
         // const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
