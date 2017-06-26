@@ -177,6 +177,11 @@ cc.Class({
      **/
 
     onEnterRoomMessage(data) {
+        if (data.code !== 1) {
+            // cc.director.loadScene('Lobby');
+            return;
+        }
+
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.ownerUuid = data.ownerUuid;
@@ -909,8 +914,9 @@ cc.Class({
         if (this.voteDismiss.active || this._Cache.settleForRoomData) {
             this.voteDismiss.active = false;
             window.Global.NetworkManager.close();
-            window.Global.Config.tempCache = { data, playerInfoList: this._Cache.playerList };
-            window.Global.Animation.openDialog(cc.instantiate(this.bigAccountPrefab), this.node);
+            var node = cc.instantiate(this.bigAccountPrefab);
+            node.getComponent('BigAccount').init({ data, playerInfoList: this._Cache.playerList });
+            window.Global.Animation.openDialog(node, this.node);
         } else {
             this._Cache.settleForRoomData = data;
         }

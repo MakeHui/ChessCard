@@ -2,38 +2,23 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        playerList: {
-            default: [],
-            type: cc.Node,
-        },
+        playerList: [cc.Node],
+        layout: cc.Layout,
     },
 
     // use this for initialization
-    onLoad() {
-        /*
-         // string player_uuid = 1;  // 玩家UUID
-         // uint32 seat = 2;  // 玩家座位号
-         // int32 total_score = 3;  // 玩家总分
-         // int32 top_score = 4;  // 玩家最高分
-         // uint32 big_win_draw_cnt = 5;  // 玩家大胡自摸次数
-         // uint32 big_win_discard_cnt = 6;  // 玩家大胡点炮胡次数
-         // uint32 small_win_draw_cnt = 7;  // 玩家小胡自摸次数
-         // uint32 small_win_discard_cnt = 8;  // 玩家小胡点炮胡次数
-         // uint32 pao_cnt = 9;  // 玩家放炮次数
-         // uint32 is_owner = 10;  // 是否为房主
-         */
-
-        if (!window.Global.Config.tempCache) {
-            return;
-        }
+    init(data) {
+        this._Cache = data;
+        cc.log(this._Cache);
 
         let bigLosser = 0;
         let bigWinner = 0;
 
-        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
-            const playerNode = this.playerList[playerData.seat];
-            const userInfo = this._getUserInfoInList(playerData.playerUuid);
+        for (let i = 0; i < this._Cache.data.playerDataList.length; i += 1) {
+            var playerData = this._Cache.data.playerDataList[i];
+            var playerNode = this.playerList[playerData.seat];
+            var userInfo = this._getUserInfoInList(playerData.playerUuid);
+            var iswinchildren = playerNode.getChildByName('_iswin').children;
 
             window.Global.Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
             playerNode.getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
@@ -42,13 +27,29 @@ cc.Class({
                 playerNode.getChildByName('roomHolderMark').active = true;
             }
 
-            const detailList = playerNode.getChildByName('detailPanel');
-            window.Global.Tools.findNode(detailList, 'item1>atlasLable').getComponent(cc.Label).string = playerData.winDrawCnt;
-            window.Global.Tools.findNode(detailList, 'item2>atlasLable').getComponent(cc.Label).string = playerData.winDiscardCnt;
-            window.Global.Tools.findNode(detailList, 'item3>atlasLable').getComponent(cc.Label).string = playerData.paoCnt;
-            window.Global.Tools.findNode(detailList, 'item4>atlasLable').getComponent(cc.Label).string = playerData.kongConcealedCnt;
-            window.Global.Tools.findNode(detailList, 'item5>atlasLable').getComponent(cc.Label).string = playerData.kongExposedCnt;
-            window.Global.Tools.findNode(detailList, 'item6>atlasLable').getComponent(cc.Label).string = playerData.totalScore;
+            var detailList = playerNode.getChildByName('detailPanel');
+            window.Global.Tools.findNode(detailList, 'item1>atlasLabel').getComponent(cc.Label).string = playerData.winDrawCnt;
+            window.Global.Tools.findNode(detailList, 'item2>atlasLabel').getComponent(cc.Label).string = playerData.winDiscardCnt;
+            window.Global.Tools.findNode(detailList, 'item3>atlasLabel').getComponent(cc.Label).string = playerData.paoCnt;
+            window.Global.Tools.findNode(detailList, 'item4>atlasLabel').getComponent(cc.Label).string = playerData.kongConcealedCnt;
+            window.Global.Tools.findNode(detailList, 'item5>atlasLabel').getComponent(cc.Label).string = playerData.kongExposedCnt;
+
+            var totalScoreNode = window.Global.Tools.findNode(detailList, 'item6>atlasLabel');
+            if (playerData.totalScore == 0) {
+                iswinchildren[0].active = true;
+                totalScoreNode.color = new cc.Color(151, 133, 32);
+                totalScoreNode.getComponent(cc.Label).string = playerData.totalScore;
+            }
+            else if (playerData.totalScore > 0) {
+                iswinchildren[1].active = true;
+                totalScoreNode.color = new cc.Color(173, 106, 32);
+                totalScoreNode.getComponent(cc.Label).string = `+ ${playerData.totalScore}`;
+            }
+            else {
+                iswinchildren[2].active = true;
+                totalScoreNode.color = new cc.Color(119, 117, 112);
+                totalScoreNode.getComponent(cc.Label).string = `- ${playerData.totalScore}`;
+            }
 
             if (bigLosser < playerData.paoCnt) {
                 bigLosser = playerData.paoCnt;
@@ -59,9 +60,9 @@ cc.Class({
             }
         }
 
-        for (let i = 0; i < window.Global.Config.tempCache.data.playerDataList.length; i += 1) {
-            const playerData = window.Global.Config.tempCache.data.playerDataList[i];
-            const playerNode = this.playerList[playerData.seat];
+        for (let i = 0; i < this._Cache.data.playerDataList.length; i += 1) {
+            var playerData = this._Cache.data.playerDataList[i];
+            var playerNode = this.playerList[playerData.seat];
 
             if (bigLosser === playerData.paoCnt) {
                 playerNode.getChildByName('bigLosser').active = true;
@@ -97,8 +98,8 @@ cc.Class({
     },
 
     _getUserInfoInList(playerUuid) {
-        for (let i = 0; i < window.Global.Config.tempCache.playerInfoList.length; i += 1) {
-            const obj = window.Global.Config.tempCache.playerInfoList[i];
+        for (let i = 0; i < this._Cache.playerInfoList.length; i += 1) {
+            const obj = this._Cache.playerInfoList[i];
             if (obj.playerUuid === playerUuid) {
                 return obj.info;
             }
