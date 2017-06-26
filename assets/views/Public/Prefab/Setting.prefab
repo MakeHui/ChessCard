@@ -1876,6 +1876,9 @@
     },
     "voiceToggle": {
       "__id__": 43
+    },
+    "affirmBoxPrefab": {
+      "__uuid__": "da9efb31-2bc8-4a74-adeb-7a9452b6e7e1"
     }
   },
   {

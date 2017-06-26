@@ -4,11 +4,12 @@ cc.Class({
     properties: {
         musicToggle: cc.Toggle,
         voiceToggle: cc.Toggle,
+        affirmBoxPrefab: cc.Prefab,
     },
 
     // use this for initialization
     onLoad() {
-        this.playMusicConfig =window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
+        this.playMusicConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
 
         this.musicToggle.isChecked = this.playMusicConfig.music;
         this.voiceToggle.isChecked = this.playMusicConfig.effect;
@@ -17,7 +18,7 @@ cc.Class({
     musicToggleOnClick(target) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.music = target.isChecked;
-       window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
+        window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
 
         if (this.playMusicConfig.music) {
             window.Global.SoundEffect.backgroundMusicPlay();
@@ -30,7 +31,7 @@ cc.Class({
     voiceToggleOnClick(target) {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         this.playMusicConfig.effect = target.isChecked;
-       window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
+        window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
     },
 
     /**
@@ -47,8 +48,12 @@ cc.Class({
      */
     logoutOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-       window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '');
-        cc.director.loadScene('Login');
+        var node = cc.instantiate(this.affirmBoxPrefab);
+        node.getComponent('AffirmBox').init('您确定需要退出账号吗？', () => {
+            window.Global.Tools.setLocalData(window.Global.Config.LSK.secretKey, '');
+            cc.director.loadScene('Login');
+        });
+        window.Global.Animation.openDialog(node, this.node);
     },
 
 });
