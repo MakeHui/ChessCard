@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "e11a8814-e18b-40cd-a668-f014ba6e0329",
+  "uuid": "af2149cc-acbe-498b-9c40-b0fc53fef166",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "select_Match_scene_bg_half": {
+    "ZZMJ-small-fenxiangButton": {
       "ver": "1.0.3",
-      "uuid": "737b0f31-cf56-4aaf-a405-eeca894b848a",
-      "rawTextureUuid": "e11a8814-e18b-40cd-a668-f014ba6e0329",
+      "uuid": "1c79731f-f286-44d5-a486-fdef68ea992c",
+      "rawTextureUuid": "af2149cc-acbe-498b-9c40-b0fc53fef166",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 1200,
-      "height": 660,
-      "rawWidth": 1200,
-      "rawHeight": 660,
+      "width": 154,
+      "height": 67,
+      "rawWidth": 154,
+      "rawHeight": 67,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

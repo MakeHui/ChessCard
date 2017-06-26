@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "4b01c7b1-5657-4af1-b9df-52675dff10f6",
+  "uuid": "6823bf2b-703e-4262-8dfc-ff056e9114d5",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "dianpao": {
+    "ZZMJ-small-dianpao": {
       "ver": "1.0.3",
-      "uuid": "b65b0463-b5be-4dfc-97eb-552d6f270cd5",
-      "rawTextureUuid": "4b01c7b1-5657-4af1-b9df-52675dff10f6",
+      "uuid": "3286a70a-a8d9-405f-b890-a9db39a5fdf2",
+      "rawTextureUuid": "6823bf2b-703e-4262-8dfc-ff056e9114d5",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
