@@ -5624,7 +5624,7 @@
     "_tag": -1,
     "_opacityModifyRGB": false,
     "_id": "",
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 182
@@ -5637,7 +5637,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "CardPanel",
+    "_name": "layout",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -5844,11 +5844,14 @@
     "cardPrefab": {
       "__uuid__": "19cbe916-155d-4b23-8703-f79da45fdfd6"
     },
-    "zhuaniaoNode": {
-      "__id__": 178
-    },
     "titleLabel": {
       "__id__": 9
+    },
+    "zhuaniaoCardPrefab": {
+      "__uuid__": "8ca8d1d4-2871-43f0-8929-6e0094207c39"
+    },
+    "zhuaniaoNode": {
+      "__id__": 178
     }
   },
   {

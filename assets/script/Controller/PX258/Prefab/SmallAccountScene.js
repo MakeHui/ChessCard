@@ -6,8 +6,10 @@ cc.Class({
         winPanel: [cc.Node],
         cardPinList: cc.SpriteAtlas,
         cardPrefab: cc.Prefab,
-        zhuaniaoNode: cc.Node,
         titleLabel: cc.Label,
+
+        zhuaniaoCardPrefab: cc.Prefab,
+        zhuaniaoNode: cc.Node,
     },
 
     init(data) {
@@ -130,7 +132,30 @@ cc.Class({
             // }
         }
 
-        if (this._Cache.data.zhuaniao && this._Cache.data.zhuaniao.length > 0) {
+        if (this._Cache.data.drawNiaoList && this._Cache.data.drawNiaoList.length > 0) {
+            var niaoList = ['0x11', '0x15', '0x19', '0x21', '0x25', '0x29', '0x31', '0x35', '0x39'];
+            var layoutNode = this.zhuaniaoNode.getChildByName('layout');
+
+            for (let i = 0; i < this._Cache.data.drawNiaoList.length; i += 1) {
+                var card = `0x${this._Cache.data.drawNiaoList[i].card.toString(16)}`;
+                var node = cc.instantiate(this.zhuaniaoCardPrefab);
+                var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+                nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_${card}`);
+                // 判断是抓鸟还是扎飞鸟
+                if (this._Cache.isZhuaniao) {
+                    if (niaoList.indexOf(card) !== -1) {
+                        window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
+                    }
+                    else if (card == 0x51) {
+                        window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
+                    }
+                }
+                else {
+                    window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
+                }
+                layoutNode.addChild(node);
+            }
+
             this.zhuaniaoNode.active = true;
         }
     },

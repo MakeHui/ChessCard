@@ -460,6 +460,10 @@ cc.Class({
                 var nodeSprite = window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
+                if (`0x${data.card.card.toString(16)}` == 0x51) {
+                    window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>laizhi').active = true;
+                }
+
                 self._Cache.allowOutCard = true;
             }
 
@@ -948,6 +952,9 @@ cc.Class({
                 if (niaoList.indexOf(card) !== -1) {
                     window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
                 }
+                else if (card == 0x51) {
+                    window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
+                }
             }
             else {
                 window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
@@ -965,7 +972,7 @@ cc.Class({
         this._initCardDistrict();
         const self = this;
         const node = cc.instantiate(this.smallAccountPrefab);
-        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds });
+        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds, isZhuaniao: this.zhuaniaoNode.getChildByName('title').children[0].active });
         window.Global.Animation.openDialog(node, this.node, () => {
             for (let i = 0; i < 4; i += 1) {
                 self.handCardDistrict[i].removeAllChildren();
@@ -1117,6 +1124,11 @@ cc.Class({
             this.tingCardDistrict.active = false;
         }
 
+        // 如果选中的牌是红中,跳过操作
+        if (`0x${data.toString(16)}` == 0x51) {
+            return;
+        }
+
         if (event.target.getPositionY() !== 0) {
             if (!this._Cache.allowOutCard) {
                 return;
@@ -1262,6 +1274,10 @@ cc.Class({
             node.getChildByName('Background').getComponent(cc.Button).clickEvents.push(clickEventHandler);
             var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
+
+            if (`0x${card.toString(16)}` == 0x51) {
+                window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
+            }
         }
     },
 

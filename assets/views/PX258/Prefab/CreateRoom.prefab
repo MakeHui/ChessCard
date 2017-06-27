@@ -10867,7 +10867,9 @@
     "_N$target": {
       "__id__": 336
     },
-    "toggleGroup": null,
+    "toggleGroup": {
+      "__id__": 292
+    },
     "checkMark": {
       "__id__": 341
     },
@@ -10876,7 +10878,7 @@
         "__id__": 345
       }
     ],
-    "_N$isChecked": false
+    "_N$isChecked": true
   },
   {
     "__type__": "cc.Node",
@@ -11086,7 +11088,7 @@
     "node": {
       "__id__": 340
     },
-    "_enabled": false,
+    "_enabled": true,
     "_spriteFrame": {
       "__uuid__": "512f3911-8ac1-4df4-8dc2-5d1f409c8f5a"
     },
