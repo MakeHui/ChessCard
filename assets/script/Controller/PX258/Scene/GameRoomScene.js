@@ -922,6 +922,32 @@ cc.Class({
         }
     },
 
+    /**
+     *******************************************************************************************************************
+     *                                       转转麻将
+     *******************************************************************************************************************
+     */
+
+    onDrawNiaoMessage(data) {
+
+    },
+
+    onSettleForRoundZZMessage(data) {
+        this._initCardDistrict();
+        const self = this;
+        const node = cc.instantiate(this.smallAccountPrefab);
+        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds });
+        window.Global.Animation.openDialog(node, this.node, () => {
+            for (let i = 0; i < 4; i += 1) {
+                self.handCardDistrict[i].removeAllChildren();
+                self.dirtyCardDistrict[i].removeAllChildren();
+                self.pongKongChowDistrict[i].removeAllChildren();
+            }
+
+            this._initReadyHand();
+            this._hideSelectChiKongPanel();
+        });
+    },
 
     /**
      *******************************************************************************************************************

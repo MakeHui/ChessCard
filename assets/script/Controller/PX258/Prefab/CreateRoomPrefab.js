@@ -20,7 +20,8 @@ cc.Class({
             100300: {
                 maxRounds: 8,
                 playType: 0x1,
-                options: 0x0
+                options: 0x0,
+                zhuaniao: 0x0,
             }
         };
 
@@ -54,7 +55,10 @@ cc.Class({
         else if (data[0] == 2) {
             this.roomConfig[this.gameUuid].options = event.isChecked ? data[1] : 0x0;
         }
-        cc.log([data, this.roomConfig]);
+        else if (data[0] == 3) {
+            this.roomConfig[this.gameUuid].zhuaniao = data[1];
+        }
+        cc.log([data, this.roomConfig[this.gameUuid]]);
     },
 
     createRoomOnClick() {
@@ -62,6 +66,9 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         var roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
+        if (this.gameUuid == window.PX258.Config.gameUuid[1]) {
+            roomConfig = roomConfig | this.roomConfig[this.gameUuid].zhuaniao;
+        }
         var parameters = { gameUuid: this.gameUuid, maxRounds: this.roomConfig[this.gameUuid].maxRounds, roomConfig: roomConfig };
         window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomCreate, parameters, (event, result) => {
             window.Global.Dialog.close();

@@ -287,6 +287,16 @@ const PX258Network = cc.Class({
                 cmd: 0x1006,
                 response: 'SettleForRoom',
             },
+
+            // 转转麻将, 抓鸟
+            DrawNiao: {
+                cmd: 0x3001,
+                response: 'DrawNiao',
+            },
+            SettleForRoundZZ: {
+                cmd: 0x3002,
+                response: 'SettleForRoundZZ',
+            },
         }
     }
 });
