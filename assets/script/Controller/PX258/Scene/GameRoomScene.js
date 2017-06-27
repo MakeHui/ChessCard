@@ -64,6 +64,8 @@ cc.Class({
         wechatInviteButton: cc.Button,
 
         dicePrefab: cc.Prefab,
+
+        zhuaniaoNode: cc.Node,
     },
 
     onLoad() {
@@ -929,7 +931,34 @@ cc.Class({
      */
 
     onDrawNiaoMessage(data) {
+        if (data.niaoList.length === 0) {
+            return;
+        }
 
+        var niaoList = ['0x11', '0x15', '0x19', '0x21', '0x25', '0x29', '0x31', '0x35', '0x39'];
+        var layoutNode = this.zhuaniaoNode.getChildByName('layout');
+
+        for (let i = 0; i < data.niaoList.length; i += 1) {
+            var card = `0x${data.niaoList[i].card.toString(16)}`;
+            var node = cc.instantiate(this.handCardPrefabs[0]);
+            var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
+            nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_${card}`);
+            // 判断是抓鸟还是扎飞鸟
+            if (this.zhuaniaoNode.getChildByName('title').children[0].active) {
+                if (niaoList.indexOf(card) !== -1) {
+                    window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
+                }
+            }
+            else {
+                window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
+            }
+            layoutNode.addChild(node);
+        }
+        this.zhuaniaoNode.active = true;
+
+        this.scheduleOnce(() => {
+            this.zhuaniaoNode.active = false;
+        }, 1.5);
     },
 
     onSettleForRoundZZMessage(data) {
@@ -1438,13 +1467,41 @@ cc.Class({
      */
     _setRoomInfo(info, currentRound, restCards) {
         // 游戏玩法
-        const playTypes = window.PX258.Config.playTypes[info.game_uuid];
-        const options = `0x${info.options.toString(16)}`;
-        const num = info.options & 0x1;
+        var playTypes = window.PX258.Config.playTypes[info.game_uuid];
+        var options = `0x${info.options.toString(16)}`;
 
-        this.roomInfo[4].string = '玩法: ' + playTypes.playType[num];
-        if (this._Cache.gameUuid == window.PX258.Config.gameUuid[0]) {
+        if (info.game_uuid == window.PX258.Config.gameUuid[0]) {
+            var num = info.options & 0x1;
+
+            this.roomInfo[4].string = '玩法: ' + playTypes.playType[num];
             this.roomInfo[4].string += '\n封顶: ' + playTypes.options[options ^ num];
+        }
+        else if (info.game_uuid == window.PX258.Config.gameUuid[1]) {
+            for (var key in playTypes.playType) {
+                if ((options & key) !== 0) {
+                    this.roomInfo[4].string = '玩法: ' + playTypes.playType[key];
+                }
+            }
+
+            for (var key in playTypes.options) {
+                if ((options & key) !== 0) {
+                    this.roomInfo[4].string += ', ' + playTypes.options[key];
+                }
+            }
+
+            for (var key in playTypes.zhuaniao) {
+                if ((options & key) !== 0) {
+                    this.roomInfo[4].string += '\n抓鸟: ' + playTypes.zhuaniao[key];
+                }
+            }
+
+            // 显示是抓鸟还是抓飞鸟
+            if (((options & 0x100000) !== 0) || ((options & 0x1000000) !== 0)) {
+                this.zhuaniaoNode.getChildByName('title').children[1].active = true;
+            }
+            else {
+                this.zhuaniaoNode.getChildByName('title').children[0].active = true;
+            }
         }
 
         this.roomInfo[1].string = `房间号: ${this._Cache.roomId}`;
