@@ -1573,7 +1573,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35.79,
+      "width": 0,
       "height": 16
     },
     "_children": [],
@@ -1620,7 +1620,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "中4鸟",
+    "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -2655,7 +2655,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35.79,
+      "width": 0,
       "height": 16
     },
     "_children": [],
@@ -2702,7 +2702,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "中4鸟",
+    "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -3737,7 +3737,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35.79,
+      "width": 0,
       "height": 16
     },
     "_children": [],
@@ -3784,7 +3784,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "中4鸟",
+    "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -4819,7 +4819,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 35.79,
+      "width": 0,
       "height": 16
     },
     "_children": [],
@@ -4866,7 +4866,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "中4鸟",
+    "_N$string": "",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
