@@ -460,8 +460,8 @@ cc.Class({
                 var nodeSprite = window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = self.cardPinList.getSpriteFrame(`value_0x${data.card.card.toString(16)}`);
 
-                if (`0x${data.card.card.toString(16)}` == 0x51) {
-                    window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>laizhi').active = true;
+                if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
+                    window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>laizhi').active = `0x${data.card.card.toString(16)}` == 0x51;
                 }
 
                 self._Cache.allowOutCard = true;
@@ -1125,7 +1125,7 @@ cc.Class({
         }
 
         // 如果选中的牌是红中,跳过操作
-        if (`0x${data.toString(16)}` == 0x51) {
+        if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1] && `0x${data.toString(16)}` == 0x51) {
             return;
         }
 
@@ -1275,8 +1275,8 @@ cc.Class({
             var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
 
-            if (`0x${card.toString(16)}` == 0x51) {
-                window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
+            if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
+                window.Global.Tools.findNode(node, 'Background>laizhi').active = `0x${card.toString(16)}` == 0x51;
             }
         }
     },

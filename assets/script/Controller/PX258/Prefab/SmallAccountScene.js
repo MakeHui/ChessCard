@@ -130,6 +130,10 @@ cc.Class({
                 var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
                 nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${obj.card.toString(16)}`);
                 cardPanel.addChild(node);
+
+                if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1] && `0x${obj.card.toString(16)}` == 0x51) {
+                    window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
+                }
             }
 
             if (playerData.winType !== window.PX258.Config.winType.None) {
