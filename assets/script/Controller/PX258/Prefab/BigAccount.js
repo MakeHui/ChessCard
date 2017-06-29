@@ -48,7 +48,7 @@ cc.Class({
             else {
                 iswinchildren[2].active = true;
                 totalScoreNode.color = new cc.Color(119, 117, 112);
-                totalScoreNode.getComponent(cc.Label).string = `- ${playerData.totalScore}`;
+                totalScoreNode.getComponent(cc.Label).string = playerData.totalScore.toString();
             }
 
             if (bigLosser < playerData.paoCnt) {
