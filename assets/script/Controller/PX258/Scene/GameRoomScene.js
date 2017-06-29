@@ -652,11 +652,14 @@ cc.Class({
             let actionPanelIndex = 0;
             if (promptType[i] === window.PX258.Config.promptType.Chow) {
                 actionPanelIndex = 1;
-            } else if (promptType[i] === window.PX258.Config.promptType.Pong) {
+            }
+            else if (promptType[i] === window.PX258.Config.promptType.Pong) {
                 actionPanelIndex = 2;
-            } else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
+            }
+            else if ([window.PX258.Config.promptType.KongConcealed, window.PX258.Config.promptType.kongExposed, window.PX258.Config.promptType.KongPong].indexOf(promptType[i]) !== -1) {
                 actionPanelIndex = 3;
-            } else if (promptType[i] === window.PX258.Config.promptType.WinDiscard || promptType[i] === window.PX258.Config.promptType.WinDraw) {
+            }
+            else if (promptType[i] === window.PX258.Config.promptType.WinDiscard || promptType[i] === window.PX258.Config.promptType.WinDraw) {
                 actionPanelIndex = 4;
             }
 
@@ -875,7 +878,7 @@ cc.Class({
         }
 
         // 是否有操作提示
-        if (playerIndex == 0) {
+        if (data.promptList) {
             this.onPromptMessage({ promptList: data.promptList });
         }
 
@@ -939,7 +942,6 @@ cc.Class({
             return;
         }
 
-        var niaoList = ['0x11', '0x15', '0x19', '0x21', '0x25', '0x29', '0x31', '0x35', '0x39'];
         var layoutNode = this.zhuaniaoNode.getChildByName('layout');
 
         for (let i = 0; i < data.niaoList.length; i += 1) {
@@ -947,18 +949,6 @@ cc.Class({
             var node = cc.instantiate(this.handCardPrefabs[0]);
             var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
             nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_${card}`);
-            // 判断是抓鸟还是扎飞鸟
-            if (this.zhuaniaoNode.getChildByName('title').children[0].active) {
-                if (niaoList.indexOf(card) !== -1) {
-                    window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
-                }
-                else if (card == 0x51) {
-                    window.Global.Tools.findNode(node, 'Background>laizhi').active = true;
-                }
-            }
-            else {
-                window.Global.Tools.findNode(node, 'Background>zhuaniao').active = true;
-            }
             layoutNode.addChild(node);
         }
         this.zhuaniaoNode.active = true;
