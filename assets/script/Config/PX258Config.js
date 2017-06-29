@@ -228,7 +228,9 @@ const PX258Config = cc.Class({
                     0x1000000: '扎飞鸟(1为10分)'
                 }
             }
-        }
+        },
+
+        laizhi: [ 0x51 ]
     }
 });
 
