@@ -17,7 +17,7 @@ const GlobalConfig = cc.Class({
          * 是否是debug环境
          * @type {Boolean}
          */
-        debug: true,
+        debug: false,
 
         development: {
             apiAddress: 'http://login.zhongchendev.com/',
@@ -48,7 +48,7 @@ const GlobalConfig = cc.Class({
          * 版本号
          * @type {String}
          */
-        version: '1.0.0',
+        version: '2.0.0',
 
         wxPublic: '盛宸萍乡棋牌',
 
