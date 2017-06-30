@@ -240,17 +240,16 @@ cc.Class({
                 var searchPaths = jsb.fileUtils.getSearchPaths();
                 var newPaths = self._assetsManager.getLocalManifest().getSearchPaths();
                 cc.log(JSON.stringify(newPaths));
-                // Array.prototype.unshift(searchPaths, newPaths);
-                for (var i = 0; i < newPaths.length; i++) {
-                    searchPaths.unshift(newPaths[i]);
-                }
-
+                Array.prototype.unshift(searchPaths, newPaths);
                 // This value will be retrieved and appended to the default search path during game startup,
                 // please refer to samples/js-tests/main.js for detailed usage.
                 // !!! Re-add the search paths in main.js is very important, otherwise, new scripts won't take effect.
                 cc.sys.localStorage.setItem('HotUpdateSearchPaths', JSON.stringify(searchPaths));
                 jsb.fileUtils.setSearchPaths(searchPaths);
-                // cc.game.restart();
+
+                cc.audioEngine.stopAll();
+                cc.game.restart();
+
                 callback(4, byteProgress, fileProgress);
             }
         };
