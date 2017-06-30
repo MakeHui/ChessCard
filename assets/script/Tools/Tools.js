@@ -320,7 +320,7 @@ var Tools = cc.Class({
         const num = info.options & 0x1;
 
         var title = playTypes.name + ': ' + roomId;
-        var description = '局数: ' + info.max_rounds + '局' + `, 玩法: ${playTypes.playType[num]}, 封顶: ${playTypes.options[info.options ^ num]}`;
+        var description = '局数: ' + info.max_rounds + '局' + `, 玩法: ${playTypes.playType[num]}`;
 
         return [title, description];
     },

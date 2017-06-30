@@ -154,10 +154,11 @@ cc.Class({
             window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, result.isCheck);
             if (result.code === 1000) {
                 var node = cc.instantiate(this.appUpdatePrefab);
-                node.init(result, function() {
+                node.getComponent('AppUpdate').init(result, function() {
                     callback();
                 });
-                window.Global.Animation.openDialog(node, this.node);
+                var parent = cc.director.getScene().getChildByName('Canvas');
+                window.Global.Animation.openDialog(node, parent);
             }
             else {
                 callback();

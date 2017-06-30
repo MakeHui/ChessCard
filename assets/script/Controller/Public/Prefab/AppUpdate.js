@@ -10,7 +10,7 @@ cc.Class({
         this._Cache = data;
         this.callback = callback || function() {};
         this.message.string = data.msg;
-        if (!data.mandatoryUpdate) {
+        if (data.mandatoryUpdate) {
             this.closeButton.active = false;
         }
     },
