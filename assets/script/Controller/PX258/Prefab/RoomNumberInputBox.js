@@ -74,13 +74,13 @@ cc.Class({
             if (result.code === 1) {
                 window.Global.Dialog.close();
                 window.Global.Config.tempCache = result;
-                if (this.gameUuid ==  window.PX258.Config.gameUuid[0]) {
+                if (result.gameUuid ==  window.PX258.Config.gameUuid[0]) {
                     cc.director.loadScene('GameRoom');
                 }
-                else if (this.gameUuid ==  window.PX258.Config.gameUuid[1]) {
+                else if (result.gameUuid ==  window.PX258.Config.gameUuid[1]) {
                     cc.director.loadScene('GameRoom');
                 }
-                else if (this.gameUuid == window.PX258.Config.gameUuid[2]) {
+                else if (result.gameUuid == window.PX258.Config.gameUuid[2]) {
                     cc.director.loadScene('DDZGameRoom');
                 }
             }

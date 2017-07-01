@@ -17,7 +17,15 @@ cc.Class({
         window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomEnter, parameters, (event, result) => {
             if (result.code === 1) {
                 window.Global.Config.tempCache = result;
-                cc.director.loadScene('GameRoom');
+                if (result.gameUuid ==  window.PX258.Config.gameUuid[0]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (result.gameUuid ==  window.PX258.Config.gameUuid[1]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (result.gameUuid == window.PX258.Config.gameUuid[2]) {
+                    cc.director.loadScene('DDZGameRoom');
+                }
             }
             else {
                 window.Global.Dialog.close();
