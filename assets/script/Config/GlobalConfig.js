@@ -17,7 +17,7 @@ const GlobalConfig = cc.Class({
          * 是否是debug环境
          * @type {Boolean}
          */
-        debug: false,
+        debug: true,
 
         development: {
             apiAddress: 'http://login.zhongchendev.com/',

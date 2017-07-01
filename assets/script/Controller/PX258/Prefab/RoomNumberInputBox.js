@@ -74,7 +74,15 @@ cc.Class({
             if (result.code === 1) {
                 window.Global.Dialog.close();
                 window.Global.Config.tempCache = result;
-                cc.director.loadScene('GameRoom');
+                if (this.gameUuid ==  window.PX258.Config.gameUuid[0]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (this.gameUuid ==  window.PX258.Config.gameUuid[1]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (this.gameUuid == window.PX258.Config.gameUuid[2]) {
+                    cc.director.loadScene('DDZGameRoom');
+                }
             }
             else if (result.code === 1041) {
                 window.Global.Dialog.openMessageBox('房间号不存在', function() {

@@ -50,8 +50,7 @@ cc.Class({
         window.Global.Dialog.openLoading();
 
         const self = this;
-        const parameters = { gameUuid: window.PX258.Config.gameUuid.toString() };
-        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, parameters, (event, result) => {
+        window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.recordListSelf, {}, (event, result) => {
             if (result.code === 0) {
                 const recordItemList = result.recordItemList;
                 if (recordItemList.length !== 0) {

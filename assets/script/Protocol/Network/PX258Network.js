@@ -49,12 +49,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RoomList',
                 response: 'RoomList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RoomListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -67,12 +67,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -88,6 +88,7 @@ const PX258Network = cc.Class({
                 message: function (parameters) {
                     var message = new proto.login.RecordInfoRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
@@ -102,12 +103,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 

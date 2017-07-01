@@ -4,8 +4,10 @@ cc.Class({
     properties: {
         px258RoomLabel: [cc.Label],
         zzmjRoomLabel: [cc.Label],
+        ddzRoomLabel: [cc.Label],
         px258Panel: cc.Node,
-        zzmjPanel: cc.Node
+        zzmjPanel: cc.Node,
+        ddzPanel: cc.Node,
     },
 
     // use this for initialization
@@ -22,14 +24,16 @@ cc.Class({
                 playType: 0x1,
                 options: 0x0,
                 zhuaniao: 0x0,
+            },
+            100200: {
+                maxRounds: 8,
+                playType: 0xb10,
+                options: 0xb1000,
             }
         };
 
         var roomConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo).roomConfig;
         for (var key in roomConfig) {
-            if (window.PX258.Config.gameUuid.indexOf(key) === -1) {
-                continue;
-            }
             var i = 0;
             for (var k in roomConfig[key]) {
                 if (key == window.PX258.Config.gameUuid[0]) {
@@ -37,6 +41,9 @@ cc.Class({
                 }
                 else if (key == window.PX258.Config.gameUuid[1]) {
                     this.zzmjRoomLabel[i].string = k + '局(' + roomConfig[key][k] + '金币)';
+                }
+                else if (key == window.PX258.Config.gameUuid[2]) {
+                    this.ddzRoomLabel[i].string = k + '局(' + roomConfig[key][k] + '金币)';
                 }
                 i += 1;
             }
@@ -65,20 +72,23 @@ cc.Class({
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.Dialog.openLoading();
 
-        var roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
-        if (this.gameUuid == window.PX258.Config.gameUuid[1]) {
-            roomConfig = roomConfig | this.roomConfig[this.gameUuid].zhuaniao;
-        }
-        var parameters = { gameUuid: this.gameUuid, maxRounds: this.roomConfig[this.gameUuid].maxRounds, roomConfig: roomConfig };
+        var parameters = { gameUuid: this.gameUuid, maxRounds: this.roomConfig[this.gameUuid].maxRounds, roomConfig: this.createRoomConfig() };
         window.Global.NetworkManager.httpRequest(window.PX258.NetworkConfig.HttpRequest.roomCreate, parameters, (event, result) => {
             window.Global.Dialog.close();
             if (result.code === 1) {
-                window.Global.Dialog.close();
                 window.Global.Config.tempCache = result;
                 const userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
                 userInfo.gold -= result.payGold;
                 window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo, userInfo);
-                cc.director.loadScene('GameRoom');
+                if (this.gameUuid ==  window.PX258.Config.gameUuid[0]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (this.gameUuid ==  window.PX258.Config.gameUuid[1]) {
+                    cc.director.loadScene('GameRoom');
+                }
+                else if (this.gameUuid == window.PX258.Config.gameUuid[2]) {
+                    cc.director.loadScene('DDZGameRoom');
+                }
             }
             else if (result.code === 1023) {
                 window.Global.Dialog.openMessageBox('充值请加微信公众号:【' + window.Global.Config.wxPublic + '】');
@@ -89,14 +99,42 @@ cc.Class({
     radioButtonClicked(toggle, data) {
         if (data == 0) {
             this.gameUuid = window.PX258.Config.gameUuid[0];
+            this._hidePanel();
             this.px258Panel.active = true;
-            this.zzmjPanel.active = false;
         }
         else if (data == 1) {
             this.gameUuid = window.PX258.Config.gameUuid[1];
-            this.px258Panel.active = false;
+            this._hidePanel();
             this.zzmjPanel.active = true;
         }
+        else if (data == 2) {
+            this.gameUuid = window.PX258.Config.gameUuid[2];
+            this._hidePanel();
+            this.ddzPanel.active = true;
+        }
+    },
+
+    createRoomConfig() {
+        var roomConfig;
+
+        if (this.gameUuid == window.PX258.Config.gameUuid[0]) {
+            roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
+        }
+        else if (this.gameUuid == window.PX258.Config.gameUuid[1]) {
+            roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
+            roomConfig = roomConfig | this.roomConfig[this.gameUuid].zhuaniao;
+        }
+        else if (this.gameUuid == window.PX258.Config.gameUuid[2]) {
+            roomConfig = this.roomConfig[this.gameUuid].playType | this.roomConfig[this.gameUuid].options;
+        }
+
+        return roomConfig;
+    },
+
+    _hidePanel() {
+        this.px258Panel.active = false;
+        this.zzmjPanel.active = false;
+        this.ddzPanel.active = false;
     },
 
     closeOnClick() {

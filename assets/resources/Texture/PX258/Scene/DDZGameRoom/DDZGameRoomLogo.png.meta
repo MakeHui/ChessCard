@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "5db3b4b7-13c6-4711-92d4-b3465ec3cf6a",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "DDZGameRoomLogo": {
+      "ver": "1.0.3",
+      "uuid": "20ec4ae2-3dce-40eb-8e3e-94be92d02b6b",
+      "rawTextureUuid": "5db3b4b7-13c6-4711-92d4-b3465ec3cf6a",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 192,
+      "height": 72,
+      "rawWidth": 192,
+      "rawHeight": 72,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
