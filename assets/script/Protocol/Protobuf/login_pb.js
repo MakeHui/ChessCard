@@ -160,49 +160,39 @@ proto.login.CheckVersionRequest.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.CheckVersionRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.CheckVersionRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.CheckVersionRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.CheckVersionRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.CheckVersionRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.CheckVersionRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.CheckVersionRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getVerNo();
+  f = message.getVerNo();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getAndroidOrIos();
+  f = message.getAndroidOrIos();
   if (f !== 0) {
     writer.writeInt32(
       3,
@@ -379,70 +369,60 @@ proto.login.CheckVersionResponse.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.CheckVersionResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.CheckVersionResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.CheckVersionResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.CheckVersionResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.CheckVersionResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.CheckVersionResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.CheckVersionResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getMandatoryUpdate();
+  f = message.getMandatoryUpdate();
   if (f) {
     writer.writeBool(
       2,
       f
     );
   }
-  f = this.getDownloadLink();
+  f = message.getDownloadLink();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getMsg();
+  f = message.getMsg();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getVerNo();
+  f = message.getVerNo();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getIsCheck();
+  f = message.getIsCheck();
   if (f) {
     writer.writeBool(
       6,
@@ -663,63 +643,53 @@ proto.login.LoginRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.LoginRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.LoginRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.LoginRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.LoginRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.LoginRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.LoginRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.LoginRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getWxCode();
+  f = message.getWxCode();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getVerNo();
+  f = message.getVerNo();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getLocation();
+  f = message.getLocation();
   if (f.length > 0) {
     writer.writeString(
       7,
@@ -1006,182 +976,172 @@ proto.login.LoginResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.LoginResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.LoginResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.LoginResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.LoginResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.LoginResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.LoginResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.LoginResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getNickname();
+  f = message.getNickname();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getOlkey();
+  f = message.getOlkey();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGold();
+  f = message.getGold();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getSex();
+  f = message.getSex();
   if (f !== 0) {
     writer.writeInt32(
       5,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       7,
       f
     );
   }
-  f = this.getHeadimgurl();
+  f = message.getHeadimgurl();
   if (f.length > 0) {
     writer.writeString(
       8,
       f
     );
   }
-  f = this.getIp();
+  f = message.getIp();
   if (f.length > 0) {
     writer.writeString(
       12,
       f
     );
   }
-  f = this.getLocation();
+  f = message.getLocation();
   if (f.length > 0) {
     writer.writeString(
       13,
       f
     );
   }
-  f = this.getRoomConfig();
+  f = message.getRoomConfig();
   if (f.length > 0) {
     writer.writeString(
       14,
       f
     );
   }
-  f = this.getIsCheck();
+  f = message.getIsCheck();
   if (f) {
     writer.writeBool(
       15,
       f
     );
   }
-  f = this.getIsMaintain();
+  f = message.getIsMaintain();
   if (f) {
     writer.writeBool(
       16,
       f
     );
   }
-  f = this.getMaintainInfo();
+  f = message.getMaintainInfo();
   if (f.length > 0) {
     writer.writeString(
       17,
       f
     );
   }
-  f = this.getNotice();
+  f = message.getNotice();
   if (f.length > 0) {
     writer.writeString(
       18,
       f
     );
   }
-  f = this.getShareIco();
+  f = message.getShareIco();
   if (f.length > 0) {
     writer.writeString(
       20,
       f
     );
   }
-  f = this.getShareUrl();
+  f = message.getShareUrl();
   if (f.length > 0) {
     writer.writeString(
       21,
       f
     );
   }
-  f = this.getLoginKey();
+  f = message.getLoginKey();
   if (f.length > 0) {
     writer.writeString(
       22,
       f
     );
   }
-  f = this.getPlayerReconnection();
+  f = message.getPlayerReconnection();
   if (f) {
     writer.writeBool(
       23,
       f
     );
   }
-  f = this.getPlayerRoomId();
+  f = message.getPlayerRoomId();
   if (f !== 0) {
     writer.writeUint32(
       24,
       f
     );
   }
-  f = this.getPlayerServerIp();
+  f = message.getPlayerServerIp();
   if (f.length > 0) {
     writer.writeString(
       25,
       f
     );
   }
-  f = this.getPlayerServerPort();
+  f = message.getPlayerServerPort();
   if (f !== 0) {
     writer.writeInt32(
       26,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       27,
@@ -1634,49 +1594,39 @@ proto.login.HeartbeatRequest.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.HeartbeatRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.HeartbeatRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.HeartbeatRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.HeartbeatRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.HeartbeatRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.HeartbeatRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.HeartbeatRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -1843,56 +1793,46 @@ proto.login.HeartbeatResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.HeartbeatResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.HeartbeatResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.HeartbeatResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.HeartbeatResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.HeartbeatResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.HeartbeatResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.HeartbeatResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getIsLogin();
+  f = message.getIsLogin();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getNews();
+  f = message.getNews();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGold();
+  f = message.getGold();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -2069,49 +2009,39 @@ proto.login.PlayerGoldRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.PlayerGoldRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.PlayerGoldRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.PlayerGoldRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.PlayerGoldRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerGoldRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.PlayerGoldRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerGoldRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -2268,42 +2198,32 @@ proto.login.PlayerGolgResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.PlayerGolgResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.PlayerGolgResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.PlayerGolgResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.PlayerGolgResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerGolgResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.PlayerGolgResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerGolgResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getGold();
+  f = message.getGold();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -2440,35 +2360,25 @@ proto.login.RoomConfigRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomConfigRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomConfigRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomConfigRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomConfigRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomConfigRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomConfigRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomConfigRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -2595,42 +2505,32 @@ proto.login.RoomConfigResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomConfigResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomConfigResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomConfigResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomConfigResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomConfigResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomConfigResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomConfigResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getConfig();
+  f = message.getConfig();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -2792,70 +2692,60 @@ proto.login.RoomCreateRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomCreateRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomCreateRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomCreateRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomCreateRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomCreateRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomCreateRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getMaxRounds();
+  f = message.getMaxRounds();
   if (f !== 0) {
     writer.writeInt32(
       5,
       f
     );
   }
-  f = this.getRoomConfig();
+  f = message.getRoomConfig();
   if (f !== 0) {
     writer.writeInt32(
       6,
@@ -3072,63 +2962,53 @@ proto.login.RoomCreateResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomCreateResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomCreateResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomCreateResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomCreateResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomCreateResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomCreateResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeInt32(
       2,
       f
     );
   }
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeInt32(
       4,
       f
     );
   }
-  f = this.getPayGold();
+  f = message.getPayGold();
   if (f !== 0) {
     writer.writeInt32(
       5,
@@ -3325,56 +3205,46 @@ proto.login.RoomCreateW2WRequest.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomCreateW2WRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomCreateW2WRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomCreateW2WRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomCreateW2WRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateW2WRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomCreateW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomCreateW2WRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getRoomConfig();
+  f = message.getRoomConfig();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -3566,70 +3436,60 @@ proto.login.RoomCreateW2WResponse.deserializeBinaryFromReader = function(msg, re
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomCreateW2WResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomCreateW2WResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomCreateW2WResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomCreateW2WResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomCreateW2WResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomCreateW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomCreateW2WResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getServerId();
+  f = message.getServerId();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -3831,42 +3691,32 @@ proto.login.PlayerInGameW2WRequest.deserializeBinaryFromReader = function(msg, r
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.PlayerInGameW2WRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.PlayerInGameW2WRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.PlayerInGameW2WRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.PlayerInGameW2WRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerInGameW2WRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.PlayerInGameW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerInGameW2WRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -4028,70 +3878,60 @@ proto.login.PlayerInGameW2WResponse.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.PlayerInGameW2WResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.PlayerInGameW2WResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.PlayerInGameW2WResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.PlayerInGameW2WResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerInGameW2WResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.PlayerInGameW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerInGameW2WResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getServerId();
+  f = message.getServerId();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -4298,49 +4138,39 @@ proto.login.RoomEnterW2WRequest.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomEnterW2WRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomEnterW2WRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomEnterW2WRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomEnterW2WRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterW2WRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomEnterW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomEnterW2WRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -4444,7 +4274,8 @@ proto.login.RoomEnterW2WResponse.toObject = function(includeInstance, msg) {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     serverId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -4497,6 +4328,10 @@ proto.login.RoomEnterW2WResponse.deserializeBinaryFromReader = function(msg, rea
       var value = /** @type {number} */ (reader.readUint32());
       msg.setServerPort(value);
       break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -4507,59 +4342,56 @@ proto.login.RoomEnterW2WResponse.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomEnterW2WResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomEnterW2WResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomEnterW2WResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomEnterW2WResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterW2WResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomEnterW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomEnterW2WResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getServerId();
+  f = message.getServerId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       4,
+      f
+    );
+  }
+  f = message.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -4623,6 +4455,21 @@ proto.login.RoomEnterW2WResponse.prototype.getServerPort = function() {
 /** @param {number} value */
 proto.login.RoomEnterW2WResponse.prototype.setServerPort = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional string game_uuid = 5;
+ * @return {string}
+ */
+proto.login.RoomEnterW2WResponse.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterW2WResponse.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -4738,56 +4585,46 @@ proto.login.RoomEnterRequest.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomEnterRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomEnterRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomEnterRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomEnterRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomEnterRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomEnterRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -4906,7 +4743,8 @@ proto.login.RoomEnterResponse.toObject = function(includeInstance, msg) {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
     serverIp: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    serverPort: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -4959,6 +4797,10 @@ proto.login.RoomEnterResponse.deserializeBinaryFromReader = function(msg, reader
       var value = /** @type {number} */ (reader.readInt32());
       msg.setServerPort(value);
       break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -4969,59 +4811,56 @@ proto.login.RoomEnterResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomEnterResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomEnterResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomEnterResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomEnterResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomEnterResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomEnterResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomEnterResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeInt32(
       4,
+      f
+    );
+  }
+  f = message.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -5085,6 +4924,21 @@ proto.login.RoomEnterResponse.prototype.getServerPort = function() {
 /** @param {number} value */
 proto.login.RoomEnterResponse.prototype.setServerPort = function(value) {
   jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional string game_uuid = 5;
+ * @return {string}
+ */
+proto.login.RoomEnterResponse.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.login.RoomEnterResponse.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -5195,49 +5049,39 @@ proto.login.RoomListPlayer.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomListPlayer} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomListPlayer.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomListPlayer.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomListPlayer.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListPlayer} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomListPlayer.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomListPlayer.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerName();
+  f = message.getPlayerName();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getHeadimgurl();
+  f = message.getHeadimgurl();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -5399,49 +5243,39 @@ proto.login.RoomListW2WRequest.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomListW2WRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomListW2WRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomListW2WRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomListW2WRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListW2WRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomListW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomListW2WRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -5598,42 +5432,32 @@ proto.login.RoomListW2WResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomListW2WResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomListW2WResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomListW2WResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomListW2WResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListW2WResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomListW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomListW2WResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomList();
+  f = message.getRoomList();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -5785,56 +5609,46 @@ proto.login.RoomListRequest.deserializeBinaryFromReader = function(msg, reader) 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomListRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomListRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomListRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomListRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomListRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomListRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -6025,49 +5839,39 @@ proto.login.RoomItemData.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomItemData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomItemData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomItemData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomItemData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomItemData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomItemData.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomItemData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getConfig();
+  f = message.getConfig();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getPlayerList();
+  f = message.getPlayerList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       4,
@@ -6075,7 +5879,7 @@ proto.login.RoomItemData.prototype.serializeBinaryToWriter = function (writer) {
       proto.login.RoomListPlayer.serializeBinaryToWriter
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -6289,63 +6093,53 @@ proto.login.RecordItemData.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordItemData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordItemData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordItemData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordItemData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordItemData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordItemData.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordItemData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeInt32(
       1,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getRecordId();
+  f = message.getRecordId();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getDateTime();
+  f = message.getDateTime();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getPlayerList();
+  f = message.getPlayerList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       5,
@@ -6560,42 +6354,32 @@ proto.login.RoomListResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomListResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomListResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomListResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomListResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomListResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomListResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomListResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomItemList();
+  f = message.getRoomItemList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -6766,56 +6550,46 @@ proto.login.RecordListRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordListRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordListRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordListRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordListRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordListRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordListRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordListRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -6996,42 +6770,32 @@ proto.login.RecordListResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordListResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordListResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordListResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordListResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordListResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordListResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordListResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRecordItemList();
+  f = message.getRecordItemList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -7207,63 +6971,53 @@ proto.login.PlayerRecord.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.PlayerRecord} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.PlayerRecord.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.PlayerRecord.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.PlayerRecord.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.PlayerRecord} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.PlayerRecord.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.PlayerRecord.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getNickname();
+  f = message.getNickname();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getHeadimgurl();
+  f = message.getHeadimgurl();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getFlag();
+  f = message.getFlag();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -7464,49 +7218,39 @@ proto.login.RecordInfo.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordInfo} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordInfo.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordInfo.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordInfo.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfo} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordInfo.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordInfo.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getWin();
+  f = message.getWin();
   if (f) {
     writer.writeBool(
       1,
       f
     );
   }
-  f = this.getTheRound();
+  f = message.getTheRound();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerInfoList();
+  f = message.getPlayerInfoList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -7694,56 +7438,46 @@ proto.login.RecordInfoRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordInfoRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordInfoRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordInfoRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordInfoRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfoRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordInfoRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordInfoRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getDeviceId();
+  f = message.getDeviceId();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -7934,49 +7668,39 @@ proto.login.RecordInfoResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RecordInfoResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RecordInfoResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RecordInfoResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RecordInfoResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RecordInfoResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RecordInfoResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RecordInfoResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getDatetime();
+  f = message.getDatetime();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getRecordInfoDataList();
+  f = message.getRecordInfoDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -7984,7 +7708,7 @@ proto.login.RecordInfoResponse.prototype.serializeBinaryToWriter = function (wri
       proto.login.RecordInfo.serializeBinaryToWriter
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -8184,56 +7908,46 @@ proto.login.CreateRoomRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.CreateRoomRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.CreateRoomRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.CreateRoomRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.CreateRoomRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.CreateRoomRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.CreateRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.CreateRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getKwargs();
+  f = message.getKwargs();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -8351,7 +8065,7 @@ proto.login.RefundWebResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
     roomId: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     appUuid: jspb.Message.getFieldWithDefault(msg, 4, ""),
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 5, ""),
     roomUuid: jspb.Message.getFieldWithDefault(msg, 6, "")
@@ -8400,7 +8114,7 @@ proto.login.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader
       msg.setRoomId(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {string} */ (reader.readString());
       msg.setGameUuid(value);
       break;
     case 4:
@@ -8425,70 +8139,60 @@ proto.login.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RefundWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RefundWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RefundWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RefundWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RefundWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RefundWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RefundWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getGameUuid();
-  if (f !== 0) {
-    writer.writeUint32(
+  f = message.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
       3,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -8529,15 +8233,15 @@ proto.login.RefundWebResponse.prototype.setRoomId = function(value) {
 
 
 /**
- * optional uint32 game_uuid = 3;
- * @return {number}
+ * optional string game_uuid = 3;
+ * @return {string}
  */
 proto.login.RefundWebResponse.prototype.getGameUuid = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
-/** @param {number} value */
+/** @param {string} value */
 proto.login.RefundWebResponse.prototype.setGameUuid = function(value) {
   jspb.Message.setField(this, 3, value);
 };
@@ -8695,49 +8399,39 @@ proto.login.ReplayRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ReplayRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ReplayRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ReplayRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ReplayRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ReplayRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ReplayRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ReplayRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getTheRound();
+  f = message.getTheRound();
   if (f !== 0) {
     writer.writeUint32(
       3,
@@ -8839,7 +8533,8 @@ proto.login.ReplayResponse.prototype.toObject = function(opt_includeInstance) {
 proto.login.ReplayResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    replay: jspb.Message.getFieldWithDefault(msg, 2, "")
+    replay: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    gameUuid: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -8884,6 +8579,10 @@ proto.login.ReplayResponse.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setReplay(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setGameUuid(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -8894,45 +8593,42 @@ proto.login.ReplayResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ReplayResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ReplayResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ReplayResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ReplayResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ReplayResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ReplayResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ReplayResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getReplay();
+  f = message.getReplay();
   if (f.length > 0) {
     writer.writeString(
       2,
+      f
+    );
+  }
+  f = message.getGameUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
       f
     );
   }
@@ -8966,6 +8662,21 @@ proto.login.ReplayResponse.prototype.getReplay = function() {
 /** @param {string} value */
 proto.login.ReplayResponse.prototype.setReplay = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string game_uuid = 3;
+ * @return {string}
+ */
+proto.login.ReplayResponse.prototype.getGameUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.login.ReplayResponse.prototype.setGameUuid = function(value) {
+  jspb.Message.setField(this, 3, value);
 };
 
 
@@ -9071,42 +8782,32 @@ proto.login.RoomReplayRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.RoomReplayRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.RoomReplayRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.RoomReplayRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.RoomReplayRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.RoomReplayRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.RoomReplayRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.RoomReplayRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -9253,49 +8954,39 @@ proto.login.ExistRoomW2WRequest.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ExistRoomW2WRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ExistRoomW2WRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ExistRoomW2WRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ExistRoomW2WRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ExistRoomW2WRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ExistRoomW2WRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ExistRoomW2WRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getServerId();
+  f = message.getServerId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -9447,35 +9138,25 @@ proto.login.ExistRoomW2WResponse.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ExistRoomW2WResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ExistRoomW2WResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ExistRoomW2WResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ExistRoomW2WResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ExistRoomW2WResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ExistRoomW2WResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ExistRoomW2WResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -9597,35 +9278,25 @@ proto.login.ExistRoomWebRequest.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ExistRoomWebRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ExistRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ExistRoomWebRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ExistRoomWebRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ExistRoomWebRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ExistRoomWebRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ExistRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -9747,35 +9418,25 @@ proto.login.ExistRoomWebResponse.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.login.ExistRoomWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.login.ExistRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.login.ExistRoomWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.login.ExistRoomWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.login.ExistRoomWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.login.ExistRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.login.ExistRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f) {
     writer.writeBool(
       1,
