@@ -135,14 +135,16 @@ cc.Class({
                 }
             }
 
-            for (var j = 0; j < playerData.cardsDrawNiaoList.length; j += 1) {
-                for (var k = 0; k < layoutNode.children.length; k += 1) {
-                    if (layoutNode.children[k]._userData == playerData.cardsDrawNiaoList[j].card) {
-                        if (`0x${playerData.cardsDrawNiaoList[j].card.toString(16)}` == 0x51) {
-                            window.Global.Tools.findNode(layoutNode.children[k], 'Background>laizhi').active = true;
-                        }
-                        else {
-                            window.Global.Tools.findNode(layoutNode.children[k], 'Background>zhuaniao').active = true;
+            if (playerData.cardsDrawNiaoList && playerData.cardsDrawNiaoList.length > 0) {
+                for (var j = 0; j < playerData.cardsDrawNiaoList.length; j += 1) {
+                    for (var k = 0; k < layoutNode.children.length; k += 1) {
+                        if (layoutNode.children[k]._userData == playerData.cardsDrawNiaoList[j].card) {
+                            if (`0x${playerData.cardsDrawNiaoList[j].card.toString(16)}` == 0x51) {
+                                window.Global.Tools.findNode(layoutNode.children[k], 'Background>laizhi').active = true;
+                            }
+                            else {
+                                window.Global.Tools.findNode(layoutNode.children[k], 'Background>zhuaniao').active = true;
+                            }
                         }
                     }
                 }
