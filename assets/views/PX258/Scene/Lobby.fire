@@ -245,14 +245,14 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 332,
-      "height": 65
+      "width": 152,
+      "height": 61
     },
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.7,
-    "_scaleY": 1.2,
+    "_scaleX": 1.1,
+    "_scaleY": 1.1,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
