@@ -66,6 +66,8 @@ cc.Class({
         dicePrefab: cc.Prefab,
 
         zhuaniaoNode: cc.Node,
+
+        chupaidrag: cc.Node,
     },
 
     onLoad() {
@@ -463,6 +465,8 @@ cc.Class({
                 if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
                     window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>laizhi').active = `0x${data.card.card.toString(16)}` == 0x51;
                 }
+
+                self._initDragStuffs(self.getHandcard[playerIndex]);
 
                 self._Cache.allowOutCard = true;
             }
@@ -1123,23 +1127,7 @@ cc.Class({
             if (!this._Cache.allowOutCard) {
                 return;
             }
-            this._Cache.allowOutCard = false;
-            if (event.target.name === 'GetHandCard') {
-                this._hideGetHandCard(0);
-            } else {
-                event.target.parent.destroy();
-            }
-
-            if (this.getHandcard[0].active) {
-                var card = this.getHandcard[0]._userData;
-                this._appendCardToHandCardDistrict(0, card);
-                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
-                this._hideGetHandCard(0);
-            }
-
-            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
-
-            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
+            this._discard(event.target, data);
         } else {
             this._resetHandCardPosition();
             event.target.setPositionY(24);
@@ -1268,6 +1256,8 @@ cc.Class({
             if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
                 window.Global.Tools.findNode(node, 'Background>laizhi').active = `0x${card.toString(16)}` == 0x51;
             }
+
+            this._initDragStuffs(node);
         }
     },
 
@@ -1724,8 +1714,8 @@ cc.Class({
      * 隐藏摸到的手牌
      */
     _hideGetHandCard(index) {
-        this.getHandcard[index].active = false;
         this.getHandcard[index].getChildByName('GetHandCard').setPositionY(0);
+        this.getHandcard[index].active = false;
     },
 
     /**
@@ -1779,6 +1769,99 @@ cc.Class({
         var node = cc.instantiate(this.dicePrefab);
         node.getComponent('Dice').init(diceList);
         this.node.addChild(node);
+    },
+
+    _initDragStuffs: function (node) {
+        var bgNode = node.getChildByName('Background');
+        if (!bgNode) {
+            bgNode = node.getChildByName('GetHandCard');
+        }
+        bgNode.on(cc.Node.EventType.TOUCH_START, function (event) {
+            cc.log('cc.Node.EventType.TOUCH_START');
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+            
+            cc.log([event.getLocationX(), event.getLocationY()]);
+
+            bgNode.getChildByName('mask').active = false;
+            this.chupaidrag.active = false;
+            var nodeSprite = bgNode.getChildByName('value').getComponent(cc.Sprite);
+            window.Global.Tools.findNode(this.chupaidrag, 'Background>value').getComponent(cc.Sprite).spriteFrame = nodeSprite.spriteFrame;
+            this.chupaidrag.x = event.getLocationX() - cc.director.getVisibleSize().width / 2;
+            this.chupaidrag.y = event.getLocationY() - cc.director.getVisibleSize().height / 2;
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            cc.log('cc.Node.EventType.TOUCH_MOVE');
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            if (Math.abs(event.getDeltaX()) + Math.abs(event.getDeltaY()) < 0.5) {
+                return;
+            }
+            this.chupaidrag.active = true;
+            bgNode.getChildByName('mask').active = true;
+            this.chupaidrag.scaleX = 1;
+            this.chupaidrag.scaleY = 1;
+            this.chupaidrag.x = event.getLocationX() - cc.director.getVisibleSize().width / 2;
+            this.chupaidrag.y = event.getLocationY() - cc.director.getVisibleSize().height / 2;
+            bgNode.y = 0;
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_END, function (event) {
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            cc.log('cc.Node.EventType.TOUCH_END');
+            this.chupaidrag.active = false;
+            bgNode.getChildByName('mask').active = false;
+            if (event.getLocationY() >= 200) {
+                this._discard(bgNode, node._userData);
+            }
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            cc.log('cc.Node.EventType.TOUCH_CANCEL');
+            this.chupaidrag.active = false;
+            bgNode.getChildByName('mask').active = false;
+            if (event.getLocationY() >= 200) {
+                this._discard(bgNode, node._userData);
+            } else if (event.getLocationY() >= 150) {
+                // this._huadongtishi.active = true;
+                // this._huadongtishi.getComponent(cc.Animation).play('huadongtishi');
+            }
+        }.bind(this));
+    },
+
+    _discard(node, data) {
+        if (!this._Cache.allowOutCard) {
+            return;
+        }
+        this._Cache.allowOutCard = false;
+
+        if (node.name === 'GetHandCard') {
+            this._hideGetHandCard(0);
+        } else {
+            node.parent.destroy();
+        }
+
+        if (this.getHandcard[0].active) {
+            var card = this.getHandcard[0]._userData;
+            this._appendCardToHandCardDistrict(0, card);
+            window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+            this._hideGetHandCard(0);
+        }
+
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
+
+        window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
     }
 
 });
