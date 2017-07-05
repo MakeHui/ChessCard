@@ -21,7 +21,7 @@ cc.Class({
     init: function(data) {
         this.roomId = data.roomId;
         this.roomIdLabel.string = `房间号: ${data.roomId}`;
-        this.datetime.string = data.dateTime;
+        this.datetime.string = `${window.PX258.Config.playTypes[data.gameUuid].name} (${data.dateTime})`;
 
         for (let i = 0; i < data.playerList.length; i += 1) {
             var obj = data.playerList[i];

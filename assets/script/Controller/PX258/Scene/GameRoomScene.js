@@ -1627,6 +1627,7 @@ cc.Class({
         this._hideActionPrompt();
         this._initReadyHand();
         this._hideSelectChiKongPanel();
+        this._initActionPrompt();
 
         this.playerInfoList[2].setPositionX(-554); // 移动三号位的玩家头像到中间
     },

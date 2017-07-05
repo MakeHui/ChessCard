@@ -8562,7 +8562,7 @@
     "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -156,
+      "x": -204,
       "y": -279
     },
     "_skewX": 0,
@@ -8607,7 +8607,7 @@
     "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 6,
+    "_N$spacingX": 14,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0
