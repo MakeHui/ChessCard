@@ -188,13 +188,7 @@ cc.Class({
                     cc.log(event.getPercent().toFixed(2) + '% : ' + event.getMessage());
                 }
 
-                try {
-                    self.progressLabel.string = '检查更新 ' + Math.ceil(event.getPercentByFile()) + '%';
-                }
-                catch (e) {
-                    console.log(e);
-                    self.progressLabel.string = '检查更新 ' + parseInt(event.getPercentByFile(), 10) + '%';
-                }
+                self.progressLabel.string = '检查更新 ' + parseInt(event.getPercentByFile(), 10) + '%';
                 self.progressBar.progress = byteProgress;
                 callback(0, byteProgress, fileProgress);
                 break;
@@ -214,6 +208,7 @@ cc.Class({
                 break;
             case jsb.EventAssetsManager.UPDATE_FINISHED:
                 cc.log('Update finished. ' + event.getMessage());
+                self.progressLabel.string = '检查更新 100%';
                 needRestart = true;
                 break;
             case jsb.EventAssetsManager.UPDATE_FAILED:
