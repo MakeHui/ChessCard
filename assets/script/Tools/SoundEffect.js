@@ -25,11 +25,13 @@ var SoundEffect = cc.Class({
     },
 
     backgroundMusicStop () {
-        cc.audioEngine.pause(this.backgroundMusicAudioId);
+        // cc.audioEngine.pause(this.backgroundMusicAudioId);
+        this.backgroundMusicClear();
     },
 
     backgroundMusicClear () {
-        cc.audioEngine.pause(this.backgroundMusicAudioId);
+        // cc.audioEngine.pause(this.backgroundMusicAudioId);
+        cc.audioEngine.uncache(this.audioRaw);
         this.backgroundMusicAudioId = null;
     },
 
