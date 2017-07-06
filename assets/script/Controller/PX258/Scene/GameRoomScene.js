@@ -1773,6 +1773,10 @@ cc.Class({
     },
 
     _initDragStuffs: function (node) {
+        // 如果选中的牌是红中,跳过操作
+        if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1] && `0x${node._userData.toString(16)}` == 0x51) {
+            return;
+        }
         var bgNode = node.getChildByName('Background');
         if (!bgNode) {
             bgNode = node.getChildByName('GetHandCard');
