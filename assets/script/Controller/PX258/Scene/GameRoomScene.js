@@ -57,7 +57,6 @@ cc.Class({
         waitPanel: cc.Node,
         fastChatPanel: cc.Node,
         menuPanel: cc.Node,
-        bonusPoint: cc.Label,
         fastChatProgressBar: cc.ProgressBar,
         voiceButton: cc.Node,
         voiceProgressBar: cc.ProgressBar,
@@ -113,7 +112,7 @@ cc.Class({
 
         this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
-        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
@@ -203,7 +202,7 @@ cc.Class({
             this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
             this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
-            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
+            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
@@ -212,7 +211,7 @@ cc.Class({
 
             // 是否在线
             if (this._userInfo.playerUuid !== obj.playerUuid) {
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+                this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = obj.isOnline === 0;
             }
 
             if (playerIndex !== 0) {
@@ -246,7 +245,7 @@ cc.Class({
 
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
         this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore || 0;
-        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
         if (data.playerUuid === this._Cache.ownerUuid) {
@@ -329,7 +328,7 @@ cc.Class({
 
     onOnlineStatusMessage(data) {
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
+        this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = !data.status;
         if (this._Cache.playerList.length === 4) {
             if (data.status) {
                 this._hideWaitPanel();
@@ -401,7 +400,7 @@ cc.Class({
 
     onReadyMessage(data) {
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
+        this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = false;
     },
 
     onDealMessage(data) {
@@ -448,14 +447,14 @@ cc.Class({
         const playerIndex = this._getPlayerIndexBySeat(playerSeat);
         this._openLight(playerSeat);
 
-        if (data.card.card === 0) {
-            return;
-        }
-
         const self = this;
         this.scheduleOnce(() => {
             // 如果抓拍的人是自己才对数据进行处理
-            if (playerIndex === 0) {
+            if (playerIndex === 0) {        
+                if (data.card.card === 0) {
+                    return;
+                }
+
                 var clickEventHandler = window.Global.Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
                 self.getHandcard[playerIndex].getChildByName('GetHandCard').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                 self.getHandcard[playerIndex]._userData = data.card.card;
@@ -484,6 +483,7 @@ cc.Class({
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
+        this.getHandcard[playerIndex].active = false;
 
         // 是否有操作提示
         this.onPromptMessage({ promptList: data.promptList });
@@ -573,7 +573,7 @@ cc.Class({
 
             // 是否在线
             if (this._userInfo.playerUuid !== obj.playerUuid) {
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+                this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = obj.isOnline === 0;
             }
 
             // 初始化手牌
@@ -1546,13 +1546,12 @@ cc.Class({
         // index -= 2;
         // index = index < 0 ? index + 4 : index;
 
-        this.makeSeat[index].getComponent(cc.Animation).play();
+            this.makeSeat[index].color = new cc.Color(255, 246, 0);
     },
 
     _closeAllLight() {
         for (let i = 0; i < 4; i += 1) {
-            this.makeSeat[i].getComponent(cc.Animation).stop();
-            this.makeSeat[i].opacity = 255;
+            this.makeSeat[i].color = new cc.Color(164, 81, 54);
         }
     },
 
@@ -1604,7 +1603,7 @@ cc.Class({
 
         this.playerInfoList[index].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
         this.playerInfoList[index].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
-        window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
     },
 
     /**
