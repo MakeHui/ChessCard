@@ -1023,9 +1023,13 @@ cc.Class({
 
     openMenuOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-
-        var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
-        this.menuPanel.getComponent(cc.Animation).play(animationName);
+        cc.log(this.menuPanel.height);
+        if (this.menuPanel.scaleX === 0) {
+            this.menuPanel.getComponent(cc.Animation).play('OpenMenu');    
+        }
+        else if (this.menuPanel.scaleX === 1) {
+            this.menuPanel.getComponent(cc.Animation).play('CloseMenu');    
+        }
     },
 
     closeDialogOnClick() {

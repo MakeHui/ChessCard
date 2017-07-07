@@ -1,9 +1,9 @@
 {
   "__type__": "cc.AnimationClip",
-  "_name": "OpenSetting",
+  "_name": "OpenMenu",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.17,
+  "_duration": 0.16666666666666666,
   "sample": 60,
   "speed": 1,
   "wrapMode": 1,
@@ -32,11 +32,11 @@
       "y": [
         {
           "frame": 0,
-          "value": 291
+          "value": 230
         },
         {
           "frame": 0.16666666666666666,
-          "value": 222
+          "value": 194
         }
       ]
     }
