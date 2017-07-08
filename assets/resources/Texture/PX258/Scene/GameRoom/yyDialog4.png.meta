@@ -1,16 +1,16 @@
 {
   "ver": "1.0.0",
-  "uuid": "83d82f48-ed0c-46e5-a910-eec68009eac1",
+  "uuid": "34c9b847-c759-4d71-8a96-e2c626449019",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "yyDialog": {
+    "yyDialog4": {
       "ver": "1.0.3",
-      "uuid": "82aa49ab-2943-4471-8f40-e6cd4c616745",
-      "rawTextureUuid": "83d82f48-ed0c-46e5-a910-eec68009eac1",
+      "uuid": "8ab92a0d-db9d-4feb-86b0-1107eeebefc0",
+      "rawTextureUuid": "34c9b847-c759-4d71-8a96-e2c626449019",
       "trimType": "auto",
-      "trimThreshold": -1,
+      "trimThreshold": 1,
       "rotated": false,
       "offsetX": 0,
       "offsetY": 0,
@@ -22,8 +22,8 @@
       "rawHeight": 40,
       "borderTop": 0,
       "borderBottom": 0,
-      "borderLeft": 32,
-      "borderRight": 15,
+      "borderLeft": 28,
+      "borderRight": 12,
       "subMetas": {}
     }
   }
