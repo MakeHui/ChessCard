@@ -194,13 +194,15 @@
       "__id__": 1
     },
     "_enabled": true,
-    "_defaultClip": null,
+    "_defaultClip": {
+      "__uuid__": "f822acb7-1a39-491f-90c8-901cffe8cc89"
+    },
     "_clips": [
       {
         "__uuid__": "f822acb7-1a39-491f-90c8-901cffe8cc89"
       }
     ],
-    "playOnLoad": false
+    "playOnLoad": true
   },
   {
     "__type__": "cc.PrefabInfo",

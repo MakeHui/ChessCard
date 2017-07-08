@@ -374,7 +374,6 @@ cc.Class({
                 // 表情
                 else if (data.content.type === 2) {
                     const node = cc.instantiate(this.emojiList[data.content.data - 1]);
-                    node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
                     if (playerIndex === 0) {
                         node.setPosition(0, -126);
                     } else if (playerIndex === 1) {
@@ -1016,7 +1015,7 @@ cc.Class({
     openFastChatPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this.fastChatProgressBar.progress <= 0) {
-            var animationName = (this.fastChatPanel.getPositionX() > 114) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
+            var animationName = (this.fastChatPanel.getPositionX() >= 568) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
             this.fastChatPanel.getComponent(cc.Animation).play(animationName);
         }
     },
@@ -1034,7 +1033,7 @@ cc.Class({
 
     closeDialogOnClick() {
         // 检查是否关闭聊天面板
-        if (this.fastChatPanel.getPositionX() <= 114) {
+        if (this.fastChatPanel.getPositionX() < 568) {
             this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
         }
 
