@@ -7263,12 +7263,12 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.5,
-    "_scaleY": 0.5,
+    "_scaleX": 0.45,
+    "_scaleY": 0.45,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 107,
-      "y": -79
+      "y": -71
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7346,8 +7346,8 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.5,
-    "_scaleY": 0.5,
+    "_scaleX": 0.45,
+    "_scaleY": 0.45,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 98,
@@ -7458,12 +7458,12 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.5,
-    "_scaleY": 0.5,
+    "_scaleX": 0.45,
+    "_scaleY": 0.45,
     "_position": {
       "__type__": "cc.Vec2",
       "x": -220,
-      "y": -73
+      "y": -64
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -7570,12 +7570,12 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.6,
-    "_scaleY": 0.6,
+    "_scaleX": 0.5,
+    "_scaleY": 0.5,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 89,
-      "y": -136
+      "x": 40,
+      "y": -123
     },
     "_skewX": 0,
     "_skewY": 0,
