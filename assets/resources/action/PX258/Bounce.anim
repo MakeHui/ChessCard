@@ -3,9 +3,9 @@
   "_name": "Bounce",
   "_objFlags": 0,
   "_rawFiles": null,
-  "_duration": 0.3333333333333333,
-  "sample": 60,
-  "speed": 0.6,
+  "_duration": 0.4444444444444444,
+  "sample": 45,
+  "speed": 0.5,
   "wrapMode": 2,
   "curveData": {
     "props": {
@@ -15,11 +15,11 @@
           "value": 0
         },
         {
-          "frame": 0.16666666666666666,
-          "value": 10
+          "frame": 0.2222222222222222,
+          "value": 20
         },
         {
-          "frame": 0.3333333333333333,
+          "frame": 0.4444444444444444,
           "value": 0
         }
       ]

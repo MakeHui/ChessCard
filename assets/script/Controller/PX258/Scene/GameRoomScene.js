@@ -57,7 +57,6 @@ cc.Class({
         waitPanel: cc.Node,
         fastChatPanel: cc.Node,
         menuPanel: cc.Node,
-        bonusPoint: cc.Label,
         fastChatProgressBar: cc.ProgressBar,
         voiceButton: cc.Node,
         voiceProgressBar: cc.ProgressBar,
@@ -66,6 +65,8 @@ cc.Class({
         dicePrefab: cc.Prefab,
 
         zhuaniaoNode: cc.Node,
+
+        chupaidrag: cc.Node,
     },
 
     onLoad() {
@@ -111,7 +112,7 @@ cc.Class({
 
         this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
         this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
-        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
@@ -201,7 +202,7 @@ cc.Class({
             this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
             this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
-            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
+            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
@@ -210,7 +211,7 @@ cc.Class({
 
             // 是否在线
             if (this._userInfo.playerUuid !== obj.playerUuid) {
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+                this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = obj.isOnline === 0;
             }
 
             if (playerIndex !== 0) {
@@ -244,7 +245,7 @@ cc.Class({
 
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.info.nickname;
         this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = data.totalScore || 0;
-        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
         if (data.playerUuid === this._Cache.ownerUuid) {
@@ -327,7 +328,7 @@ cc.Class({
 
     onOnlineStatusMessage(data) {
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
+        this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = !data.status;
         if (this._Cache.playerList.length === 4) {
             if (data.status) {
                 this._hideWaitPanel();
@@ -373,7 +374,6 @@ cc.Class({
                 // 表情
                 else if (data.content.type === 2) {
                     const node = cc.instantiate(this.emojiList[data.content.data - 1]);
-                    node.getComponent(cc.Animation).play(`emotion${data.content.data}`);
                     if (playerIndex === 0) {
                         node.setPosition(0, -126);
                     } else if (playerIndex === 1) {
@@ -399,7 +399,7 @@ cc.Class({
 
     onReadyMessage(data) {
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
-        this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
+        this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = false;
     },
 
     onDealMessage(data) {
@@ -446,14 +446,14 @@ cc.Class({
         const playerIndex = this._getPlayerIndexBySeat(playerSeat);
         this._openLight(playerSeat);
 
-        if (data.card.card === 0) {
-            return;
-        }
-
         const self = this;
         this.scheduleOnce(() => {
             // 如果抓拍的人是自己才对数据进行处理
-            if (playerIndex === 0) {
+            if (playerIndex === 0) {        
+                if (data.card.card === 0) {
+                    return;
+                }
+
                 var clickEventHandler = window.Global.Tools.createEventHandler(self.node, 'GameRoomScene', 'selectedHandCardOnClick', data.card.card);
                 self.getHandcard[playerIndex].getChildByName('GetHandCard').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
                 self.getHandcard[playerIndex]._userData = data.card.card;
@@ -463,6 +463,8 @@ cc.Class({
                 if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
                     window.Global.Tools.findNode(self.getHandcard[playerIndex], 'GetHandCard>laizhi').active = `0x${data.card.card.toString(16)}` == 0x51;
                 }
+
+                self._initDragStuffs(self.getHandcard[playerIndex]);
 
                 self._Cache.allowOutCard = true;
             }
@@ -480,6 +482,7 @@ cc.Class({
         const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._Cache.activeCard = this._appendCardToDiscardDistrict(playerIndex, [{ card: data.card.card }]);
         this._createActiveCardFlag(playerIndex);
+        this.getHandcard[playerIndex].active = false;
 
         // 是否有操作提示
         this.onPromptMessage({ promptList: data.promptList });
@@ -569,7 +572,7 @@ cc.Class({
 
             // 是否在线
             if (this._userInfo.playerUuid !== obj.playerUuid) {
-                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+                this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = obj.isOnline === 0;
             }
 
             // 初始化手牌
@@ -1012,21 +1015,25 @@ cc.Class({
     openFastChatPanelOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this.fastChatProgressBar.progress <= 0) {
-            var animationName = (this.fastChatPanel.getPositionX() > 114) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
+            var animationName = (this.fastChatPanel.getPositionX() >= 568) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
             this.fastChatPanel.getComponent(cc.Animation).play(animationName);
         }
     },
 
     openMenuOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
-
-        var animationName = (this.menuPanel.getPositionY() > 222) ? 'OpenMenu' : 'CloseMenu';
-        this.menuPanel.getComponent(cc.Animation).play(animationName);
+        cc.log(this.menuPanel.height);
+        if (this.menuPanel.scaleX === 0) {
+            this.menuPanel.getComponent(cc.Animation).play('OpenMenu');    
+        }
+        else if (this.menuPanel.scaleX === 1) {
+            this.menuPanel.getComponent(cc.Animation).play('CloseMenu');    
+        }
     },
 
     closeDialogOnClick() {
         // 检查是否关闭聊天面板
-        if (this.fastChatPanel.getPositionX() <= 114) {
+        if (this.fastChatPanel.getPositionX() < 568) {
             this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
         }
 
@@ -1123,23 +1130,7 @@ cc.Class({
             if (!this._Cache.allowOutCard) {
                 return;
             }
-            this._Cache.allowOutCard = false;
-            if (event.target.name === 'GetHandCard') {
-                this._hideGetHandCard(0);
-            } else {
-                event.target.parent.destroy();
-            }
-
-            if (this.getHandcard[0].active) {
-                var card = this.getHandcard[0]._userData;
-                this._appendCardToHandCardDistrict(0, card);
-                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
-                this._hideGetHandCard(0);
-            }
-
-            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
-
-            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
+            this._discard(event.target, data);
         } else {
             this._resetHandCardPosition();
             event.target.setPositionY(24);
@@ -1268,6 +1259,8 @@ cc.Class({
             if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1]) {
                 window.Global.Tools.findNode(node, 'Background>laizhi').active = `0x${card.toString(16)}` == 0x51;
             }
+
+            this._initDragStuffs(node);
         }
     },
 
@@ -1556,13 +1549,12 @@ cc.Class({
         // index -= 2;
         // index = index < 0 ? index + 4 : index;
 
-        this.makeSeat[index].getComponent(cc.Animation).play();
+            this.makeSeat[index].color = new cc.Color(255, 246, 0);
     },
 
     _closeAllLight() {
         for (let i = 0; i < 4; i += 1) {
-            this.makeSeat[i].getComponent(cc.Animation).stop();
-            this.makeSeat[i].opacity = 255;
+            this.makeSeat[i].color = new cc.Color(164, 81, 54);
         }
     },
 
@@ -1614,7 +1606,7 @@ cc.Class({
 
         this.playerInfoList[index].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
         this.playerInfoList[index].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
-        window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
+        window.Global.Tools.setWebImage(this.playerInfoList[index].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
     },
 
     /**
@@ -1637,6 +1629,7 @@ cc.Class({
         this._hideActionPrompt();
         this._initReadyHand();
         this._hideSelectChiKongPanel();
+        this._initActionPrompt();
 
         this.playerInfoList[2].setPositionX(-554); // 移动三号位的玩家头像到中间
     },
@@ -1724,8 +1717,8 @@ cc.Class({
      * 隐藏摸到的手牌
      */
     _hideGetHandCard(index) {
-        this.getHandcard[index].active = false;
         this.getHandcard[index].getChildByName('GetHandCard').setPositionY(0);
+        this.getHandcard[index].active = false;
     },
 
     /**
@@ -1779,6 +1772,103 @@ cc.Class({
         var node = cc.instantiate(this.dicePrefab);
         node.getComponent('Dice').init(diceList);
         this.node.addChild(node);
+    },
+
+    _initDragStuffs: function (node) {
+        // 如果选中的牌是红中,跳过操作
+        if (this._Cache.gameUuid == window.PX258.Config.gameUuid[1] && `0x${node._userData.toString(16)}` == 0x51) {
+            return;
+        }
+        var bgNode = node.getChildByName('Background');
+        if (!bgNode) {
+            bgNode = node.getChildByName('GetHandCard');
+        }
+        bgNode.on(cc.Node.EventType.TOUCH_START, function (event) {
+            cc.log('cc.Node.EventType.TOUCH_START');
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+            
+            cc.log([event.getLocationX(), event.getLocationY()]);
+
+            bgNode.getChildByName('mask').active = false;
+            this.chupaidrag.active = false;
+            var nodeSprite = bgNode.getChildByName('value').getComponent(cc.Sprite);
+            window.Global.Tools.findNode(this.chupaidrag, 'Background>value').getComponent(cc.Sprite).spriteFrame = nodeSprite.spriteFrame;
+            this.chupaidrag.x = event.getLocationX() - cc.director.getVisibleSize().width / 2;
+            this.chupaidrag.y = event.getLocationY() - cc.director.getVisibleSize().height / 2;
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            cc.log('cc.Node.EventType.TOUCH_MOVE');
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            if (Math.abs(event.getDeltaX()) + Math.abs(event.getDeltaY()) < 0.5) {
+                return;
+            }
+            this.chupaidrag.active = true;
+            bgNode.getChildByName('mask').active = true;
+            this.chupaidrag.scaleX = 1;
+            this.chupaidrag.scaleY = 1;
+            this.chupaidrag.x = event.getLocationX() - cc.director.getVisibleSize().width / 2;
+            this.chupaidrag.y = event.getLocationY() - cc.director.getVisibleSize().height / 2;
+            bgNode.y = 0;
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_END, function (event) {
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            cc.log('cc.Node.EventType.TOUCH_END');
+            this.chupaidrag.active = false;
+            bgNode.getChildByName('mask').active = false;
+            if (event.getLocationY() >= 200) {
+                this._discard(bgNode, node._userData);
+            }
+        }.bind(this));
+
+        bgNode.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
+            if (!this._Cache.allowOutCard) {
+                return;
+            }
+
+            cc.log('cc.Node.EventType.TOUCH_CANCEL');
+            this.chupaidrag.active = false;
+            bgNode.getChildByName('mask').active = false;
+            if (event.getLocationY() >= 200) {
+                this._discard(bgNode, node._userData);
+            } else if (event.getLocationY() >= 150) {
+                // this._huadongtishi.active = true;
+                // this._huadongtishi.getComponent(cc.Animation).play('huadongtishi');
+            }
+        }.bind(this));
+    },
+
+    _discard(node, data) {
+        if (!this._Cache.allowOutCard) {
+            return;
+        }
+        this._Cache.allowOutCard = false;
+
+        if (node.name === 'GetHandCard') {
+            this._hideGetHandCard(0);
+        } else {
+            node.parent.destroy();
+        }
+
+        if (this.getHandcard[0].active) {
+            var card = this.getHandcard[0]._userData;
+            this._appendCardToHandCardDistrict(0, card);
+            window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+            this._hideGetHandCard(0);
+        }
+
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Discard, { card: data });
+
+        window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.cardOut);
     }
 
 });

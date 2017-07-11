@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "bcfd8912-311d-4afc-9db2-3fcdf8067e3c",
+  "uuid": "99ea94b5-ad98-478b-a6a7-9117fe422fc2",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "img_offline": {
+    "gameShengyuBg": {
       "ver": "1.0.3",
-      "uuid": "f411649d-b8c9-4420-9e43-453718b0721a",
-      "rawTextureUuid": "bcfd8912-311d-4afc-9db2-3fcdf8067e3c",
+      "uuid": "41f37479-2585-41f7-87e7-635d02297b87",
+      "rawTextureUuid": "99ea94b5-ad98-478b-a6a7-9117fe422fc2",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 204,
-      "height": 204,
-      "rawWidth": 204,
-      "rawHeight": 204,
+      "width": 127,
+      "height": 23,
+      "rawWidth": 127,
+      "rawHeight": 23,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

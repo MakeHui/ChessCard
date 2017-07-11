@@ -27,7 +27,7 @@ cc.Class({
             else if (this.fromScene === 'GameRecordList') {
                 var parentNode = cc.director.getScene().getChildByName('Canvas');
                 var node = cc.instantiate(this.gameRecordStep);
-                node.getComponent('GameRecordStepPrefab').init(this.roomId);
+                node.getComponent('GameRecordStepPrefab').init(this.roomNumber);
                 window.Global.Animation.openDialog(node, parentNode, () => {
                     cc.log('downloader success');
                 });

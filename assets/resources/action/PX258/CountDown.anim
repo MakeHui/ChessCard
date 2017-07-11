@@ -8,30 +8,7 @@
   "speed": 1,
   "wrapMode": 1,
   "curveData": {
-    "props": {
-      "color": [
-        {
-          "frame": 0,
-          "value": {
-            "__type__": "cc.Color",
-            "r": 252,
-            "g": 248,
-            "b": 248,
-            "a": 255
-          }
-        },
-        {
-          "frame": 9,
-          "value": {
-            "__type__": "cc.Color",
-            "r": 255,
-            "g": 0,
-            "b": 0,
-            "a": 255
-          }
-        }
-      ]
-    }
+    "props": {}
   },
   "events": [
     {

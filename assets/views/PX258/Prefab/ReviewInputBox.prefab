@@ -3938,7 +3938,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "number": []
+    "number": [],
+    "gameRecordStep": null
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -580,7 +580,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -476,
-      "y": 69
+      "y": 42
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -612,7 +612,7 @@
     "_actualFontSize": 28,
     "_fontSize": 28,
     "_lineHeight": 0,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
@@ -655,7 +655,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 122.77,
+      "width": 88.04,
       "height": 24
     },
     "_children": [],
@@ -666,7 +666,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -476,
-      "y": 41
+      "y": 76
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -698,11 +698,11 @@
     "_actualFontSize": 24,
     "_fontSize": 24,
     "_lineHeight": 0,
-    "_enableWrapText": false,
+    "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "2016-07-18",
+    "_N$string": "萍乡258",
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$overflow": 0
@@ -715,7 +715,7 @@
     "asset": {
       "__uuid__": "935671f7-a2c8-4350-b711-21de8b3c08fe"
     },
-    "fileId": "881bekODRFOvIxHcLVO6Pk/",
+    "fileId": "864b62lxAZLBoz+SiaD6D8K",
     "sync": false
   },
   {
@@ -1035,7 +1035,7 @@
     "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
+    "_N$verticalAlign": 0,
     "_N$overflow": 1
   },
   {
@@ -1463,7 +1463,7 @@
     "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
+    "_N$verticalAlign": 0,
     "_N$overflow": 1
   },
   {
@@ -1891,7 +1891,7 @@
     "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
+    "_N$verticalAlign": 0,
     "_N$overflow": 1
   },
   {
@@ -2270,7 +2270,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 150,
+      "width": 133,
       "height": 28
     },
     "_children": [],
@@ -2319,7 +2319,7 @@
     "_spacingX": 0,
     "_N$string": "用户名",
     "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 1,
+    "_N$verticalAlign": 0,
     "_N$overflow": 1
   },
   {

@@ -147,12 +147,12 @@
     "_children": [],
     "_rotationX": 90,
     "_rotationY": 90,
-    "_scaleX": 1,
+    "_scaleX": 0.9,
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 10
+      "y": 12.5
     },
     "_skewX": 0,
     "_skewY": 0,
