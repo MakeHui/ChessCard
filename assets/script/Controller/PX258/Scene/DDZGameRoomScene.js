@@ -85,6 +85,48 @@ cc.Class({
         this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
     },
 
+    /**
+     * 滑动选择卡牌
+     *
+     * @author Make.<makehuir@gmail.com>
+     * @datetime 2017-07-12T16:04:33+0800
+     *
+     * @return   {[type]}                 [description]
+     */
+    selectCatds() {
+        this.cardList.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
+            for (var i = 0; i < this.cardList.children.length; i++) {
+                var pos = this.cardList.children[i].convertToNodeSpace(event.getLocation());
+                cc.log([event.getLocation(), pos]);
+                cc.log('cc.Node.EventType.TOUCH_MOVE');
+                // 是否被选中
+                if (pos.x > 0 && pos.x <= 20) {
+                    this.cardList.children[i].opacity = 100;
+                }
+            }
+        }, this);
+
+        this._touchEnd = function() {
+            this._touchStart = false;
+            for (var i = 0; i < this.cardList.children.length; i++) {
+                // 设置牌是否为选中状态
+                cc.log(this.cardList.children[i].opacity);
+                if (this.cardList.children[i].opacity === 100) {
+                    if (this.cardList.children[i].getPositionY() == 0) {
+                        this.cardList.children[i].setPositionY(24);
+                    } else {
+                        this.cardList.children[i].setPositionY(0);
+                    }
+                }
+                this.cardList.children[i].opacity = 255;
+            }
+            cc.log('cc.Node.EventType.TOUCH_END');
+        }
+
+        this.cardList.on(cc.Node.EventType.TOUCH_END, this._touchEnd, this);
+        this.cardList.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEnd, this);
+    },
+
     onVoiceEndCallback: function() {
         if (this.voiceProgressBar.progress != 1) {
             return;
