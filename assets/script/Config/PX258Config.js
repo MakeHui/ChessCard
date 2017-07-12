@@ -243,7 +243,49 @@ const PX258Config = cc.Class({
             },
         },
 
-        laizhi: [ 0x51 ]
+        laizhi: [ 0x51 ],
+
+        /**
+         * 斗地主
+         */
+        cardType: {
+            /** 非法牌型 **/
+            TYPE_ILLEGAL: 0,
+            /**(单张)**/
+            TYPE_SINGLE: 1,
+            /**(火箭[天炸])**/
+            TYPE_SUPER_MISSILE: 2, //
+            /**(一对)**/
+            TYPE_PAIR: 3,
+            /**(三张*X)**/
+            TYPE_THREE: 4,
+            /**(炸弹)**/
+            TYPE_MISSILE: 5,
+            /**(4带1)**/
+            TYPE_FOUR_TAKE_ONE: 6, //
+            /**(4带2)**/
+            TYPE_FOUR_TAKE_TOW: 7,
+            /**(4带3)**/
+            TYPE_FOUR_TAKE_THREE: 12, //,
+                /**((3+1)*X)**/
+            TYPE_THREE_TAKE_ONE: 8,
+            /**((3+2)*X)**/
+            TYPE_THREE_TAKE_PAIR: 9,
+            /**(连对)**/
+            TYPE_CONTINUE_PAIR: 10,
+            /**(顺子)**/
+            TYPE_CONTINUE_SINGLE: 11,
+            ///**王炸**/
+            //TYPE_JOKERMISSILE = 13,
+
+            //牌型权重
+            /**炸弹**/
+            TYPE_OF_WEIGHT_MISSILE: 10,
+            /**普通牌型**/
+            TYPE_OF_WEIGHT_NORMAL: 1,
+            /**王炸**/
+            TYPE_OF_WEIGHT_SUPERMISSILE: 20,
+        }
     }
 });
 

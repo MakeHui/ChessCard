@@ -37038,6 +37038,8 @@
     "waitPanel": {
       "__id__": 87
     },
+    "actionSprite": [],
+    "clockNode": [],
     "playerInfoList": [
       {
         "__id__": 93
@@ -37049,6 +37051,14 @@
         "__id__": 145
       }
     ],
+    "inviteButtonList": [],
+    "dipaiNode": [],
+    "dipaiHideNode": null,
+    "handCardDistrict": [],
+    "dirtyCardDistrict": [],
+    "jiaofenModeButton": [],
+    "jiaodizhuModeButton": [],
+    "chupaiButton": [],
     "voiceButton": {
       "__id__": 193
     }
