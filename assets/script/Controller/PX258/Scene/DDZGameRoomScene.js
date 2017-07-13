@@ -7,7 +7,7 @@ cc.Class({
         userInfoPrefab: cc.Prefab,
 
         roomInfo: [cc.Label],
-        waitPanel: cc.Label,
+        waitPanel: cc.Node,
 
         actionSprite: [cc.Node],
         clockNode: [cc.Node],
@@ -510,9 +510,9 @@ cc.Class({
 
     _showWaitPanel(messageId) {
         if (messageId === 1) {
-            this.waitPanel.string = '玩家可能离线或者离开，等待操作中...';
+            this.waitPanel.getComponent(cc.Label).string = '玩家可能离线或者离开，等待操作中...';
         } else if (messageId === 2) {
-            this.waitPanel.string = '断线重连中，请稍等...';
+            this.waitPanel.getComponent(cc.Label).string = '断线重连中，请稍等...';
         }
         this.waitPanel.active = true;
     },
