@@ -13772,7 +13772,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "1-0xb10"
+    "customEventData": "1-0b10"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -14187,7 +14187,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "1-0xb1"
+    "customEventData": "1-0b1"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -14880,7 +14880,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "2-0xb1000"
+    "customEventData": "2-0b1000"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -15295,7 +15295,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "2-0xb10000"
+    "customEventData": "2-0b10000"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -15710,7 +15710,7 @@
     },
     "component": "CreateRoomPrefab",
     "handler": "selectedOnClick",
-    "customEventData": "2-0xb100000"
+    "customEventData": "2-0b100000"
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -27,8 +27,8 @@ cc.Class({
             },
             100200: {
                 maxRounds: 8,
-                playType: 0xb10,
-                options: 0xb1000,
+                playType: 0b10,
+                options: 0b1000,
             }
         };
 

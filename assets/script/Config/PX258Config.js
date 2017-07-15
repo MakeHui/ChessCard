@@ -232,13 +232,13 @@ const PX258Config = cc.Class({
             100200: {
                 name: '斗地主',
                 playType: {
-                    0xb10: '叫地主',
-                    0xb1: '叫分'
+                    0b10: '叫地主',
+                    0b1: '叫分'
                 },
                 options: {
-                    0xb1000: '3炸',
-                    0xb10000: '4炸',
-                    0xb100000: '5炸',
+                    0b1000: '3炸',
+                    0b10000: '4炸',
+                    0b100000: '5炸',
                 }
             },
         },
@@ -251,39 +251,39 @@ const PX258Config = cc.Class({
         cardType: {
             /** 非法牌型 **/
             TYPE_ILLEGAL: 0,
-            /**(单张)**/
+            /** (单张)**/
             TYPE_SINGLE: 1,
-            /**(火箭[天炸])**/
+            /** (火箭[天炸])**/
             TYPE_SUPER_MISSILE: 2, //
-            /**(一对)**/
+            /** (一对)**/
             TYPE_PAIR: 3,
-            /**(三张*X)**/
+            /** (三张*X)**/
             TYPE_THREE: 4,
-            /**(炸弹)**/
+            /** (炸弹)**/
             TYPE_MISSILE: 5,
-            /**(4带1)**/
+            /** (4带1)**/
             TYPE_FOUR_TAKE_ONE: 6, //
-            /**(4带2)**/
+            /** (4带2)**/
             TYPE_FOUR_TAKE_TOW: 7,
-            /**(4带3)**/
-            TYPE_FOUR_TAKE_THREE: 12, //,
-                /**((3+1)*X)**/
+            /** (4带3)**/
+            TYPE_FOUR_TAKE_THREE: 12, //
+            /** ((3+1)*X)**/
             TYPE_THREE_TAKE_ONE: 8,
-            /**((3+2)*X)**/
+            /** ((3+2)*X)**/
             TYPE_THREE_TAKE_PAIR: 9,
-            /**(连对)**/
+            /** (连对)**/
             TYPE_CONTINUE_PAIR: 10,
-            /**(顺子)**/
+            /** (顺子)**/
             TYPE_CONTINUE_SINGLE: 11,
-            ///**王炸**/
-            //TYPE_JOKERMISSILE = 13,
+            // 王炸 **/
+            // TYPE_JOKERMISSILE = 13,
 
-            //牌型权重
-            /**炸弹**/
+            // 牌型权重
+            /** 炸弹**/
             TYPE_OF_WEIGHT_MISSILE: 10,
-            /**普通牌型**/
+            /** 普通牌型**/
             TYPE_OF_WEIGHT_NORMAL: 1,
-            /**王炸**/
+            /** 王炸**/
             TYPE_OF_WEIGHT_SUPERMISSILE: 20,
         }
     }

@@ -15,18 +15,19 @@ cc.Class({
         playerInfoList: [cc.Node],
         inviteButtonList: [cc.Node],
 
-        dipaiNode: [cc.Node],
-        dipaiHideNode: cc.Node,
+        dipaiNode: cc.Node,
 
         handCardDistrict: cc.Node,
         dirtyCardDistrict: [cc.Node],
 
+        actionNode: cc.Node,
         jiaofenModeButton: [cc.Node],
         jiaodizhuModeButton: [cc.Node],
         chupaiButton: [cc.Node],
 
         voiceButton: cc.Node,
     },
+
     onLoad() {
         this._Cache = {};
         this._Cache.roomId = ''; // 房间号
@@ -67,8 +68,6 @@ cc.Class({
         }
 
         this._userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
-        this.playerInfoList[0].getChildByName('text_nick').getComponent(cc.Label).string = this._userInfo.nickname;
-        window.Global.Tools.setWebImage(this.playerInfoList[0].getChildByName('img_handNode').getComponent(cc.Sprite), this._userInfo.headimgurl);
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
@@ -121,7 +120,7 @@ cc.Class({
                 this.cardList.children[i].opacity = 255;
             }
             cc.log('cc.Node.EventType.TOUCH_END');
-        }
+        };
 
         this.cardList.on(cc.Node.EventType.TOUCH_END, this._touchEnd, this);
         this.cardList.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEnd, this);
@@ -177,11 +176,14 @@ cc.Class({
         this._setThisPlayerSeat(data.playerList);
 
         for (let i = 0; i < data.playerList.length; i += 1) {
-            const obj = data.playerList[i];
-            const playerIndex = this._getPlayerIndexBySeat(obj.seat);
+            var obj = data.playerList[i];
+            var playerIndex = this._getPlayerIndexBySeat(obj.seat);
             obj.info = JSON.parse(obj.info);
 
-            this.inviteButtonList[playerIndex].active = false;
+            if (playerIndex !== 0) {
+                this.inviteButtonList[playerIndex].active = false;
+            }
+
             this.playerInfoList[playerIndex].active = true;
             this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
             this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
@@ -203,7 +205,7 @@ cc.Class({
             }
         }
 
-        if (data.playerList.length !== 4) {
+        if (data.playerList.length !== 3) {
             this.inviteButtonList[0].active = true;
         }
 
@@ -246,11 +248,128 @@ cc.Class({
         }, 2);
     },
 
+    onReconnectDDZMessage(data) {
+        data.kwargs = JSON.parse(data.kwargs);
+        this._Cache.gameUuid = data.kwargs.game_uuid;
+        this._Cache.roomId = data.roomId;
+        this._Cache.ownerUuid = data.ownerUuid;
+        this._Cache.currentRound = data.currentRound;
+        this._Cache.config = data.kwargs;
+
+        this._initScene();
+
+        // 初始化房间信息
+        this._setRoomInfo(data);
+
+        // 设置当前玩家的座位号
+        this._setThisPlayerSeat(data.playerList);
+
+        // 初始化玩家信息
+        for (var i = 0; i < data.playerList.length; i += 1) {
+            var obj = data.playerList[i];
+            obj.info = JSON.parse(obj.info);
+            var playerIndex = this._getPlayerIndexBySeat(obj.seat);
+            this._setPlayerInfoList(playerIndex, obj.info, obj.totalScore);
+
+            // 设置房主
+            if (obj.playerUuid === data.ownerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
+            }
+
+            // 是否在线
+            if (this._userInfo.playerUuid !== obj.playerUuid) {
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
+            }
+
+            // 初始化手牌
+            for (var j = obj.cardsInHandList.length - 1; j >= 0; j -= 1) {
+                this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList[j].card);
+            }
+            if (playerIndex === 0 && this.handCardDistrict.children.length > 1) {
+                window.Global.Tools.cardsSort(this.handCardDistrict.children);
+            }
+
+            // 初始化打出去的牌
+            this._addCardToDiscardDistrict(playerIndex, obj.cardsDiscardList);
+        }
+
+        this._Cache.playerList = data.playerList;
+
+        // 初始化底牌
+        if (data.threeCardsList.length > 0) {
+            this.dipaiNode.children[1].active = false;
+            for (var i = 0; i < this.dipaiNode.children[0].children.length; i++) {
+                // todo: 需要设置牌
+            }
+        }
+    },
+
+    onOnlineStatusMessage(data) {
+        const playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this.playerInfoList[playerIndex].getChildByName('img_offline').active = !data.status;
+        if (this._Cache.playerList.length === 3) {
+            if (data.status) {
+                this._hideWaitPanel();
+            } else {
+                this._showWaitPanel(1);
+            }
+        }
+    },
+
+
+    onExitRoomMessage(data) {
+        if (data.playerUuid == this._userInfo.playerUuid) {
+            window.Global.NetworkManager.close();
+            cc.director.loadScene('Lobby');
+            return;
+        }
+
+        var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this._showInviteButton(playerIndex);
+        this._hidePlayerInfoList([playerIndex]);
+
+        // 从玩家列表中删除该用户
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === data.playerUuid) {
+                cc.js.array.removeAt(this._Cache.playerList, i);
+                break;
+            }
+        }
+    },
+
     /**
      *******************************************************************************************************************
      *                                       onClick
      *******************************************************************************************************************
      */
+
+    /**
+     * 声音选项
+     */
+    openSoundPanelOnClick() {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
+            cc.log('load success');
+        });
+    },
+
+    /**
+     * 解散房间
+     */
+    dismissOnClick() {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.DismissRoom);
+    },
+
+    voteOnClick(evt, data) {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.PlayerVote, { flag: data == 1 });
+
+        this.voteDismissButton[0].active = false;
+        this.voteDismissButton[1].active = false;
+
+        this.unschedule(this._expireSeconds);
+    },
 
     /**
      * 叫分模式按钮回调
@@ -449,7 +568,7 @@ cc.Class({
     /**
      * 添加牌到打出去的区域
      *
-     * @param player
+     * @param playerIndex
      * @param cards
      * @private
      */
@@ -467,45 +586,31 @@ cc.Class({
     /**
      * 设置房间信息
      *
-     * @param {Object} info
-     * @param currentRound
-     * @param restCards
+     * @param {Object} data
      * @private
      */
-    _setRoomInfo(info, currentRound) {
+    _setRoomInfo(data) {
         // 游戏玩法
-        var playTypes = window.PX258.Config.playTypes[info.game_uuid];
-        var options = `0x${info.options.toString(16)}`;
+        var playTypes = window.PX258.Config.playTypes[data.kwargs.game_uuid];
+        var options = `0b${data.kwargs.options.toString(2)}`;
 
-        if (info.game_uuid == window.PX258.Config.gameUuid[2]) {
+        if (data.kwargs.game_uuid == window.PX258.Config.gameUuid[2]) {
             for (var key in playTypes.playType) {
                 if ((options & key) !== 0) {
-                    this.roomInfo[4].string = '玩法: ' + playTypes.playType[key];
+                    this.roomInfo[3].string = playTypes.playType[key] + '玩法';
                 }
             }
 
             for (var key in playTypes.options) {
                 if ((options & key) !== 0) {
-                    this.roomInfo[4].string += ', ' + playTypes.options[key];
+                    this.roomInfo[3].string += '\n炸弹上限: ' + playTypes.options[key];
                 }
-            }
-
-            for (var key in playTypes.zhuaniao) {
-                if ((options & key) !== 0) {
-                    this.roomInfo[4].string += '\n抓鸟: ' + playTypes.zhuaniao[key];
-                }
-            }
-
-            // 显示是抓鸟还是抓飞鸟
-            if (((options & 0x100000) !== 0) || ((options & 0x1000000) !== 0)) {
-                this.zhuaniaoNode.getChildByName('title').children[1].active = true;
-            } else {
-                this.zhuaniaoNode.getChildByName('title').children[0].active = true;
             }
         }
 
         this.roomInfo[0].string = `房间号: ${this._Cache.roomId}`;
-        this.roomInfo[1].string = `局数: ${currentRound}/${info.max_rounds}`;
+        this.roomInfo[1].string = `局数: ${data.currentRound}/${data.kwargs.max_rounds}`;
+        this.roomInfo[2].string = data.baseScore * data.multiple;
     },
 
     _showWaitPanel(messageId) {
@@ -519,6 +624,67 @@ cc.Class({
 
     _hideWaitPanel() {
         this.waitPanel.active = false;
+    },
+
+    _initScene: function() {
+        this.dipaiNode.children[1].active = true;
+        this.dipaiNode.children[0].removeAllChildren();
+
+        this.waitPanel.active = false;
+
+        for (var i = 0; i < this.actionNode.children.length; i++) {
+            this.actionNode.children[i].active = false;
+        }
+
+        for (var i = 0; i < this.playerInfoList.length; i++) {
+            this.playerInfoList[i].active = false;
+            this.inviteButtonList[i].active = true;
+            this.clockNode[i].active = false;
+            this.actionSprite[i].active = false;
+            this.dirtyCardDistrict[i].removeAllChildren();
+        }
+        this.handCardDistrict.removeAllChildren();
+    },
+
+    /**
+     * 获取用户座位号
+     */
+    _getSeatForPlayerUuid(playerUuid) {
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === playerUuid) {
+                return this._Cache.playerList[i].seat;
+            }
+        }
+        return -1;
+    },
+
+    _getPlayerIndexBySeat(playerSeat) {
+        var displaySeat = playerSeat - this._Cache.thisPlayerSeat;
+        return (displaySeat < 0 ? displaySeat + 3 : displaySeat);
+    },
+
+    /**
+     * 设置当前玩家座位号
+     */
+    _setThisPlayerSeat(playerList) {
+        for (let i = 0; i < playerList.length; i += 1) {
+            var obj = playerList[i];
+            if (obj.playerUuid === this._userInfo.playerUuid) {
+                this._Cache.thisPlayerSeat = obj.seat;
+                break;
+            }
+        }
+    },
+
+    _setPlayerInfoList(playerIndex, data, totalScore) {
+        if (this._Cache.playerList.length === 3 && playerIndex === 0) {
+            this.inviteButtonList[playerIndex].active = false;
+        }
+        this.playerInfoList[playerIndex].active = true;
+
+        this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
+        this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
+        window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
     },
 
 });
