@@ -298,6 +298,49 @@ const PX258Network = cc.Class({
                 cmd: 0x3002,
                 response: 'SettleForRoundZZ',
             },
+
+            // 斗地主
+            DealDDZ: {
+                cmd: 0x2001, // 1、起手发牌
+                response: 'DealDDZ',
+            },
+            DiscardDDZ: {
+                cmd: 0x2004, // 2、出牌
+                response: 'DiscardDDZ',
+                message: function (parameters) {
+                    var message = new proto.game.DiscardDDZRequest();
+                    for (var i = 0; i < parameters.cards.length; i++) {
+                        var cardMsg = new proto.game.Card();
+                        cardMsg.setCard(parameters.cards[i]);
+                        message.setCard(cardMsg);
+                    }
+
+                    return message;
+                },
+            },
+            RobDDZ: {
+                cmd: 0x2006, // 2、出牌
+                response: 'RobDDZ',
+                message: function (parameters) {
+                    var message = new proto.game.RobDDZRequest();
+                    message.setFlag(parameters.flag);
+                    message.setScore(parameters.score);
+
+                    return message;
+                },
+            },
+            ReconnectDDZ: {
+                cmd: 0x2007, // 4、断线重连
+                response: 'ReconnectDDZ',
+            },
+            SettleForRoundDDZ: {
+                cmd: 0x2002, // 5、小结算
+                response: 'SettleForRoundDDZ',
+            },
+            SettleForRoomDDZ: {
+                cmd: 0x2003, // 6、大结算
+                response: 'SettleForRoomDDZ',
+            },
         }
     }
 });
