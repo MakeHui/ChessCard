@@ -191,56 +191,46 @@ proto.game.CreateRoomRequest.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.CreateRoomRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.CreateRoomRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.CreateRoomRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.CreateRoomRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.CreateRoomRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.CreateRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.CreateRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getKwargs();
+  f = message.getKwargs();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -407,35 +397,25 @@ proto.game.CreateRoomResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.CreateRoomResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.CreateRoomResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.CreateRoomResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.CreateRoomResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.CreateRoomResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.CreateRoomResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.CreateRoomResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -567,49 +547,39 @@ proto.game.EnterRoomRequest.deserializeBinaryFromReader = function(msg, reader) 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.EnterRoomRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.EnterRoomRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.EnterRoomRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.EnterRoomRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.EnterRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.EnterRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getInfo();
+  f = message.getInfo();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -795,70 +765,60 @@ proto.game.EnterRoomResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.EnterRoomResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.EnterRoomResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.EnterRoomResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.EnterRoomResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.EnterRoomResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.EnterRoomResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getKwargs();
+  f = message.getKwargs();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getRestCards();
+  f = message.getRestCards();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getPlayerList();
+  f = message.getPlayerList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       6,
@@ -866,6 +826,254 @@ proto.game.EnterRoomResponse.prototype.serializeBinaryToWriter = function (write
       proto.game.EnterRoomResponse.Player.serializeBinaryToWriter
     );
   }
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.EnterRoomResponse.Player = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.game.EnterRoomResponse.Player, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.EnterRoomResponse.Player.displayName = 'proto.game.EnterRoomResponse.Player';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.EnterRoomResponse.Player.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.EnterRoomResponse.Player.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.EnterRoomResponse.Player} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.EnterRoomResponse.Player.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    seat: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    info: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.EnterRoomResponse.Player}
+ */
+proto.game.EnterRoomResponse.Player.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.EnterRoomResponse.Player;
+  return proto.game.EnterRoomResponse.Player.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.EnterRoomResponse.Player} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.EnterRoomResponse.Player}
+ */
+proto.game.EnterRoomResponse.Player.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setSeat(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setInfo(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setStatus(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setIsOnline(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.EnterRoomResponse.Player.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.game.EnterRoomResponse.Player.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.EnterRoomResponse.Player} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.EnterRoomResponse.Player.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getSeat();
+  if (f !== 0) {
+    writer.writeUint32(
+      1,
+      f
+    );
+  }
+  f = message.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getInfo();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getStatus();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+  f = message.getIsOnline();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional uint32 seat = 1;
+ * @return {number}
+ */
+proto.game.EnterRoomResponse.Player.prototype.getSeat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.EnterRoomResponse.Player.prototype.setSeat = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.game.EnterRoomResponse.Player.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.game.EnterRoomResponse.Player.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string info = 3;
+ * @return {string}
+ */
+proto.game.EnterRoomResponse.Player.prototype.getInfo = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.game.EnterRoomResponse.Player.prototype.setInfo = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 status = 4;
+ * @return {number}
+ */
+proto.game.EnterRoomResponse.Player.prototype.getStatus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.EnterRoomResponse.Player.prototype.setStatus = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 is_online = 5;
+ * @return {number}
+ */
+proto.game.EnterRoomResponse.Player.prototype.getIsOnline = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.game.EnterRoomResponse.Player.prototype.setIsOnline = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 
@@ -988,264 +1196,6 @@ proto.game.EnterRoomResponse.prototype.clearPlayerList = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.game.EnterRoomResponse.Player = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.game.EnterRoomResponse.Player, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.game.EnterRoomResponse.Player.displayName = 'proto.game.EnterRoomResponse.Player';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.game.EnterRoomResponse.Player.prototype.toObject = function(opt_includeInstance) {
-  return proto.game.EnterRoomResponse.Player.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.game.EnterRoomResponse.Player} msg The msg instance to transform.
- * @return {!Object}
- */
-proto.game.EnterRoomResponse.Player.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    seat: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    info: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    status: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.game.EnterRoomResponse.Player}
- */
-proto.game.EnterRoomResponse.Player.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.game.EnterRoomResponse.Player;
-  return proto.game.EnterRoomResponse.Player.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.game.EnterRoomResponse.Player} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.game.EnterRoomResponse.Player}
- */
-proto.game.EnterRoomResponse.Player.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setSeat(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setPlayerUuid(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setInfo(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setStatus(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setIsOnline(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.EnterRoomResponse.Player} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomResponse.Player.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.game.EnterRoomResponse.Player.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomResponse.Player.prototype.serializeBinaryToWriter = function (writer) {
-  var f = undefined;
-  f = this.getSeat();
-  if (f !== 0) {
-    writer.writeUint32(
-      1,
-      f
-    );
-  }
-  f = this.getPlayerUuid();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = this.getInfo();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = this.getStatus();
-  if (f !== 0) {
-    writer.writeUint32(
-      4,
-      f
-    );
-  }
-  f = this.getIsOnline();
-  if (f !== 0) {
-    writer.writeUint32(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional uint32 seat = 1;
- * @return {number}
- */
-proto.game.EnterRoomResponse.Player.prototype.getSeat = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.EnterRoomResponse.Player.prototype.setSeat = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional string player_uuid = 2;
- * @return {string}
- */
-proto.game.EnterRoomResponse.Player.prototype.getPlayerUuid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.game.EnterRoomResponse.Player.prototype.setPlayerUuid = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional string info = 3;
- * @return {string}
- */
-proto.game.EnterRoomResponse.Player.prototype.getInfo = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.game.EnterRoomResponse.Player.prototype.setInfo = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional uint32 status = 4;
- * @return {number}
- */
-proto.game.EnterRoomResponse.Player.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.game.EnterRoomResponse.Player.prototype.setStatus = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional uint32 is_online = 5;
- * @return {number}
- */
-proto.game.EnterRoomResponse.Player.prototype.getIsOnline = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/** @param {number} value */
-proto.game.EnterRoomResponse.Player.prototype.setIsOnline = function(value) {
-  jspb.Message.setField(this, 5, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.game.EnterRoomOtherResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
@@ -1347,56 +1297,46 @@ proto.game.EnterRoomOtherResponse.deserializeBinaryFromReader = function(msg, re
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.EnterRoomOtherResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomOtherResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.EnterRoomOtherResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.EnterRoomOtherResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.EnterRoomOtherResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.EnterRoomOtherResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.EnterRoomOtherResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeUint32(
       3,
       f
     );
   }
-  f = this.getInfo();
+  f = message.getInfo();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -1583,63 +1523,53 @@ proto.game.EnterRoomWebResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.EnterRoomWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.EnterRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.EnterRoomWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.EnterRoomWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.EnterRoomWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.EnterRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.EnterRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -1817,33 +1747,23 @@ proto.game.ExitRoomRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ExitRoomRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ExitRoomRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ExitRoomRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ExitRoomRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExitRoomRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ExitRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ExitRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
 
@@ -1950,42 +1870,32 @@ proto.game.ExitRoomResponse.deserializeBinaryFromReader = function(msg, reader) 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ExitRoomResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ExitRoomResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ExitRoomResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ExitRoomResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExitRoomResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ExitRoomResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ExitRoomResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -2142,63 +2052,53 @@ proto.game.ExitRoomWebResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ExitRoomWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ExitRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ExitRoomWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ExitRoomWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExitRoomWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ExitRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ExitRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -2376,33 +2276,23 @@ proto.game.DismissRoomRequest.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DismissRoomRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DismissRoomRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DismissRoomRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DismissRoomRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DismissRoomRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DismissRoomRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DismissRoomRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
 
@@ -2509,42 +2399,32 @@ proto.game.DismissRoomResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DismissRoomResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DismissRoomResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DismissRoomResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DismissRoomResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DismissRoomResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DismissRoomResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DismissRoomResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getFlag();
+  f = message.getFlag();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -2701,63 +2581,53 @@ proto.game.DismissRoomWebRequest.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DismissRoomWebRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DismissRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DismissRoomWebRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DismissRoomWebRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DismissRoomWebRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DismissRoomWebRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DismissRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -2959,63 +2829,53 @@ proto.game.DismissRoomWebResponse.deserializeBinaryFromReader = function(msg, re
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DismissRoomWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DismissRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DismissRoomWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DismissRoomWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DismissRoomWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DismissRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DismissRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
@@ -3222,70 +3082,60 @@ proto.game.RefundWebResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.RefundWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.RefundWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.RefundWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.RefundWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.RefundWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.RefundWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.RefundWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -3492,49 +3342,39 @@ proto.game.SponsorVoteResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SponsorVoteResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SponsorVoteResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SponsorVoteResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SponsorVoteResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SponsorVoteResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SponsorVoteResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SponsorVoteResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getSponsor();
+  f = message.getSponsor();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getExpireSeconds();
+  f = message.getExpireSeconds();
   if (f !== 0) {
     writer.writeUint32(
       4,
@@ -3686,35 +3526,25 @@ proto.game.PlayerVoteRequest.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.PlayerVoteRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.PlayerVoteRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.PlayerVoteRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.PlayerVoteRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.PlayerVoteRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.PlayerVoteRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.PlayerVoteRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f) {
     writer.writeBool(
       1,
@@ -3843,42 +3673,32 @@ proto.game.PlayerVoteResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.PlayerVoteResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.PlayerVoteResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.PlayerVoteResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.PlayerVoteResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.PlayerVoteResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.PlayerVoteResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.PlayerVoteResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f) {
     writer.writeBool(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -4022,42 +3842,32 @@ proto.game.OnlineStatusResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.OnlineStatusResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.OnlineStatusResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.OnlineStatusResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.OnlineStatusResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.OnlineStatusResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.OnlineStatusResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.OnlineStatusResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getStatus();
+  f = message.getStatus();
   if (f) {
     writer.writeBool(
       2,
@@ -4196,35 +4006,25 @@ proto.game.SpeakerRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SpeakerRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SpeakerRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SpeakerRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SpeakerRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SpeakerRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SpeakerRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SpeakerRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getContent();
+  f = message.getContent();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -4351,42 +4151,32 @@ proto.game.SpeakerResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SpeakerResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SpeakerResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SpeakerResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SpeakerResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SpeakerResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SpeakerResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SpeakerResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getContent();
+  f = message.getContent();
   if (f.length > 0) {
     writer.writeString(
       2,
@@ -4519,33 +4309,23 @@ proto.game.ReadyRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReadyRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReadyRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReadyRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReadyRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReadyRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReadyRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReadyRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
 
@@ -4647,35 +4427,25 @@ proto.game.ReadyResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReadyResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReadyResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReadyResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReadyResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReadyResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReadyResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReadyResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
@@ -4802,42 +4572,32 @@ proto.game.LoadPlusWebResponse.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.LoadPlusWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.LoadPlusWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.LoadPlusWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.LoadPlusWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.LoadPlusWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.LoadPlusWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.LoadPlusWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -4979,42 +4739,32 @@ proto.game.LoadMinusWebResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.LoadMinusWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.LoadMinusWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.LoadMinusWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.LoadMinusWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.LoadMinusWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.LoadMinusWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.LoadMinusWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getServerIp();
+  f = message.getServerIp();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getServerPort();
+  f = message.getServerPort();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -5160,35 +4910,25 @@ proto.game.LoadBalanceWebResponse.deserializeBinaryFromReader = function(msg, re
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.LoadBalanceWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.LoadBalanceWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.LoadBalanceWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.LoadBalanceWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.LoadBalanceWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.LoadBalanceWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.LoadBalanceWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getUnitList();
+  f = message.getUnitList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -5196,39 +4936,6 @@ proto.game.LoadBalanceWebResponse.prototype.serializeBinaryToWriter = function (
       proto.game.LoadBalanceWebResponse.Unit.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * repeated Unit unit = 1;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.LoadBalanceWebResponse.Unit>}
- */
-proto.game.LoadBalanceWebResponse.prototype.getUnitList = function() {
-  return /** @type{!Array.<!proto.game.LoadBalanceWebResponse.Unit>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.LoadBalanceWebResponse.Unit, 1));
-};
-
-
-/** @param {!Array.<!proto.game.LoadBalanceWebResponse.Unit>} value */
-proto.game.LoadBalanceWebResponse.prototype.setUnitList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.game.LoadBalanceWebResponse.Unit=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.LoadBalanceWebResponse.Unit}
- */
-proto.game.LoadBalanceWebResponse.prototype.addUnit = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.LoadBalanceWebResponse.Unit, opt_index);
-};
-
-
-proto.game.LoadBalanceWebResponse.prototype.clearUnitList = function() {
-  this.setUnitList([]);
 };
 
 
@@ -5371,84 +5078,74 @@ proto.game.LoadBalanceWebResponse.Unit.deserializeBinaryFromReader = function(ms
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.LoadBalanceWebResponse.Unit} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.LoadBalanceWebResponse.Unit.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.LoadBalanceWebResponse.Unit.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.LoadBalanceWebResponse.Unit.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.LoadBalanceWebResponse.Unit} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.LoadBalanceWebResponse.Unit.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.LoadBalanceWebResponse.Unit.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getRoomStatus();
+  f = message.getRoomStatus();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuidList();
+  f = message.getPlayerUuidList();
   if (f.length > 0) {
     writer.writeRepeatedString(
       3,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getGameUuid();
+  f = message.getGameUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getAppUuid();
+  f = message.getAppUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getRoomUuid();
+  f = message.getRoomUuid();
   if (f.length > 0) {
     writer.writeString(
       7,
       f
     );
   }
-  f = this.getSt();
+  f = message.getSt();
   if (f !== 0) {
     writer.writeUint32(
       8,
@@ -5594,6 +5291,39 @@ proto.game.LoadBalanceWebResponse.Unit.prototype.setSt = function(value) {
 };
 
 
+/**
+ * repeated Unit unit = 1;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.LoadBalanceWebResponse.Unit>}
+ */
+proto.game.LoadBalanceWebResponse.prototype.getUnitList = function() {
+  return /** @type{!Array.<!proto.game.LoadBalanceWebResponse.Unit>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.LoadBalanceWebResponse.Unit, 1));
+};
+
+
+/** @param {!Array.<!proto.game.LoadBalanceWebResponse.Unit>} value */
+proto.game.LoadBalanceWebResponse.prototype.setUnitList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.game.LoadBalanceWebResponse.Unit=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.LoadBalanceWebResponse.Unit}
+ */
+proto.game.LoadBalanceWebResponse.prototype.addUnit = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.LoadBalanceWebResponse.Unit, opt_index);
+};
+
+
+proto.game.LoadBalanceWebResponse.prototype.clearUnitList = function() {
+  this.setUnitList([]);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -5706,56 +5436,46 @@ proto.game.RunningWebReponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.RunningWebReponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.RunningWebReponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.RunningWebReponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.RunningWebReponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.RunningWebReponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.RunningWebReponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.RunningWebReponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getSessions();
+  f = message.getSessions();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayers();
+  f = message.getPlayers();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getTablesInitial();
+  f = message.getTablesInitial();
   if (f !== 0) {
     writer.writeUint32(
       3,
       f
     );
   }
-  f = this.getTablesPlaying();
+  f = message.getTablesPlaying();
   if (f !== 0) {
     writer.writeUint32(
       4,
@@ -5931,35 +5651,25 @@ proto.game.SynchroniseCardsResponse.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SynchroniseCardsResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SynchroniseCardsResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SynchroniseCardsResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SynchroniseCardsResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SynchroniseCardsResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SynchroniseCardsResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SynchroniseCardsResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCardList();
+  f = message.getCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -6100,35 +5810,25 @@ proto.game.ExistRoomWebRequest.deserializeBinaryFromReader = function(msg, reade
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ExistRoomWebRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ExistRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ExistRoomWebRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ExistRoomWebRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExistRoomWebRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ExistRoomWebRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ExistRoomWebRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -6250,35 +5950,25 @@ proto.game.ExistRoomWebResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ExistRoomWebResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ExistRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ExistRoomWebResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ExistRoomWebResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ExistRoomWebResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ExistRoomWebResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ExistRoomWebResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f) {
     writer.writeBool(
       1,
@@ -6398,33 +6088,23 @@ proto.game.HeartbeatRequest.deserializeBinaryFromReader = function(msg, reader) 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.HeartbeatRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.HeartbeatRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.HeartbeatRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.HeartbeatRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.HeartbeatRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.HeartbeatRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.HeartbeatRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
 
@@ -6522,33 +6202,23 @@ proto.game.HeartbeatResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.HeartbeatResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.HeartbeatResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.HeartbeatResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.HeartbeatResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.HeartbeatResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.HeartbeatResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.HeartbeatResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
 };
 
@@ -6659,35 +6329,25 @@ proto.game.SynchroniseScoreResponse.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SynchroniseScoreResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SynchroniseScoreResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SynchroniseScoreResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SynchroniseScoreResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SynchroniseScoreResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SynchroniseScoreResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SynchroniseScoreResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getScoreDataList();
+  f = message.getScoreDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -6695,39 +6355,6 @@ proto.game.SynchroniseScoreResponse.prototype.serializeBinaryToWriter = function
       proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * repeated ScoreData score_data = 1;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>}
- */
-proto.game.SynchroniseScoreResponse.prototype.getScoreDataList = function() {
-  return /** @type{!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SynchroniseScoreResponse.ScoreData, 1));
-};
-
-
-/** @param {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} value */
-proto.game.SynchroniseScoreResponse.prototype.setScoreDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.game.SynchroniseScoreResponse.ScoreData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SynchroniseScoreResponse.ScoreData}
- */
-proto.game.SynchroniseScoreResponse.prototype.addScoreData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.SynchroniseScoreResponse.ScoreData, opt_index);
-};
-
-
-proto.game.SynchroniseScoreResponse.prototype.clearScoreDataList = function() {
-  this.setScoreDataList([]);
 };
 
 
@@ -6833,42 +6460,32 @@ proto.game.SynchroniseScoreResponse.ScoreData.deserializeBinaryFromReader = func
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SynchroniseScoreResponse.ScoreData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SynchroniseScoreResponse.ScoreData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SynchroniseScoreResponse.ScoreData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SynchroniseScoreResponse.ScoreData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeInt32(
       1,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeInt32(
       2,
@@ -6905,6 +6522,39 @@ proto.game.SynchroniseScoreResponse.ScoreData.prototype.getScore = function() {
 /** @param {number} value */
 proto.game.SynchroniseScoreResponse.ScoreData.prototype.setScore = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated ScoreData score_data = 1;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>}
+ */
+proto.game.SynchroniseScoreResponse.prototype.getScoreDataList = function() {
+  return /** @type{!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SynchroniseScoreResponse.ScoreData, 1));
+};
+
+
+/** @param {!Array.<!proto.game.SynchroniseScoreResponse.ScoreData>} value */
+proto.game.SynchroniseScoreResponse.prototype.setScoreDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.game.SynchroniseScoreResponse.ScoreData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SynchroniseScoreResponse.ScoreData}
+ */
+proto.game.SynchroniseScoreResponse.prototype.addScoreData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.SynchroniseScoreResponse.ScoreData, opt_index);
+};
+
+
+proto.game.SynchroniseScoreResponse.prototype.clearScoreDataList = function() {
+  this.setScoreDataList([]);
 };
 
 
@@ -7005,35 +6655,25 @@ proto.game.Card.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.Card} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.Card.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.Card.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.Card.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.Card} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.Card.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.Card.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCard();
+  f = message.getCard();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -7174,42 +6814,32 @@ proto.game.CardGroup.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.CardGroup} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.CardGroup.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.CardGroup.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.CardGroup.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.CardGroup} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.CardGroup.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.CardGroup.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getTriggerSeat();
+  f = message.getTriggerSeat();
   if (f !== 0) {
     writer.writeInt32(
       1,
       f
     );
   }
-  f = this.getCardList();
+  f = message.getCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -7217,7 +6847,7 @@ proto.game.CardGroup.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getType();
+  f = message.getType();
   if (f.length > 0) {
     writer.writeString(
       3,
@@ -7392,42 +7022,32 @@ proto.game.Dice.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.Dice} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.Dice.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.Dice.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.Dice.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.Dice} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.Dice.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.Dice.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getDice1();
+  f = message.getDice1();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getDice2();
+  f = message.getDice2();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -7589,49 +7209,39 @@ proto.game.Prompt.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.Prompt} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.Prompt.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.Prompt.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.Prompt.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.Prompt} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.Prompt.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.Prompt.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getActionId();
+  f = message.getActionId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPrompt();
+  f = message.getPrompt();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getRefCardList();
+  f = message.getRefCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -7639,7 +7249,7 @@ proto.game.Prompt.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getOpCard();
+  f = message.getOpCard();
   if (f != null) {
     writer.writeMessage(
       4,
@@ -7867,42 +7477,32 @@ proto.game.DealResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DealResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DealResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DealResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DealResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DealResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DealResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DealResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getDealerUuid();
+  f = message.getDealerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getDice();
+  f = message.getDice();
   if (f != null) {
     writer.writeMessage(
       2,
@@ -7910,7 +7510,7 @@ proto.game.DealResponse.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Dice.serializeBinaryToWriter
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -7918,7 +7518,7 @@ proto.game.DealResponse.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getPromptList();
+  f = message.getPromptList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       4,
@@ -8162,35 +7762,25 @@ proto.game.DrawResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DrawResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DrawResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DrawResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DrawResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DrawResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DrawResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DrawResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCard();
+  f = message.getCard();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -8198,14 +7788,14 @@ proto.game.DrawResponse.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getPromptList();
+  f = message.getPromptList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -8213,7 +7803,7 @@ proto.game.DrawResponse.prototype.serializeBinaryToWriter = function (writer) {
       proto.game.Prompt.serializeBinaryToWriter
     );
   }
-  f = this.getRestCards();
+  f = message.getRestCards();
   if (f !== 0) {
     writer.writeUint32(
       4,
@@ -8414,35 +8004,25 @@ proto.game.DiscardRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DiscardRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DiscardRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DiscardRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DiscardRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DiscardRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DiscardRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DiscardRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCard();
+  f = message.getCard();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -8600,35 +8180,25 @@ proto.game.DiscardResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DiscardResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DiscardResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DiscardResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DiscardResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DiscardResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DiscardResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DiscardResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCard();
+  f = message.getCard();
   if (f != null) {
     writer.writeMessage(
       1,
@@ -8636,14 +8206,14 @@ proto.game.DiscardResponse.prototype.serializeBinaryToWriter = function (writer)
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getPromptList();
+  f = message.getPromptList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -8838,35 +8408,25 @@ proto.game.ReadyHandResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReadyHandResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReadyHandResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReadyHandResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReadyHandResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReadyHandResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReadyHandResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReadyHandResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCardList();
+  f = message.getCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -9007,35 +8567,25 @@ proto.game.ActionRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ActionRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ActionRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ActionRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ActionRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ActionRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ActionRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ActionRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getActionId();
+  f = message.getActionId();
   if (f !== 0) {
     writer.writeUint32(
       1,
@@ -9199,35 +8749,25 @@ proto.game.ActionResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ActionResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ActionResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ActionResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ActionResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ActionResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ActionResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ActionResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRefCardList();
+  f = message.getRefCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -9235,14 +8775,14 @@ proto.game.ActionResponse.prototype.serializeBinaryToWriter = function (writer) 
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getActiveCard();
+  f = message.getActiveCard();
   if (f != null) {
     writer.writeMessage(
       3,
@@ -9250,28 +8790,28 @@ proto.game.ActionResponse.prototype.serializeBinaryToWriter = function (writer) 
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getActiveType();
+  f = message.getActiveType();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getTriggerSeat();
+  f = message.getTriggerSeat();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getWinFlag();
+  f = message.getWinFlag();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getPromptList();
+  f = message.getPromptList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       7,
@@ -9544,35 +9084,25 @@ proto.game.PromptResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.PromptResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.PromptResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.PromptResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.PromptResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.PromptResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.PromptResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.PromptResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPromptList();
+  f = message.getPromptList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -9777,105 +9307,95 @@ proto.game.ReconnectResponse.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReconnectResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReconnectResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReconnectResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReconnectResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReconnectResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReconnectResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReconnectResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getKwargs();
+  f = message.getKwargs();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getRoomStatus();
+  f = message.getRoomStatus();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getCurrentRound();
+  f = message.getCurrentRound();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getDealer();
+  f = message.getDealer();
   if (f !== 0) {
     writer.writeInt32(
       6,
       f
     );
   }
-  f = this.getActiveSeat();
+  f = message.getActiveSeat();
   if (f !== 0) {
     writer.writeInt32(
       7,
       f
     );
   }
-  f = this.getDiscardSeat();
+  f = message.getDiscardSeat();
   if (f !== 0) {
     writer.writeInt32(
       8,
       f
     );
   }
-  f = this.getRestCards();
+  f = message.getRestCards();
   if (f !== 0) {
     writer.writeUint32(
       9,
       f
     );
   }
-  f = this.getCardDraw();
+  f = message.getCardDraw();
   if (f !== 0) {
     writer.writeUint32(
       10,
       f
     );
   }
-  f = this.getPlayerList();
+  f = message.getPlayerList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       11,
@@ -9883,211 +9403,13 @@ proto.game.ReconnectResponse.prototype.serializeBinaryToWriter = function (write
       proto.game.ReconnectResponse.Player.serializeBinaryToWriter
     );
   }
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       12,
       f
     );
   }
-};
-
-
-/**
- * optional uint32 room_id = 1;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getRoomId = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setRoomId = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional string kwargs = 2;
- * @return {string}
- */
-proto.game.ReconnectResponse.prototype.getKwargs = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.game.ReconnectResponse.prototype.setKwargs = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional string owner_uuid = 3;
- * @return {string}
- */
-proto.game.ReconnectResponse.prototype.getOwnerUuid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.game.ReconnectResponse.prototype.setOwnerUuid = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional uint32 room_status = 4;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getRoomStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setRoomStatus = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional uint32 current_round = 5;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getCurrentRound = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setCurrentRound = function(value) {
-  jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * optional int32 dealer = 6;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getDealer = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setDealer = function(value) {
-  jspb.Message.setField(this, 6, value);
-};
-
-
-/**
- * optional int32 active_seat = 7;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getActiveSeat = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setActiveSeat = function(value) {
-  jspb.Message.setField(this, 7, value);
-};
-
-
-/**
- * optional int32 discard_seat = 8;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getDiscardSeat = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setDiscardSeat = function(value) {
-  jspb.Message.setField(this, 8, value);
-};
-
-
-/**
- * optional uint32 rest_cards = 9;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getRestCards = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setRestCards = function(value) {
-  jspb.Message.setField(this, 9, value);
-};
-
-
-/**
- * optional uint32 card_draw = 10;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getCardDraw = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setCardDraw = function(value) {
-  jspb.Message.setField(this, 10, value);
-};
-
-
-/**
- * repeated Player player = 11;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.ReconnectResponse.Player>}
- */
-proto.game.ReconnectResponse.prototype.getPlayerList = function() {
-  return /** @type{!Array.<!proto.game.ReconnectResponse.Player>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.ReconnectResponse.Player, 11));
-};
-
-
-/** @param {!Array.<!proto.game.ReconnectResponse.Player>} value */
-proto.game.ReconnectResponse.prototype.setPlayerList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 11, value);
-};
-
-
-/**
- * @param {!proto.game.ReconnectResponse.Player=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.ReconnectResponse.Player}
- */
-proto.game.ReconnectResponse.prototype.addPlayer = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.game.ReconnectResponse.Player, opt_index);
-};
-
-
-proto.game.ReconnectResponse.prototype.clearPlayerList = function() {
-  this.setPlayerList([]);
-};
-
-
-/**
- * optional uint32 code = 12;
- * @return {number}
- */
-proto.game.ReconnectResponse.prototype.getCode = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectResponse.prototype.setCode = function(value) {
-  jspb.Message.setField(this, 12, value);
 };
 
 
@@ -10269,77 +9591,67 @@ proto.game.ReconnectResponse.Player.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReconnectResponse.Player} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReconnectResponse.Player.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReconnectResponse.Player.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReconnectResponse.Player.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReconnectResponse.Player} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReconnectResponse.Player.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getInfo();
+  f = message.getInfo();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getStatus();
+  f = message.getStatus();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getIsOnline();
+  f = message.getIsOnline();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getTotalScore();
+  f = message.getTotalScore();
   if (f !== 0) {
     writer.writeInt32(
       6,
       f
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       7,
@@ -10347,7 +9659,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsDiscardList();
+  f = message.getCardsDiscardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       8,
@@ -10355,7 +9667,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsKongExposedList();
+  f = message.getCardsKongExposedList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       9,
@@ -10363,7 +9675,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsKongConcealedList();
+  f = message.getCardsKongConcealedList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       10,
@@ -10371,7 +9683,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsPongList();
+  f = message.getCardsPongList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       11,
@@ -10379,7 +9691,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsChowList();
+  f = message.getCardsChowList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       12,
@@ -10387,7 +9699,7 @@ proto.game.ReconnectResponse.Player.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsGroupListList();
+  f = message.getCardsGroupListList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       13,
@@ -10719,6 +10031,204 @@ proto.game.ReconnectResponse.Player.prototype.clearCardsGroupListList = function
 };
 
 
+/**
+ * optional uint32 room_id = 1;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getRoomId = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setRoomId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string kwargs = 2;
+ * @return {string}
+ */
+proto.game.ReconnectResponse.prototype.getKwargs = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.game.ReconnectResponse.prototype.setKwargs = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string owner_uuid = 3;
+ * @return {string}
+ */
+proto.game.ReconnectResponse.prototype.getOwnerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.game.ReconnectResponse.prototype.setOwnerUuid = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 room_status = 4;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getRoomStatus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setRoomStatus = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 current_round = 5;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getCurrentRound = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setCurrentRound = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional int32 dealer = 6;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getDealer = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setDealer = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * optional int32 active_seat = 7;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getActiveSeat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setActiveSeat = function(value) {
+  jspb.Message.setField(this, 7, value);
+};
+
+
+/**
+ * optional int32 discard_seat = 8;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getDiscardSeat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setDiscardSeat = function(value) {
+  jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * optional uint32 rest_cards = 9;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getRestCards = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setRestCards = function(value) {
+  jspb.Message.setField(this, 9, value);
+};
+
+
+/**
+ * optional uint32 card_draw = 10;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getCardDraw = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setCardDraw = function(value) {
+  jspb.Message.setField(this, 10, value);
+};
+
+
+/**
+ * repeated Player player = 11;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.ReconnectResponse.Player>}
+ */
+proto.game.ReconnectResponse.prototype.getPlayerList = function() {
+  return /** @type{!Array.<!proto.game.ReconnectResponse.Player>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.ReconnectResponse.Player, 11));
+};
+
+
+/** @param {!Array.<!proto.game.ReconnectResponse.Player>} value */
+proto.game.ReconnectResponse.prototype.setPlayerList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 11, value);
+};
+
+
+/**
+ * @param {!proto.game.ReconnectResponse.Player=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.ReconnectResponse.Player}
+ */
+proto.game.ReconnectResponse.prototype.addPlayer = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.game.ReconnectResponse.Player, opt_index);
+};
+
+
+proto.game.ReconnectResponse.prototype.clearPlayerList = function() {
+  this.setPlayerList([]);
+};
+
+
+/**
+ * optional uint32 code = 12;
+ * @return {number}
+ */
+proto.game.ReconnectResponse.prototype.getCode = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 12, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectResponse.prototype.setCode = function(value) {
+  jspb.Message.setField(this, 12, value);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -10830,42 +10340,32 @@ proto.game.SettleForRoundResponse.deserializeBinaryFromReader = function(msg, re
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getWinType();
+  f = message.getWinType();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerDataList();
+  f = message.getPlayerDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -10873,54 +10373,6 @@ proto.game.SettleForRoundResponse.prototype.serializeBinaryToWriter = function (
       proto.game.SettleForRoundResponse.PlayerData.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional uint32 win_type = 1;
- * @return {number}
- */
-proto.game.SettleForRoundResponse.prototype.getWinType = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoundResponse.prototype.setWinType = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * repeated PlayerData player_data = 3;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SettleForRoundResponse.PlayerData>}
- */
-proto.game.SettleForRoundResponse.prototype.getPlayerDataList = function() {
-  return /** @type{!Array.<!proto.game.SettleForRoundResponse.PlayerData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundResponse.PlayerData, 3));
-};
-
-
-/** @param {!Array.<!proto.game.SettleForRoundResponse.PlayerData>} value */
-proto.game.SettleForRoundResponse.prototype.setPlayerDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
-
-/**
- * @param {!proto.game.SettleForRoundResponse.PlayerData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SettleForRoundResponse.PlayerData}
- */
-proto.game.SettleForRoundResponse.prototype.addPlayerData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundResponse.PlayerData, opt_index);
-};
-
-
-proto.game.SettleForRoundResponse.prototype.clearPlayerDataList = function() {
-  this.setPlayerDataList([]);
 };
 
 
@@ -11075,42 +10527,32 @@ proto.game.SettleForRoundResponse.PlayerData.deserializeBinaryFromReader = funct
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundResponse.PlayerData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundResponse.PlayerData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundResponse.PlayerData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundResponse.PlayerData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundResponse.PlayerData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getCardsGroupList();
+  f = message.getCardsGroupList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -11118,7 +10560,7 @@ proto.game.SettleForRoundResponse.PlayerData.prototype.serializeBinaryToWriter =
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -11126,7 +10568,7 @@ proto.game.SettleForRoundResponse.PlayerData.prototype.serializeBinaryToWriter =
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getWinCard();
+  f = message.getWinCard();
   if (f != null) {
     writer.writeMessage(
       5,
@@ -11134,35 +10576,35 @@ proto.game.SettleForRoundResponse.PlayerData.prototype.serializeBinaryToWriter =
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeInt32(
       6,
       f
     );
   }
-  f = this.getTotal();
+  f = message.getTotal();
   if (f !== 0) {
     writer.writeInt32(
       7,
       f
     );
   }
-  f = this.getWinType();
+  f = message.getWinType();
   if (f !== 0) {
     writer.writeInt32(
       8,
       f
     );
   }
-  f = this.getWinFlag();
+  f = message.getWinFlag();
   if (f.length > 0) {
     writer.writeString(
       9,
       f
     );
   }
-  f = this.getCardsGroupListList();
+  f = message.getCardsGroupListList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       10,
@@ -11377,6 +10819,54 @@ proto.game.SettleForRoundResponse.PlayerData.prototype.clearCardsGroupListList =
 };
 
 
+/**
+ * optional uint32 win_type = 1;
+ * @return {number}
+ */
+proto.game.SettleForRoundResponse.prototype.getWinType = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoundResponse.prototype.setWinType = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated PlayerData player_data = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SettleForRoundResponse.PlayerData>}
+ */
+proto.game.SettleForRoundResponse.prototype.getPlayerDataList = function() {
+  return /** @type{!Array.<!proto.game.SettleForRoundResponse.PlayerData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundResponse.PlayerData, 3));
+};
+
+
+/** @param {!Array.<!proto.game.SettleForRoundResponse.PlayerData>} value */
+proto.game.SettleForRoundResponse.prototype.setPlayerDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.SettleForRoundResponse.PlayerData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SettleForRoundResponse.PlayerData}
+ */
+proto.game.SettleForRoundResponse.prototype.addPlayerData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundResponse.PlayerData, opt_index);
+};
+
+
+proto.game.SettleForRoundResponse.prototype.clearPlayerDataList = function() {
+  this.setPlayerDataList([]);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -11488,42 +10978,32 @@ proto.game.SettleForRoomResponse.deserializeBinaryFromReader = function(msg, rea
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoomResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoomResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoomResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoomResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoomResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoomResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoomResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerDataList();
+  f = message.getPlayerDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -11531,54 +11011,6 @@ proto.game.SettleForRoomResponse.prototype.serializeBinaryToWriter = function (w
       proto.game.SettleForRoomResponse.PlayerData.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional uint32 flag = 1;
- * @return {number}
- */
-proto.game.SettleForRoomResponse.prototype.getFlag = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoomResponse.prototype.setFlag = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * repeated PlayerData player_data = 2;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SettleForRoomResponse.PlayerData>}
- */
-proto.game.SettleForRoomResponse.prototype.getPlayerDataList = function() {
-  return /** @type{!Array.<!proto.game.SettleForRoomResponse.PlayerData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoomResponse.PlayerData, 2));
-};
-
-
-/** @param {!Array.<!proto.game.SettleForRoomResponse.PlayerData>} value */
-proto.game.SettleForRoomResponse.prototype.setPlayerDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 2, value);
-};
-
-
-/**
- * @param {!proto.game.SettleForRoomResponse.PlayerData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SettleForRoomResponse.PlayerData}
- */
-proto.game.SettleForRoomResponse.prototype.addPlayerData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.game.SettleForRoomResponse.PlayerData, opt_index);
-};
-
-
-proto.game.SettleForRoomResponse.prototype.clearPlayerDataList = function() {
-  this.setPlayerDataList([]);
 };
 
 
@@ -11724,98 +11156,88 @@ proto.game.SettleForRoomResponse.PlayerData.deserializeBinaryFromReader = functi
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoomResponse.PlayerData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoomResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoomResponse.PlayerData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoomResponse.PlayerData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoomResponse.PlayerData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoomResponse.PlayerData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoomResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getTotalScore();
+  f = message.getTotalScore();
   if (f !== 0) {
     writer.writeInt32(
       3,
       f
     );
   }
-  f = this.getTopScore();
+  f = message.getTopScore();
   if (f !== 0) {
     writer.writeInt32(
       4,
       f
     );
   }
-  f = this.getWinDrawCnt();
+  f = message.getWinDrawCnt();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getWinDiscardCnt();
+  f = message.getWinDiscardCnt();
   if (f !== 0) {
     writer.writeUint32(
       6,
       f
     );
   }
-  f = this.getPaoCnt();
+  f = message.getPaoCnt();
   if (f !== 0) {
     writer.writeUint32(
       7,
       f
     );
   }
-  f = this.getKongConcealedCnt();
+  f = message.getKongConcealedCnt();
   if (f !== 0) {
     writer.writeUint32(
       8,
       f
     );
   }
-  f = this.getKongExposedCnt();
+  f = message.getKongExposedCnt();
   if (f !== 0) {
     writer.writeUint32(
       9,
       f
     );
   }
-  f = this.getIsOwner();
+  f = message.getIsOwner();
   if (f !== 0) {
     writer.writeUint32(
       10,
@@ -11975,6 +11397,54 @@ proto.game.SettleForRoomResponse.PlayerData.prototype.setIsOwner = function(valu
 };
 
 
+/**
+ * optional uint32 flag = 1;
+ * @return {number}
+ */
+proto.game.SettleForRoomResponse.prototype.getFlag = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoomResponse.prototype.setFlag = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated PlayerData player_data = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SettleForRoomResponse.PlayerData>}
+ */
+proto.game.SettleForRoomResponse.prototype.getPlayerDataList = function() {
+  return /** @type{!Array.<!proto.game.SettleForRoomResponse.PlayerData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoomResponse.PlayerData, 2));
+};
+
+
+/** @param {!Array.<!proto.game.SettleForRoomResponse.PlayerData>} value */
+proto.game.SettleForRoomResponse.prototype.setPlayerDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.game.SettleForRoomResponse.PlayerData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SettleForRoomResponse.PlayerData}
+ */
+proto.game.SettleForRoomResponse.prototype.addPlayerData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.game.SettleForRoomResponse.PlayerData, opt_index);
+};
+
+
+proto.game.SettleForRoomResponse.prototype.clearPlayerDataList = function() {
+  this.setPlayerDataList([]);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -12081,35 +11551,25 @@ proto.game.DrawNiaoZZResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DrawNiaoZZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DrawNiaoZZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DrawNiaoZZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DrawNiaoZZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DrawNiaoZZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DrawNiaoZZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DrawNiaoZZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getNiaoList();
+  f = message.getNiaoList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -12117,39 +11577,6 @@ proto.game.DrawNiaoZZResponse.prototype.serializeBinaryToWriter = function (writ
       proto.game.DrawNiaoZZResponse.Niao.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * repeated Niao niao = 1;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.DrawNiaoZZResponse.Niao>}
- */
-proto.game.DrawNiaoZZResponse.prototype.getNiaoList = function() {
-  return /** @type{!Array.<!proto.game.DrawNiaoZZResponse.Niao>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.DrawNiaoZZResponse.Niao, 1));
-};
-
-
-/** @param {!Array.<!proto.game.DrawNiaoZZResponse.Niao>} value */
-proto.game.DrawNiaoZZResponse.prototype.setNiaoList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 1, value);
-};
-
-
-/**
- * @param {!proto.game.DrawNiaoZZResponse.Niao=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.DrawNiaoZZResponse.Niao}
- */
-proto.game.DrawNiaoZZResponse.prototype.addNiao = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.DrawNiaoZZResponse.Niao, opt_index);
-};
-
-
-proto.game.DrawNiaoZZResponse.prototype.clearNiaoList = function() {
-  this.setNiaoList([]);
 };
 
 
@@ -12256,42 +11683,32 @@ proto.game.DrawNiaoZZResponse.Niao.deserializeBinaryFromReader = function(msg, r
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DrawNiaoZZResponse.Niao} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DrawNiaoZZResponse.Niao.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DrawNiaoZZResponse.Niao.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DrawNiaoZZResponse.Niao.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DrawNiaoZZResponse.Niao} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DrawNiaoZZResponse.Niao.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DrawNiaoZZResponse.Niao.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeInt32(
       1,
       f
     );
   }
-  f = this.getCard();
+  f = message.getCard();
   if (f != null) {
     writer.writeMessage(
       2,
@@ -12344,6 +11761,39 @@ proto.game.DrawNiaoZZResponse.Niao.prototype.clearCard = function() {
  */
 proto.game.DrawNiaoZZResponse.Niao.prototype.hasCard = function() {
   return jspb.Message.getField(this, 2) != null;
+};
+
+
+/**
+ * repeated Niao niao = 1;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.DrawNiaoZZResponse.Niao>}
+ */
+proto.game.DrawNiaoZZResponse.prototype.getNiaoList = function() {
+  return /** @type{!Array.<!proto.game.DrawNiaoZZResponse.Niao>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.DrawNiaoZZResponse.Niao, 1));
+};
+
+
+/** @param {!Array.<!proto.game.DrawNiaoZZResponse.Niao>} value */
+proto.game.DrawNiaoZZResponse.prototype.setNiaoList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 1, value);
+};
+
+
+/**
+ * @param {!proto.game.DrawNiaoZZResponse.Niao=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.DrawNiaoZZResponse.Niao}
+ */
+proto.game.DrawNiaoZZResponse.prototype.addNiao = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.game.DrawNiaoZZResponse.Niao, opt_index);
+};
+
+
+proto.game.DrawNiaoZZResponse.prototype.clearNiaoList = function() {
+  this.setNiaoList([]);
 };
 
 
@@ -12465,42 +11915,32 @@ proto.game.SettleForRoundZZResponse.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundZZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundZZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundZZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundZZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundZZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundZZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundZZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getWinType();
+  f = message.getWinType();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerDataList();
+  f = message.getPlayerDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -12508,7 +11948,7 @@ proto.game.SettleForRoundZZResponse.prototype.serializeBinaryToWriter = function
       proto.game.SettleForRoundZZResponse.PlayerData.serializeBinaryToWriter
     );
   }
-  f = this.getDrawNiaoList();
+  f = message.getDrawNiaoList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       4,
@@ -12516,87 +11956,6 @@ proto.game.SettleForRoundZZResponse.prototype.serializeBinaryToWriter = function
       proto.game.Card.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional uint32 win_type = 1;
- * @return {number}
- */
-proto.game.SettleForRoundZZResponse.prototype.getWinType = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoundZZResponse.prototype.setWinType = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * repeated PlayerData player_data = 3;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>}
- */
-proto.game.SettleForRoundZZResponse.prototype.getPlayerDataList = function() {
-  return /** @type{!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundZZResponse.PlayerData, 3));
-};
-
-
-/** @param {!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>} value */
-proto.game.SettleForRoundZZResponse.prototype.setPlayerDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
-
-/**
- * @param {!proto.game.SettleForRoundZZResponse.PlayerData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SettleForRoundZZResponse.PlayerData}
- */
-proto.game.SettleForRoundZZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundZZResponse.PlayerData, opt_index);
-};
-
-
-proto.game.SettleForRoundZZResponse.prototype.clearPlayerDataList = function() {
-  this.setPlayerDataList([]);
-};
-
-
-/**
- * repeated Card draw_niao = 4;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.Card>}
- */
-proto.game.SettleForRoundZZResponse.prototype.getDrawNiaoList = function() {
-  return /** @type{!Array.<!proto.game.Card>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 4));
-};
-
-
-/** @param {!Array.<!proto.game.Card>} value */
-proto.game.SettleForRoundZZResponse.prototype.setDrawNiaoList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 4, value);
-};
-
-
-/**
- * @param {!proto.game.Card=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.Card}
- */
-proto.game.SettleForRoundZZResponse.prototype.addDrawNiao = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.game.Card, opt_index);
-};
-
-
-proto.game.SettleForRoundZZResponse.prototype.clearDrawNiaoList = function() {
-  this.setDrawNiaoList([]);
 };
 
 
@@ -12758,42 +12117,32 @@ proto.game.SettleForRoundZZResponse.PlayerData.deserializeBinaryFromReader = fun
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundZZResponse.PlayerData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundZZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundZZResponse.PlayerData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundZZResponse.PlayerData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundZZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getCardsGroupList();
+  f = message.getCardsGroupList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -12801,7 +12150,7 @@ proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinaryToWriter
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -12809,7 +12158,7 @@ proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinaryToWriter
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getWinCard();
+  f = message.getWinCard();
   if (f != null) {
     writer.writeMessage(
       5,
@@ -12817,35 +12166,35 @@ proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinaryToWriter
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeInt32(
       6,
       f
     );
   }
-  f = this.getTotal();
+  f = message.getTotal();
   if (f !== 0) {
     writer.writeInt32(
       7,
       f
     );
   }
-  f = this.getWinType();
+  f = message.getWinType();
   if (f !== 0) {
     writer.writeInt32(
       8,
       f
     );
   }
-  f = this.getWinFlag();
+  f = message.getWinFlag();
   if (f.length > 0) {
     writer.writeString(
       9,
       f
     );
   }
-  f = this.getCardsGroupListList();
+  f = message.getCardsGroupListList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       10,
@@ -12853,7 +12202,7 @@ proto.game.SettleForRoundZZResponse.PlayerData.prototype.serializeBinaryToWriter
       proto.game.CardGroup.serializeBinaryToWriter
     );
   }
-  f = this.getCardsDrawNiaoList();
+  f = message.getCardsDrawNiaoList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       11,
@@ -13101,6 +12450,87 @@ proto.game.SettleForRoundZZResponse.PlayerData.prototype.clearCardsDrawNiaoList 
 };
 
 
+/**
+ * optional uint32 win_type = 1;
+ * @return {number}
+ */
+proto.game.SettleForRoundZZResponse.prototype.getWinType = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoundZZResponse.prototype.setWinType = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated PlayerData player_data = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>}
+ */
+proto.game.SettleForRoundZZResponse.prototype.getPlayerDataList = function() {
+  return /** @type{!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundZZResponse.PlayerData, 3));
+};
+
+
+/** @param {!Array.<!proto.game.SettleForRoundZZResponse.PlayerData>} value */
+proto.game.SettleForRoundZZResponse.prototype.setPlayerDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.SettleForRoundZZResponse.PlayerData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SettleForRoundZZResponse.PlayerData}
+ */
+proto.game.SettleForRoundZZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundZZResponse.PlayerData, opt_index);
+};
+
+
+proto.game.SettleForRoundZZResponse.prototype.clearPlayerDataList = function() {
+  this.setPlayerDataList([]);
+};
+
+
+/**
+ * repeated Card draw_niao = 4;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Card>}
+ */
+proto.game.SettleForRoundZZResponse.prototype.getDrawNiaoList = function() {
+  return /** @type{!Array.<!proto.game.Card>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 4));
+};
+
+
+/** @param {!Array.<!proto.game.Card>} value */
+proto.game.SettleForRoundZZResponse.prototype.setDrawNiaoList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 4, value);
+};
+
+
+/**
+ * @param {!proto.game.Card=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Card}
+ */
+proto.game.SettleForRoundZZResponse.prototype.addDrawNiao = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.game.Card, opt_index);
+};
+
+
+proto.game.SettleForRoundZZResponse.prototype.clearDrawNiaoList = function() {
+  this.setDrawNiaoList([]);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -13159,7 +12589,7 @@ proto.game.ReconnectDDZResponse.toObject = function(includeInstance, msg) {
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     roomStatus: jspb.Message.getFieldWithDefault(msg, 4, 0),
     currentRound: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    lairdPlayer: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    lairdPlayerUuid: jspb.Message.getFieldWithDefault(msg, 6, ""),
     discardPlayerUuid: jspb.Message.getFieldWithDefault(msg, 7, ""),
     robPlayerUuid: jspb.Message.getFieldWithDefault(msg, 8, ""),
     baseScore: jspb.Message.getFieldWithDefault(msg, 9, 0),
@@ -13233,7 +12663,7 @@ proto.game.ReconnectDDZResponse.deserializeBinaryFromReader = function(msg, read
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLairdPlayer(value);
+      msg.setLairdPlayerUuid(value);
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
@@ -13296,112 +12726,102 @@ proto.game.ReconnectDDZResponse.deserializeBinaryFromReader = function(msg, read
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReconnectDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReconnectDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.ReconnectDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.ReconnectDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReconnectDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.ReconnectDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.ReconnectDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getRoomId();
+  f = message.getRoomId();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getKwargs();
+  f = message.getKwargs();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getOwnerUuid();
+  f = message.getOwnerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getRoomStatus();
+  f = message.getRoomStatus();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-  f = this.getCurrentRound();
+  f = message.getCurrentRound();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getLairdPlayer();
+  f = message.getLairdPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
       f
     );
   }
-  f = this.getDiscardPlayerUuid();
+  f = message.getDiscardPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       7,
       f
     );
   }
-  f = this.getRobPlayerUuid();
+  f = message.getRobPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       8,
       f
     );
   }
-  f = this.getBaseScore();
+  f = message.getBaseScore();
   if (f !== 0) {
     writer.writeInt32(
       9,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeInt32(
       10,
       f
     );
   }
-  f = this.getMultiple();
+  f = message.getMultiple();
   if (f !== 0) {
     writer.writeInt32(
       11,
       f
     );
   }
-  f = this.getThreeCardsList();
+  f = message.getThreeCardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       12,
@@ -13409,14 +12829,14 @@ proto.game.ReconnectDDZResponse.prototype.serializeBinaryToWriter = function (wr
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getBoomCnt();
+  f = message.getBoomCnt();
   if (f !== 0) {
     writer.writeInt32(
       13,
       f
     );
   }
-  f = this.getPlayerList();
+  f = message.getPlayerList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       14,
@@ -13424,21 +12844,21 @@ proto.game.ReconnectDDZResponse.prototype.serializeBinaryToWriter = function (wr
       proto.game.ReconnectDDZResponse.Player.serializeBinaryToWriter
     );
   }
-  f = this.getCode();
+  f = message.getCode();
   if (f !== 0) {
     writer.writeUint32(
       15,
       f
     );
   }
-  f = this.getPrevDiscardPlayerUuid();
+  f = message.getPrevDiscardPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       16,
       f
     );
   }
-  f = this.getPrevDiscardCardsList();
+  f = message.getPrevDiscardCardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       17,
@@ -13446,13 +12866,499 @@ proto.game.ReconnectDDZResponse.prototype.serializeBinaryToWriter = function (wr
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getOwnerInfo();
+  f = message.getOwnerInfo();
   if (f.length > 0) {
     writer.writeString(
       19,
       f
     );
   }
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.game.ReconnectDDZResponse.Player = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.ReconnectDDZResponse.Player.repeatedFields_, null);
+};
+goog.inherits(proto.game.ReconnectDDZResponse.Player, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.game.ReconnectDDZResponse.Player.displayName = 'proto.game.ReconnectDDZResponse.Player';
+}
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.game.ReconnectDDZResponse.Player.repeatedFields_ = [11,12];
+
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.toObject = function(opt_includeInstance) {
+  return proto.game.ReconnectDDZResponse.Player.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.game.ReconnectDDZResponse.Player} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.game.ReconnectDDZResponse.Player.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    seat: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    info: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    status: jspb.Message.getFieldWithDefault(msg, 4, 0),
+    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0),
+    totalScore: jspb.Message.getFieldWithDefault(msg, 6, 0),
+    robFlag: jspb.Message.getFieldWithDefault(msg, 7, 0),
+    robScore: jspb.Message.getFieldWithDefault(msg, 8, 0),
+    score: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    boomCnt: jspb.Message.getFieldWithDefault(msg, 10, 0),
+    cardsInHandList: jspb.Message.toObjectList(msg.getCardsInHandList(),
+    proto.game.Card.toObject, includeInstance),
+    cardsDiscardList: jspb.Message.toObjectList(msg.getCardsDiscardList(),
+    proto.game.Card.toObject, includeInstance)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.game.ReconnectDDZResponse.Player}
+ */
+proto.game.ReconnectDDZResponse.Player.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.game.ReconnectDDZResponse.Player;
+  return proto.game.ReconnectDDZResponse.Player.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.game.ReconnectDDZResponse.Player} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.game.ReconnectDDZResponse.Player}
+ */
+proto.game.ReconnectDDZResponse.Player.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setSeat(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setPlayerUuid(value);
+      break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setInfo(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setStatus(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setIsOnline(value);
+      break;
+    case 6:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setTotalScore(value);
+      break;
+    case 7:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRobFlag(value);
+      break;
+    case 8:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setRobScore(value);
+      break;
+    case 9:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setScore(value);
+      break;
+    case 10:
+      var value = /** @type {number} */ (reader.readInt32());
+      msg.setBoomCnt(value);
+      break;
+    case 11:
+      var value = new proto.game.Card;
+      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
+      msg.addCardsInHand(value);
+      break;
+    case 12:
+      var value = new proto.game.Card;
+      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
+      msg.addCardsDiscard(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.game.ReconnectDDZResponse.Player.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.ReconnectDDZResponse.Player} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.game.ReconnectDDZResponse.Player.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getSeat();
+  if (f !== 0) {
+    writer.writeInt32(
+      1,
+      f
+    );
+  }
+  f = message.getPlayerUuid();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+  f = message.getInfo();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getStatus();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
+  f = message.getIsOnline();
+  if (f !== 0) {
+    writer.writeUint32(
+      5,
+      f
+    );
+  }
+  f = message.getTotalScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      6,
+      f
+    );
+  }
+  f = message.getRobFlag();
+  if (f !== 0) {
+    writer.writeInt32(
+      7,
+      f
+    );
+  }
+  f = message.getRobScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      8,
+      f
+    );
+  }
+  f = message.getScore();
+  if (f !== 0) {
+    writer.writeInt32(
+      9,
+      f
+    );
+  }
+  f = message.getBoomCnt();
+  if (f !== 0) {
+    writer.writeInt32(
+      10,
+      f
+    );
+  }
+  f = message.getCardsInHandList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      11,
+      f,
+      proto.game.Card.serializeBinaryToWriter
+    );
+  }
+  f = message.getCardsDiscardList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      12,
+      f,
+      proto.game.Card.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional int32 seat = 1;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getSeat = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setSeat = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional string player_uuid = 2;
+ * @return {string}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getPlayerUuid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setPlayerUuid = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional string info = 3;
+ * @return {string}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getInfo = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/** @param {string} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setInfo = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 status = 4;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getStatus = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setStatus = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional uint32 is_online = 5;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getIsOnline = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setIsOnline = function(value) {
+  jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional int32 total_score = 6;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getTotalScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setTotalScore = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * optional int32 rob_flag = 7;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getRobFlag = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setRobFlag = function(value) {
+  jspb.Message.setField(this, 7, value);
+};
+
+
+/**
+ * optional int32 rob_score = 8;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getRobScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setRobScore = function(value) {
+  jspb.Message.setField(this, 8, value);
+};
+
+
+/**
+ * optional int32 score = 9;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setScore = function(value) {
+  jspb.Message.setField(this, 9, value);
+};
+
+
+/**
+ * optional int32 boom_cnt = 10;
+ * @return {number}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getBoomCnt = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
+};
+
+
+/** @param {number} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setBoomCnt = function(value) {
+  jspb.Message.setField(this, 10, value);
+};
+
+
+/**
+ * repeated Card cards_in_hand = 11;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Card>}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getCardsInHandList = function() {
+  return /** @type{!Array.<!proto.game.Card>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 11));
+};
+
+
+/** @param {!Array.<!proto.game.Card>} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setCardsInHandList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 11, value);
+};
+
+
+/**
+ * @param {!proto.game.Card=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Card}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.addCardsInHand = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.game.Card, opt_index);
+};
+
+
+proto.game.ReconnectDDZResponse.Player.prototype.clearCardsInHandList = function() {
+  this.setCardsInHandList([]);
+};
+
+
+/**
+ * repeated Card cards_discard = 12;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.Card>}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.getCardsDiscardList = function() {
+  return /** @type{!Array.<!proto.game.Card>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 12));
+};
+
+
+/** @param {!Array.<!proto.game.Card>} value */
+proto.game.ReconnectDDZResponse.Player.prototype.setCardsDiscardList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 12, value);
+};
+
+
+/**
+ * @param {!proto.game.Card=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.Card}
+ */
+proto.game.ReconnectDDZResponse.Player.prototype.addCardsDiscard = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 12, opt_value, proto.game.Card, opt_index);
+};
+
+
+proto.game.ReconnectDDZResponse.Player.prototype.clearCardsDiscardList = function() {
+  this.setCardsDiscardList([]);
 };
 
 
@@ -13532,16 +13438,16 @@ proto.game.ReconnectDDZResponse.prototype.setCurrentRound = function(value) {
 
 
 /**
- * optional string laird_player = 6;
+ * optional string laird_player_uuid = 6;
  * @return {string}
  */
-proto.game.ReconnectDDZResponse.prototype.getLairdPlayer = function() {
+proto.game.ReconnectDDZResponse.prototype.getLairdPlayerUuid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
-proto.game.ReconnectDDZResponse.prototype.setLairdPlayer = function(value) {
+proto.game.ReconnectDDZResponse.prototype.setLairdPlayerUuid = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -13791,502 +13697,6 @@ proto.game.ReconnectDDZResponse.prototype.setOwnerInfo = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.game.ReconnectDDZResponse.Player = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.game.ReconnectDDZResponse.Player.repeatedFields_, null);
-};
-goog.inherits(proto.game.ReconnectDDZResponse.Player, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.game.ReconnectDDZResponse.Player.displayName = 'proto.game.ReconnectDDZResponse.Player';
-}
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.game.ReconnectDDZResponse.Player.repeatedFields_ = [11,12];
-
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.toObject = function(opt_includeInstance) {
-  return proto.game.ReconnectDDZResponse.Player.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.game.ReconnectDDZResponse.Player} msg The msg instance to transform.
- * @return {!Object}
- */
-proto.game.ReconnectDDZResponse.Player.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    seat: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    playerUuid: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    info: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    status: jspb.Message.getFieldWithDefault(msg, 4, 0),
-    isOnline: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    totalScore: jspb.Message.getFieldWithDefault(msg, 6, 0),
-    robFlag: jspb.Message.getFieldWithDefault(msg, 7, 0),
-    robScore: jspb.Message.getFieldWithDefault(msg, 8, 0),
-    score: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    boomCnt: jspb.Message.getFieldWithDefault(msg, 10, 0),
-    cardsInHandList: jspb.Message.toObjectList(msg.getCardsInHandList(),
-    proto.game.Card.toObject, includeInstance),
-    cardsDiscardList: jspb.Message.toObjectList(msg.getCardsDiscardList(),
-    proto.game.Card.toObject, includeInstance)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.game.ReconnectDDZResponse.Player}
- */
-proto.game.ReconnectDDZResponse.Player.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.game.ReconnectDDZResponse.Player;
-  return proto.game.ReconnectDDZResponse.Player.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.game.ReconnectDDZResponse.Player} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.game.ReconnectDDZResponse.Player}
- */
-proto.game.ReconnectDDZResponse.Player.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setSeat(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setPlayerUuid(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setInfo(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setStatus(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readUint32());
-      msg.setIsOnline(value);
-      break;
-    case 6:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setTotalScore(value);
-      break;
-    case 7:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setRobFlag(value);
-      break;
-    case 8:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setRobScore(value);
-      break;
-    case 9:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setScore(value);
-      break;
-    case 10:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setBoomCnt(value);
-      break;
-    case 11:
-      var value = new proto.game.Card;
-      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
-      msg.addCardsInHand(value);
-      break;
-    case 12:
-      var value = new proto.game.Card;
-      reader.readMessage(value,proto.game.Card.deserializeBinaryFromReader);
-      msg.addCardsDiscard(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.ReconnectDDZResponse.Player} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReconnectDDZResponse.Player.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.ReconnectDDZResponse.Player.prototype.serializeBinaryToWriter = function (writer) {
-  var f = undefined;
-  f = this.getSeat();
-  if (f !== 0) {
-    writer.writeInt32(
-      1,
-      f
-    );
-  }
-  f = this.getPlayerUuid();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
-    );
-  }
-  f = this.getInfo();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = this.getStatus();
-  if (f !== 0) {
-    writer.writeUint32(
-      4,
-      f
-    );
-  }
-  f = this.getIsOnline();
-  if (f !== 0) {
-    writer.writeUint32(
-      5,
-      f
-    );
-  }
-  f = this.getTotalScore();
-  if (f !== 0) {
-    writer.writeInt32(
-      6,
-      f
-    );
-  }
-  f = this.getRobFlag();
-  if (f !== 0) {
-    writer.writeInt32(
-      7,
-      f
-    );
-  }
-  f = this.getRobScore();
-  if (f !== 0) {
-    writer.writeInt32(
-      8,
-      f
-    );
-  }
-  f = this.getScore();
-  if (f !== 0) {
-    writer.writeInt32(
-      9,
-      f
-    );
-  }
-  f = this.getBoomCnt();
-  if (f !== 0) {
-    writer.writeInt32(
-      10,
-      f
-    );
-  }
-  f = this.getCardsInHandList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      11,
-      f,
-      proto.game.Card.serializeBinaryToWriter
-    );
-  }
-  f = this.getCardsDiscardList();
-  if (f.length > 0) {
-    writer.writeRepeatedMessage(
-      12,
-      f,
-      proto.game.Card.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * optional int32 seat = 1;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getSeat = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setSeat = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional string player_uuid = 2;
- * @return {string}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getPlayerUuid = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/** @param {string} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setPlayerUuid = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional string info = 3;
- * @return {string}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getInfo = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setInfo = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional uint32 status = 4;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getStatus = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setStatus = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional uint32 is_online = 5;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getIsOnline = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setIsOnline = function(value) {
-  jspb.Message.setField(this, 5, value);
-};
-
-
-/**
- * optional int32 total_score = 6;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getTotalScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setTotalScore = function(value) {
-  jspb.Message.setField(this, 6, value);
-};
-
-
-/**
- * optional int32 rob_flag = 7;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getRobFlag = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setRobFlag = function(value) {
-  jspb.Message.setField(this, 7, value);
-};
-
-
-/**
- * optional int32 rob_score = 8;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getRobScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 8, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setRobScore = function(value) {
-  jspb.Message.setField(this, 8, value);
-};
-
-
-/**
- * optional int32 score = 9;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setScore = function(value) {
-  jspb.Message.setField(this, 9, value);
-};
-
-
-/**
- * optional int32 boom_cnt = 10;
- * @return {number}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getBoomCnt = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 10, 0));
-};
-
-
-/** @param {number} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setBoomCnt = function(value) {
-  jspb.Message.setField(this, 10, value);
-};
-
-
-/**
- * repeated Card cards_in_hand = 11;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.Card>}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getCardsInHandList = function() {
-  return /** @type{!Array.<!proto.game.Card>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 11));
-};
-
-
-/** @param {!Array.<!proto.game.Card>} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setCardsInHandList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 11, value);
-};
-
-
-/**
- * @param {!proto.game.Card=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.Card}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.addCardsInHand = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 11, opt_value, proto.game.Card, opt_index);
-};
-
-
-proto.game.ReconnectDDZResponse.Player.prototype.clearCardsInHandList = function() {
-  this.setCardsInHandList([]);
-};
-
-
-/**
- * repeated Card cards_discard = 12;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.Card>}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.getCardsDiscardList = function() {
-  return /** @type{!Array.<!proto.game.Card>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.Card, 12));
-};
-
-
-/** @param {!Array.<!proto.game.Card>} value */
-proto.game.ReconnectDDZResponse.Player.prototype.setCardsDiscardList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 12, value);
-};
-
-
-/**
- * @param {!proto.game.Card=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.Card}
- */
-proto.game.ReconnectDDZResponse.Player.prototype.addCardsDiscard = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 12, opt_value, proto.game.Card, opt_index);
-};
-
-
-proto.game.ReconnectDDZResponse.Player.prototype.clearCardsDiscardList = function() {
-  this.setCardsDiscardList([]);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.game.DealDDZResponse = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, proto.game.DealDDZResponse.repeatedFields_, null);
 };
@@ -14394,42 +13804,32 @@ proto.game.DealDDZResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DealDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DealDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DealDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DealDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DealDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DealDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DealDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFirstRobUuid();
+  f = message.getFirstRobUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -14437,7 +13837,7 @@ proto.game.DealDDZResponse.prototype.serializeBinaryToWriter = function (writer)
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getThreeCardsList();
+  f = message.getThreeCardsList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -14631,42 +14031,32 @@ proto.game.RobDDZRequest.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.RobDDZRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.RobDDZRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.RobDDZRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.RobDDZRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.RobDDZRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.RobDDZRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.RobDDZRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeUint32(
       2,
@@ -14828,70 +14218,60 @@ proto.game.RobDDZResponse.deserializeBinaryFromReader = function(msg, reader) {
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.RobDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.RobDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.RobDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.RobDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.RobDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.RobDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.RobDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       3,
       f
     );
   }
-  f = this.getNextRobPlayerUuid();
+  f = message.getNextRobPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = this.getLairdPlayerUuid();
+  f = message.getLairdPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = this.getPrevRobPlayerUuid();
+  f = message.getPrevRobPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -15097,35 +14477,25 @@ proto.game.DiscardDDZRequest.deserializeBinaryFromReader = function(msg, reader)
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DiscardDDZRequest} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DiscardDDZRequest.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DiscardDDZRequest.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DiscardDDZRequest.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DiscardDDZRequest} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DiscardDDZRequest.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DiscardDDZRequest.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCardList();
+  f = message.getCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -15290,35 +14660,25 @@ proto.game.DiscardDDZResponse.deserializeBinaryFromReader = function(msg, reader
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.DiscardDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.DiscardDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.DiscardDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.DiscardDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.DiscardDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.DiscardDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.DiscardDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getCardList();
+  f = message.getCardList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -15326,21 +14686,21 @@ proto.game.DiscardDDZResponse.prototype.serializeBinaryToWriter = function (writ
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = this.getCardType();
+  f = message.getCardType();
   if (f !== 0) {
     writer.writeUint32(
       3,
       f
     );
   }
-  f = this.getNextDiscardPlayerUuid();
+  f = message.getNextDiscardPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       4,
@@ -15549,49 +14909,39 @@ proto.game.SettleForRoundDDZResponse.deserializeBinaryFromReader = function(msg,
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getBaseScore();
+  f = message.getBaseScore();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getMultiple();
+  f = message.getMultiple();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getPlayerDataList();
+  f = message.getPlayerDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       3,
@@ -15599,91 +14949,13 @@ proto.game.SettleForRoundDDZResponse.prototype.serializeBinaryToWriter = functio
       proto.game.SettleForRoundDDZResponse.PlayerData.serializeBinaryToWriter
     );
   }
-  f = this.getIsSpring();
+  f = message.getIsSpring();
   if (f !== 0) {
     writer.writeUint32(
       4,
       f
     );
   }
-};
-
-
-/**
- * optional uint32 base_score = 1;
- * @return {number}
- */
-proto.game.SettleForRoundDDZResponse.prototype.getBaseScore = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoundDDZResponse.prototype.setBaseScore = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional uint32 multiple = 2;
- * @return {number}
- */
-proto.game.SettleForRoundDDZResponse.prototype.getMultiple = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoundDDZResponse.prototype.setMultiple = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * repeated PlayerData player_data = 3;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>}
- */
-proto.game.SettleForRoundDDZResponse.prototype.getPlayerDataList = function() {
-  return /** @type{!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundDDZResponse.PlayerData, 3));
-};
-
-
-/** @param {!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>} value */
-proto.game.SettleForRoundDDZResponse.prototype.setPlayerDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 3, value);
-};
-
-
-/**
- * @param {!proto.game.SettleForRoundDDZResponse.PlayerData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SettleForRoundDDZResponse.PlayerData}
- */
-proto.game.SettleForRoundDDZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundDDZResponse.PlayerData, opt_index);
-};
-
-
-proto.game.SettleForRoundDDZResponse.prototype.clearPlayerDataList = function() {
-  this.setPlayerDataList([]);
-};
-
-
-/**
- * optional uint32 is_spring = 4;
- * @return {number}
- */
-proto.game.SettleForRoundDDZResponse.prototype.getIsSpring = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoundDDZResponse.prototype.setIsSpring = function(value) {
-  jspb.Message.setField(this, 4, value);
 };
 
 
@@ -15818,42 +15090,32 @@ proto.game.SettleForRoundDDZResponse.PlayerData.deserializeBinaryFromReader = fu
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoundDDZResponse.PlayerData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoundDDZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoundDDZResponse.PlayerData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoundDDZResponse.PlayerData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoundDDZResponse.PlayerData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoundDDZResponse.PlayerData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoundDDZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getCardsInHandList();
+  f = message.getCardsInHandList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -15861,28 +15123,28 @@ proto.game.SettleForRoundDDZResponse.PlayerData.prototype.serializeBinaryToWrite
       proto.game.Card.serializeBinaryToWriter
     );
   }
-  f = this.getScore();
+  f = message.getScore();
   if (f !== 0) {
     writer.writeInt32(
       3,
       f
     );
   }
-  f = this.getTotal();
+  f = message.getTotal();
   if (f !== 0) {
     writer.writeInt32(
       4,
       f
     );
   }
-  f = this.getBombCount();
+  f = message.getBombCount();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getIsWin();
+  f = message.getIsWin();
   if (f !== 0) {
     writer.writeInt32(
       6,
@@ -16000,6 +15262,84 @@ proto.game.SettleForRoundDDZResponse.PlayerData.prototype.setIsWin = function(va
 };
 
 
+/**
+ * optional uint32 base_score = 1;
+ * @return {number}
+ */
+proto.game.SettleForRoundDDZResponse.prototype.getBaseScore = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoundDDZResponse.prototype.setBaseScore = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional uint32 multiple = 2;
+ * @return {number}
+ */
+proto.game.SettleForRoundDDZResponse.prototype.getMultiple = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoundDDZResponse.prototype.setMultiple = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * repeated PlayerData player_data = 3;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>}
+ */
+proto.game.SettleForRoundDDZResponse.prototype.getPlayerDataList = function() {
+  return /** @type{!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoundDDZResponse.PlayerData, 3));
+};
+
+
+/** @param {!Array.<!proto.game.SettleForRoundDDZResponse.PlayerData>} value */
+proto.game.SettleForRoundDDZResponse.prototype.setPlayerDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 3, value);
+};
+
+
+/**
+ * @param {!proto.game.SettleForRoundDDZResponse.PlayerData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SettleForRoundDDZResponse.PlayerData}
+ */
+proto.game.SettleForRoundDDZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 3, opt_value, proto.game.SettleForRoundDDZResponse.PlayerData, opt_index);
+};
+
+
+proto.game.SettleForRoundDDZResponse.prototype.clearPlayerDataList = function() {
+  this.setPlayerDataList([]);
+};
+
+
+/**
+ * optional uint32 is_spring = 4;
+ * @return {number}
+ */
+proto.game.SettleForRoundDDZResponse.prototype.getIsSpring = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoundDDZResponse.prototype.setIsSpring = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
 
 /**
  * Generated by JsPbCodeGenerator.
@@ -16111,42 +15451,32 @@ proto.game.SettleForRoomDDZResponse.deserializeBinaryFromReader = function(msg, 
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoomDDZResponse} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoomDDZResponse.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoomDDZResponse.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoomDDZResponse.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoomDDZResponse} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoomDDZResponse.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoomDDZResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getFlag();
+  f = message.getFlag();
   if (f !== 0) {
     writer.writeUint32(
       1,
       f
     );
   }
-  f = this.getPlayerDataList();
+  f = message.getPlayerDataList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       2,
@@ -16154,54 +15484,6 @@ proto.game.SettleForRoomDDZResponse.prototype.serializeBinaryToWriter = function
       proto.game.SettleForRoomDDZResponse.PlayerData.serializeBinaryToWriter
     );
   }
-};
-
-
-/**
- * optional uint32 flag = 1;
- * @return {number}
- */
-proto.game.SettleForRoomDDZResponse.prototype.getFlag = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.game.SettleForRoomDDZResponse.prototype.setFlag = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * repeated PlayerData player_data = 2;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>}
- */
-proto.game.SettleForRoomDDZResponse.prototype.getPlayerDataList = function() {
-  return /** @type{!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoomDDZResponse.PlayerData, 2));
-};
-
-
-/** @param {!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>} value */
-proto.game.SettleForRoomDDZResponse.prototype.setPlayerDataList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 2, value);
-};
-
-
-/**
- * @param {!proto.game.SettleForRoomDDZResponse.PlayerData=} opt_value
- * @param {number=} opt_index
- * @return {!proto.game.SettleForRoomDDZResponse.PlayerData}
- */
-proto.game.SettleForRoomDDZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.game.SettleForRoomDDZResponse.PlayerData, opt_index);
-};
-
-
-proto.game.SettleForRoomDDZResponse.prototype.clearPlayerDataList = function() {
-  this.setPlayerDataList([]);
 };
 
 
@@ -16362,119 +15644,109 @@ proto.game.SettleForRoomDDZResponse.PlayerData.deserializeBinaryFromReader = fun
 
 
 /**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.game.SettleForRoomDDZResponse.PlayerData} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.game.SettleForRoomDDZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
 proto.game.SettleForRoomDDZResponse.PlayerData.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
+  proto.game.SettleForRoomDDZResponse.PlayerData.serializeBinaryToWriter(this, writer);
   return writer.getResultBuffer();
 };
 
 
 /**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.game.SettleForRoomDDZResponse.PlayerData} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.game.SettleForRoomDDZResponse.PlayerData.prototype.serializeBinaryToWriter = function (writer) {
+proto.game.SettleForRoomDDZResponse.PlayerData.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = this.getPlayerUuid();
+  f = message.getPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
-  f = this.getSeat();
+  f = message.getSeat();
   if (f !== 0) {
     writer.writeUint32(
       2,
       f
     );
   }
-  f = this.getTotalScore();
+  f = message.getTotalScore();
   if (f !== 0) {
     writer.writeInt32(
       3,
       f
     );
   }
-  f = this.getTopScore();
+  f = message.getTopScore();
   if (f !== 0) {
     writer.writeInt32(
       4,
       f
     );
   }
-  f = this.getWinTotalCnt();
+  f = message.getWinTotalCnt();
   if (f !== 0) {
     writer.writeUint32(
       5,
       f
     );
   }
-  f = this.getIsOwner();
+  f = message.getIsOwner();
   if (f !== 0) {
     writer.writeUint32(
       6,
       f
     );
   }
-  f = this.getRewardchip();
+  f = message.getRewardchip();
   if (f !== 0) {
     writer.writeUint32(
       7,
       f
     );
   }
-  f = this.getAllBoomCnt();
+  f = message.getAllBoomCnt();
   if (f !== 0) {
     writer.writeUint32(
       8,
       f
     );
   }
-  f = this.getLoseTotalCnt();
+  f = message.getLoseTotalCnt();
   if (f !== 0) {
     writer.writeUint32(
       9,
       f
     );
   }
-  f = this.getMaxPoorScore();
+  f = message.getMaxPoorScore();
   if (f !== 0) {
     writer.writeInt32(
       10,
       f
     );
   }
-  f = this.getSpringCnt();
+  f = message.getSpringCnt();
   if (f !== 0) {
     writer.writeInt32(
       11,
       f
     );
   }
-  f = this.getEndTime();
+  f = message.getEndTime();
   if (f.length > 0) {
     writer.writeString(
       12,
       f
     );
   }
-  f = this.getDealerCnt();
+  f = message.getDealerCnt();
   if (f !== 0) {
     writer.writeInt32(
       13,
@@ -16676,6 +15948,54 @@ proto.game.SettleForRoomDDZResponse.PlayerData.prototype.getDealerCnt = function
 /** @param {number} value */
 proto.game.SettleForRoomDDZResponse.PlayerData.prototype.setDealerCnt = function(value) {
   jspb.Message.setField(this, 13, value);
+};
+
+
+/**
+ * optional uint32 flag = 1;
+ * @return {number}
+ */
+proto.game.SettleForRoomDDZResponse.prototype.getFlag = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.game.SettleForRoomDDZResponse.prototype.setFlag = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * repeated PlayerData player_data = 2;
+ * If you change this array by adding, removing or replacing elements, or if you
+ * replace the array itself, then you must call the setter to update it.
+ * @return {!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>}
+ */
+proto.game.SettleForRoomDDZResponse.prototype.getPlayerDataList = function() {
+  return /** @type{!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.game.SettleForRoomDDZResponse.PlayerData, 2));
+};
+
+
+/** @param {!Array.<!proto.game.SettleForRoomDDZResponse.PlayerData>} value */
+proto.game.SettleForRoomDDZResponse.prototype.setPlayerDataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 2, value);
+};
+
+
+/**
+ * @param {!proto.game.SettleForRoomDDZResponse.PlayerData=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.game.SettleForRoomDDZResponse.PlayerData}
+ */
+proto.game.SettleForRoomDDZResponse.prototype.addPlayerData = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.game.SettleForRoomDDZResponse.PlayerData, opt_index);
+};
+
+
+proto.game.SettleForRoomDDZResponse.prototype.clearPlayerDataList = function() {
+  this.setPlayerDataList([]);
 };
 
 
