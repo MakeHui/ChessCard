@@ -1023,10 +1023,10 @@ cc.Class({
     openMenuOnClick() {
         window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         cc.log(this.menuPanel.height);
-        if (this.menuPanel.scaleX === 0) {
+        if (this.menuPanel.scaleY === 0) {
             this.menuPanel.getComponent(cc.Animation).play('OpenMenu');    
         }
-        else if (this.menuPanel.scaleX === 1) {
+        else if (this.menuPanel.scaleY === 1) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');    
         }
     },
@@ -1038,7 +1038,7 @@ cc.Class({
         }
 
         // 检查是否关闭菜单面板
-        if (this.menuPanel.getPositionY() <= 222) {
+        if (this.menuPanel.scaleY === 1) {
             this.menuPanel.getComponent(cc.Animation).play('CloseMenu');
         }
 
