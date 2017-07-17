@@ -37,6 +37,10 @@ cc.Class({
         window.PX258.Config = require('PX258Config');
         window.PX258.NetworkConfig = require('PX258Network');
 
+        window.DDZ = {};
+        window.DDZ.Tools = require('DDZTools');
+        window.DDZ.AlgHelper = require('AlgHelper');
+
         // 初始化本地数据
         if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location)) {
             window.Global.Tools.setLocalData(window.Global.Config.LSK.userInfo_location, '该用户未公开地理位置');

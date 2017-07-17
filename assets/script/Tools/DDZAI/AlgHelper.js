@@ -32,11 +32,11 @@ var AlgHelper = cc.Class({
         getCardVo: function(rawValue) {
             if (rawValue == -1) {
                 return { suit: 0, value: -1 };
-            } else {
-                var suit = this.getCardSuit(rawValue);
-                var value = this.getCardValue(rawValue);
-                return { suit: suit, value: value };
             }
+
+            var suit = this.getCardSuit(rawValue);
+            var value = this.getCardValue(rawValue);
+            return { suit: suit, value: value };
         },
 
         /**
@@ -46,7 +46,7 @@ var AlgHelper = cc.Class({
         orderCard: function(cards) {
             return cards.sort(function(a, b) {
                 return this.getCardValue(b) - this.getCardValue(a);
-            })
+            });
         },
 
         /**
@@ -85,12 +85,12 @@ var AlgHelper = cc.Class({
          */
         checkCanCompare: function(pd1, pd2) {
             if (!pd1 || !pd2) return false;
-            if (pd1.typeWeight != pd2.typeWeight) {
-                return true;
-            } else {
+            if (pd1.typeWeight == pd2.typeWeight) {
                 if ((pd1.type == pd2.type) && (pd1.step == pd2.step)) {
                     return true;
                 }
+            } else {
+                return true;
             }
             return false;
         },

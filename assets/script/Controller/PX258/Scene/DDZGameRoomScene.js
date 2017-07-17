@@ -17,6 +17,9 @@ cc.Class({
 
         dipaiNode: cc.Node,
 
+        cardPrefab: [cc.Prefab],
+        cardPinList: cc.SpriteAtlas,
+
         handCardDistrict: cc.Node,
         dirtyCardDistrict: [cc.Node],
 
@@ -167,27 +170,25 @@ cc.Class({
             return;
         }
 
+        data.currentRound = 1;
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.ownerUuid = data.ownerUuid;
         this._Cache.currentRound = 1;
-        this._setRoomInfo(data.kwargs, 1, data.restCards);
 
+        this._initScene();
+        this._setRoomInfo(data);
         this._setThisPlayerSeat(data.playerList);
 
-        for (let i = 0; i < data.playerList.length; i += 1) {
+        // 初始化玩家信息
+        for (var i = 0; i < data.playerList.length; i += 1) {
             var obj = data.playerList[i];
-            var playerIndex = this._getPlayerIndexBySeat(obj.seat);
             obj.info = JSON.parse(obj.info);
+            var playerIndex = this._getPlayerIndexBySeat(obj.seat);
+            this._setPlayerInfoList(playerIndex, obj.info, obj.totalScore);
 
-            if (playerIndex !== 0) {
-                this.inviteButtonList[playerIndex].active = false;
-            }
-
+            this.inviteButtonList[playerIndex].active = false;
             this.playerInfoList[playerIndex].active = true;
-            this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = obj.info.nickname;
-            this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = obj.totalScore || 0;
-            window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), obj.info.headimgurl);
 
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
@@ -196,23 +197,14 @@ cc.Class({
 
             // 是否在线
             if (this._userInfo.playerUuid !== obj.playerUuid) {
-                this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_offline').active = obj.isOnline === 0;
-            }
-
-            if (playerIndex !== 0) {
-                this.inviteButtonList[playerIndex].active = false;
-                this.playerInfoList[playerIndex].active = true;
+                this.playerInfoList[playerIndex].getChildByName('img_offline').active = obj.isOnline === 0;
             }
         }
 
-        if (data.playerList.length !== 3) {
-            this.inviteButtonList[0].active = true;
-        }
+        this.inviteButtonList[0].active = (data.playerList.length !== 3);
 
         this._Cache.playerList = data.playerList;
         this._Cache.config = data.kwargs;
-
-        this._initLight();
     },
 
     onEnterRoomOtherMessage(data) {
@@ -223,7 +215,7 @@ cc.Class({
         data.info = JSON.parse(data.info);
         this._Cache.playerList.push(data);
 
-        const playerIndex = this._getPlayerIndexBySeat(data.seat);
+        var playerIndex = this._getPlayerIndexBySeat(data.seat);
 
         this.inviteButtonList[playerIndex].active = false;
         this.playerInfoList[playerIndex].active = true;
@@ -233,19 +225,15 @@ cc.Class({
         window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.info.headimgurl);
 
         // 设置房主
-        if (data.playerUuid === this._Cache.ownerUuid) {
-            this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
-        }
+        this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = data.playerUuid === this._Cache.ownerUuid;
 
         // 如果房间人数满了, 关闭邀请按钮
-        if (this._Cache.playerList.length === 4) {
-            this.inviteButtonList[0].active = false;
-        }
+        this.inviteButtonList[0].active = this._Cache.playerList.length !== 3;
 
         // 检查是否在同一IP
-        this.scheduleOnce(function() {
-            this._checkIp();
-        }, 2);
+        // this.scheduleOnce(function() {
+        //     this._checkIp();
+        // }, 2);
     },
 
     onReconnectDDZMessage(data) {
@@ -271,9 +259,22 @@ cc.Class({
             var playerIndex = this._getPlayerIndexBySeat(obj.seat);
             this._setPlayerInfoList(playerIndex, obj.info, obj.totalScore);
 
+            this.inviteButtonList[playerIndex].active = false;
+            this.playerInfoList[playerIndex].active = true;
+
             // 设置房主
             if (obj.playerUuid === data.ownerUuid) {
                 this.playerInfoList[playerIndex].getChildByName('img_hostmark').active = true;
+            }
+
+            // 设置地主
+            if (data.lairdPlayerUuid) {
+                if (obj.playerInfoList === data.lairdPlayerUuid) {
+                    this.playerInfoList[playerIndex].getChildByName('table_dizhuTag').active = true;
+                }
+                else {
+                    this.playerInfoList[playerIndex].getChildByName('table_nongminTag').active = true;
+                }
             }
 
             // 是否在线
@@ -282,11 +283,16 @@ cc.Class({
             }
 
             // 初始化手牌
-            for (var j = obj.cardsInHandList.length - 1; j >= 0; j -= 1) {
-                this._appendCardToHandCardDistrict(playerIndex, obj.cardsInHandList[j].card);
+            if (playerIndex === 0) {
+                for (var j = obj.cardsInHandList.length - 1; j >= 0; j -= 1) {
+                    this._appendCardToHandCardDistrict(obj.cardsInHandList[j].card);
+                }
+                if (this.handCardDistrict.children.length > 1) {
+                    window.Global.Tools.cardsSort(this.handCardDistrict.children);
+                }
             }
-            if (playerIndex === 0 && this.handCardDistrict.children.length > 1) {
-                window.Global.Tools.cardsSort(this.handCardDistrict.children);
+            else {
+                this._showCardNumber(playerIndex, obj.cardsInHandList.length);
             }
 
             // 初始化打出去的牌
@@ -296,12 +302,14 @@ cc.Class({
         this._Cache.playerList = data.playerList;
 
         // 初始化底牌
+        this.dipaiNode.children[1].active = window.PX258.Config.roomStatusCode.StepState === data.roomStatus;
         if (data.threeCardsList.length > 0) {
-            this.dipaiNode.children[1].active = false;
-            for (var i = 0; i < this.dipaiNode.children[0].children.length; i++) {
-                // todo: 需要设置牌
+            for (var i = 0; i < data.threeCardsList.length; i++) {
+                this.dipaiNode.children[0].addChild(this._createCard(data.threeCardsList[i].card));
             }
         }
+
+        this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
     },
 
     onOnlineStatusMessage(data) {
@@ -314,6 +322,11 @@ cc.Class({
                 this._showWaitPanel(1);
             }
         }
+    },
+
+    onReadyMessage(data) {
+        var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
     },
 
 
@@ -335,6 +348,38 @@ cc.Class({
                 break;
             }
         }
+    },
+
+    onDealDDZMessage(data) {
+        this._Cache.waitJiaofeng = true;
+
+        this._initCardDistrict();
+
+        // 设置地主
+        // this._Cache.thisDealerSeat = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.dealerUuid));
+        // this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
+
+        // 初始化手牌
+        var i = data.cardsInHandList.length - 1;
+        this.schedule(() => {
+            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.dealCard);
+            this._appendCardToHandCardDistrict(data.cardsInHandList[i].card);
+            i -= 1;
+            if (i === -1) {
+                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                this._Cache.waitJiaofeng = false;
+            }
+        }, 0.2, data.cardsInHandList.length - 1);
+
+        for (var j = 1; j < 3; j += 1) {
+            this._showCardNumber(j, data.cardsInHandList.length);
+        }
+    },
+
+    _showCardNumber(playerIndex, number) {
+        var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
+        cardNumberNode.active = true;
+        cardNumberNode.getChildByName('Number').getComponent(cc.Label).string = number;
     },
 
     /**
@@ -531,36 +576,44 @@ cc.Class({
     /**
      * 添加牌到手牌区
      *
-     * @param playerIndex
      * @param card
      * @private
      */
-    _appendCardToHandCardDistrict(playerIndex, card) {
-        if (playerIndex === 0) {
-            var node = this._addClickEventToCard(this._createCard(card));
-            this.handCardDistrict.addChild(node);
-            // this._initDragStuffs(node);
-        }
+    _appendCardToHandCardDistrict(card) {
+        var node = this._addClickEventToCard(this._createCard(card));
+        this.handCardDistrict.addChild(node);
     },
 
     /**
      * 构造每张牌
      */
     _createCard(card) {
-        var node = cc.instantiate(this.cardPrefab);
-        node._userData = card;
+        var cardValue = window.DDZ.AlgHelper.getCardVo(card);
+        var node;
 
-        // TODO: 还没有弄完
-        var nodeSprite = window.Global.Tools.findNode(node, 'Background>value').getComponent(cc.Sprite);
-        nodeSprite.spriteFrame = this.cardPinList.getSpriteFrame(`value_0x${card.toString(16)}`);
+        if (cardValue.suit === 5) {
+            node = cc.instantiate(this.cardPrefab[cardValue.value === 17 ? 2 : 1]);
+        }
+        else {
+            node = cc.instantiate(this.cardPrefab[0]);
+
+            var color = [1, 3].indexOf(cardValue.suit) !== -1 ? 'black' : 'red';
+
+            var nodeSpriteChildren = node.getChildByName('Background').children;
+            nodeSpriteChildren[0].getComponent(cc.Sprite).spriteFrame = this.cardPinList.getSpriteFrame(cardValue.value + '_' + color);
+            nodeSpriteChildren[1].getComponent(cc.Sprite).spriteFrame = this.cardPinList.getSpriteFrame(cardValue.suit);
+            nodeSpriteChildren[2].getComponent(cc.Sprite).spriteFrame = this.cardPinList.getSpriteFrame(cardValue.suit);
+        }
+
+        node._userData = card;
 
         return node;
     },
 
     _addClickEventToCard(node) {
         // TODO: 还没有弄完
-        var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
-        node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+        // var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
+        // node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
         return node;
     },
@@ -685,6 +738,13 @@ cc.Class({
         this.playerInfoList[playerIndex].getChildByName('text_nick').getComponent(cc.Label).string = data.nickname;
         this.playerInfoList[playerIndex].getChildByName('text_result').getComponent(cc.Label).string = totalScore || 0;
         window.Global.Tools.setWebImage(this.playerInfoList[playerIndex].getChildByName('mask').getChildByName('img_handNode').getComponent(cc.Sprite), data.headimgurl);
+    },
+
+    _initCardDistrict() {
+        for (var i = 0; i < this.dirtyCardDistrict.length; i++) {
+            this.dirtyCardDistrict[i].removeAllChildren();
+        }
+        this.handCardDistrict.removeAllChildren();
     },
 
 });

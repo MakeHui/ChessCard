@@ -52,9 +52,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "1010.png": {
+    "10_black.png": {
       "ver": "1.0.3",
-      "uuid": "c782bd14-bc58-4b93-88c8-895a9a77b794",
+      "uuid": "169b0940-517d-4162-a6e5-72de23f27f96",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -74,9 +74,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "10_10.png": {
+    "10_red.png": {
       "ver": "1.0.3",
-      "uuid": "5a7cd3de-9f68-411e-bc27-6bb78aee443d",
+      "uuid": "7a3b99c2-a7dc-4e1a-8404-83bd9a5c595e",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -96,9 +96,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "11.png": {
+    "1_black.png": {
       "ver": "1.0.3",
-      "uuid": "d084a815-f6bd-4f44-8209-a00be9b4fd25",
+      "uuid": "0540d163-8296-49cc-b3da-d28c4932b7d2",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -118,9 +118,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "1_1.png": {
+    "1_red.png": {
       "ver": "1.0.3",
-      "uuid": "cd041228-1060-4458-ac80-e424e0cd14de",
+      "uuid": "c8fd9a25-be58-4a79-92d1-7294380b18f4",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -140,9 +140,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "22.png": {
+    "15_black.png": {
       "ver": "1.0.3",
-      "uuid": "d51ae6fa-d4ed-46c9-9455-bafad2b942f4",
+      "uuid": "294f3b38-6f9b-4c19-b501-67e844533977",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -162,9 +162,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "2_2.png": {
+    "15_red.png": {
       "ver": "1.0.3",
-      "uuid": "6490a1aa-db01-4df2-b3b9-ee4eab87d893",
+      "uuid": "d4b81240-4160-4ec3-a92d-04dddc1e694e",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -184,9 +184,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "33.png": {
+    "3_black.png": {
       "ver": "1.0.3",
-      "uuid": "c43b168d-724a-4fde-9834-64aee0464a41",
+      "uuid": "d3bd73cc-719f-4f98-96ab-a6a020cd8f49",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -206,9 +206,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "3_3.png": {
+    "3_red.png": {
       "ver": "1.0.3",
-      "uuid": "28682469-8f2c-4bb8-9eb4-f7289c4b3dd7",
+      "uuid": "987c7e7c-0bec-4939-80e5-355180481c2f",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -228,9 +228,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "44.png": {
+    "4_black.png": {
       "ver": "1.0.3",
-      "uuid": "682d5957-6808-4ca4-80ac-2bae6129f41c",
+      "uuid": "0a08aaa0-1b9a-4ae7-a6d9-9e7e29655397",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -250,9 +250,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "4_4.png": {
+    "4_red.png": {
       "ver": "1.0.3",
-      "uuid": "d817394e-e069-430a-959b-357b34da327a",
+      "uuid": "0de47c2d-c76d-4ee5-9982-d62e36cc26f8",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -272,9 +272,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "55.png": {
+    "5_black.png": {
       "ver": "1.0.3",
-      "uuid": "06e073bf-aeb7-4674-9a17-3ed47de57dba",
+      "uuid": "0d3a80ff-6092-4eb2-91a1-7fad13f43013",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -294,9 +294,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "5_5.png": {
+    "5_red.png": {
       "ver": "1.0.3",
-      "uuid": "20313fae-9096-4718-8b09-46ee5b5722ed",
+      "uuid": "9010baa4-a6f2-4fb7-852e-8c155fe4589e",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -316,9 +316,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "66.png": {
+    "6_black.png": {
       "ver": "1.0.3",
-      "uuid": "263ddf10-bea8-46de-96a2-e0741e619202",
+      "uuid": "4017d858-11dd-4335-8ee4-765f88dd7fb6",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -338,9 +338,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "6_6.png": {
+    "6_red.png": {
       "ver": "1.0.3",
-      "uuid": "d738897f-92ca-48c7-b266-63638f1c3be1",
+      "uuid": "aa65fd1d-b0ce-484b-8157-ceb936122913",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -360,9 +360,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "77.png": {
+    "7_black.png": {
       "ver": "1.0.3",
-      "uuid": "306b1933-75d1-4677-8b9f-8d36957dd801",
+      "uuid": "806b3c87-dfd3-42ff-9eca-6161573c182d",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -382,9 +382,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "7_7.png": {
+    "7_red.png": {
       "ver": "1.0.3",
-      "uuid": "c3fd4fab-7b19-4cd3-b3de-2b1351810be5",
+      "uuid": "3a4732d1-e859-4624-9744-be9a6888746d",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -404,9 +404,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "88.png": {
+    "8_black.png": {
       "ver": "1.0.3",
-      "uuid": "5591e032-cce3-4e33-a474-d8b24aafdb1d",
+      "uuid": "b79e0a85-a78f-4817-b7a4-2635d216ffd5",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -426,9 +426,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "8_8.png": {
+    "8_red.png": {
       "ver": "1.0.3",
-      "uuid": "e856e9fb-9910-49de-93fc-2cd12f95b935",
+      "uuid": "2f1120bb-c3f7-4d26-ac91-d2b235491096",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -448,9 +448,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "99.png": {
+    "9_black.png": {
       "ver": "1.0.3",
-      "uuid": "9dffc3a6-3a41-4634-87df-8bcba4cbfc72",
+      "uuid": "f6ab2e77-46ef-49bc-a25a-fb5656e90dc2",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -470,9 +470,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "9_9.png": {
+    "9_red.png": {
       "ver": "1.0.3",
-      "uuid": "f7114750-9994-4e72-b190-5960e19c7d4c",
+      "uuid": "666cc7d3-d094-4736-b9bb-e2a348aec9e3",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -492,9 +492,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "AA.png": {
+    "14_black.png": {
       "ver": "1.0.3",
-      "uuid": "1512fde4-b264-45d0-8743-c6f95de132bc",
+      "uuid": "9ef89b7b-9577-45fb-bdf7-e75f14e43bc5",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -514,9 +514,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "A_A.png": {
+    "14_red.png": {
       "ver": "1.0.3",
-      "uuid": "a1ee2b05-6220-4ebe-95a1-f56b4227317b",
+      "uuid": "d2a9aca3-4411-4320-b898-f87703bcb4e4",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -536,9 +536,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "JJ.png": {
+    "11_black.png": {
       "ver": "1.0.3",
-      "uuid": "21ff1a00-6ca4-43be-8257-3750a4cf66cc",
+      "uuid": "5d14abe4-219a-4fee-9362-19df0ffb03f0",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -558,9 +558,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "J_J.png": {
+    "11_red.png": {
       "ver": "1.0.3",
-      "uuid": "19b72b1e-8a0c-4134-82fb-3f1aa76048d5",
+      "uuid": "3a562c77-c4ce-4be7-9ae7-dd10911fe528",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -580,9 +580,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "KK.png": {
+    "13_black.png": {
       "ver": "1.0.3",
-      "uuid": "af46a6c0-11c8-42ec-bf96-6e1d2644d517",
+      "uuid": "c1a6fb4f-87e5-4001-89e2-fce39d4299e8",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -602,9 +602,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "K_K.png": {
+    "13_red.png": {
       "ver": "1.0.3",
-      "uuid": "5abcaa07-71aa-4b03-bc56-bdb592aaa93b",
+      "uuid": "c609c7cd-168d-4083-bf0d-4a0ed31758d3",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -624,9 +624,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "QQ.png": {
+    "12_black.png": {
       "ver": "1.0.3",
-      "uuid": "ce5b109c-e2ab-4567-bce8-994adf9314cf",
+      "uuid": "8da98d1f-fb9b-4b40-8006-69e18c07ea9c",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -646,9 +646,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "Q_Q.png": {
+    "12_red.png": {
       "ver": "1.0.3",
-      "uuid": "cbba0053-0712-4927-bec1-0812c5a08526",
+      "uuid": "44b7d556-58fc-4a36-a142-639c4f5d7cd7",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -690,9 +690,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "club.png": {
+    "3.png": {
       "ver": "1.0.3",
-      "uuid": "e183ec61-5363-43a3-a1ae-c4fa053e7667",
+      "uuid": "ad15f7a8-b8dc-4aab-8562-a6d253b01c14",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -734,9 +734,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "diamond.png": {
+    "4.png": {
       "ver": "1.0.3",
-      "uuid": "e8c75659-4b00-4ea6-a67a-c25a4a4dbf8a",
+      "uuid": "ee12417a-1057-4df5-897d-668ed2646627",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -800,9 +800,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "heart.png": {
+    "2.png": {
       "ver": "1.0.3",
-      "uuid": "c7c4aca8-d2c2-43e4-81c7-e2f87851ee20",
+      "uuid": "2d111249-c524-456f-936e-8d5bfbf9825c",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -844,9 +844,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "joker_big.png": {
+    "17.png": {
       "ver": "1.0.3",
-      "uuid": "4c0d21e9-3f61-4f32-b513-94e777758081",
+      "uuid": "c5de25e8-b2f2-4560-9ee6-42a8ae48f6dc",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -866,9 +866,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "joker_small.png": {
+    "16.png": {
       "ver": "1.0.3",
-      "uuid": "ff0a036a-79e0-4b84-9c2c-8cc257bb709a",
+      "uuid": "8c0de8a4-b289-4e2d-a5a8-b02b5573c076",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -910,9 +910,9 @@
       "spriteType": "normal",
       "subMetas": {}
     },
-    "spade.png": {
+    "1.png": {
       "ver": "1.0.3",
-      "uuid": "1054a780-5c0a-4ac7-8e21-6df236cd6a84",
+      "uuid": "d42fb2d9-2ceb-4cc1-8423-98b046ca8156",
       "rawTextureUuid": "b3472196-482e-43cc-9046-db35e6577603",
       "trimType": "auto",
       "trimThreshold": 1,
