@@ -308,12 +308,7 @@ cc.Class({
 
         // 判断是否在抢地主
         if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState && this._userInfo.playerUuid === data.robPlayerUuid) {
-            if ((this._Cache.config.options & 0b10) !== 0) {
-                this._activeJiaodizhuModButton(true);
-            }
-            else {
-                this._showJiaofenModButton();
-            }
+            this._showModButton();
         }
 
         // 初始化底牌
@@ -388,24 +383,14 @@ cc.Class({
         }
 
         if (this._userInfo.playerUuid === data.firstRobUuid) {
-            if ((this._Cache.config.options & 0b10) !== 0) {
-                this._activeJiaodizhuModButton(true);
-            }
-            else {
-                this._showJiaofenModButton();
-            }
+            this._showModButton();
         }
     },
 
     onRobDDZMessage(data) {
         // 如果下一个叫分玩家是自己就显示叫分按钮
         if (this._userInfo.playerUuid === data.nextRobPlayerUuid) {
-            if ((this._Cache.config.options & 0b10) !== 0) {
-                this._activeJiaodizhuModButton(true);
-            }
-            else {
-                this._showJiaofenModButton(data.score);
-            }
+            this._showModButton();
         }
 
         // 如果是自己叫分, 就把自己的叫分按钮隐藏
@@ -422,6 +407,7 @@ cc.Class({
             this._hideJiaofenSprite();
             var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
             this._showDizhuPanel(lairdPayerIndex);
+            this.dipaiNode[0].active = false;
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
         else if (!data.nextRobPlayerUuid) {
@@ -546,20 +532,6 @@ cc.Class({
 
     _showInviteButtonList(index) {
         this.inviteButtonList[index].active = true;
-    },
-
-    /**
-     * 处理底牌
-     */
-    _hideDipaiNode() {
-        this.dipaiHideNode.active = true;
-    },
-
-    _showDipaiNode(cards) {
-        for (let i = 0; i < this.dipaiNode.length; i += 1) {
-            this.dipaiNode[i] = cards[i];
-        }
-        this.dipaiHideNode.active = false;
     },
 
     /**
@@ -737,6 +709,15 @@ cc.Class({
         }
         else {
             this.jiaofenSprate[playerIndex].children[data.score || data.robScore].active = true;
+        }
+    },
+
+    _showModButton(score) {
+        if ((this._Cache.config.options & 0b10) !== 0) {
+            this._activeJiaodizhuModButton(true);
+        }
+        else {
+            this._showJiaofenModButton(score);
         }
     },
 
