@@ -319,7 +319,7 @@ const PX258Network = cc.Class({
                 },
             },
             RobDDZ: {
-                cmd: 0x2006, // 2、抢地主
+                cmd: 0x2006, // 3、抢地主
                 response: 'RobDDZ',
                 message: function (parameters) {
                     var message = new proto.game.RobDDZRequest();

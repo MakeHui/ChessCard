@@ -233,10 +233,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 21
+        "__id__": 20
       },
       {
-        "__id__": 22
+        "__id__": 21
       }
     ],
     "_prefab": null,
@@ -324,7 +324,7 @@
     "__type__": "cc.Node",
     "_name": "back",
     "_objFlags": 0,
-    "_opacity": 100,
+    "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -361,7 +361,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -162
+      "y": -185
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -371,11 +371,7 @@
     "_opacityModifyRGB": false,
     "_id": "0e934yZNxVBuoSGbbEBIM6k",
     "_active": true,
-    "_components": [
-      {
-        "__id__": 20
-      }
-    ],
+    "_components": [],
     "_prefab": null,
     "groupIndex": 0
   },
@@ -386,9 +382,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 218,
-      "g": 219,
-      "b": 82,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -402,8 +398,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 233.34,
-      "height": 40
+      "width": 175,
+      "height": 30
     },
     "_children": [],
     "_rotationX": 0,
@@ -440,9 +436,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 30,
+    "_fontSize": 30,
+    "_lineHeight": 0,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -475,8 +471,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 452,
-      "height": 27
+      "width": 458,
+      "height": 33
     },
     "_children": [
       {
@@ -534,8 +530,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 450,
-      "height": 25
+      "width": 458,
+      "height": 33
     },
     "_children": [],
     "_rotationX": 0,
@@ -544,7 +540,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -225,
+      "x": -229,
       "y": 0
     },
     "_skewX": 0,
@@ -627,35 +623,9 @@
       "__id__": 17
     },
     "_N$mode": 0,
-    "_N$totalLength": 450,
+    "_N$totalLength": 458,
     "_N$progress": 1,
     "_N$reverse": false
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 12
-    },
-    "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
   },
   {
     "__type__": "cc.Canvas",

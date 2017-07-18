@@ -27,6 +27,7 @@ cc.Class({
         jiaofenModeButton: [cc.Node],
         jiaodizhuModeButton: [cc.Node],
         chupaiButton: [cc.Node],
+        jiaofenSprate: [cc.Node],
 
         voiceButton: cc.Node,
     },
@@ -243,6 +244,7 @@ cc.Class({
         this._Cache.ownerUuid = data.ownerUuid;
         this._Cache.currentRound = data.currentRound;
         this._Cache.config = data.kwargs;
+        this._Cache.playerList = data.playerList;
 
         this._initScene();
 
@@ -269,7 +271,7 @@ cc.Class({
 
             // 设置地主
             if (data.lairdPlayerUuid) {
-                if (obj.playerInfoList === data.lairdPlayerUuid) {
+                if (obj.playerUuid === data.lairdPlayerUuid) {
                     this.playerInfoList[playerIndex].getChildByName('table_dizhuTag').active = true;
                 }
                 else {
@@ -297,9 +299,22 @@ cc.Class({
 
             // 初始化打出去的牌
             this._addCardToDiscardDistrict(playerIndex, obj.cardsDiscardList);
+
+            // 抢地主分数显示
+            if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState) {
+                this._showFenshu(playerIndex, obj);
+            }
         }
 
-        this._Cache.playerList = data.playerList;
+        // 判断是否在抢地主
+        if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState && this._userInfo.playerUuid === data.robPlayerUuid) {
+            if ((this._Cache.config.options & 0b10) !== 0) {
+                this._activeJiaodizhuModButton(true);
+            }
+            else {
+                this._showJiaofenModButton();
+            }
+        }
 
         // 初始化底牌
         this.dipaiNode.children[1].active = window.PX258.Config.roomStatusCode.StepState === data.roomStatus;
@@ -355,10 +370,6 @@ cc.Class({
 
         this._initCardDistrict();
 
-        // 设置地主
-        // this._Cache.thisDealerSeat = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.dealerUuid));
-        // this.playerInfoList[this._Cache.thisDealerSeat].getChildByName('img_zhuang').active = true;
-
         // 初始化手牌
         var i = data.cardsInHandList.length - 1;
         this.schedule(() => {
@@ -366,20 +377,57 @@ cc.Class({
             this._appendCardToHandCardDistrict(data.cardsInHandList[i].card);
             i -= 1;
             if (i === -1) {
-                window.Global.Tools.cardsSort(this.handCardDistrict[0].children);
+                window.Global.Tools.cardsSort(this.handCardDistrict.children);
                 this._Cache.waitJiaofeng = false;
             }
         }, 0.2, data.cardsInHandList.length - 1);
 
+        // 初始化其他玩家的手牌数量
         for (var j = 1; j < 3; j += 1) {
             this._showCardNumber(j, data.cardsInHandList.length);
         }
+
+        if (this._userInfo.playerUuid === data.firstRobUuid) {
+            if ((this._Cache.config.options & 0b10) !== 0) {
+                this._activeJiaodizhuModButton(true);
+            }
+            else {
+                this._showJiaofenModButton();
+            }
+        }
     },
 
-    _showCardNumber(playerIndex, number) {
-        var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
-        cardNumberNode.active = true;
-        cardNumberNode.getChildByName('Number').getComponent(cc.Label).string = number;
+    onRobDDZMessage(data) {
+        // 如果下一个叫分玩家是自己就显示叫分按钮
+        if (this._userInfo.playerUuid === data.nextRobPlayerUuid) {
+            if ((this._Cache.config.options & 0b10) !== 0) {
+                this._activeJiaodizhuModButton(true);
+            }
+            else {
+                this._showJiaofenModButton(data.score);
+            }
+        }
+
+        // 如果是自己叫分, 就把自己的叫分按钮隐藏
+        if (this._userInfo.playerUuid === data.playerUuid) {
+            this._hideActionNode();
+        }
+
+        // 显示叫分玩家叫的分数
+        var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this._showFenshu(playerIndex, data);
+
+        // 是否已经有人成为地主
+        if (data.lairdPlayerUuid) {
+            this._hideJiaofenSprite();
+            var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
+            this._showDizhuPanel(lairdPayerIndex);
+        }
+        // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
+        else if (!data.nextRobPlayerUuid) {
+            this._hideJiaofenSprite();
+            this._initCardDistrict();
+        }
     },
 
     /**
@@ -421,33 +469,15 @@ cc.Class({
      */
 
     jiaofenOnClick(event, data) {
-        if (data == 0) { // 叫1分
-
-        } else if (data == 1) { // 叫2分
-
-        } else if (data == 2) { // 叫3分
-
-        } else if (data == 3) { // 不叫
-
-        }
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: 0, score: parseInt(data, 10)});
     },
 
     jiaodizhuOnClick(event, data) {
-        if (data == 0) { // 叫地主
-
-        } else if (data == 1) { // 不叫
-
-        }
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: parseInt(data, 10), score: 0});
     },
 
     chupaiOnClick(event, data) {
-        if (data == 0) { // 不出
 
-        } else if (data == 1) { // 提示
-
-        } else if (data == 2) { // 出牌
-
-        }
     },
 
     closeOnClick() {
@@ -537,14 +567,15 @@ cc.Class({
      */
     _hideJiaofenModButton() {
         for (let i = 0; i < this.jiaofenModeButton.length; i += 1) {
-            this.jiaofenModeButton[i].active = true;
+            this.jiaofenModeButton[i].active = false;
         }
     },
 
-    _showJiaofenModButton() {
-        // TODO: 需要完善逻辑
+    _showJiaofenModButton(score) {
         for (let i = 0; i < this.jiaofenModeButton.length; i += 1) {
-            this.jiaofenModeButton[i].active = false;
+            if (i >= score) {
+                this.jiaofenModeButton[i].active = true;
+            }
         }
     },
 
@@ -679,15 +710,47 @@ cc.Class({
         this.waitPanel.active = false;
     },
 
+    _hideJiaofenSprite() {
+        for (var i = 0; i < this.jiaofenSprate.length; i += 1) {
+            for (var j = 0; j < this.jiaofenSprate[i].children.length; j += 1) {
+                this.jiaofenSprate[i].children[j].active = false;
+            }
+        }
+    },
+
+    _showDizhuPanel(playerIndex) {
+        for (var i = 0; i < this.playerInfoList.length; i += 1) {
+            if (i === playerIndex) {
+                this.playerInfoList[i].getChildByName('table_dizhuTag').active = true;
+            }
+            else {
+                this.playerInfoList[i].getChildByName('table_nongminTag').active = true;
+            }
+        }
+    },
+
+    _showFenshu(playerIndex, data) {
+        if ((this._Cache.config.options & 0b10) !== 0) {
+            if (data.flag === 2 || data.robFlag === 2) {
+                this.jiaofenSprate[playerIndex].children[0].active = true;
+            }
+        }
+        else {
+            this.jiaofenSprate[playerIndex].children[data.score || data.robScore].active = true;
+        }
+    },
+
+    _hideActionNode() {
+        for (var i = 0; i < this.actionNode.children.length; i++) {
+            this.actionNode.children[i].active = false;
+        }
+    },
+
     _initScene: function() {
         this.dipaiNode.children[1].active = true;
         this.dipaiNode.children[0].removeAllChildren();
 
         this.waitPanel.active = false;
-
-        for (var i = 0; i < this.actionNode.children.length; i++) {
-            this.actionNode.children[i].active = false;
-        }
 
         for (var i = 0; i < this.playerInfoList.length; i++) {
             this.playerInfoList[i].active = false;
@@ -697,6 +760,9 @@ cc.Class({
             this.dirtyCardDistrict[i].removeAllChildren();
         }
         this.handCardDistrict.removeAllChildren();
+
+        this._hideJiaofenSprite();
+        this._hideActionNode();
     },
 
     /**
@@ -745,6 +811,12 @@ cc.Class({
             this.dirtyCardDistrict[i].removeAllChildren();
         }
         this.handCardDistrict.removeAllChildren();
+    },
+
+    _showCardNumber(playerIndex, number) {
+        var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
+        cardNumberNode.active = true;
+        cardNumberNode.getChildByName('Number').getComponent(cc.Label).string = number;
     },
 
 });

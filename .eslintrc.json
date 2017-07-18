@@ -17,7 +17,8 @@
         "brace-style": "off",
         "space-before-function-paren": "off",
         "guard-for-in": "off",
-        "no-redeclare": "off"
+        "no-redeclare": "off",
+        "no-trailing-spaces": "off"
     },
     "globals": {
         "window": true,
