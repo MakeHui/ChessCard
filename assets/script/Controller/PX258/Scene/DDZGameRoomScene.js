@@ -30,6 +30,13 @@ cc.Class({
         jiaofenSprate: [cc.Node],
 
         voiceButton: cc.Node,
+
+        // 解散房间
+        voteDismiss: cc.Node,
+        voteSponsor: cc.Label,
+        voteExpireSeconds: cc.Label,
+        votePlayers: [cc.Node],
+        voteDismissButton: [cc.Node],
     },
 
     onLoad() {
@@ -43,6 +50,7 @@ cc.Class({
         this._Cache.settleForRoomData = null; // 大结算数据
         this._Cache.currentRound = 0; // 局数
         this._Cache.config = {}; // 房间信息
+        this._Cache.robScore = -1;  // 叫分时最高分数
 
         cc.log(window.Global.Config.tempCache);
         if (window.Global.Config.tempCache) {
@@ -86,48 +94,8 @@ cc.Class({
 
         this.voiceButton.on(cc.Node.EventType.TOUCH_END, this.onVoiceEndCallback, this);
         this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
-    },
 
-    /**
-     * 滑动选择卡牌
-     *
-     * @author Make.<makehuir@gmail.com>
-     * @datetime 2017-07-12T16:04:33+0800
-     *
-     * @return   {[type]}                 [description]
-     */
-    selectCatds() {
-        this.cardList.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
-            for (var i = 0; i < this.cardList.children.length; i++) {
-                var pos = this.cardList.children[i].convertToNodeSpace(event.getLocation());
-                cc.log([event.getLocation(), pos]);
-                cc.log('cc.Node.EventType.TOUCH_MOVE');
-                // 是否被选中
-                if (pos.x > 0 && pos.x <= 20) {
-                    this.cardList.children[i].opacity = 100;
-                }
-            }
-        }, this);
-
-        this._touchEnd = function() {
-            this._touchStart = false;
-            for (var i = 0; i < this.cardList.children.length; i++) {
-                // 设置牌是否为选中状态
-                cc.log(this.cardList.children[i].opacity);
-                if (this.cardList.children[i].opacity === 100) {
-                    if (this.cardList.children[i].getPositionY() == 0) {
-                        this.cardList.children[i].setPositionY(24);
-                    } else {
-                        this.cardList.children[i].setPositionY(0);
-                    }
-                }
-                this.cardList.children[i].opacity = 255;
-            }
-            cc.log('cc.Node.EventType.TOUCH_END');
-        };
-
-        this.cardList.on(cc.Node.EventType.TOUCH_END, this._touchEnd, this);
-        this.cardList.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEnd, this);
+        this._selectCatds();
     },
 
     onVoiceEndCallback: function() {
@@ -172,6 +140,8 @@ cc.Class({
         }
 
         data.currentRound = 1;
+        data.baseScore = 0;
+        data.multiple = 0;
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.ownerUuid = data.ownerUuid;
@@ -308,7 +278,11 @@ cc.Class({
 
         // 判断是否在抢地主
         if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState && this._userInfo.playerUuid === data.robPlayerUuid) {
-            this._showModButton();
+            data.playerList.sort(function (a, b) {
+                return b.robScore - a.robScore;
+            });
+            this._Cache.robScore = data.playerList[0].robScore;
+            this._showModButton(this._Cache.robScore);
         }
 
         // 初始化底牌
@@ -339,6 +313,77 @@ cc.Class({
         this.playerInfoList[playerIndex].getChildByName('img_offline').active = false;
     },
 
+    onSponsorVoteMessage(data) {
+        this.voteDismissButton[0].active = true;
+        this.voteDismissButton[1].active = true;
+
+        this._votePlayers = [];
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            const obj = this._Cache.playerList[i];
+            if (obj.playerUuid === data.sponsor) {
+                this.voteSponsor.string = obj.info.nickname;
+            } else {
+                this._votePlayers.push(obj);
+            }
+        }
+
+        for (let i = 0; i < this._votePlayers.length; i += 1) {
+            const obj = this._votePlayers[i];
+            this.votePlayers[i].getChildByName('userTxt').getComponent(cc.Label).string = obj.info.nickname;
+            this.votePlayers[i].active = true;
+        }
+
+        this.voteDismiss.active = true;
+
+        // 如果是自己发起的投票, 就不需要再确认
+        if (this._userInfo.playerUuid === data.sponsor) {
+            data.expireSeconds = 1;
+
+            this.voteDismissButton[0].active = false;
+            this.voteDismissButton[1].active = false;
+
+            this.voteExpireSeconds.string = '等待倒计时：0秒';
+        } else {
+            this.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+        }
+
+        const self = this;
+        this._expireSeconds = () => {
+            if (data.expireSeconds > 0) {
+                data.expireSeconds -= 1;
+                self.voteExpireSeconds.string = `等待倒计时：${data.expireSeconds}秒`;
+            } else if (data.expireSeconds === 0) {
+                self.unschedule(this._expireSeconds);
+            }
+        };
+        this.schedule(this._expireSeconds, 1);
+    },
+
+    onDismissRoomMessage(data) {
+        if (data.code === 5003) {
+            window.Global.Dialog.openMessageBox('您不是房主, 无法解散房间');
+            return;
+        }
+
+        if (data.code !== 1) {
+            return;
+        }
+
+        if (data.flag === 0) {
+            if (this._Cache.ownerUuid === this._userInfo.playerUuid) {
+                window.Global.NetworkManager.close();
+                cc.director.loadScene('Lobby');
+            } else {
+                window.Global.Dialog.openMessageBox('房主已解散房间', function() {
+                    window.Global.NetworkManager.close();
+                    cc.director.loadScene('Lobby');
+                });
+            }
+        } else if (data.flag === 1) {
+            window.Global.NetworkManager.close();
+            cc.director.loadScene('Lobby');
+        }
+    },
 
     onExitRoomMessage(data) {
         if (data.playerUuid == this._userInfo.playerUuid) {
@@ -366,12 +411,12 @@ cc.Class({
         this._initCardDistrict();
 
         // 初始化手牌
-        var i = data.cardsInHandList.length - 1;
+        var index = data.cardsInHandList.length - 1;
         this.schedule(() => {
             window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.dealCard);
-            this._appendCardToHandCardDistrict(data.cardsInHandList[i].card);
-            i -= 1;
-            if (i === -1) {
+            this._appendCardToHandCardDistrict(data.cardsInHandList[index].card);
+            index -= 1;
+            if (index === -1) {
                 window.Global.Tools.cardsSort(this.handCardDistrict.children);
                 this._Cache.waitJiaofeng = false;
             }
@@ -382,15 +427,25 @@ cc.Class({
             this._showCardNumber(j, data.cardsInHandList.length);
         }
 
+        // 设置底牌
+        for (var i = 0; i < data.threeCardsList.length; i++) {
+            this.dipaiNode.children[0].addChild(this._createCard(data.threeCardsList[i].card));
+        }
+
         if (this._userInfo.playerUuid === data.firstRobUuid) {
-            this._showModButton();
+            this._Cache.robScore = -1;
+            this._showModButton(this._Cache.robScore);
         }
     },
 
     onRobDDZMessage(data) {
+        // 更新叫分时的最高分
+        if (this._Cache.robScore < data.score) {
+            this._Cache.robScore = data.score;
+        }
         // 如果下一个叫分玩家是自己就显示叫分按钮
         if (this._userInfo.playerUuid === data.nextRobPlayerUuid) {
-            this._showModButton();
+            this._showModButton(this._Cache.robScore);
         }
 
         // 如果是自己叫分, 就把自己的叫分按钮隐藏
@@ -407,12 +462,32 @@ cc.Class({
             this._hideJiaofenSprite();
             var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
             this._showDizhuPanel(lairdPayerIndex);
-            this.dipaiNode[0].active = false;
+            this.dipaiNode.children[1].active = false;
+            // 添加底牌给地主
+            if (this._userInfo.playerUuid === data.lairdPlayerUuid) {
+                for (var i = 0; i < this.dipaiNode.children[0].children.length; i++) {
+                    var obj = this.dipaiNode.children[0].children[i];
+                    this.handCardDistrict.addChild(this._createCard(obj._userInfo));
+                }
+            }
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
         else if (!data.nextRobPlayerUuid) {
             this._hideJiaofenSprite();
             this._initCardDistrict();
+        }
+    },
+
+    onPlayerVoteMessage(data) {
+        if (!data.flag) {
+            this.voteDismiss.active = false;
+            return;
+        }
+        for (let i = 0; i < this._votePlayers.length; i += 1) {
+            const obj = this._votePlayers[i];
+            if (obj.playerUuid === data.playerUuid) {
+                this.votePlayers[i].getChildByName('userSelectTxt').getComponent(cc.Label).string = data.flag ? '同意' : '拒绝';
+            }
         }
     },
 
@@ -451,15 +526,31 @@ cc.Class({
     },
 
     /**
+     * 出牌
+     *
+     * @param event
+     * @param data
+     */
+    selectedHandCardOnClick(event) {
+        cc.log(event.target.getPositionY());
+        if (event.target.getPositionY() === 0) {
+            event.target.setPositionY(24);
+        }
+        else {
+            event.target.setPositionY(0);
+        }
+    },
+
+    /**
      * 叫分模式按钮回调
      */
 
     jiaofenOnClick(event, data) {
-        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: 0, score: parseInt(data, 10)});
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: data > 0 ? 1 : 2, score: parseInt(data, 10)});
     },
 
     jiaodizhuOnClick(event, data) {
-        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: parseInt(data, 10), score: 0});
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.RobDDZ, {flag: parseInt(data, 10), score: 1});
     },
 
     chupaiOnClick(event, data) {
@@ -545,10 +636,11 @@ cc.Class({
 
     _showJiaofenModButton(score) {
         for (let i = 0; i < this.jiaofenModeButton.length; i += 1) {
-            if (i >= score) {
+            if (i > score) {
                 this.jiaofenModeButton[i].active = true;
             }
         }
+        this.jiaofenModeButton[0].active = true;
     },
 
     /**
@@ -614,9 +706,8 @@ cc.Class({
     },
 
     _addClickEventToCard(node) {
-        // TODO: 还没有弄完
-        // var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
-        // node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+        var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
+        node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
         return node;
     },
@@ -703,12 +794,17 @@ cc.Class({
 
     _showFenshu(playerIndex, data) {
         if ((this._Cache.config.options & 0b10) !== 0) {
-            if (data.flag === 2 || data.robFlag === 2) {
+            var flag = data.robFlag || data.flag;
+
+            if (flag === 2) {
                 this.jiaofenSprate[playerIndex].children[0].active = true;
             }
         }
         else {
-            this.jiaofenSprate[playerIndex].children[data.score || data.robScore].active = true;
+            var score = data.robScore || data.score;
+            if (score !== -1) {
+                this.jiaofenSprate[playerIndex].children[score].active = true;
+            }
         }
     },
 
@@ -798,6 +894,53 @@ cc.Class({
         var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
         cardNumberNode.active = true;
         cardNumberNode.getChildByName('Number').getComponent(cc.Label).string = number;
+    },
+
+    _resetHandCardPosition() {
+        for (let i = 0; i < this.handCardDistrict.childrenCount; i += 1) {
+            this.handCardDistrict.children[i].setPositionY(0);
+        }
+    },
+
+    /**
+     * 滑动选择卡牌
+     *
+     * @author Make.<makehuir@gmail.com>
+     * @datetime 2017-07-12T16:04:33+0800
+     *
+     * @return   {[type]}                 [description]
+     */
+    _selectCatds() {
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
+            for (var i = 0; i < this.handCardDistrict.children.length; i++) {
+                var pos = this.handCardDistrict.children[i].convertToNodeSpace(event.getLocation());
+                cc.log([event.getLocation(), pos]);
+                cc.log('cc.Node.EventType.TOUCH_MOVE');
+                // 是否被选中
+                if (pos.x > 0 && pos.x <= 24) {
+                    this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active = true;
+                }
+            }
+        }, this);
+
+        this._touchEndBySelectCatds = function() {
+            for (var i = 0; i < this.handCardDistrict.children.length; i++) {
+                // 设置牌是否为选中状态
+                cc.log(this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active);
+                if (this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active) {
+                    if (this.handCardDistrict.children[i].getPositionY() == 0) {
+                        this.handCardDistrict.children[i].setPositionY(24);
+                    } else {
+                        this.handCardDistrict.children[i].setPositionY(0);
+                    }
+                }
+                this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active = false;
+            }
+            cc.log('cc.Node.EventType.TOUCH_END');
+        };
+
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_END, this._touchEndBySelectCatds, this);
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEndBySelectCatds, this);
     },
 
 });
