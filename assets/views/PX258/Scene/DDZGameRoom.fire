@@ -24214,12 +24214,17 @@
       "__id__": 2
     },
     "_enabled": true,
-    "DDZDismiss": null,
     "settingPrefab": {
       "__uuid__": "eaad76a7-73ab-4110-8d57-45d0e2634e6a"
     },
     "userInfoPrefab": {
       "__uuid__": "94d11148-6cd1-41e8-bd5b-11299525efbc"
+    },
+    "smallAccountPrefab": {
+      "__uuid__": "32554ef4-b49f-42b8-9295-58fe37f9d105"
+    },
+    "bigAccountPrefab": {
+      "__uuid__": "fb46bfb1-20c3-4cf4-b9ca-cd72605a0f50"
     },
     "roomInfo": [
       {

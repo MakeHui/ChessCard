@@ -10,9 +10,10 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        DDZDismiss: cc.Prefab,
         settingPrefab: cc.Prefab,
         userInfoPrefab: cc.Prefab,
+        smallAccountPrefab: cc.Prefab,
+        bigAccountPrefab: cc.Prefab,
 
         roomInfo: [cc.Label],
         waitPanel: cc.Node,
@@ -583,6 +584,40 @@ cc.Class({
         }
     },
 
+    onSettleForRoundDDZMessage(data) {
+        this._initCardDistrict();
+        const self = this;
+        const node = cc.instantiate(this.smallAccountPrefab);
+        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds });
+        window.Global.Animation.openDialog(node, this.node, () => {
+            for (let i = 0; i < 4; i += 1) {
+                self.handCardDistrict[i].removeAllChildren();
+                self.dirtyCardDistrict[i].removeAllChildren();
+                self.pongKongChowDistrict[i].removeAllChildren();
+            }
+
+            this._initReadyHand();
+            this._hideSelectChiKongPanel();
+        });
+    },
+
+    onSettleForRoomDDZMessage(data) {
+        if (this.voteDismiss.active || this._Cache.settleForRoomData) {
+            this.voteDismiss.active = false;
+            window.Global.NetworkManager.close();
+            var node = cc.instantiate(this.bigAccountPrefab);
+            node.getComponent('DDZBigAccount').init({
+                data: data, playerInfoList: this._Cache.playerList,
+                gameRule: this.roomInfo[3].string,
+                roomId: this.roomInfo[0].string,
+                ownerUuid: this._Cache.ownerUuid
+            });
+            window.Global.Animation.openDialog(node, this.node);
+        } else {
+            this._Cache.settleForRoomData = data;
+        }
+    },
+
     /**
      *******************************************************************************************************************
      *                                       onClick
@@ -684,6 +719,23 @@ cc.Class({
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.ExitRoom, { roomId: this._Cache.roomId });
         } else {
             window.Global.Dialog.openMessageBox('游戏中无法退出');
+        }
+    },
+
+    /**
+     *******************************************************************************************************************
+     *                                       callback
+     *******************************************************************************************************************
+     **/
+
+    readyGameCallback() {
+        cc.log('readyGameCallback');
+        if (this._Cache.settleForRoomData) {
+            this.onSettleForRoomMessage(this._Cache.settleForRoomData);
+        } else if (this.handCardDistrict[0].children.length == 0) {
+            cc.log('readyGameCallback.Ready');
+            window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
+            this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
     },
 

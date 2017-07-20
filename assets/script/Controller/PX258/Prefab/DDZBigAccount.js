@@ -3,7 +3,8 @@ cc.Class({
 
     properties: {
         playerList: [cc.Node],
-        layout: cc.Layout,
+        ownerUserInfo: cc.Node,
+        info: [cc.Label],
     },
 
     // use this for initialization
@@ -11,49 +12,26 @@ cc.Class({
         this._Cache = data;
         cc.log(this._Cache);
 
-        let bigLosser = 0;
-        let bigWinner = 0;
+        this.info[0].string = data.roomId;
+        this.info[1].string = data.gameRule;
+
+        var ownerInfo = this._getUserInfoInList(this._Cache.ownerUuid);
+        this.ownerUserInfo.getChildByName('useNameID').getComponent(cc.Label).string = ownerInfo.nickname;
+        window.Global.Tools.setWebImage(this.ownerUserInfo.getChildByName('usePhoto').getComponent(cc.Sprite), ownerInfo.headimgurl);
+
+        var bigWinner = 0;
 
         for (let i = 0; i < this._Cache.data.playerDataList.length; i += 1) {
             var playerData = this._Cache.data.playerDataList[i];
             var playerNode = this.playerList[playerData.seat];
             var userInfo = this._getUserInfoInList(playerData.playerUuid);
-            var iswinchildren = playerNode.getChildByName('_iswin').children;
 
-            window.Global.Tools.setWebImage(playerNode.getChildByName('headNode').getComponent(cc.Sprite), userInfo.headimgurl);
-            playerNode.getChildByName('text_nick').getComponent(cc.Label).string = userInfo.nickname;
-
-            if (playerData.isOwner === 1) {
-                playerNode.getChildByName('roomHolderMark').active = true;
-            }
-
-            var detailList = playerNode.getChildByName('detailPanel');
-            window.Global.Tools.findNode(detailList, 'item1>atlasLabel').getComponent(cc.Label).string = playerData.winDrawCnt;
-            window.Global.Tools.findNode(detailList, 'item2>atlasLabel').getComponent(cc.Label).string = playerData.winDiscardCnt;
-            window.Global.Tools.findNode(detailList, 'item3>atlasLabel').getComponent(cc.Label).string = playerData.paoCnt;
-            window.Global.Tools.findNode(detailList, 'item4>atlasLabel').getComponent(cc.Label).string = playerData.kongConcealedCnt;
-            window.Global.Tools.findNode(detailList, 'item5>atlasLabel').getComponent(cc.Label).string = playerData.kongExposedCnt;
-
-            var totalScoreNode = window.Global.Tools.findNode(detailList, 'item6>atlasLabel');
-            if (playerData.totalScore == 0) {
-                iswinchildren[0].active = true;
-                totalScoreNode.color = new cc.Color(151, 133, 32);
-                totalScoreNode.getComponent(cc.Label).string = playerData.totalScore;
-            }
-            else if (playerData.totalScore > 0) {
-                iswinchildren[1].active = true;
-                totalScoreNode.color = new cc.Color(173, 106, 32);
-                totalScoreNode.getComponent(cc.Label).string = `+ ${playerData.totalScore}`;
-            }
-            else {
-                iswinchildren[2].active = true;
-                totalScoreNode.color = new cc.Color(119, 117, 112);
-                totalScoreNode.getComponent(cc.Label).string = playerData.totalScore.toString();
-            }
-
-            if (bigLosser < playerData.paoCnt) {
-                bigLosser = playerData.paoCnt;
-            }
+            window.Global.Tools.setWebImage(playerNode.getChildByName('usePhoto').getComponent(cc.Sprite), userInfo.headimgurl);
+            playerNode.getChildByName('useNameID').getComponent(cc.Label).string = userInfo.nickname;
+            playerNode.getChildByName('pscore2').getComponent(cc.Label).string = playerData.topScore;
+            playerNode.getChildByName('pscore3').getComponent(cc.Label).string = playerData.allBoomCnt;
+            playerNode.getChildByName('pscore4').getComponent(cc.Label).string = `${playerData.winTotalCnt}胜${playerData.loseTotalCnt}负`;
+            playerNode.getChildByName('pscore5').getComponent(cc.Label).string = playerData.totalScore;
 
             if (bigWinner < playerData.totalScore) {
                 bigWinner = playerData.totalScore;
@@ -64,12 +42,11 @@ cc.Class({
             var playerData = this._Cache.data.playerDataList[i];
             var playerNode = this.playerList[playerData.seat];
 
-            if (bigLosser === playerData.paoCnt) {
-                playerNode.getChildByName('bigLosser').active = true;
-            }
-
             if (bigWinner === playerData.totalScore) {
-                playerNode.getChildByName('bigWinner').active = true;
+                playerNode.getChildByName('winner').active = true;
+            }
+            else {
+                playerNode.getChildByName('lost').active = true;
             }
         }
     },
