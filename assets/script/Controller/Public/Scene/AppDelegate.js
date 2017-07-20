@@ -38,8 +38,8 @@ cc.Class({
         window.PX258.NetworkConfig = require('PX258Network');
 
         window.DDZ = {};
+        window.DDZ.Config = require('DDZConfig');
         window.DDZ.Tools = require('DDZTools');
-        window.DDZ.AlgHelper = require('AlgHelper');
 
         // 初始化本地数据
         if (!window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo_location)) {

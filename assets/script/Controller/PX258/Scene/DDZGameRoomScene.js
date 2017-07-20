@@ -1,3 +1,11 @@
+var TouchMoveEnum = cc.Enum({
+    None: -1,
+    Begin: -1,
+    Move: -1,
+    End: -1,
+});
+
+
 cc.Class({
     extends: cc.Component,
 
@@ -83,7 +91,7 @@ cc.Class({
 
         // 发送语音
         this.voiceButton.on(cc.Node.EventType.TOUCH_START, () => {
-            window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+            // window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
             if (this.voiceProgressBar.progress > 0) {
                 return;
             }
@@ -267,17 +275,16 @@ cc.Class({
                 this._showCardNumber(playerIndex, obj.cardsInHandList.length);
             }
 
-            // 初始化打出去的牌
-            this._addCardToDiscardDistrict(playerIndex, obj.cardsDiscardList);
-
             // 抢地主分数显示
-            if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState) {
+            if (data.roomStatus === window.DDZ.Config.roomStatusCode.RobState) {
                 this._showFenshu(playerIndex, obj);
             }
         }
 
+        window.DDZ.Tools.orderCard(this.handCardDistrict.children);
+
         // 判断是否在抢地主
-        if (data.roomStatus === window.PX258.Config.roomStatusCode.StepState && this._userInfo.playerUuid === data.robPlayerUuid) {
+        if (data.roomStatus === window.DDZ.Config.roomStatusCode.RobState && this._userInfo.playerUuid === data.robPlayerUuid) {
             data.playerList.sort(function (a, b) {
                 return b.robScore - a.robScore;
             });
@@ -286,14 +293,96 @@ cc.Class({
         }
 
         // 初始化底牌
-        this.dipaiNode.children[1].active = window.PX258.Config.roomStatusCode.StepState === data.roomStatus;
+        this.dipaiNode.children[1].active = window.DDZ.Config.roomStatusCode.RobState === data.roomStatus;
         if (data.threeCardsList.length > 0) {
             for (var i = 0; i < data.threeCardsList.length; i++) {
                 this.dipaiNode.children[0].addChild(this._createCard(data.threeCardsList[i].card));
             }
         }
 
+        // 初始化打出去的牌
+        if (data.prevDiscardPlayerUuid) {
+            var prevDiscardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.prevDiscardPlayerUuid));
+            this._addCardToDiscardDistrict(prevDiscardPlayerIndex, data.prevDiscardCardsList);
+
+            // 判断最后出牌玩家是谁, 如果是自己那么就表示你的上家pass
+            // if (prevDiscardPlayerIndex === 2) {
+            //     this._showActionSprite(0, window.DDZ.Config.cardType.PASS);
+            //     this._showActionSprite(1, window.DDZ.Config.cardType.PASS);
+            // }
+            // else if (prevDiscardPlayerIndex === 1) {
+            //     this._showActionSprite(2, window.DDZ.Config.cardType.PASS);
+            //     this._showActionSprite(0, window.DDZ.Config.cardType.PASS);
+            // }
+            // else if (prevDiscardPlayerIndex === 0) {
+            //     this._showActionSprite(1, window.DDZ.Config.cardType.PASS);
+            //     this._showActionSprite(2, window.DDZ.Config.cardType.PASS);
+            // }
+            //
+            // var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
+            // this._hideActionSprite(discardPlayerIndex);
+        }
+
+        // 判断当前出牌玩家
+        if (data.discardPlayerUuid === this._userInfo.playerUuid) {
+            this.dirtyCardDistrict[0].removeAllChildren();
+            this._activeChupaiButton(true);
+            this._hideActionSprite(0);
+        }
+
         this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
+    },
+
+    onDiscardDDZMessage(data) {
+        if (data.cardType === window.DDZ.Config.cardType.ERRO) {
+            cc.log('非法牌形');
+            return;
+        }
+
+        var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
+        this._addCardToDiscardDistrict(playerIndex, data.cardList);
+
+        // todo: 出牌音效
+        // // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+
+        if (this._userInfo.playerUuid === data.playerUuid) {
+            this._activeChupaiButton(false);
+            this._deleteHandCardByCode(data.cardList);
+        }
+
+        // 出牌玩家
+        if (data.nextDiscardPlayerUuid === this._userInfo.playerUuid) {
+            this._activeChupaiButton(true);
+            this.dirtyCardDistrict[0].removeAllChildren();
+        }
+    },
+
+    _deleteHandCardByCode(values) {
+        var cardValues = [];
+        if (values[0]) {
+            for (var i = 0; i < values.length; i += 1) {
+                cardValues.push(values[i].card);
+            }
+        }
+        else {
+            cardValues = values;
+        }
+
+        if (cardValues.length === 0) {
+            return;
+        }
+
+        for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
+            var card = this.handCardDistrict.children[i];
+            var index = cardValues.indexOf(card._userData);
+            if (index !== -1) {
+                card.destroy();
+                cardValues.splice(index, 1);
+            }
+            if (cardValues.length === 0) {
+                break;
+            }
+        }
     },
 
     onOnlineStatusMessage(data) {
@@ -413,14 +502,15 @@ cc.Class({
         // 初始化手牌
         var index = data.cardsInHandList.length - 1;
         this.schedule(() => {
-            window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.effect.dealCard);
+            // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.effect.dealCard);
             this._appendCardToHandCardDistrict(data.cardsInHandList[index].card);
             index -= 1;
             if (index === -1) {
-                window.Global.Tools.cardsSort(this.handCardDistrict.children);
+                window.DDZ.Tools.orderCard(this.handCardDistrict.children);
                 this._Cache.waitJiaofeng = false;
             }
         }, 0.2, data.cardsInHandList.length - 1);
+
 
         // 初始化其他玩家的手牌数量
         for (var j = 1; j < 3; j += 1) {
@@ -469,6 +559,8 @@ cc.Class({
                     var obj = this.dipaiNode.children[0].children[i];
                     this.handCardDistrict.addChild(this._createCard(obj._userInfo));
                 }
+
+                this._activeChupaiButton(true);
             }
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
@@ -501,7 +593,7 @@ cc.Class({
      * 声音选项
      */
     openSoundPanelOnClick() {
-        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        // window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.Animation.openDialog(cc.instantiate(this.soundPrefab), this.node, () => {
             cc.log('load success');
         });
@@ -511,12 +603,12 @@ cc.Class({
      * 解散房间
      */
     dismissOnClick() {
-        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        // window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.DismissRoom);
     },
 
     voteOnClick(evt, data) {
-        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        // window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.PlayerVote, { flag: data == 1 });
 
         this.voteDismissButton[0].active = false;
@@ -554,11 +646,40 @@ cc.Class({
     },
 
     chupaiOnClick(event, data) {
+        if (data == 0) {
+            var discards = this._getDiscardValues();
+            if (discards.length === 0) {
+                cc.log('没有要出的牌');
+                return;
+            }
+            this._discard(discards);
+        }
+        else if (data == 1) {
 
+        }
+        else if (data == 2) {
+            this._discard([]);
+        }
+    },
+
+    _getDiscardValues() {
+        var discardValues = [];
+        for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
+            var card = this.handCardDistrict.children[i];
+            if (card.getChildByName('Background').getPositionY() > 0) {
+                discardValues.push(card._userData);
+            }
+        }
+        return discardValues;
+    },
+
+    _discard(data) {
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.DiscardDDZ, { cards: data });
+        // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.effect.cardOut);  // 胡牌音效
     },
 
     closeOnClick() {
-        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        // window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
         if (this._Cache.playerList.length !== 3) {
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.ExitRoom, { roomId: this._Cache.roomId });
         } else {
@@ -575,14 +696,28 @@ cc.Class({
     /**
      * 动作提示, 比如: 要不起
      */
-    _hideActionSprite() {
-        for (var i = 0; i < this.actionSprite.length; i++) {
-            this.actionSprite[i].active = false;
+    _hideActionSprite(playerIndex) {
+        if (typeof playerIndex === 'undefined') {
+            for (var i = 0; i < this.actionSprite.length; i++) {
+                for (var j = 0; j < this.actionSprite[i].children.length; j += 1) {
+                    this.actionSprite[i].children[j].active = false;
+                }
+            }
+        }
+        else {
+            for (var j = 0; j < this.actionSprite[playerIndex].children.length; j += 1) {
+                this.actionSprite[playerIndex].children[j].active = false;
+            }
         }
     },
 
-    _showActionSprite(index) {
-        this.actionSprite[index].active = true;
+    _showActionSprite(playerIndex, cardType) {
+        var actionChildren = this.actionSprite[playerIndex].children;
+
+        // todo: 根据不同的牌形显示不同的提示
+        if (cardType === window.DDZ.Config.cardType.PASS) {
+            actionChildren[0].active = true;
+        }
     },
 
     /**
@@ -661,8 +796,8 @@ cc.Class({
         }
     },
 
-    _showChupaiButton(active) {
-        for (let i = 0; i < 3; i += 1) {
+    _activeChupaiButton(active) {
+        for (let i = 0; i < this.chupaiButton.length; i += 1) {
             this.chupaiButton[i].active = active;
         }
     },
@@ -683,7 +818,7 @@ cc.Class({
      * 构造每张牌
      */
     _createCard(card) {
-        var cardValue = window.DDZ.AlgHelper.getCardVo(card);
+        var cardValue = window.DDZ.Tools.getCardVo(card);
         var node;
 
         if (cardValue.suit === 5) {
@@ -719,10 +854,16 @@ cc.Class({
      * @param cards
      * @private
      */
-    _addCardToDiscardDistrict(playerIndex, cards) {
+    _addCardToDiscardDistrict(playerIndex, cards, cardType) {
+        this._hideActionSprite();
+        this.dirtyCardDistrict[playerIndex].removeAllChildren();
         for (var i = 0; i < cards.length; i += 1) {
-            var node = this._createCard(cards[i]);
+            var node = this._createCard(cards[i].card);
             this.dirtyCardDistrict[playerIndex].addChild(node);
+        }
+
+        if (cards.length === 0) {
+            this.actionSprite[playerIndex].children[0].active = true;
         }
     },
 
@@ -833,13 +974,13 @@ cc.Class({
             this.playerInfoList[i].active = false;
             this.inviteButtonList[i].active = true;
             this.clockNode[i].active = false;
-            this.actionSprite[i].active = false;
             this.dirtyCardDistrict[i].removeAllChildren();
         }
         this.handCardDistrict.removeAllChildren();
 
         this._hideJiaofenSprite();
         this._hideActionNode();
+        this._hideActionSprite();
     },
 
     /**
@@ -911,7 +1052,13 @@ cc.Class({
      * @return   {[type]}                 [description]
      */
     _selectCatds() {
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_START, function(event) {
+            this._touchMoveEnum = TouchMoveEnum.Begin;
+            this._touchMoveBeginEvent = event;
+        }, this);
+
         this.handCardDistrict.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
+            this._touchMoveEnum = TouchMoveEnum.Move;
             for (var i = 0; i < this.handCardDistrict.children.length; i++) {
                 var pos = this.handCardDistrict.children[i].convertToNodeSpace(event.getLocation());
                 cc.log([event.getLocation(), pos]);

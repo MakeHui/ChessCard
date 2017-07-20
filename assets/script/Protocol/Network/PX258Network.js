@@ -308,13 +308,14 @@ const PX258Network = cc.Class({
                 cmd: 0x2004, // 2、出牌
                 response: 'DiscardDDZ',
                 message: function (parameters) {
-                    var message = new proto.game.DiscardDDZRequest();
+                    var cardList = [];
                     for (var i = 0; i < parameters.cards.length; i++) {
                         var cardMsg = new proto.game.Card();
                         cardMsg.setCard(parameters.cards[i]);
-                        message.setCard(cardMsg);
+                        cardList.push(cardMsg);
                     }
-
+                    var message = new proto.game.DiscardDDZRequest();
+                    message.setCardList(cardList);
                     return message;
                 },
             },
