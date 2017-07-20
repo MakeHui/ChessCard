@@ -558,10 +558,11 @@ cc.Class({
             if (this._userInfo.playerUuid === data.lairdPlayerUuid) {
                 for (var i = 0; i < this.dipaiNode.children[0].children.length; i++) {
                     var obj = this.dipaiNode.children[0].children[i];
-                    this.handCardDistrict.addChild(this._createCard(obj._userInfo));
+                    this.handCardDistrict.addChild(this._addClickEventToCard(this._createCard(obj._userData)));
                 }
 
                 this._activeChupaiButton(true);
+                window.DDZ.Tools.orderCard(this.handCardDistrict.children);
             }
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
@@ -586,18 +587,12 @@ cc.Class({
 
     onSettleForRoundDDZMessage(data) {
         this._initCardDistrict();
+        this._hideActionNode();
         const self = this;
         const node = cc.instantiate(this.smallAccountPrefab);
-        node.getComponent('SmallAccountScene').init({ data: data, playerInfoList: this._Cache.playerList, currentRound: this._Cache.currentRound, maxRounds: this._Cache.config.max_rounds });
+        node.getComponent('DDZSmallAccount').init({ data: data, playerInfoList: this._Cache.playerList });
         window.Global.Animation.openDialog(node, this.node, () => {
-            for (let i = 0; i < 4; i += 1) {
-                self.handCardDistrict[i].removeAllChildren();
-                self.dirtyCardDistrict[i].removeAllChildren();
-                self.pongKongChowDistrict[i].removeAllChildren();
-            }
-
-            this._initReadyHand();
-            this._hideSelectChiKongPanel();
+            self._hideDipaiNode();
         });
     },
 
@@ -731,11 +726,11 @@ cc.Class({
     readyGameCallback() {
         cc.log('readyGameCallback');
         if (this._Cache.settleForRoomData) {
-            this.onSettleForRoomMessage(this._Cache.settleForRoomData);
-        } else if (this.handCardDistrict[0].children.length == 0) {
+            this.onSettleForRoomDDZMessage(this._Cache.settleForRoomData);
+        } else if (this.handCardDistrict.length === 0) {
             cc.log('readyGameCallback.Ready');
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
-            this.roomInfo[2].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
+            this.roomInfo[1].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
         }
     },
 
@@ -1017,11 +1012,6 @@ cc.Class({
     },
 
     _initScene: function() {
-        this.dipaiNode.children[1].active = true;
-        this.dipaiNode.children[0].removeAllChildren();
-
-        this.waitPanel.active = false;
-
         for (var i = 0; i < this.playerInfoList.length; i++) {
             this.playerInfoList[i].active = false;
             this.inviteButtonList[i].active = true;
@@ -1033,6 +1023,12 @@ cc.Class({
         this._hideJiaofenSprite();
         this._hideActionNode();
         this._hideActionSprite();
+        this._hideDipaiNode();
+    },
+
+    _hideDipaiNode() {
+        this.dipaiNode.children[1].active = true;
+        this.dipaiNode.children[0].removeAllChildren();
     },
 
     /**
