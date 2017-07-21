@@ -1,4 +1,5 @@
 var CardsInspect = require('CardsInspect');
+var ParseData = require('ParseData');
 
 /** 牌型类型解析 helper **/
 var CardTypeHelper = cc.Class({
@@ -14,27 +15,27 @@ var CardTypeHelper = cc.Class({
         var superMissile = CardsInspect.superMissile;
         var parseFourTakeTwo = CardsInspect.parseFourTakeTwo;
         this._processQueue = [
-            [], //0
-            [parseSingle], //1
-            [parsePair, superMissile], //2
-            [parseThree], //3
-            [parseMissile, parseThreeTakeOne], //4
-            [parseContinueSingle, parseThreeTakeTwo], //5
-            [parseContinueSingle, parseContinuePair, parseThree, parseFourTakeTwo], //6
-            [parseContinueSingle], //7
-            [parseContinueSingle, parseContinuePair, parseThreeTakeOne, parseFourTakeTwo], //8
-            [parseContinueSingle, parseThree], //9
-            [parseContinueSingle, parseContinuePair, parseThreeTakeTwo], //10
-            [parseContinueSingle], //11
-            [parseContinueSingle, parseContinuePair, parseThreeTakeOne, parseThree], //12
-            [], //13
-            [parseContinuePair], //14
-            [parseThreeTakeTwo, parseThree], //15
-            [parseContinuePair, parseThreeTakeOne], //16
-            [], //17
-            [parseContinuePair, parseThree], //18
-            [], //19
-            [parseContinuePair, parseThreeTakeOne, parseThreeTakeTwo] //20
+            [], // 0
+            [parseSingle], // 1
+            [parsePair, superMissile], // 2
+            [parseThree], // 3
+            [parseMissile, parseThreeTakeOne], // 4
+            [parseContinueSingle, parseThreeTakeTwo], // 5
+            [parseContinueSingle, parseContinuePair, parseThree, parseFourTakeTwo], // 6
+            [parseContinueSingle], // 7
+            [parseContinueSingle, parseContinuePair, parseThreeTakeOne, parseFourTakeTwo], // 8
+            [parseContinueSingle, parseThree], // 9
+            [parseContinueSingle, parseContinuePair, parseThreeTakeTwo], // 10
+            [parseContinueSingle], // 11
+            [parseContinueSingle, parseContinuePair, parseThreeTakeOne, parseThree], // 12
+            [], // 13
+            [parseContinuePair], // 14
+            [parseThreeTakeTwo, parseThree], // 15
+            [parseContinuePair, parseThreeTakeOne], // 16
+            [], // 17
+            [parseContinuePair, parseThree], // 18
+            [], // 19
+            [parseContinuePair, parseThreeTakeOne, parseThreeTakeTwo] // 20
         ];
     },
 
@@ -45,7 +46,7 @@ var CardTypeHelper = cc.Class({
     parse: function(rawCards) {
         var pd = new ParseData();
         pd.cards = rawCards;
-        pd.parseDataFormat = Alg.genAlgArr(rawCards);
+        pd.parseDataFormat = this.genAlgArr(rawCards);
         var len = pd.cards.length;
         var i;
         var parser = this._processQueue[len];
@@ -59,7 +60,23 @@ var CardTypeHelper = cc.Class({
             }
         }
         return pd;
-    }
+    },
+
+    /**
+     * 生成用于计算的结构数组
+     * @param rawCardArr
+     */
+    genAlgArr: function(rawCardArr) {
+        var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var i;
+        var len = rawCardArr.length;
+        var temp;
+        for (i = 0; i < len; i++) {
+            temp = rawCardArr[i] & 0xff;
+            arr[temp]++;
+        }
+        return arr;
+    },
 });
 
 module.exports = CardTypeHelper;

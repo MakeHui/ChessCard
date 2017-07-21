@@ -1,11 +1,13 @@
 /**
  * 应对玩家出牌提示
  */
+
+var CardsInspect = require('CardsInspect');
+
 var SolutionPlan = cc.Class({
-    ctor: function() {},
 
     /**
-     * @param {ddz.logic.ParseData} outCard
+     * @param {ParseData} outCard
      * @param {Array} selfCards
      */
     parse: function(outCard, selfCards) {
@@ -53,7 +55,7 @@ var SolutionPlan = cc.Class({
         for (i; i <= len; i++) {
             tempArr = this.parseDataFromatArr[i];
             if (tempArr.length == 4) {
-                if (this.parseData.type == ddz.logic.CardType.TYPE_MISSILE) {
+                if (this.parseData.type == CardsInspect.CardType.TYPE_MISSILE) {
                     if (this.parseData.startCard < i) {
                         result.push(tempArr);
                     }
@@ -360,9 +362,9 @@ var ThreeTakeTwoSolution = cc.Class({
                 tempArr.push(this.parseDataFromatArr[j][1]);
                 tempArr.push(this.parseDataFromatArr[j][2]);
             }
-            //从单张中找要带的牌
+            // 从单张中找要带的牌
             carryArr = [];
-            //从对子以下中找要带的单牌
+            // 从对子以下中找要带的单牌
             if (carryArr.length < step * 2) {
                 carryArr = [];
                 for (k = 3; k <= 15; k++) {
@@ -377,7 +379,7 @@ var ThreeTakeTwoSolution = cc.Class({
                     }
                 }
             }
-            //如果对子不够 从包含3张中找单牌
+            // 如果对子不够 从包含3张中找单牌
             if (carryArr.length < step * 2) {
                 carryArr = [];
                 for (k = 3; k <= 15; k++) {
@@ -464,7 +466,7 @@ var ThreeTakeOneSolution = cc.Class({
                 tempArr.push(this.parseDataFromatArr[j][1]);
                 tempArr.push(this.parseDataFromatArr[j][2]);
             }
-            //从单张中找要带的牌
+            // 从单张中找要带的牌
             carryArr = [];
             for (k = 3; k <= 17; k++) {
                 if (this.parseDataFromatArr[k].length == 1) {
@@ -476,7 +478,7 @@ var ThreeTakeOneSolution = cc.Class({
                     break;
                 }
             }
-            //从对子以下中找要带的单牌
+            // 从对子以下中找要带的单牌
             if (carryArr.length < step * 1) {
                 carryArr = [];
                 for (k = 3; k <= 17; k++) {
@@ -503,7 +505,7 @@ var ThreeTakeOneSolution = cc.Class({
                     }
                 }
             }
-            //如果对子不够 从包含3张中找单牌
+            // 如果对子不够 从包含3张中找单牌
             if (carryArr.length < step * 1) {
                 carryArr = [];
                 for (k = 3; k <= 17; k++) {
@@ -625,63 +627,55 @@ var ThreeSolution = cc.Class({
  */
 var SolutionHelper = cc.Class({
     ctor: function() {
-        /** @type{ddz.logic.SolutionPlan} **/
         this._solutionPLan = new SolutionPlan();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._singleSolution = new SingleSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._singleContinueSolution = new SingleContinueSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._pairSolution = new PairSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._pairContinueSolution = new PairContinueSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._threeTakeTwoSolution = new ThreeTakeTwoSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._threeTakeOneSolution = new ThreeTakeOneSolution();
-        /** @type{ddz.logic.SolutionPlan} **/
         this._threeSolution = new ThreeSolution();
     },
 
     /**
-     * @param {ddz.logic.ParseData} parseData
+     * @param {ParseData} parseData
      * @param {Array} selfCards
      */
     parse: function(parseData, selfCards) {
-        /** @type{ddz.logic.SolutionPlan} **/
+        /** @type{SolutionPlan} **/
         var solutionPlan;
         switch (parseData.type) {
-            case ddz.logic.CardType.TYPE_SINGLE:
-                solutionPlan = this._singleSolution;
-                break;
-            case ddz.logic.CardType.TYPE_PAIR:
-                solutionPlan = this._pairSolution;
-                break;
-            case ddz.logic.CardType.TYPE_THREE_TAKE_PAIR:
-                solutionPlan = this._threeTakeTwoSolution;
-                break;
-            case ddz.logic.CardType.TYPE_MISSILE:
-                solutionPlan = this._solutionPLan;
-                break;
-            case ddz.logic.CardType.TYPE_CONTINUE_PAIR:
-                solutionPlan = this._pairContinueSolution;
-                break;
-            case ddz.logic.CardType.TYPE_CONTINUE_SINGLE:
-                solutionPlan = this._singleContinueSolution;
-                break;
-            case ddz.logic.CardType.TYPE_THREE_TAKE_ONE:
-                solutionPlan = this._threeTakeOneSolution;
-                break;
-            case ddz.logic.CardType.TYPE_THREE:
-                solutionPlan = this._threeSolution;
-                break;
-            case ddz.logic.CardType.TYPE_SUPER_MISSILE:
-                return null;
-            default:
-                solutionPlan = this._solutionPLan;
+        case CardsInspect.CardType.TYPE_SINGLE:
+            solutionPlan = this._singleSolution;
+            break;
+        case CardsInspect.CardType.TYPE_PAIR:
+            solutionPlan = this._pairSolution;
+            break;
+        case CardsInspect.CardType.TYPE_THREE_TAKE_PAIR:
+            solutionPlan = this._threeTakeTwoSolution;
+            break;
+        case CardsInspect.CardType.TYPE_MISSILE:
+            solutionPlan = this._solutionPLan;
+            break;
+        case CardsInspect.CardType.TYPE_CONTINUE_PAIR:
+            solutionPlan = this._pairContinueSolution;
+            break;
+        case CardsInspect.CardType.TYPE_CONTINUE_SINGLE:
+            solutionPlan = this._singleContinueSolution;
+            break;
+        case CardsInspect.CardType.TYPE_THREE_TAKE_ONE:
+            solutionPlan = this._threeTakeOneSolution;
+            break;
+        case CardsInspect.CardType.TYPE_THREE:
+            solutionPlan = this._threeSolution;
+            break;
+        case CardsInspect.CardType.TYPE_SUPER_MISSILE:
+            return null;
+        default:
+            solutionPlan = this._solutionPLan;
         }
         if (solutionPlan) {
-            //cc.log("parseData, selfCards:", parseData, selfCards);
+            // cc.log("parseData, selfCards:", parseData, selfCards);
             return solutionPlan.parse(parseData, selfCards);
         }
         return null;

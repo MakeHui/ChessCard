@@ -18,13 +18,13 @@ var FirstOutCardHelper = cc.Class({
      * @param {Array} cards 牌的原值
      */
     parse: function(cards) {
-        var data = ddz.logic.Alg.genAlgArr(cards);
+        var data = this.genAlgArr(cards);
         var i;
         var len = this._checkQueue.length;
         var checkResult;
         var checkHandler;
         var solutionDatas = [];
-        //检测
+        // 检测
         for (i = 0; i < len; i++) {
             checkHandler = this._checkQueue[i];
             checkResult = checkHandler(data);
@@ -40,7 +40,7 @@ var FirstOutCardHelper = cc.Class({
             );
         }
 
-        //提取结果
+        // 提取结果
         if (solutionDatas.length > 0) {
             var solutionResult = [];
             len = solutionDatas.length;
@@ -77,7 +77,23 @@ var FirstOutCardHelper = cc.Class({
         return null;
     },
 
-    //////////////////////////////////找顺子/////////////////////////////////////////////////
+    /**
+     * 生成用于计算的结构数组
+     * @param rawCardArr
+     */
+    genAlgArr: function(rawCardArr) {
+        var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        var i;
+        var len = rawCardArr.length;
+        var temp;
+        for (i = 0; i < len; i++) {
+            temp = rawCardArr[i] & 0xff;
+            arr[temp]++;
+        }
+        return arr;
+    },
+
+    // ////////////////////////////////找顺子/////////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -121,7 +137,7 @@ var FirstOutCardHelper = cc.Class({
     },
 
 
-    ////////////////////////////////////找连对///////////////////////////////////////////////
+    // //////////////////////////////////找连对///////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -165,7 +181,7 @@ var FirstOutCardHelper = cc.Class({
         return result;
     },
 
-    ////////////////////////////找飞机 --带X * n/////////////////////////////////////////////
+    // //////////////////////////找飞机 --带X * n/////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -209,7 +225,7 @@ var FirstOutCardHelper = cc.Class({
             result.push(i);
             datas[i] -= 3;
         }
-        //带 一张
+        // 带 一张
         var takeArr = [];
         for (i = 3; i <= 15; i++) {
             if (datas[i] == 1) {
@@ -221,7 +237,7 @@ var FirstOutCardHelper = cc.Class({
             result = result.concat(takeArr);
             return result;
         }
-        //带 一对 
+        // 带 一对
         takeArr = [];
         for (i = 3; i <= 15; i++) {
             if (datas[i] == 2) {
@@ -235,7 +251,7 @@ var FirstOutCardHelper = cc.Class({
             return result;
         }
 
-        //带 两张  单张 一对 三张的组合
+        // 带 两张  单张 一对 三张的组合
         takeArr = [];
         for (i = 3; i <= 15; i++) {
             if (datas[i] == 2) {
@@ -259,7 +275,7 @@ var FirstOutCardHelper = cc.Class({
         return result;
     },
 
-    /////////////////////////////////////找对子 ///////////////////////////////////////////////
+    // ///////////////////////////////////找对子 ///////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -267,18 +283,18 @@ var FirstOutCardHelper = cc.Class({
     pickPair: function(datas) {
         var i = 3;
         var solutions = [];
-        var solLen = 0;
+        // var solLen = 0;
         var len = 15;
         for (i; i <= len; i++) {
             if (datas[i] == 2) {
-                solLen = solutions.length;
+                // solLen = solutions.length;
                 solutions.push([i, i]);
             }
         }
         return solutions;
     },
 
-    /////////////////////////////////////找单张 ///////////////////////////////////////////////
+    // ///////////////////////////////////找单张 ///////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -286,17 +302,17 @@ var FirstOutCardHelper = cc.Class({
     pickSingle: function(datas) {
         var i = 3;
         var solutions = [];
-        var solLen = 0;
+        // var solLen = 0;
         var len = 17;
         for (i; i <= len; i++) {
             if (datas[i] == 1) {
-                solutions.push([i])
+                solutions.push([i]);
             }
         }
         return solutions;
     },
 
-    /////////////////////////////////////找炸弹 ///////////////////////////////////////////////
+    // ///////////////////////////////////找炸弹 ///////////////////////////////////////////////
     /**
      * @param {Array} datas
      * @returns {*}
@@ -305,7 +321,7 @@ var FirstOutCardHelper = cc.Class({
         datas = datas.concat();
         var i = 3;
         var solutions = [];
-        var sloLen = 0;
+        // var sloLen = 0;
         var len = 15;
         for (i; i <= len; i++) {
             if (datas[i] == 4) {

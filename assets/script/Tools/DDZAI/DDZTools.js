@@ -56,7 +56,7 @@ var DDZTools = cc.Class({
         /**
          * 获取牌型
          * @param rawCards 牌原值数组
-         * @returns {ddz.logic.ParseData}
+         * @returns {ParseData}
          */
         getCardType: function(rawCards) {
             return this.cardTypeHelper.parse(rawCards);
@@ -73,7 +73,7 @@ var DDZTools = cc.Class({
 
         /**
          * 获取应对玩家出牌的解决方案
-         * @param {ddz.logic.ParseData} parseData 玩家出牌的牌型数据 通过 ddz.logic.this.getCardType 获得
+         * @param {ParseData} parseData 玩家出牌的牌型数据 通过 ddz.logic.this.getCardType 获得
          * @param selfCards 自己手牌原数据
          * @returns {Array.<Array>}
          */
@@ -121,8 +121,12 @@ var DDZTools = cc.Class({
         /**
          * 获取牌形数组 用于出牌排序
          */
-        getPDOrderArr: function() {
-
+        getCardValues: function(cards) {
+            var values = [];
+            for (var i = 0; i < cards.length; i += 1) {
+                values.push(cards[i]._userData || cards[i].card);
+            }
+            return values;
         },
 
         /**

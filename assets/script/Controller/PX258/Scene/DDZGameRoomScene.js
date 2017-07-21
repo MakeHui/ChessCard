@@ -67,6 +67,11 @@ cc.Class({
         this._Cache.currentRound = 0; // 局数
         this._Cache.config = {}; // 房间信息
         this._Cache.robScore = -1;  // 叫分时最高分数
+        this._Cache.outCardHelperData = []; // 出牌提示数据
+        this._Cache.outCardHelperIndex = 0; // 提示出牌索引
+        this._Cache.firstOutCard = true;    // 是否是第一次出牌
+        this._Cache.lastOutCards = [];      // 最后一次出的牌
+        this._Cache.lastOutCardsPlayerUuid = '';    // 最后一次出牌玩家的 uuid
 
         cc.log(window.Global.Config.tempCache);
         if (window.Global.Config.tempCache) {
@@ -317,23 +322,6 @@ cc.Class({
         if (data.prevDiscardPlayerUuid) {
             var prevDiscardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.prevDiscardPlayerUuid));
             this._addCardToDiscardDistrict(prevDiscardPlayerIndex, data.prevDiscardCardsList);
-
-            // 判断最后出牌玩家是谁, 如果是自己那么就表示你的上家pass
-            // if (prevDiscardPlayerIndex === 2) {
-            //     this._showActionSprite(0, window.DDZ.Config.cardType.PASS);
-            //     this._showActionSprite(1, window.DDZ.Config.cardType.PASS);
-            // }
-            // else if (prevDiscardPlayerIndex === 1) {
-            //     this._showActionSprite(2, window.DDZ.Config.cardType.PASS);
-            //     this._showActionSprite(0, window.DDZ.Config.cardType.PASS);
-            // }
-            // else if (prevDiscardPlayerIndex === 0) {
-            //     this._showActionSprite(1, window.DDZ.Config.cardType.PASS);
-            //     this._showActionSprite(2, window.DDZ.Config.cardType.PASS);
-            // }
-            //
-            // var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
-            // this._hideActionSprite(discardPlayerIndex);
         }
 
         // 判断当前出牌玩家
@@ -341,22 +329,25 @@ cc.Class({
             this.dirtyCardDistrict[0].removeAllChildren();
             this._activeChupaiButton(true);
             this._hideActionSprite(0);
+
+            this._Cache.lastOutCards = data.prevDiscardCardsList;
+            this._Cache.lastOutCardsPlayerUuid = data.prevDiscardPlayerUuid;
         }
 
         this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
     },
 
     onDiscardDDZMessage(data) {
-        if (data.cardType === window.DDZ.Config.cardType.ERRO) {
-            cc.log('非法牌形');
-            return;
-        }
-
         var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._addCardToDiscardDistrict(playerIndex, data.cardList);
 
         // todo: 出牌音效
         // // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+
+        if (data.cardList.length !== 0) {
+            this._Cache.lastOutCards = data.cardList;
+            this._Cache.lastOutCardsPlayerUuid = data.playerUuid;
+        }
 
         if (this._userInfo.playerUuid === data.playerUuid) {
             this._activeChupaiButton(false);
@@ -367,34 +358,7 @@ cc.Class({
         if (data.nextDiscardPlayerUuid === this._userInfo.playerUuid) {
             this._activeChupaiButton(true);
             this.dirtyCardDistrict[0].removeAllChildren();
-        }
-    },
-
-    _deleteHandCardByCode(values) {
-        var cardValues = [];
-        if (values[0]) {
-            for (var i = 0; i < values.length; i += 1) {
-                cardValues.push(values[i].card);
-            }
-        }
-        else {
-            cardValues = values;
-        }
-
-        if (cardValues.length === 0) {
-            return;
-        }
-
-        for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
-            var card = this.handCardDistrict.children[i];
-            var index = cardValues.indexOf(card._userData);
-            if (index !== -1) {
-                card.destroy();
-                cardValues.splice(index, 1);
-            }
-            if (cardValues.length === 0) {
-                break;
-            }
+            this._outCardHint();
         }
     },
 
@@ -570,7 +534,7 @@ cc.Class({
             if (this._userInfo.playerUuid === data.lairdPlayerUuid) {
                 for (var i = 0; i < this.dipaiNode.children[0].children.length; i++) {
                     var obj = this.dipaiNode.children[0].children[i];
-                    this.handCardDistrict.addChild(this._addClickEventToCard(this._createCard(obj._userData)));
+                    this.handCardDistrict.addChild(this._createCard(obj._userData));
                 }
 
                 this._activeChupaiButton(true);
@@ -813,7 +777,25 @@ cc.Class({
             this._discard(discards);
         }
         else if (data == 1) {
-
+            if (this._Cache.outCardHelperData.length === 0) {
+                cc.log('显示没有更大牌的提示');
+                return;
+            }
+            if (this._Cache.outCardHelperData.length <= this._Cache.outCardHelperIndex) {
+                this._Cache.outCardHelperIndex = 0;
+            }
+            this._resetHandCardPosition();
+            var outCardHelperData = this._Cache.outCardHelperData[this._Cache.outCardHelperIndex];
+            for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
+                var obj = this.handCardDistrict.children[i];
+                for (var j = 0; j < outCardHelperData.length; j += 1) {
+                    var data = outCardHelperData[j];
+                    if (obj._userData === data) {
+                        obj.setPositionY(24);
+                    }
+                }
+            }
+            this._Cache.outCardHelperIndex += 1;
         }
         else if (data == 2) {
             this._discard([]);
@@ -852,10 +834,10 @@ cc.Class({
      **/
 
     readyGameCallback() {
-        cc.log('readyGameCallback');
         if (this._Cache.settleForRoomData) {
             this.onSettleForRoomDDZMessage(this._Cache.settleForRoomData);
-        } else if (this.handCardDistrict.length === 0) {
+        }
+        else if (this.handCardDistrict.children.length === 0) {
             cc.log('readyGameCallback.Ready');
             window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Ready);
             this.roomInfo[1].string = `局数: ${this._Cache.currentRound += 1}/${this._Cache.config.max_rounds}`;
@@ -976,7 +958,6 @@ cc.Class({
             this.chupaiButton[i].active = active;
         }
     },
-    // TODO: 出牌按钮显示逻辑相对复杂
 
     /**
      * 添加牌到手牌区
@@ -985,7 +966,7 @@ cc.Class({
      * @private
      */
     _appendCardToHandCardDistrict(card) {
-        var node = this._addClickEventToCard(this._createCard(card));
+        var node = this._createCard(card);
         this.handCardDistrict.addChild(node);
     },
 
@@ -1015,13 +996,6 @@ cc.Class({
         return node;
     },
 
-    _addClickEventToCard(node) {
-        // var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
-        // node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
-
-        return node;
-    },
-
     /**
      * 添加牌到打出去的区域
      *
@@ -1041,6 +1015,7 @@ cc.Class({
             this.actionSprite[playerIndex].children[0].active = true;
         }
 
+        // todo: 根据牌形添加不同的提示贴图
         if (cardType) {
 
         }
@@ -1277,5 +1252,50 @@ cc.Class({
         this.handCardDistrict.on(cc.Node.EventType.TOUCH_END, this._touchEndBySelectCards, this);
         this.handCardDistrict.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEndBySelectCards, this);
     },
+
+    _deleteHandCardByCode(values) {
+        var cardValues = [];
+        if (values[0]) {
+            for (var i = 0; i < values.length; i += 1) {
+                cardValues.push(values[i].card);
+            }
+        }
+        else {
+            cardValues = values;
+        }
+
+        if (cardValues.length === 0) {
+            return;
+        }
+
+        for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
+            var card = this.handCardDistrict.children[i];
+            var index = cardValues.indexOf(card._userData);
+            if (index !== -1) {
+                card.destroy();
+                cardValues.splice(index, 1);
+            }
+            if (cardValues.length === 0) {
+                break;
+            }
+        }
+    },
+
+    /**
+     * 计算出牌提示
+     * @private
+     */
+    _outCardHint() {
+        var selfCardValues = window.DDZ.Tools.getCardValues(this.handCardDistrict.children);
+        if (this._Cache.lastOutCardsPlayerUuid !== this._userInfo.playerUuid) {
+            var prevDiscardCardValues = window.DDZ.Tools.getCardValues(this._Cache.lastOutCards);
+            var cardType = window.DDZ.Tools.getCardType(prevDiscardCardValues);
+            this._Cache.outCardHelperData = window.DDZ.Tools.solutionHelper.parse(cardType, selfCardValues);
+        }
+        else {
+            this._Cache.outCardHelperData = window.DDZ.Tools.firstOutCardHelper.parse(selfCardValues);
+        }
+        this._Cache.outCardHelperIndex = 0;
+    }
 
 });
