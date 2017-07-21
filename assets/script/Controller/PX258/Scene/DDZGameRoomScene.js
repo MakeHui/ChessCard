@@ -14,6 +14,7 @@ cc.Class({
         userInfoPrefab: cc.Prefab,
         smallAccountPrefab: cc.Prefab,
         bigAccountPrefab: cc.Prefab,
+        soundPrefab: cc.Prefab,
 
         roomInfo: [cc.Label],
         waitPanel: cc.Node,
@@ -38,14 +39,20 @@ cc.Class({
         chupaiButton: [cc.Node],
         jiaofenSprate: [cc.Node],
 
-        voiceButton: cc.Node,
-
         // 解散房间
         voteDismiss: cc.Node,
         voteSponsor: cc.Label,
         voteExpireSeconds: cc.Label,
         votePlayers: [cc.Node],
         voteDismissButton: [cc.Node],
+
+        // 聊天面板
+        fastChatPanel: cc.Node,
+        fastChatProgressBar: cc.ProgressBar,
+        voiceButton: cc.Node,
+        voiceProgressBar: cc.ProgressBar,
+        chatList: [cc.Node],
+        emojiList: [cc.Prefab],
     },
 
     onLoad() {
@@ -105,6 +112,11 @@ cc.Class({
         this.voiceButton.on(cc.Node.EventType.TOUCH_CANCEL, this.onVoiceEndCallback, this);
 
         this._selectCatds();
+        this._initScene();
+    },
+
+    update() {
+        this.roomInfo[4].string = window.Global.Tools.formatDatetime('hh:ii:ss');
     },
 
     onVoiceEndCallback: function() {
@@ -585,6 +597,68 @@ cc.Class({
         }
     },
 
+    onSpeakerMessage(data) {
+        data.content = JSON.parse(data.content);
+
+        // 语音
+        if (data.content.type === 3 && this._userInfo.playerUuid !== data.playerUuid) {
+            if (cc.sys.os === cc.sys.OS_IOS) {
+                var filePath = data.content.data.replace(window.Global.Config.aliyunOss.domain, '');
+                window.Global.NativeExtensionManager.execute('ossDownload', [window.Global.Config.aliyunOss.bucketName, filePath], (result) => {
+                    if (result.result == 0) {
+                        window.Global.NativeExtensionManager.execute('playerAudio', [result.data]);
+                    }
+                });
+            } else if (cc.sys.os === cc.sys.OS_ANDROID) {
+                window.Global.NativeExtensionManager.execute('playerAudio', [data.content.data]);
+            }
+            return;
+        }
+
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === data.playerUuid) {
+                const playerIndex = this._getPlayerIndexBySeat(this._Cache.playerList[i].seat);
+                const self = this;
+
+                // 评论
+                if (data.content.type === 1) {
+                    window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    const text = window.Global.Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
+                    this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
+                    this.chatList[playerIndex].active = true;
+                    this.scheduleOnce(() => {
+                        self.chatList[playerIndex].active = false;
+                    }, 3);
+                }
+                // 表情
+                else if (data.content.type === 2) {
+                    const node = cc.instantiate(this.emojiList[data.content.data - 1]);
+                    if (playerIndex === 0) {
+                        node.setPosition(0, -126);
+                    }
+                    else if (playerIndex === 1) {
+                        node.setPosition(162, 0);
+                        node.rotation = 270;
+                    }
+                    else if (playerIndex === 2) {
+                        node.setPosition(0, 126);
+                        node.rotation = 180;
+                    }
+                    else if (playerIndex === 3) {
+                        node.setPosition(-162, 0);
+                        node.rotation = 90;
+                    }
+
+                    this.node.addChild(node);
+                    this.scheduleOnce(() => {
+                        node.destroy();
+                    }, 3);
+                }
+                break;
+            }
+        }
+    },
+
     onSettleForRoundDDZMessage(data) {
         this._initCardDistrict();
         this._hideActionNode();
@@ -648,20 +722,74 @@ cc.Class({
     },
 
     /**
-     * 出牌
-     *
-     * @param event
-     * @param data
+     * 微信邀请
      */
-    selectedHandCardOnClick(event) {
-        cc.log(event.target.getPositionY());
-        if (event.target.getPositionY() === 0) {
-            event.target.setPositionY(24);
+    wechatInviteOnClick() {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+
+        const hasWechat = window.Global.NativeExtensionManager.execute('wechatIsWxAppInstalled');
+        if (!hasWechat) {
+            cc.log('MyRoomPrefab.shareOnClick: 没有安装微信');
+            return;
         }
-        else {
-            event.target.setPositionY(0);
+
+        var shareInfo = window.Global.Tools.createWechatShareInfo(this._Cache.config, this._Cache.roomId);
+        window.Global.NativeExtensionManager.execute('wechatLinkShare', [window.Global.Config.downloadPage, shareInfo[0], shareInfo[1]]);
+        cc.log('shareOnClick');
+    },
+
+    closeDialogOnClick() {
+        // 检查是否关闭聊天面板
+        if (this.fastChatPanel.getPositionX() < 568) {
+            this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
         }
     },
+
+    openFastChatPanelOnClick() {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        if (this.fastChatProgressBar.progress <= 0) {
+            var animationName = (this.fastChatPanel.getPositionX() >= 568) ? 'OpenFastChatPanel' : 'CloseFastChatPanel';
+            this.fastChatPanel.getComponent(cc.Animation).play(animationName);
+        }
+    },
+
+    switchFastChatPanelOnClick(evt, data) {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        if (data == 1) {
+            this.fastChatPanel.getChildByName('fastChatView1').active = true;
+            this.fastChatPanel.getChildByName('fastChatView2').active = false;
+        } else {
+            this.fastChatPanel.getChildByName('fastChatView1').active = false;
+            this.fastChatPanel.getChildByName('fastChatView2').active = true;
+        }
+    },
+
+    wordChatOnClick(evt, data) {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        const content = JSON.stringify({ type: 1, data });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Speaker, { content });
+
+        this.fastChatProgressBar.progress = 1.0;
+        this.schedule(function() {
+            this.fastChatProgressBar.progress -= 0.0025;
+        }, 0.005, 400);
+
+        this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
+    },
+
+    emojiChatOnClick(evt, data) {
+        window.Global.SoundEffect.playEffect(window.Global.Config.audioUrl.effect.buttonClick);
+        const content = JSON.stringify({ type: 2, data });
+        window.Global.NetworkManager.sendSocketMessage(window.PX258.NetworkConfig.WebSocket.Speaker, { content });
+
+        this.fastChatProgressBar.progress = 1.0;
+        this.schedule(function() {
+            this.fastChatProgressBar.progress -= 0.0025;
+        }, 0.005, 400);
+
+        this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
+    },
+
 
     /**
      * 叫分模式按钮回调
@@ -696,7 +824,7 @@ cc.Class({
         var discardValues = [];
         for (var i = 0; i < this.handCardDistrict.children.length; i += 1) {
             var card = this.handCardDistrict.children[i];
-            if (card.getChildByName('Background').getPositionY() > 0) {
+            if (card.getPositionY() > 0) {
                 discardValues.push(card._userData);
             }
         }
@@ -888,8 +1016,8 @@ cc.Class({
     },
 
     _addClickEventToCard(node) {
-        var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
-        node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
+        // var clickEventHandler = window.Global.Tools.createEventHandler(this.node, 'DDZGameRoomScene', 'selectedHandCardOnClick');
+        // node.getChildByName('Background').getComponent(cc.Button).clickEvents[0] = clickEventHandler;
 
         return node;
     },
@@ -911,6 +1039,10 @@ cc.Class({
 
         if (cards.length === 0) {
             this.actionSprite[playerIndex].children[0].active = true;
+        }
+
+        if (cardType) {
+
         }
     },
 
@@ -1100,25 +1232,26 @@ cc.Class({
      * @return   {[type]}                 [description]
      */
     _selectCatds() {
-        this.handCardDistrict.on(cc.Node.EventType.TOUCH_START, function(event) {
-            this._touchMoveEnum = TouchMoveEnum.Begin;
-            this._touchMoveBeginEvent = event;
-        }, this);
-
-        this.handCardDistrict.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
+        this._touchMoveBySelectCards = function(event) {
+            cc.log('cc.Node.EventType.TOUCH_MOVE');
             this._touchMoveEnum = TouchMoveEnum.Move;
             for (var i = 0; i < this.handCardDistrict.children.length; i++) {
                 var pos = this.handCardDistrict.children[i].convertToNodeSpace(event.getLocation());
                 cc.log([event.getLocation(), pos]);
-                cc.log('cc.Node.EventType.TOUCH_MOVE');
+                // 修正右手第一张牌的选取范围
+                var endPosX = i === (this.handCardDistrict.children.length - 1) ? 106 : 40;
                 // 是否被选中
-                if (pos.x > 0 && pos.x <= 24) {
+                if (pos.x > 0 && pos.x <= endPosX) {
                     this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active = true;
                 }
             }
-        }, this);
+        };
 
-        this._touchEndBySelectCatds = function() {
+        this._touchEndBySelectCards = function() {
+            cc.log('cc.Node.EventType.TOUCH_END');
+            if (this._touchMoveEnum === TouchMoveEnum.Begin) {
+                this._touchMoveBySelectCards(this._touchMoveBeginEvent);
+            }
             for (var i = 0; i < this.handCardDistrict.children.length; i++) {
                 // 设置牌是否为选中状态
                 cc.log(this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active);
@@ -1131,11 +1264,18 @@ cc.Class({
                 }
                 this.handCardDistrict.children[i].getChildByName('Background').getChildByName('mask').active = false;
             }
-            cc.log('cc.Node.EventType.TOUCH_END');
+            this._touchMoveEnum = TouchMoveEnum.End;
         };
 
-        this.handCardDistrict.on(cc.Node.EventType.TOUCH_END, this._touchEndBySelectCatds, this);
-        this.handCardDistrict.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEndBySelectCatds, this);
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_START, function(event) {
+            cc.log('c.Node.EventType.TOUCH_START');
+            this._touchMoveEnum = TouchMoveEnum.Begin;
+            this._touchMoveBeginEvent = event;
+        }, this);
+
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_MOVE, this._touchMoveBySelectCards, this);
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_END, this._touchEndBySelectCards, this);
+        this.handCardDistrict.on(cc.Node.EventType.TOUCH_CANCEL, this._touchEndBySelectCards, this);
     },
 
 });
