@@ -326,12 +326,14 @@ cc.Class({
 
         // 判断当前出牌玩家
         if (data.discardPlayerUuid === this._userInfo.playerUuid) {
+            this._Cache.lastOutCards = data.prevDiscardCardsList;
+            this._Cache.lastOutCardsPlayerUuid = data.prevDiscardPlayerUuid;
+
             this.dirtyCardDistrict[0].removeAllChildren();
             this._activeChupaiButton(true);
             this._hideActionSprite(0);
-
-            this._Cache.lastOutCards = data.prevDiscardCardsList;
-            this._Cache.lastOutCardsPlayerUuid = data.prevDiscardPlayerUuid;
+            this._showClockNode(0);
+            this._outCardHint();
         }
 
         this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
@@ -340,6 +342,8 @@ cc.Class({
     onDiscardDDZMessage(data) {
         var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._addCardToDiscardDistrict(playerIndex, data.cardList);
+
+        this._hideClockNode();
 
         // todo: 出牌音效
         // // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
@@ -359,6 +363,7 @@ cc.Class({
             this._activeChupaiButton(true);
             this.dirtyCardDistrict[0].removeAllChildren();
             this._outCardHint();
+            this._showClockNode(0);
         }
     },
 
@@ -539,6 +544,8 @@ cc.Class({
 
                 this._activeChupaiButton(true);
                 window.DDZ.Tools.orderCard(this.handCardDistrict.children);
+                this._Cache.lastOutCardsPlayerUuid = this._userInfo.playerUuid;
+                this._outCardHint();
             }
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
@@ -754,7 +761,6 @@ cc.Class({
         this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
     },
 
-
     /**
      * 叫分模式按钮回调
      */
@@ -886,9 +892,16 @@ cc.Class({
         }
     },
 
-    _showClockNode(index) {
-        this.clockNode[index].active = true;
-        // this.clockNode[index].getComponent(cc.Animation).play();
+    _showClockNode(playerIndex) {
+        this.clockNode[playerIndex].active = true;
+        var time = 30;
+        this.schedule(function () {
+            this.clockNode[playerIndex].getChildByName('Number').getComponent(cc.Label).string = time;
+            time -= 1;
+            if (time === -1) {
+                this.clockNode[playerIndex].active = false;
+            }
+        }, 1, 30);
     },
 
     /**
@@ -1122,7 +1135,6 @@ cc.Class({
         for (var i = 0; i < this.playerInfoList.length; i++) {
             this.playerInfoList[i].active = false;
             this.inviteButtonList[i].active = true;
-            this.clockNode[i].active = false;
             this.dirtyCardDistrict[i].removeAllChildren();
         }
         this.handCardDistrict.removeAllChildren();
@@ -1131,6 +1143,7 @@ cc.Class({
         this._hideActionNode();
         this._hideActionSprite();
         this._hideDipaiNode();
+        this._hideClockNode();
     },
 
     _hideDipaiNode() {
@@ -1287,7 +1300,7 @@ cc.Class({
      */
     _outCardHint() {
         var selfCardValues = window.DDZ.Tools.getCardValues(this.handCardDistrict.children);
-        if (this._Cache.lastOutCardsPlayerUuid !== this._userInfo.playerUuid) {
+        if (this._Cache.lastOutCardsPlayerUuid && this._Cache.lastOutCardsPlayerUuid !== this._userInfo.playerUuid) {
             var prevDiscardCardValues = window.DDZ.Tools.getCardValues(this._Cache.lastOutCards);
             var cardType = window.DDZ.Tools.getCardType(prevDiscardCardValues);
             this._Cache.outCardHelperData = window.DDZ.Tools.solutionHelper.parse(cardType, selfCardValues);
