@@ -21,7 +21,18 @@ cc.Class({
         window.Global.Tools.setLocalData(window.Global.Config.LSK.playMusicConfig, this.playMusicConfig);
 
         if (this.playMusicConfig.music) {
-            window.Global.SoundEffect.backgroundMusicPlay();
+            if (this.node.name === 'Setting') {
+                window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.menu, true);
+            }
+            else {
+                var canvasName = cc.director.getScene().name;
+                if (canvasName === 'GameRoom') {
+                    window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.game, true);
+                }
+                else {
+                    window.Global.SoundEffect.backgroundMusicPlay(window.DDZ.Config.audioUrl.background, true);
+                }
+            }
         }
         else {
             window.Global.SoundEffect.backgroundMusicStop();

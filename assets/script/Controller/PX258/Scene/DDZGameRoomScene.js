@@ -72,6 +72,8 @@ cc.Class({
         this._Cache.lastOutCardsPlayerUuid = '';    // 最后一次出牌玩家的 uuid
         this._Cache.dealCard = false;   // 是否是在发牌
 
+        window.Global.SoundEffect.backgroundMusicPlay(window.DDZ.Config.audioUrl.background, true);
+
         if (window.Global.Config.tempCache) {
             const self = this;
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
@@ -120,6 +122,10 @@ cc.Class({
 
     update() {
         this.roomInfo[4].string = window.Global.Tools.formatDatetime('hh:ii:ss');
+    },
+
+    onDestroy() {
+        window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.menu, true);
     },
 
     onVoiceEndCallback: function() {
@@ -348,13 +354,15 @@ cc.Class({
     },
 
     onDiscardDDZMessage(data) {
+        this._hideClockNode();
+
         var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._addCardToDiscardDistrict(playerIndex, data.cardList);
 
-        this._hideClockNode();
+        var playerInfo = this._getInfoByPlayerUuid(data.playerUuid);
+        this._outCardEffect(data.cardType, data.cardList, playerInfo.sex);
 
-        // todo: 出牌音效
-        // // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[this._userInfo.sex === 1 ? 'man' : 'woman'][data.card.card]);
+        this._setCardNumber(playerIndex, data.cardList.length);
 
         if (data.cardList.length !== 0) {
             this._Cache.lastOutCards = data.cardList;
@@ -366,12 +374,21 @@ cc.Class({
             this._deleteHandCardByCode(data.cardList);
         }
 
+        var cardNumber = this._getCardNumber(playerIndex);
+        if (cardNumber === 1) {
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].baojing1);
+        }
+        else if (cardNumber === 2) {
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].baojing2);
+        }
+
         // 出牌玩家
         if (data.nextDiscardPlayerUuid === this._userInfo.playerUuid) {
             this._activeChupaiButton(true);
             this.dirtyCardDistrict[0].removeAllChildren();
             this._outCardHint();
         }
+
         var nextDiscardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.nextDiscardPlayerUuid));
         this._showClockNode(nextDiscardPlayerIndex);
     },
@@ -493,7 +510,7 @@ cc.Class({
         // 初始化手牌
         var index = data.cardsInHandList.length - 1;
         this.schedule(() => {
-            // window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.effect.dealCard);
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.effect.comm_deal_sound);
             this._appendCardToHandCardDistrict(data.cardsInHandList[index].card);
             index -= 1;
             if (index === -1) {
@@ -520,6 +537,28 @@ cc.Class({
     },
 
     onRobDDZMessage(data) {
+        // 音频
+        var playerInfo = this._getInfoByPlayerUuid(data.playerUuid);
+        if ((this._Cache.config.options & 0b10) !== 0) {
+            if (data.flag === 1) {
+                window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].order);
+            }
+            else {
+                window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].noRob);
+            }
+        }
+        else if (data.score === 0) {
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].noRob);
+        }
+        else if (data.score > 0) {
+            if (this._Cache.robScore === -1 || this._Cache.robScore === 0) {
+                window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].order);
+            }
+            else {
+                window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[playerInfo.sex === 1 ? 'man' : 'woman'].rob1);
+            }
+        }
+
         // 更新叫分时的最高分
         if (this._Cache.robScore < data.score) {
             this._Cache.robScore = data.score;
@@ -602,7 +641,7 @@ cc.Class({
 
                 // 评论
                 if (data.content.type === 1) {
-                    window.Global.SoundEffect.playEffect(window.PX258.Config.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
+                    window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.fastChat[`fw_${this._Cache.playerList[i].info.sex === 1 ? 'male' : 'female'}_${data.content.data}`]);
                     const text = window.Global.Tools.findNode(this.fastChatPanel, `fastChatView1>content>fastViewItem${data.content.data}>Label`).getComponent(cc.Label).string;
                     this.chatList[playerIndex].getChildByName('txtMsg').getComponent(cc.Label).string = text;
                     this.chatList[playerIndex].active = true;
@@ -1032,7 +1071,7 @@ cc.Class({
      * @param cards
      * @private
      */
-    _addCardToDiscardDistrict(playerIndex, cards, cardType) {
+    _addCardToDiscardDistrict(playerIndex, cards) {
         this._hideActionSprite();
         this.dirtyCardDistrict[playerIndex].removeAllChildren();
         for (var i = 0; i < cards.length; i += 1) {
@@ -1044,9 +1083,60 @@ cc.Class({
             this.actionSprite[playerIndex].children[0].active = true;
         }
 
-        // todo: 根据牌形添加不同的提示贴图
-        if (cardType) {
+        window.DDZ.Tools.orderCard(this.dirtyCardDistrict[playerIndex].children);
+    },
 
+    _outCardEffect(cardType, data, sex) {
+        sex = sex || 1;
+        sex = sex === 1 ? 'man' : 'woman';
+        switch (cardType) {
+        case window.DDZ.Config.cardType.DANZ:  // 单张
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex][`dz_${data[0].card}`]);
+            break;
+        case window.DDZ.Config.cardType.YDUI:  // 一对
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex][`dui_${data[0].card}`]);
+            break;
+        case window.DDZ.Config.cardType.SANZ:  // 三张牌（什么也不带）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].sange);
+            break;
+        case window.DDZ.Config.cardType.SDYI:  // 三带一（带一张单牌）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].sandaiyi);
+            break;
+        case window.DDZ.Config.cardType.SDER:  // 三带二（带一对）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].sandaiyidui);
+            break;
+        case window.DDZ.Config.cardType.DANS:  // 单顺子
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].shunzi);
+            break;
+        case window.DDZ.Config.cardType.LDUI:  // 连对（双顺子）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].liandui);
+            break;
+        case window.DDZ.Config.cardType.SANS:  // 三顺子，飞机（什么都不带）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].feiji);
+            break;
+        case window.DDZ.Config.cardType.SSDY:  // 三顺子，飞机（带单牌）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].feiji);
+            break;
+        case window.DDZ.Config.cardType.SSDE:  // 三顺子，飞机（带对）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].feiji);
+            break;
+        case window.DDZ.Config.cardType.ZHAD:  // 炸弹
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].zhadan);
+            break;
+        case window.DDZ.Config.cardType.HUOJ:  // 王炸，火箭
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].wangzha);
+            break;
+        case window.DDZ.Config.cardType.SDLZ:  // 四带二（带两张单牌）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].sidaier);
+            break;
+        case window.DDZ.Config.cardType.SDLD:  // 四带二（带两对）
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex].sidaier);
+            break;
+        case window.DDZ.Config.cardType.PASS:  // pass
+            window.Global.SoundEffect.playEffect(window.DDZ.Config.audioUrl.common[sex][`buyao${Math.ceil(Math.random() * 4)}`]);
+            break;
+        default:
+            break;
         }
     },
 
@@ -1179,6 +1269,15 @@ cc.Class({
         return -1;
     },
 
+    _getInfoByPlayerUuid(playerUuid) {
+        for (let i = 0; i < this._Cache.playerList.length; i += 1) {
+            if (this._Cache.playerList[i].playerUuid === playerUuid) {
+                return this._Cache.playerList[i].info;
+            }
+        }
+        return -1;
+    },
+
     _getPlayerIndexBySeat(playerSeat) {
         var displaySeat = playerSeat - this._Cache.thisPlayerSeat;
         return (displaySeat < 0 ? displaySeat + 3 : displaySeat);
@@ -1219,6 +1318,22 @@ cc.Class({
         var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
         cardNumberNode.active = true;
         cardNumberNode.getChildByName('Number').getComponent(cc.Label).string = number;
+    },
+
+    _getCardNumber(playerIndex) {
+        if (playerIndex === 0) {
+            return this.handCardDistrict.childrenCount;
+        }
+        var cardNumberNode = this.playerInfoList[playerIndex].getChildByName('cardNumber');
+        return cardNumberNode.getChildByName('Number').getComponent(cc.Label).string;
+    },
+
+    _setCardNumber(playerIndex, num) {
+        if (playerIndex === 0) {
+            return;
+        }
+        var cardNumber = this._getCardNumber(playerIndex) - num;
+        this._showCardNumber(playerIndex, cardNumber);
     },
 
     _resetHandCardPosition() {

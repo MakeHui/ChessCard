@@ -30,7 +30,7 @@ cc.Class({
         window.Global.Animation = this.node.getComponent('Animation');
         window.Global.Tools = this.node.getComponent('Tools');
         window.Global.Dialog = this.node.getComponent('Dialog');
-        window.Global.SoundEffect = this.node.getComponent('SoundEffect').init();
+        window.Global.SoundEffect = require('SoundEffect');
 
         // 初始化萍乡258游戏
         window.PX258 = {};
@@ -51,13 +51,7 @@ cc.Class({
         window.Global.Tools.setLocalData(window.Global.Config.LSK.appleReview, false);
 
         // 初始化背景音效
-        const playMusicConfig = window.Global.Tools.getLocalData(window.Global.Config.LSK.playMusicConfig);
-        if (playMusicConfig.music) {
-            window.Global.SoundEffect.backgroundMusicPlay();
-        }
-        else {
-            window.Global.SoundEffect.backgroundMusicStop();
-        }
+        window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.menu, true);
 
         this.schedule(this.hbt.bind(this), window.Global.Config.debug ? window.Global.Config.development.hbtTime : window.Global.Config.production.hbtTime);
 
