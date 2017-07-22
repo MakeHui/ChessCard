@@ -314,12 +314,20 @@ cc.Class({
         window.DDZ.Tools.orderCard(this.handCardDistrict.children);
 
         // 判断是否在抢地主
-        if (data.roomStatus === window.DDZ.Config.roomStatusCode.RobState && this._userInfo.playerUuid === data.robPlayerUuid) {
-            data.playerList.sort(function (a, b) {
-                return b.robScore - a.robScore;
-            });
-            this._Cache.robScore = data.playerList[0].robScore;
-            this._showModButton(this._Cache.robScore);
+        if (data.roomStatus === window.DDZ.Config.roomStatusCode.RobState) {
+            if (this._userInfo.playerUuid === data.robPlayerUuid) {
+                data.playerList.sort(function (a, b) {
+                    return b.robScore - a.robScore;
+                });
+                this._Cache.robScore = data.playerList[0].robScore;
+                this._showModButton(this._Cache.robScore);
+            }
+            var robPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.robPlayerUuid));
+            this._showClockNode(robPlayerIndex);
+        }
+        else {
+            var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
+            this._showClockNode(discardPlayerIndex);
         }
 
         // 初始化底牌
@@ -346,9 +354,6 @@ cc.Class({
             this._hideActionSprite(0);
             this._outCardHint();
         }
-
-        var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
-        this._showClockNode(discardPlayerIndex);
 
         this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
     },
