@@ -62,18 +62,16 @@ cc.Class({
         this._Cache.playerList = []; // 玩家信息列表
         this._Cache.thisPlayerSeat = 0; // 当前玩家实际座位号
         this._Cache.thisDealerSeat = 0; // 当前庄家相对座位号
-        this._Cache.allowOutCard = false; // 是否允许出牌
         this._Cache.settleForRoomData = null; // 大结算数据
         this._Cache.currentRound = 0; // 局数
         this._Cache.config = {}; // 房间信息
         this._Cache.robScore = -1;  // 叫分时最高分数
         this._Cache.outCardHelperData = []; // 出牌提示数据
         this._Cache.outCardHelperIndex = 0; // 提示出牌索引
-        this._Cache.firstOutCard = true;    // 是否是第一次出牌
         this._Cache.lastOutCards = [];      // 最后一次出的牌
         this._Cache.lastOutCardsPlayerUuid = '';    // 最后一次出牌玩家的 uuid
+        this._Cache.dealCard = false;   // 是否是在发牌
 
-        cc.log(window.Global.Config.tempCache);
         if (window.Global.Config.tempCache) {
             const self = this;
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
@@ -234,6 +232,14 @@ cc.Class({
     },
 
     onReconnectDDZMessage(data) {
+        if (this._Cache.dealCard) {
+            this._reconnect = function () {
+                this.onReconnectDDZMessage(data);
+            };
+            this.scheduleOnce(this._reconnect, 1);
+            return;
+        }
+
         data.kwargs = JSON.parse(data.kwargs);
         this._Cache.gameUuid = data.kwargs.game_uuid;
         this._Cache.roomId = data.roomId;
@@ -480,7 +486,7 @@ cc.Class({
     },
 
     onDealDDZMessage(data) {
-        this._Cache.waitJiaofeng = true;
+        this._Cache.dealCard = true;
 
         this._initCardDistrict();
 
@@ -492,9 +498,9 @@ cc.Class({
             index -= 1;
             if (index === -1) {
                 window.DDZ.Tools.orderCard(this.handCardDistrict.children);
-                this._Cache.waitJiaofeng = false;
+                this._Cache.dealCard = false;
             }
-        }, 0.2, data.cardsInHandList.length - 1);
+        }, 0.1, data.cardsInHandList.length - 1);
 
 
         // 初始化其他玩家的手牌数量
