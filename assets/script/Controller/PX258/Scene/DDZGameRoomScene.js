@@ -332,9 +332,11 @@ cc.Class({
             this.dirtyCardDistrict[0].removeAllChildren();
             this._activeChupaiButton(true);
             this._hideActionSprite(0);
-            this._showClockNode(0);
             this._outCardHint();
         }
+
+        var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
+        this._showClockNode(discardPlayerIndex);
 
         this.inviteButtonList[0].active = (this._Cache.playerList.length !== 3);
     },
@@ -363,8 +365,9 @@ cc.Class({
             this._activeChupaiButton(true);
             this.dirtyCardDistrict[0].removeAllChildren();
             this._outCardHint();
-            this._showClockNode(0);
         }
+        var nextDiscardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.nextDiscardPlayerUuid));
+        this._showClockNode(nextDiscardPlayerIndex);
     },
 
     onOnlineStatusMessage(data) {
@@ -893,15 +896,22 @@ cc.Class({
     },
 
     _showClockNode(playerIndex) {
+        this.unschedule(this._clockTimer);
         this.clockNode[playerIndex].active = true;
+        var label = this.clockNode[playerIndex].getChildByName('Number').getComponent(cc.Label);
         var time = 30;
-        this.schedule(function () {
-            this.clockNode[playerIndex].getChildByName('Number').getComponent(cc.Label).string = time;
+
+        label.string = time;
+        this._clockTimer = function () {
             time -= 1;
             if (time === -1) {
                 this.clockNode[playerIndex].active = false;
             }
-        }, 1, 30);
+            else {
+                label.string = time;
+            }
+        };
+        this.schedule(this._clockTimer, 1, 30);
     },
 
     /**
