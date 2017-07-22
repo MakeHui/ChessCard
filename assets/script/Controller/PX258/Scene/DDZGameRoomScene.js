@@ -71,6 +71,7 @@ cc.Class({
         this._Cache.lastOutCards = [];      // 最后一次出的牌
         this._Cache.lastOutCardsPlayerUuid = '';    // 最后一次出牌玩家的 uuid
         this._Cache.dealCard = false;   // 是否是在发牌
+        this._Cache.zhadanCount = 0;    // 出现炸弹次数
 
         window.Global.SoundEffect.backgroundMusicPlay(window.DDZ.Config.audioUrl.background, true);
 
@@ -394,6 +395,9 @@ cc.Class({
             this._outCardHint();
         }
 
+        // 更新底分
+        this._setDifeng(data.cardType);
+
         var nextDiscardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.nextDiscardPlayerUuid));
         this._showClockNode(nextDiscardPlayerIndex);
     },
@@ -583,6 +587,11 @@ cc.Class({
         var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._showFenshu(playerIndex, data);
 
+        if (data.nextRobPlayerUuid) {
+            var nextRobPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.nextRobPlayerUuid));
+            this._showClockNode(nextRobPlayerIndex);
+        }
+
         // 是否已经有人成为地主
         if (data.lairdPlayerUuid) {
             this._hideJiaofenSprite();
@@ -600,6 +609,7 @@ cc.Class({
                 window.DDZ.Tools.orderCard(this.handCardDistrict.children);
                 this._Cache.lastOutCardsPlayerUuid = this._userInfo.playerUuid;
                 this._outCardHint();
+                this.roomInfo[2].string = this._Cache.robScore;
             }
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
@@ -1180,6 +1190,32 @@ cc.Class({
         this.roomInfo[2].string = data.baseScore * data.multiple;
     },
 
+    _setDifeng(cardType) {
+        var zhadanCount = 0;
+        var playTypes = window.PX258.Config.playTypes[this._Cache.config.game_uuid];
+        var options = `0b${this._Cache.config.options.toString(2)}`;
+        var keys = Object.keys(playTypes.options);
+        if ((options & keys[0]) !== 0) {
+            zhadanCount = 3;
+        }
+        else if ((options & keys[1]) !== 0) {
+            zhadanCount = 4;
+        }
+        else if ((options & keys[2]) !== 0) {
+            zhadanCount = 5;
+        }
+
+        if (this._Cache.zhadanCount >= zhadanCount) {
+            return;
+        }
+
+        this._Cache.zhadanCount += 1;
+
+        if (window.DDZ.Config.cardType.ZHAD === cardType || window.DDZ.Config.cardType.HUOJ === cardType) {
+            this.roomInfo[2].string *= 2;
+        }
+    },
+
     _showWaitPanel(messageId) {
         if (messageId === 1) {
             this.waitPanel.getComponent(cc.Label).string = '玩家可能离线或者离开，等待操作中...';
@@ -1318,6 +1354,9 @@ cc.Class({
             this.dirtyCardDistrict[i].removeAllChildren();
         }
         this.handCardDistrict.removeAllChildren();
+
+        this.roomInfo[2].string = 0;
+        this._Cache.zhadanCount = 0;
     },
 
     _showCardNumber(playerIndex, number) {
