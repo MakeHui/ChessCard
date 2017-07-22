@@ -531,6 +531,7 @@ cc.Class({
         }
 
         // 设置底牌
+        this.dipaiNode.children[0].removeAllChildren();
         for (var i = 0; i < data.threeCardsList.length; i++) {
             this.dipaiNode.children[0].addChild(this._createCard(data.threeCardsList[i].card));
         }
