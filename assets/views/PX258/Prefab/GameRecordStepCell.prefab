@@ -1372,6 +1372,9 @@
     "gameReviewPrefab": {
       "__uuid__": "a355ce41-2ed0-4e5a-a1dd-16971160ca62"
     },
+    "ddzGameReviewPrefab": {
+      "__uuid__": "9a6609af-b7b3-4ff8-b468-a24a282f5508"
+    },
     "layout": {
       "__id__": 39
     }

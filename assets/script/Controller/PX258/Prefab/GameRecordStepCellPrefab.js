@@ -7,6 +7,7 @@ cc.Class({
         winTag: [cc.Sprite],
         point: [cc.Node],
         gameReviewPrefab: cc.Prefab,
+        ddzGameReviewPrefab: cc.Prefab,
         layout: cc.Layout,
     },
 
@@ -19,10 +20,17 @@ cc.Class({
             window.Global.Dialog.close();
             if (result.code === 1) {
                 var data = JSON.parse(result.replay);
-                var node =  cc.instantiate(this.gameReviewPrefab);
                 var parentNode = cc.director.getScene().getChildByName('Canvas');
-                node.getComponent('GameReview').init(data);
-                window.Global.Animation.openDialog(node, parentNode);
+                if (result.gameUuid === window.PX258.Config.gameUuid[2]) {
+                    var node =  cc.instantiate(this.ddzGameReviewPrefab);
+                    node.getComponent('DDZGameReview').init(data);
+                    window.Global.Animation.openDialog(node, parentNode);
+                }
+                else {
+                    var node =  cc.instantiate(this.gameReviewPrefab);
+                    node.getComponent('GameReview').init(data);
+                    window.Global.Animation.openDialog(node, parentNode);
+                }
             }
             else {
                 window.Global.Dialog.openMessageBox('请求失败');
@@ -44,6 +52,7 @@ cc.Class({
         this.stepNumber.string = '第' + data.theRound + '局';
         for (var i = 0; i < playerInfoList.length; i += 1) {
             this.point[i].getComponent(cc.Label).string = `积分: ${playerInfoList[i].score}`;
+            this.point[i].active = true;
         }
     }
 });
