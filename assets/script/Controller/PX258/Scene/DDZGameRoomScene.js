@@ -514,6 +514,7 @@ cc.Class({
 
     onDealDDZMessage(data) {
         this._Cache.dealCard = true;
+        this._Cache.robScore = -1;
 
         this._initCardDistrict();
 
@@ -542,7 +543,6 @@ cc.Class({
         }
 
         if (this._userInfo.playerUuid === data.firstRobUuid) {
-            this._Cache.robScore = -1;
             this._showModButton(this._Cache.robScore);
         }
     },
@@ -1288,7 +1288,7 @@ cc.Class({
         }
     },
 
-    _initScene: function() {
+    _initScene() {
         for (var i = 0; i < this.playerInfoList.length; i++) {
             this.playerInfoList[i].active = false;
             this.inviteButtonList[i].active = true;
