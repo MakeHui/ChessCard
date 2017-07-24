@@ -5,8 +5,9 @@ cc.Class({
         inputRoomNumber: cc.Prefab,
         stepNumber: cc.Label,
         winTag: [cc.Sprite],
-        point: [cc.Label],
+        point: [cc.Node],
         gameReviewPrefab: cc.Prefab,
+        layout: cc.Layout,
     },
 
     playbackOnClick() {
@@ -32,9 +33,17 @@ cc.Class({
     init(data) {
         this._Cache = data;
         var playerInfoList = data.playerInfoList;
+
+        if (playerInfoList.length === 4) {
+            this.layout.spacingX = 72;
+        }
+        else {
+            this.layout.spacingX = 116;
+        }
+
         this.stepNumber.string = '第' + data.theRound + '局';
         for (var i = 0; i < playerInfoList.length; i += 1) {
-            this.point[i].string = `积分: ${playerInfoList[i].score}`;
+            this.point[i].getComponent(cc.Label).string = `积分: ${playerInfoList[i].score}`;
         }
     }
 });
