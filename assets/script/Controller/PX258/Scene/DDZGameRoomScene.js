@@ -595,7 +595,6 @@ cc.Class({
         // 是否已经有人成为地主
         if (data.lairdPlayerUuid) {
             this._hideJiaofenSprite();
-            this._Cache.robScore = -1;
             var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
             this._showDizhuPanel(lairdPayerIndex);
             this.dipaiNode.children[1].active = false;
@@ -610,8 +609,9 @@ cc.Class({
                 window.DDZ.Tools.orderCard(this.handCardDistrict.children);
                 this._Cache.lastOutCardsPlayerUuid = this._userInfo.playerUuid;
                 this._outCardHint();
-                this.roomInfo[2].string = this._Cache.robScore;
             }
+            this.roomInfo[2].string = this._Cache.robScore === -1 ? 1 : this._Cache.robScore;
+            this._Cache.robScore = -1;
         }
         // 如果没人成为地主, 并且没有下一个叫分的玩家, 需要重新发牌
         else if (!data.nextRobPlayerUuid) {
