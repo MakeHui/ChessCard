@@ -378,6 +378,7 @@ cc.Class({
         if (this._userInfo.playerUuid === data.playerUuid) {
             this._activeChupaiButton(false);
             this._deleteHandCardByCode(data.cardList);
+            this._resetHandCardPosition();
         }
 
         var cardNumber = this._getCardNumber(playerIndex);
