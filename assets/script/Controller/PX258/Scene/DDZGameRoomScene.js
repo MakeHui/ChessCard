@@ -514,7 +514,6 @@ cc.Class({
 
     onDealDDZMessage(data) {
         this._Cache.dealCard = true;
-        this._Cache.robScore = -1;
 
         this._initCardDistrict();
 
@@ -596,6 +595,7 @@ cc.Class({
         // 是否已经有人成为地主
         if (data.lairdPlayerUuid) {
             this._hideJiaofenSprite();
+            this._Cache.robScore = -1;
             var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
             this._showDizhuPanel(lairdPayerIndex);
             this.dipaiNode.children[1].active = false;
@@ -1366,6 +1366,7 @@ cc.Class({
 
         this.roomInfo[2].string = 0;
         this._Cache.zhadanCount = 0;
+        this._hideDizhuPanel();
     },
 
     _showCardNumber(playerIndex, number) {
