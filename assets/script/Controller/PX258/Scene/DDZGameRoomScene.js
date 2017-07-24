@@ -1239,6 +1239,7 @@ cc.Class({
     },
 
     _showDizhuPanel(playerIndex) {
+        this._hideDizhuPanel();
         for (var i = 0; i < this.playerInfoList.length; i += 1) {
             if (i === playerIndex) {
                 this.playerInfoList[i].getChildByName('table_dizhuTag').active = true;
@@ -1246,6 +1247,13 @@ cc.Class({
             else {
                 this.playerInfoList[i].getChildByName('table_nongminTag').active = true;
             }
+        }
+    },
+
+    _hideDizhuPanel() {
+        for (var i = 0; i < this.playerInfoList.length; i += 1) {
+            this.playerInfoList[i].getChildByName('table_dizhuTag').active = false;
+            this.playerInfoList[i].getChildByName('table_nongminTag').active = false;
         }
     },
 
