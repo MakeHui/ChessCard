@@ -85,6 +85,8 @@ cc.Class({
         this._Cache.currentRound = 0; // 局数
         this._Cache.config = {}; // 房间信息
 
+        window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.game, true);
+
         if (window.Global.Config.tempCache) {
             const self = this;
             this._Cache.roomId = window.Global.Config.tempCache.roomId;
@@ -142,6 +144,10 @@ cc.Class({
         if (this.fastChatProgressBar.progress <= 1.0 && this.fastChatProgressBar.progress >= 0) {
             this.fastChatProgressBar.progress -= dt * window.Global.Config.fastChatWaitTime;
         }
+    },
+
+    onDestroy() {
+        window.Global.SoundEffect.backgroundMusicPlay(window.Global.Config.audioUrl.background.menu, true);
     },
 
     onVoiceEndCallback: function() {
