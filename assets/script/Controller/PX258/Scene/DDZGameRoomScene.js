@@ -18,6 +18,7 @@ cc.Class({
 
         roomInfo: [cc.Label],
         waitPanel: cc.Node,
+        noBigPanel: cc.Node,
 
         actionSprite: [cc.Node],
         clockNode: [cc.Node],
@@ -361,6 +362,7 @@ cc.Class({
 
     onDiscardDDZMessage(data) {
         this._hideClockNode();
+        this.noBigPanel.active = false;
 
         var playerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.playerUuid));
         this._addCardToDiscardDistrict(playerIndex, data.cardList);
@@ -1296,6 +1298,8 @@ cc.Class({
         }
         this.handCardDistrict.removeAllChildren();
 
+        this.noBigPanel.active = false;
+
         this._hideJiaofenSprite();
         this._hideActionNode();
         this._hideActionSprite();
@@ -1495,6 +1499,7 @@ cc.Class({
             this._Cache.outCardHelperData = window.DDZ.Tools.firstOutCardHelper.parse(selfCardValues);
         }
         this._Cache.outCardHelperIndex = 0;
+        this.noBigPanel.active = this._Cache.outCardHelperData.length === 0;
     }
 
 });
