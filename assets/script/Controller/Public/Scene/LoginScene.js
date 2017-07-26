@@ -126,11 +126,14 @@ cc.Class({
 
                     if (result.playerReconnection) {
                         window.Global.Config.tempCache = { serverIp: result.playerServerIp, serverPort: result.playerServerPort, roomId: result.playerRoomId, reconnection: true, gameUuid: result.gameUuid };
-                        if (window.PX258.Config.gameUuid.indexOf(result.gameUuid) !== -1) {
+                        if (window.PX258.Config.gameUuid[0] == result.gameUuid) {
                             cc.director.loadScene('GameRoom');
+                        } else if (window.PX258.Config.gameUuid[1] == result.gameUuid) {
+                            cc.director.loadScene('GameRoom');
+                        } else if (window.PX258.Config.gameUuid[2] == result.gameUuid) {
+                            cc.director.loadScene('DDZGameRoom');
                         }
-                    }
-                    else {
+                    } else {
                         cc.director.loadScene('Lobby');
                     }
                     return;

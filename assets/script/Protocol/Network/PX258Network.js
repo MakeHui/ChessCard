@@ -49,12 +49,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RoomList',
                 response: 'RoomList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RoomListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -67,12 +67,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -88,6 +88,7 @@ const PX258Network = cc.Class({
                 message: function (parameters) {
                     var message = new proto.login.RecordInfoRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
+
                     message.setAppUuid(window.Global.Config.appUuid);
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
@@ -102,12 +103,12 @@ const PX258Network = cc.Class({
                 description: 'login',
                 request: 'RecordList',
                 response: 'RecordList',
-                message: function (parameters) {
+                message: function () {
                     var message = new proto.login.RecordListRequest();
                     var userInfo = window.Global.Tools.getLocalData(window.Global.Config.LSK.userInfo);
 
                     message.setAppUuid(window.Global.Config.appUuid);
-                    message.setGameUuid(parameters.gameUuid);
+                    message.setGameUuid(window.PX258.Config.gameUuid.toString());
                     message.setPlayerUuid(userInfo.playerUuid);
                     message.setDeviceId(window.Global.Tools.getDeviceId());
 
@@ -296,6 +297,50 @@ const PX258Network = cc.Class({
             SettleForRoundZZ: {
                 cmd: 0x3002,
                 response: 'SettleForRoundZZ',
+            },
+
+            // 斗地主
+            DealDDZ: {
+                cmd: 0x2001, // 1、起手发牌
+                response: 'DealDDZ',
+            },
+            DiscardDDZ: {
+                cmd: 0x2004, // 2、出牌
+                response: 'DiscardDDZ',
+                message: function (parameters) {
+                    var cardList = [];
+                    for (var i = 0; i < parameters.cards.length; i++) {
+                        var cardMsg = new proto.game.Card();
+                        cardMsg.setCard(parameters.cards[i]);
+                        cardList.push(cardMsg);
+                    }
+                    var message = new proto.game.DiscardDDZRequest();
+                    message.setCardList(cardList);
+                    return message;
+                },
+            },
+            RobDDZ: {
+                cmd: 0x2006, // 3、抢地主
+                response: 'RobDDZ',
+                message: function (parameters) {
+                    var message = new proto.game.RobDDZRequest();
+                    message.setFlag(parameters.flag);
+                    message.setScore(parameters.score);
+
+                    return message;
+                },
+            },
+            ReconnectDDZ: {
+                cmd: 0x2007, // 4、断线重连
+                response: 'ReconnectDDZ',
+            },
+            SettleForRoundDDZ: {
+                cmd: 0x2002, // 5、小结算
+                response: 'SettleForRoundDDZ',
+            },
+            SettleForRoomDDZ: {
+                cmd: 0x2003, // 6、大结算
+                response: 'SettleForRoomDDZ',
             },
         }
     }

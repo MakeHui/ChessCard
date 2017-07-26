@@ -13159,7 +13159,7 @@ proto.game.ReconnectDDZResponse.toObject = function(includeInstance, msg) {
     ownerUuid: jspb.Message.getFieldWithDefault(msg, 3, ""),
     roomStatus: jspb.Message.getFieldWithDefault(msg, 4, 0),
     currentRound: jspb.Message.getFieldWithDefault(msg, 5, 0),
-    lairdPlayer: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    lairdPlayerUuid: jspb.Message.getFieldWithDefault(msg, 6, ""),
     discardPlayerUuid: jspb.Message.getFieldWithDefault(msg, 7, ""),
     robPlayerUuid: jspb.Message.getFieldWithDefault(msg, 8, ""),
     baseScore: jspb.Message.getFieldWithDefault(msg, 9, 0),
@@ -13233,7 +13233,7 @@ proto.game.ReconnectDDZResponse.deserializeBinaryFromReader = function(msg, read
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setLairdPlayer(value);
+      msg.setLairdPlayerUuid(value);
       break;
     case 7:
       var value = /** @type {string} */ (reader.readString());
@@ -13359,7 +13359,7 @@ proto.game.ReconnectDDZResponse.prototype.serializeBinaryToWriter = function (wr
       f
     );
   }
-  f = this.getLairdPlayer();
+  f = this.getLairdPlayerUuid();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -13532,16 +13532,16 @@ proto.game.ReconnectDDZResponse.prototype.setCurrentRound = function(value) {
 
 
 /**
- * optional string laird_player = 6;
+ * optional string laird_player_uuid = 6;
  * @return {string}
  */
-proto.game.ReconnectDDZResponse.prototype.getLairdPlayer = function() {
+proto.game.ReconnectDDZResponse.prototype.getLairdPlayerUuid = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
-proto.game.ReconnectDDZResponse.prototype.setLairdPlayer = function(value) {
+proto.game.ReconnectDDZResponse.prototype.setLairdPlayerUuid = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -14614,11 +14614,11 @@ proto.game.RobDDZRequest.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setFlag(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setScore(value);
       break;
     default:
@@ -14661,14 +14661,14 @@ proto.game.RobDDZRequest.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getFlag();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       1,
       f
     );
   }
   f = this.getScore();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       2,
       f
     );
@@ -14677,7 +14677,7 @@ proto.game.RobDDZRequest.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * optional uint32 flag = 1;
+ * optional int32 flag = 1;
  * @return {number}
  */
 proto.game.RobDDZRequest.prototype.getFlag = function() {
@@ -14692,7 +14692,7 @@ proto.game.RobDDZRequest.prototype.setFlag = function(value) {
 
 
 /**
- * optional uint32 score = 2;
+ * optional int32 score = 2;
  * @return {number}
  */
 proto.game.RobDDZRequest.prototype.getScore = function() {
@@ -14795,11 +14795,11 @@ proto.game.RobDDZResponse.deserializeBinaryFromReader = function(msg, reader) {
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setFlag(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setScore(value);
       break;
     case 3:
@@ -14858,14 +14858,14 @@ proto.game.RobDDZResponse.prototype.serializeBinaryToWriter = function (writer) 
   var f = undefined;
   f = this.getFlag();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       1,
       f
     );
   }
   f = this.getScore();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       2,
       f
     );
@@ -14902,7 +14902,7 @@ proto.game.RobDDZResponse.prototype.serializeBinaryToWriter = function (writer) 
 
 
 /**
- * optional uint32 flag = 1;
+ * optional int32 flag = 1;
  * @return {number}
  */
 proto.game.RobDDZResponse.prototype.getFlag = function() {
@@ -14917,7 +14917,7 @@ proto.game.RobDDZResponse.prototype.setFlag = function(value) {
 
 
 /**
- * optional uint32 score = 2;
+ * optional int32 score = 2;
  * @return {number}
  */
 proto.game.RobDDZResponse.prototype.getScore = function() {

@@ -5,7 +5,8 @@ cc.Class({
         gameStepCell: cc.Prefab,
         gameStepList: cc.Node,
         datetime: cc.Label,
-        username: [cc.Label],
+        username: [cc.Node],
+        layout: cc.Layout,
     },
 
     onLoad() {
@@ -54,7 +55,15 @@ cc.Class({
 
                 for (let i = 0; i < recordInfoDataList[0].playerInfoList.length; i += 1) {
                     var nickname = recordInfoDataList[0].playerInfoList[i].nickname;
-                    self.username[i].string = nickname;
+                    self.username[i].getComponent(cc.Label).string = nickname;
+                    self.username[i].active = true;
+                }
+
+                if (recordInfoDataList[0].playerInfoList.length === 4)  {
+                    this.layout.spacingX = 50;
+                }
+                else {
+                    this.layout.spacingX = 102;
                 }
 
                 for (let i = 0; i < recordInfoDataList.length; i += 1) {
