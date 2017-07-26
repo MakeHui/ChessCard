@@ -1518,7 +1518,7 @@
     "_spriteFrame": {
       "__uuid__": "d66ce8b5-74a2-4cab-b98e-9cb2eb6fd6cb"
     },
-    "_type": 1,
+    "_type": 0,
     "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
@@ -1662,7 +1662,7 @@
     "_spriteFrame": {
       "__uuid__": "097e9d08-0c16-43fc-92ba-95a26f9fd95e"
     },
-    "_type": 1,
+    "_type": 0,
     "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
@@ -1812,7 +1812,7 @@
     "_spriteFrame": {
       "__uuid__": "4a8d96bd-785c-455e-ae78-7af7afdf9c33"
     },
-    "_type": 1,
+    "_type": 0,
     "_sizeMode": 2,
     "_fillType": 0,
     "_fillCenter": {
