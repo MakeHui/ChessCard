@@ -19,6 +19,7 @@ cc.Class({
         roomInfo: [cc.Label],
         waitPanel: cc.Node,
         noBigPanel: cc.Node,
+        hintPanel: [cc.Node],
 
         actionSprite: [cc.Node],
         clockNode: [cc.Node],
@@ -844,8 +845,20 @@ cc.Class({
         if (data == 0) {
             var discards = this._getDiscardValues();
             if (discards.length === 0) {
-                cc.log('没有要出的牌');
+                this._showHintPanel(0);
+                cc.log('请选择要出的牌');
                 return;
+            }
+
+            if (this._Cache.lastOutCardsPlayerUuid && this._Cache.lastOutCardsPlayerUuid !== this._userInfo.playerUuid) {
+                var prevDiscardCardValues = window.DDZ.Tools.getCardValues(this._Cache.lastOutCards);
+                var cardType = window.DDZ.Tools.getCardType(prevDiscardCardValues);
+                var outCardHelperData = window.DDZ.Tools.solutionHelper.parse(cardType, discards);
+                if (outCardHelperData.length === 0) {
+                    this._showHintPanel(1);
+                    cc.log('您选择的牌小于上家的牌');
+                    return;
+                }
             }
             this._discard(discards);
         }
@@ -1298,7 +1311,7 @@ cc.Class({
         }
         this.handCardDistrict.removeAllChildren();
 
-        this.noBigPanel.active = false;
+        this._Cache.zhadanCount = 0;
 
         this._hideJiaofenSprite();
         this._hideActionNode();
@@ -1310,6 +1323,14 @@ cc.Class({
     _hideDipaiNode() {
         this.dipaiNode.children[1].active = true;
         this.dipaiNode.children[0].removeAllChildren();
+    },
+
+    _showHintPanel(index) {
+        this.hintPanel[index].active = true;
+
+        this.scheduleOnce(function () {
+            this.hintPanel[index].active = false;
+        }, 2);
     },
 
     /**
@@ -1370,6 +1391,7 @@ cc.Class({
 
         this.roomInfo[2].string = 0;
         this._Cache.zhadanCount = 0;
+        this.noBigPanel.active = false;
         this._hideDizhuPanel();
     },
 
