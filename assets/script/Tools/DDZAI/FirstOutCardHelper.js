@@ -33,11 +33,11 @@ var FirstOutCardHelper = cc.Class({
             }
         }
         if (i > 1) {
-            solutionDatas.sort(
-                function(a, b) {
-                    return b.length - a.length;
-                }
-            );
+            // solutionDatas.sort(
+            //     function(a, b) {
+            //         return b.length - a.length;
+            //     }
+            // );
         }
 
         // 提取结果
@@ -187,93 +187,108 @@ var FirstOutCardHelper = cc.Class({
      * @returns {*}
      */
     pickThreeTakeXContinue: function(datas) {
-        var i = 3;
-        var startIndex = 0;
-        var endIndex = startIndex;
-        var len = 14;
+        // var i = 3;
+        // var startIndex = 0;
+        // var endIndex = startIndex;
+        // var len = 14;
         var solutions = [];
-        for (i; i <= len; i++) {
-            if (datas[i] == 3) {
-                if (startIndex == 0) {
-                    startIndex = i;
-                    endIndex = startIndex;
-                } else {
-                    endIndex++;
+        // for (i; i <= len; i++) {
+        //     if (datas[i] == 3) {
+        //         if (startIndex == 0) {
+        //             startIndex = i;
+        //             endIndex = startIndex;
+        //         } else {
+        //             endIndex++;
+        //         }
+        //         if (i == len) {
+        //             solutions.push(this.getThreeTakeX(startIndex, endIndex, datas));
+        //         }
+        //     } else {
+        //         if (startIndex != 0) {
+        //             solutions.push(this.getThreeTakeX(startIndex, endIndex, datas));
+        //         }
+        //         startIndex = 0;
+        //         endIndex = startIndex;
+        //     }
+        // }
+
+        for (var j = 0; j < datas.length; j += 1) {
+            if (datas[j] == 3) {
+                for (var k = 0; k < datas.length; k += 1) {
+                    if (datas[k] === 1) {
+                        solutions.push([j, j, j, k]);
+                    }
+
+                    if (datas[k] === 2) {
+                        solutions.push([j, j, j, k, k]);
+                    }
                 }
-                if (i == len) {
-                    solutions.push(this.getThreeTakeX(startIndex, endIndex, datas));
-                }
-            } else {
-                if (startIndex != 0) {
-                    solutions.push(this.getThreeTakeX(startIndex, endIndex, datas));
-                }
-                startIndex = 0;
-                endIndex = startIndex;
             }
         }
+
         return solutions;
     },
 
-    getThreeTakeX: function(startIndex, endIndex, datas) {
-        datas = datas.concat();
-        var stepLen = endIndex - startIndex + 1;
-        var result = [];
-        var i;
-        for (i = startIndex; i <= endIndex; i++) {
-            result.push(i);
-            result.push(i);
-            result.push(i);
-            datas[i] -= 3;
-        }
-        // 带 一张
-        var takeArr = [];
-        for (i = 3; i <= 15; i++) {
-            if (datas[i] == 1) {
-                takeArr.push(i);
-                if (takeArr.length == stepLen) break;
-            }
-        }
-        if (takeArr.length == stepLen) {
-            result = result.concat(takeArr);
-            return result;
-        }
-        // 带 一对
-        takeArr = [];
-        for (i = 3; i <= 15; i++) {
-            if (datas[i] == 2) {
-                takeArr.push(i);
-                takeArr.push(i);
-                if (takeArr.length == stepLen * 2) break;
-            }
-        }
-        if (takeArr.length == stepLen * 2) {
-            result = result.concat(takeArr);
-            return result;
-        }
-
-        // 带 两张  单张 一对 三张的组合
-        takeArr = [];
-        for (i = 3; i <= 15; i++) {
-            if (datas[i] == 2) {
-                takeArr.push(i);
-                takeArr.push(i);
-                if (takeArr.length == stepLen * 2) break;
-            }
-        }
-        for (i = 3; i <= 15; i++) {
-            if (datas[i] == 3) {
-                takeArr.push(i);
-                takeArr.push(i);
-                if (takeArr.length == stepLen * 2) break;
-            }
-        }
-        if (takeArr.length == stepLen * 2) {
-            result = result.concat(takeArr);
-            return result;
-        }
-        result = result.concat(takeArr);
-        return result;
-    },
+    // getThreeTakeX: function(startIndex, endIndex, datas) {
+    //     datas = datas.concat();
+    //     var stepLen = endIndex - startIndex + 1;
+    //     var result = [];
+    //     var i;
+    //     for (i = startIndex; i <= endIndex; i++) {
+    //         result.push(i);
+    //         result.push(i);
+    //         result.push(i);
+    //         datas[i] -= 3;
+    //     }
+    //     // 带 一张
+    //     var takeArr = [];
+    //     for (i = 3; i <= 15; i++) {
+    //         if (datas[i] == 1) {
+    //             takeArr.push(i);
+    //             if (takeArr.length == stepLen) break;
+    //         }
+    //     }
+    //     if (takeArr.length == stepLen) {
+    //         result = result.concat(takeArr);
+    //         return result;
+    //     }
+    //     // 带 一对
+    //     takeArr = [];
+    //     for (i = 3; i <= 15; i++) {
+    //         if (datas[i] == 2) {
+    //             takeArr.push(i);
+    //             takeArr.push(i);
+    //             if (takeArr.length == stepLen * 2) break;
+    //         }
+    //     }
+    //     if (takeArr.length == stepLen * 2) {
+    //         result = result.concat(takeArr);
+    //         return result;
+    //     }
+    //
+    //     // 带 两张  单张 一对 三张的组合
+    //     takeArr = [];
+    //     for (i = 3; i <= 15; i++) {
+    //         if (datas[i] == 2) {
+    //             takeArr.push(i);
+    //             takeArr.push(i);
+    //             if (takeArr.length == stepLen * 2) break;
+    //         }
+    //     }
+    //     for (i = 3; i <= 15; i++) {
+    //         if (datas[i] == 3) {
+    //             takeArr.push(i);
+    //             takeArr.push(i);
+    //             if (takeArr.length == stepLen * 2) break;
+    //         }
+    //     }
+    //     if (takeArr.length == stepLen * 2) {
+    //         result = result.concat(takeArr);
+    //         return result;
+    //     }
+    //     result = result.concat(takeArr);
+    //     return result;
+    // },
 
     // ///////////////////////////////////找对子 ///////////////////////////////////////////////
     /**
@@ -328,6 +343,11 @@ var FirstOutCardHelper = cc.Class({
                 solutions.push([i, i, i, i]);
             }
         }
+
+        if (datas[16] !== 0 && datas[17] !== 0) {
+            solutions.push([16, 17]);
+        }
+
         return solutions;
     }
 });
