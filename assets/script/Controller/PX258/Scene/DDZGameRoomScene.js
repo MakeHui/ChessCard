@@ -327,14 +327,17 @@ cc.Class({
             }
             var robPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.robPlayerUuid));
             this._showClockNode(robPlayerIndex);
+            this.dipaiNode.children[1].active = true;
         }
         else {
             var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
-            this._showClockNode(discardPlayerIndex);
+            if (data.roomStatus !== window.DDZ.Config.roomStatusCode.InitState) {
+                this._showClockNode(discardPlayerIndex);
+                this.dipaiNode.children[1].active = true;
+            }
         }
 
         // 初始化底牌
-        this.dipaiNode.children[1].active = window.DDZ.Config.roomStatusCode.RobState === data.roomStatus;
         if (data.threeCardsList.length > 0) {
             for (var i = 0; i < data.threeCardsList.length; i++) {
                 this.dipaiNode.children[0].addChild(this._createCard(data.threeCardsList[i].card));
@@ -782,6 +785,8 @@ cc.Class({
         if (this.fastChatPanel.getPositionX() < 568) {
             this.fastChatPanel.getComponent(cc.Animation).play('CloseFastChatPanel');
         }
+
+        this._resetHandCardPosition();
     },
 
     openFastChatPanelOnClick() {
