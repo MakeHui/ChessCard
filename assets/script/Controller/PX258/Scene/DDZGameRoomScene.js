@@ -327,15 +327,15 @@ cc.Class({
             }
             var robPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.robPlayerUuid));
             this._showClockNode(robPlayerIndex);
-            this.dipaiNode.children[1].active = true;
         }
         else {
             var discardPlayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.discardPlayerUuid));
             if (data.roomStatus !== window.DDZ.Config.roomStatusCode.InitState) {
                 this._showClockNode(discardPlayerIndex);
-                this.dipaiNode.children[1].active = true;
             }
         }
+
+        this.dipaiNode.children[1].active = [0, 1, 2, 3, 4].indexOf(data.roomInfo) !== -1;
 
         // 初始化底牌
         if (data.threeCardsList.length > 0) {
@@ -549,10 +549,12 @@ cc.Class({
 
         if (this._userInfo.playerUuid === data.firstRobUuid) {
             this._showModButton(this._Cache.robScore);
+            this._showClockNode(0);
         }
     },
 
     onRobDDZMessage(data) {
+        this._hideClockNode();
         // 音频
         var playerInfo = this._getInfoByPlayerUuid(data.playerUuid);
         if ((this._Cache.config.options & 0b10) !== 0) {
@@ -1398,6 +1400,7 @@ cc.Class({
         this._Cache.zhadanCount = 0;
         this.noBigPanel.active = false;
         this._hideDizhuPanel();
+        this._hideClockNode();
     },
 
     _showCardNumber(playerIndex, number) {
