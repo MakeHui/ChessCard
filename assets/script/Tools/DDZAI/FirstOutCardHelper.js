@@ -214,6 +214,7 @@ var FirstOutCardHelper = cc.Class({
 
         for (var j = 0; j < datas.length; j += 1) {
             if (datas[j] == 3) {
+                solutions.push([j, j, j]);
                 for (var k = 0; k < datas.length; k += 1) {
                     if (datas[k] === 1) {
                         solutions.push([j, j, j, k]);
