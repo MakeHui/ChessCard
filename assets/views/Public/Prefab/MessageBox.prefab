@@ -334,14 +334,14 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "title",
+    "_name": "New Sprite",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 176,
-      "g": 102,
-      "b": 11,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -355,18 +355,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 128,
-      "height": 34
+      "width": 300,
+      "height": 63
     },
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": -1,
+    "_scaleX": 0.8,
+    "_scaleY": -0.9,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -66
+      "y": -123.7
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -387,25 +387,30 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 8
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 32,
-    "_fontSize": 32,
-    "_lineHeight": 34,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "系统消息",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$overflow": 0
+    "_spriteFrame": {
+      "__uuid__": "fe67bc6f-1a04-4b9f-9bab-c8f3858023a9"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -415,7 +420,7 @@
     "asset": {
       "__uuid__": "36ee03ca-07d7-4842-87e8-14aabf27fac2"
     },
-    "fileId": "6a167AdJt9OsqfuzI1HbNSn",
+    "fileId": "31ef0yPVmtGpLRGbc2XMmL8",
     "sync": false
   },
   {
@@ -427,7 +432,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "bc00c1cb-d5e7-4d00-bd40-80d55f5acf64"
+      "__uuid__": "fbd9334e-17ab-4135-8bb1-d0bc72744d24"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -478,18 +483,18 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 102,
-      "height": 102
+      "width": 63,
+      "height": 64
     },
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 0.8,
-    "_scaleY": 0.8,
+    "_scaleX": 1,
+    "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 208,
-      "y": 106
+      "x": 216.5,
+      "y": 114.5
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -619,9 +624,9 @@
     "_opacity": 200,
     "_color": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 121,
+      "g": 46,
+      "b": 17,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,

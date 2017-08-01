@@ -379,14 +379,14 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "titleTxt",
+    "_name": "title",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 176,
-      "g": 102,
-      "b": 11,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -400,8 +400,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 128,
-      "height": 34
+      "width": 250,
+      "height": 63
     },
     "_children": [],
     "_rotationX": 0,
@@ -411,7 +411,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -98
+      "y": -146
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -432,25 +432,30 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 9
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 32,
-    "_fontSize": 32,
-    "_lineHeight": 34,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "个人信息",
-    "_N$horizontalAlign": 0,
-    "_N$verticalAlign": 0,
-    "_N$overflow": 0
+    "_spriteFrame": {
+      "__uuid__": "28947e39-758f-4ca9-bc05-9291f0571448"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -460,7 +465,7 @@
     "asset": {
       "__uuid__": "94d11148-6cd1-41e8-bd5b-11299525efbc"
     },
-    "fileId": "b1602APn+BENLX5n9RZHt10",
+    "fileId": "85fb9azOKJIcoe3CcbRzpQu",
     "sync": false
   },
   {
@@ -472,7 +477,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "bc00c1cb-d5e7-4d00-bd40-80d55f5acf64"
+      "__uuid__": "fbd9334e-17ab-4135-8bb1-d0bc72744d24"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -529,12 +534,12 @@
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 0.8,
+    "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 236.1791,
-      "y": 126.2443
+      "x": 245,
+      "y": 132
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -919,14 +924,14 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 106,
-      "height": 106
+      "width": 68,
+      "height": 69
     },
     "_children": [],
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 1.2,
+    "_scaleY": 1.2,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -959,7 +964,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "b6660bca-84bb-4dec-b2d7-285d20ff40d5"
+      "__uuid__": "c405405a-e7a9-4076-aa78-179d9075b855"
     },
     "_type": 0,
     "_sizeMode": 2,
@@ -1066,9 +1071,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 176,
-      "g": 102,
-      "b": 11,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1092,7 +1097,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -78,
+      "x": -61,
       "y": 14
     },
     "_skewX": 0,
@@ -1152,9 +1157,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 176,
-      "g": 102,
-      "b": 11,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1178,7 +1183,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -101,
+      "x": -84,
       "y": -28
     },
     "_skewX": 0,
@@ -1238,9 +1243,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 176,
-      "g": 102,
-      "b": 11,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1264,7 +1269,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -122,
+      "x": -107.8,
       "y": -83
     },
     "_skewX": 0,
