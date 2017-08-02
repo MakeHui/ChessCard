@@ -678,7 +678,7 @@ var SolutionHelper = cc.Class({
             // cc.log("parseData, selfCards:", parseData, selfCards);
             return solutionPlan.parse(parseData, selfCards);
         }
-        return null;
+        return [];
     }
 });
 

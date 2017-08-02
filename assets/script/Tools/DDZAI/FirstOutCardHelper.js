@@ -74,7 +74,7 @@ var FirstOutCardHelper = cc.Class({
             }
             return solutionResult;
         }
-        return null;
+        return [];
     },
 
     /**
