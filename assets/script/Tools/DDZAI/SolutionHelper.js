@@ -670,7 +670,7 @@ var SolutionHelper = cc.Class({
             solutionPlan = this._threeSolution;
             break;
         case CardsInspect.CardType.TYPE_SUPER_MISSILE:
-            return null;
+            return [];
         default:
             solutionPlan = this._solutionPLan;
         }
