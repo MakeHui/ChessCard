@@ -374,7 +374,7 @@ cc.Class({
         var playerInfo = this._getInfoByPlayerUuid(data.playerUuid);
         this._outCardEffect(data.cardType, data.cardList, playerInfo.sex);
 
-        this._setCardNumber(playerIndex, data.cardList.length);
+        this._setCardNumber(playerIndex, -(data.cardList.length));
 
         if (data.cardList.length !== 0) {
             this._Cache.lastOutCards = data.cardList;
@@ -605,6 +605,7 @@ cc.Class({
             this._hideJiaofenSprite();
             var lairdPayerIndex = this._getPlayerIndexBySeat(this._getSeatForPlayerUuid(data.lairdPlayerUuid));
             this._showDizhuPanel(lairdPayerIndex);
+            this._setCardNumber(lairdPayerIndex, this.dipaiNode.children[0].children.length);
             this.dipaiNode.children[1].active = false;
             // 添加底牌给地主
             if (this._userInfo.playerUuid === data.lairdPlayerUuid) {
@@ -1421,7 +1422,7 @@ cc.Class({
         if (playerIndex === 0) {
             return;
         }
-        var cardNumber = this._getCardNumber(playerIndex) - num;
+        var cardNumber = this._getCardNumber(playerIndex) + num;
         this._showCardNumber(playerIndex, cardNumber);
     },
 
